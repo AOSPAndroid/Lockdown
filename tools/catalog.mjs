@@ -39,11 +39,11 @@ function gearSection(slot, table, title) {
 function size(weapon) {
   if (weapon.family === 'bomb') return weapon.id === 'nitro' ? 'held ≈ 0.45 across; planted ≈ 0.6 tall' : 'held ≈ 0.28 across; planted ≈ 0.4 tall';
   if (weapon.family === 'gun') return weapon.id === 'rifle' ? 'long: ≈ 1.0 from grip to muzzle' : ['magnus', 'grimcannon', 'scatter'].includes(weapon.id) ? 'big: ≈ 0.65 from grip to muzzle, body ≈ 0.3 tall' : '≈ 0.5 from grip to muzzle, a fat body ≈ 0.25 tall';
-  if (weapon.id === 'maul') return 'haft ≈ 1.0, head ≈ 0.4 × 0.4 × 0.5';
-  if (weapon.heavy) return 'heavy: ≈ 1.3 from grip to tip, blade ≈ 0.25 wide';
-  if (['rapier', 'leviathan'].includes(weapon.id)) return 'long: ≈ 1.2 from grip to tip, slim';
-  if (['spur', 'voltedge'].includes(weapon.id)) return 'short: ≈ 0.8 from grip to tip';
-  return '≈ 1.05 from grip to tip (most of the knight\'s height), blade ≈ 0.2 wide, a chunky guard ≈ 0.35 across';
+  if (weapon.id === 'maul') return 'haft ≈ 0.75, head ≈ 0.28 × 0.28 × 0.36';
+  if (weapon.heavy) return 'heavy: ≈ 0.95 from grip to tip, blade ≈ 0.18 wide, guard ≈ 0.3 across';
+  if (['rapier', 'leviathan'].includes(weapon.id)) return 'long: ≈ 0.9 from grip to tip, slim (blade ≈ 0.06 wide)';
+  if (['spur', 'voltedge'].includes(weapon.id)) return 'short: ≈ 0.6 from grip to tip';
+  return '≈ 0.75 from grip to tip (just over half the knight\'s height), blade ≈ 0.12 wide, guard ≈ 0.24 across';
 }
 function weaponStats(weapon) {
   const notes = WEAPON_NOTES[weapon.id];
@@ -94,7 +94,7 @@ colour is never baked in: trims meant to show the team use a material named \`te
 ## The knight body
 
 - **Looks:** ${BODY_LOOK}
-- **Make:** \`models/knight/body.glb\`, built on the rig in [docs/reference/knight_rig.glb](reference/knight_rig.glb). Budget 4000 triangles.
+- **Make:** \`models/knight/body.glb\`, built on skeleton D, [docs/reference/knight_rig_4_heads.glb](reference/knight_rig_4_heads.glb). Budget 4000 triangles.
 
 ## Classes (3)
 

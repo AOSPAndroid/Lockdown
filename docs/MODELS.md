@@ -38,9 +38,10 @@ every part is a rigid piece parented to the part above it, pivoting at its joint
 in [reference/knight_rig.glb](reference/knight_rig.glb) (`node tools/make-reference-rig.mjs` writes it):
 same names, same hierarchy, same pivots. It is about three heads tall: a big head on a **slim** body, with a
 tapered torso, a defined waist and slender limbs. Never make the body round or bulby.
-Two leaner options use the same parts and names: `reference/knight_rig_3.5_heads.glb` and
-`reference/knight_rig_4_heads.glb`; [reference/skeleton-options.jpg](reference/skeleton-options.jpg) shows
-all of them next to Spiral Knights close-ups. Use the one the art lead picked.
+**The chosen skeleton is D, [reference/knight_rig_4_heads.glb](reference/knight_rig_4_heads.glb)** (four heads
+tall, the Stack direction in ART-GUIDE). Build the body on it. `knight_rig.glb` (3 heads) and
+`knight_rig_3.5_heads.glb` stay as the other options; [reference/skeleton-options.jpg](reference/skeleton-options.jpg)
+compares them all.
 
 ```
 hips                (0, 0.46, 0)          pelvis; the body bobs and leans from here
@@ -94,10 +95,15 @@ in any pose (legs swing ±40°, arms ±35°, the right arm turns up to ±80° ac
   to the knight's team: Amber `#e39a3b` or Cyan `#3bb8c4`. Use it only for trims, bands and crests.
 - **Glow:** give glowing parts (gems, cores, lenses, runes) an emissive colour; the game's bloom makes them
   glow. Keep glow to small accents.
-- **One hand-painted albedo texture per model** (512² to 1024², embedded in the `.glb`): painted gradients,
-  edge highlights, seams, panel lines and rivets, in the Spiral Knights style. Untextured flat colours are not
-  enough. A normal map is optional. Keep small glowing parts as separate emissive materials. If a part should
-  flare in game (the Recon's cloak lens), name its material with `lens` in it.
+- **One hand-painted albedo texture per model**, embedded in the `.glb`: painted gradients, edge highlights,
+  seams, panel lines and rivets, in the Spiral Knights style. Untextured flat colours are not enough. A normal
+  map is optional. Keep small glowing parts as separate emissive materials. If a part should flare in game
+  (the Recon's cloak lens), name its material with `lens` in it.
+- **Keep downloads small.** Every player downloads every model, so each `.glb` stays **under 600 KB**. Each texture
+  is a power of two: 1024² at most for the body and big armour, 512² for helmets, pants, shoes and weapons, and
+  256² for small parts. Use JPEG or WebP for opaque colour and PNG only where alpha is needed. Embed **only the part
+  of an atlas the model uses**, never a sheet shared with other items or styles. `node tools/art3d-index.mjs`
+  rejects anything over these limits.
 - No baked lighting, no team colour in textures, no text.
 
 ## Budgets

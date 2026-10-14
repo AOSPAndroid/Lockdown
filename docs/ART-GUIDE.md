@@ -23,7 +23,7 @@ planet. Its art works because of a handful of rules. Follow them exactly.
 ### Shapes
 - **Big, simple primary forms with crisp bevels.** Every object reads as two or three clear shapes: a dome
   helmet, a breastplate, a slab blade. Forms are firm and defined, never soft, inflated or bulby. Small detail is rare and always big enough to read at game size.
-- **Exaggerated scale.** Helmets are bigger than the head. Swords are as long as the knight is tall. Guns are
+- **Exaggerated scale.** Helmets are bigger than the head. Swords are bold but not huge: about half to two-thirds of the knight's height. Guns are
   fat, short and toy-like. Shields are big. Heavy items look *ridiculously* heavy.
 - **Soft bevels everywhere.** No knife-sharp edges and no perfectly flat boxes. Every edge gets a rounded or
   chamfered bevel that catches the light.
@@ -144,9 +144,10 @@ every one of these:
 
 Spiral Knights weapons are the stars of every screenshot: oversized, chunky, colourful and glowing.
 
-- **Swords:** blade length close to the knight's height for normal swords (≈ 1.05 from grip to tip, blade ≈ 0.2 wide), longer and
-  much wider for heavies (≈ 1.3, blades 0.25 wide), long and slim for the rapier and the Tidebreaker, short and
-  hooked for the four-cut swords. Big readable cross-guards, a pommel gem, a fuller or an engraved line on the
+- **Swords:** a normal sword is ≈ 0.75 from grip to tip (just over half the knight's 1.3 height), blade ≈ 0.12
+  wide, guard ≈ 0.24 across. Heavies are longer and wider (≈ 0.95, blades ≈ 0.18 wide), the rapier and the
+  Tidebreaker long and slim (≈ 0.9), and the four-cut swords short and hooked (≈ 0.6). Never longer than the
+  knight is tall; the exact size of each sword is in its catalogue entry. Big readable cross-guards, a pommel gem, a fuller or an engraved line on the
   blade. Elemental swords make the element the blade itself (ice, flame, lightning, poison vines, runes).
 - **Guns:** short, fat and toy-like, steampunk-meets-sci-fi: a rounded brass or steel body, a big grip, a
   visible energy core or canister in the element colour, and a distinctive muzzle (flared trumpet, ringed
