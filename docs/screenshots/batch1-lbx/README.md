@@ -2,10 +2,11 @@
 
 ![New robot builds beside the LBX style references](review-sheet.jpg)
 
-Twelve original gear and weapon models on `main`'s unchanged 15-part core skeleton (`4e3bcd3`).
-The Cobalt build uses blue and white faceted plates, gold fasteners, a small red crest accent,
+Twelve original gear and weapon models on `main`'s unchanged 15-part core skeleton (`15c08e4`).
+The Cobalt build uses blue and white faceted plates, gold fasteners, a thin swept-back blade fin,
 glowing camera eyes, open mechanical joints and segmented wedge feet. Scout uses lighter tan plates
-and a compact sensor buckler; Sallet has a swept metallic head unit.
+and a compact sensor buckler; Sallet has a swept metal keel fin. Both helmets exclude red materials
+and use sharp plate silhouettes. The current close-ups were captured away from the heart pickups.
 
 The batch contains Cobalt and Sallet helmets, Cobalt and Scout armour, Cobalt pants, Cobalt-style
 sabatons, Guardian and Recon shields, Knight Brand, Pulse Blaster, and held and planted Cannonball Bombs.
@@ -35,21 +36,18 @@ the two game-camera views retain its normal position. Browser time was advanced 
 capture the original engine's actions reliably under software rendering. The review sheet uses crops
 of the complete lit captures. References are credited to Level-5 / Bandai and stay in documentation.
 
-## Checks and one animation issue
+## Checks
 
 `node tools/art3d-index.mjs`: **0 errors, 13 models including the core skeleton**.
 `npm test`: **84 passed**. Khronos glTF validation: **0 errors and 0 warnings** for every GLB.
 The 254 sampled shoulder, elbow, hip, knee and ankle poses clear neighbouring gear surfaces.
 The final Dojo session reported **0 browser errors and 0 warnings**.
 
-**Third sword cut:** its cross-body wind-up drives the right forearm through the chest. This occurs
-on `main`'s bare core skeleton in the same captured pose and also affects the armour at that moment.
-It needs an animation correction; the asset-only prompt requires recording code issues here.
-See [the third cut](09-sword-combo-3.jpg) and the core/gear intersection evidence in
-[dojo-clearance.json](dojo-clearance.json). The other captured actions clear the checked gear pairs.
+The current action captures and [joint clearance evidence](dojo-clearance.json) use the latest
+animation from `15c08e4`.
 
 [Asset sizes, triangles and validation](asset-audit.json),
 [motion states and joint matrices](motion-captures.json), and
 [lit capture settings](hero-captures.json) preserve the review evidence.
 
-**Approval checkpoint: batch 2 has not been started.**
+**Batch 1 approved. Helmet crest fix precedes batch 2.**

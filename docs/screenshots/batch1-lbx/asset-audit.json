@@ -1,14 +1,14 @@
 {
-  "main_commit": "4e3bcd37594abb4866ad53965b4253816ef21d9b",
+  "main_commit": "15c08e42be194bb41b94b7757bb25bf38f255957",
   "core_skeleton_unchanged": true,
   "core_skeleton_sha256": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3",
   "original_designs": true,
-  "total_bytes": 1516432,
+  "total_bytes": 1511664,
   "assets": [
     {
       "file": "helmet/cobalt.glb",
-      "bytes": 79872,
-      "triangles": 564,
+      "bytes": 77116,
+      "triangles": 560,
       "texture": [
         512,
         512
@@ -23,8 +23,8 @@
     },
     {
       "file": "helmet/sallet.glb",
-      "bytes": 79928,
-      "triangles": 564,
+      "bytes": 77916,
+      "triangles": 568,
       "texture": [
         512,
         512
@@ -264,5 +264,9 @@
     "browser_warnings": 0,
     "captured_action_frames": 21
   },
-  "known_issue": "Third sword cut: the unchanged core forearm crosses the core chest; see dojo-clearance.json."
+  "crest_update": {
+    "cobalt": "thin swept-back blade fin",
+    "sallet": "sharp metal keel fin",
+    "red_helmet_materials": 0
+  }
 }
