@@ -1,4 +1,14 @@
 {
   "files": [],
-  "models": []
+  "models": [
+    "armor/cobalt.glb",
+    "armor/scout.glb",
+    "class/guardian.glb",
+    "helmet/cobalt.glb",
+    "helmet/none.glb",
+    "helmet/sallet.glb",
+    "knight/body.glb",
+    "pants/cobalt.glb",
+    "weapons/brand.glb"
+  ]
 }

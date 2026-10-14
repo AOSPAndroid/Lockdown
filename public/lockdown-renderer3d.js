@@ -631,6 +631,11 @@ export class Lockdown3DRenderer {
     const classModel = this.models.instance(`class/${player.cls}.glb`, team);
     if (classModel) this.attachGear(classModel, parts, temporary);
     else if (temporary) this.temporaryClassMarks(player, team, parts);
+    else {
+      // On a body model, the temporary marks (sized for the temporary rig) go in a scaled-up holder.
+      const holder = new THREE.Group(); holder.scale.setScalar(KNIGHT_SCALE); holder.userData.gear = true;
+      parts.arm_L?.add(holder); this.temporaryClassMarks(player, team, { ...parts, arm_L: holder });
+    }
     // Team ring at the feet: bright, so allies and enemies read at a glance.
     const ringRadius = FEET_RING * KNIGHT_SCALE;
     const ring = new THREE.Mesh(arcGeometry(ringRadius - .07, ringRadius, 0, Math.PI * 2, 40), new THREE.MeshBasicMaterial({ color: team, transparent: true, opacity: .95, depthWrite: false, blending: THREE.AdditiveBlending }));
