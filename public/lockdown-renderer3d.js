@@ -613,11 +613,11 @@ export class Lockdown3DRenderer {
     const group = new THREE.Group(), team = colour(TEAM_COLORS[player.team].main), body = new THREE.Group(); group.add(body);
     const { rig, parts } = this.knightRig(team);
     body.add(rig);
-    // Gear: a model per piece adds its meshes to the parts it names. Without one, the piece shows as a
-    // tinted shell over the skeleton's own parts, so every choice shows while models arrive one by one.
+    // Gear: a model per piece adds its meshes to the parts it names. A piece with no model yet shows nothing
+    // (its stats still count), so the knight plays as the bare skeleton until the art arrives.
     for (const slot of ['helmet', 'armor', 'pants', 'shoes']) {
-      const id = player[slot] || 'none', model = this.models.instance(`${slot}/${id}.glb`, team);
-      if (model) this.attachGear(model, parts); else this.shellGear(slot, id, parts);
+      const model = this.models.instance(`${slot}/${player[slot] || 'none'}.glb`, team);
+      if (model) this.attachGear(model, parts);
     }
     // Class pieces (the Guardian's big shield, the Recon's tiny shield) go on the left forearm.
     const classModel = this.models.instance(`class/${player.cls}.glb`, team);
@@ -653,21 +653,6 @@ export class Lockdown3DRenderer {
       const part = parts[child.name.replace(/\.\d+$/, '')];
       child.userData.gear = true;
       if (part) part.add(child); else console.warn(`gear node "${child.name}" names no rig part`);
-    }
-  }
-  /** Gear with no model yet, on a body model: a tinted, slightly larger copy of the body's own shapes on
-   * the parts that piece covers, so every choice still shows while models arrive one by one. */
-  shellGear(slot, id, parts) {
-    if (id === 'none') return; // the body model already wears the T-shirt, shorts and shoes (and a bare head)
-    const material = new THREE.MeshStandardMaterial({ color: this.armorColour(id), roughness: .35, metalness: .6 });
-    for (const name of GEAR_PARTS[slot]) {
-      const part = parts[name]; if (!part) continue;
-      for (const child of [...part.children]) {
-        if (RIG_PARTS.includes(child.name.replace(/\.\d+$/, '')) || child.userData.gear) continue;
-        const shell = child.clone(); shell.userData.gear = true;
-        shell.traverse(node => { if (node.isMesh) node.material = material; });
-        shell.scale.multiplyScalar(slot === 'helmet' ? 1.14 : 1.1); part.add(shell);
-      }
     }
   }
   /** The body: its model, or the core skeleton built from public/lockdown-skeleton.js (the same shapes). */
@@ -714,12 +699,6 @@ export class Lockdown3DRenderer {
       const buckler = new THREE.Mesh(new THREE.CylinderGeometry(radius, radius, .03, 18), new THREE.MeshStandardMaterial({ color: '#8a929e', metalness: .5, roughness: .3 })); buckler.rotation.x = Math.PI / 2; buckler.position.set(...at); buckler.userData.gear = true; arm.add(buckler);
       const lens = new THREE.Mesh(new THREE.SphereGeometry(.04, 12, 8), new THREE.MeshStandardMaterial({ color: '#c9a2ff', emissive: '#a070ff', emissiveIntensity: 1.6 })); lens.position.y = -.025; lens.scale.y = .5; lens.userData.cloakLens = true; buckler.add(lens);
     }
-  }
-  armorColour(id) {
-    if (!id || id === 'none') return '#9fb0c2'; // the core skeleton's pale piston limbs
-    const palette = ['#9aa4b2', '#c08a4a', '#5a6270', '#a8483e', '#4e7a52', '#e4dcc8', '#6e5a8e', '#3e6e8a', '#b49a5a', '#7a3e5a'];
-    let h = 0; for (const ch of id) h = (h * 31 + ch.charCodeAt(0)) | 0;
-    return palette[Math.abs(h) % palette.length];
   }
   /** A weapon in hand: its model (grip at the origin, pointing +X) or a temporary one. */
   makeWeapon(id) {
