@@ -36,20 +36,21 @@ one at a time.
 The game animates knights by turning named parts, so models need **no skinning and no animation clips**:
 every part is a rigid piece parented to the part above it, pivoting at its joint. Build on the mannequin
 in [reference/knight_rig.glb](reference/knight_rig.glb) (`node tools/make-reference-rig.mjs` writes it):
-same names, same hierarchy, same pivots.
+same names, same hierarchy, same pivots. It is about three heads tall: a big head on a **slim** body, with a
+tapered torso, a defined waist and slender limbs. Never make the body round or bulby.
 
 ```
-hips                (0, 0.31, 0)          pelvis; the body bobs and leans from here
-├─ leg_L            (0, 0, −0.14)         hip joint; swings forward/back (about Z)
-│  └─ foot_L        (0, −0.25, 0)         ankle
-├─ leg_R            (0, 0, +0.14)
-│  └─ foot_R        (0, −0.25, 0)
-└─ chest            (0, 0.08, 0)          waist
-   ├─ head          (0, 0.50, 0)          neck; the head is big (≈ 0.6 across)
-   ├─ arm_L         (0.03, 0.28, −0.35)   shoulder; hangs down, swings when running
-   │  └─ hand_L     (0, −0.20, 0)
-   └─ arm_R         (0.07, 0.14, +0.34)   shoulder; points forward (+X) holding the weapon,
-      └─ hand_R     (0.25, 0, 0)          the weapon socket; turns across a sword's arc
+hips                (0, 0.46, 0)          pelvis; the body bobs and leans from here
+├─ leg_L            (0, −0.02, −0.075)    hip joint; swings forward/back (about Z)
+│  └─ foot_L        (0, −0.36, 0)         ankle
+├─ leg_R            (0, −0.02, +0.075)
+│  └─ foot_R        (0, −0.36, 0)
+└─ chest            (0, 0.06, 0)          waist
+   ├─ head          (0, 0.36, 0)          neck (at 0.88); the head is big, ≈ 0.42 tall and 0.46 across
+   ├─ arm_L         (0, 0.27, −0.19)      shoulder; hangs down, swings when running
+   │  └─ hand_L     (0, −0.30, 0)
+   └─ arm_R         (0.04, 0.20, +0.19)   shoulder; points forward (+X) holding the weapon,
+      └─ hand_R     (0.30, 0, 0)          the weapon socket; turns across a sword's arc
 ```
 
 Positions are each part's pivot relative to its parent. Keep each part's own mesh around its pivot (a leg

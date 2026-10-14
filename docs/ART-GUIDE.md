@@ -21,8 +21,8 @@ Spiral Knights is a stylised, cartoon 3D world: chibi knights in clockwork armou
 planet. Its art works because of a handful of rules. Follow them exactly.
 
 ### Shapes
-- **Big, simple, rounded primary forms.** Every object reads as two or three chunky shapes: a dome helmet, a
-  barrel chest, a slab blade. Small detail is rare and always big enough to read at game size.
+- **Big, simple primary forms with crisp bevels.** Every object reads as two or three clear shapes: a dome
+  helmet, a breastplate, a slab blade. Forms are firm and defined, never soft, inflated or bulby. Small detail is rare and always big enough to read at game size.
 - **Exaggerated scale.** Helmets are bigger than the head. Swords are as long as the knight is tall. Guns are
   fat, short and toy-like. Shields are big. Heavy items look *ridiculously* heavy.
 - **Soft bevels everywhere.** No knife-sharp edges and no perfectly flat boxes. Every edge gets a rounded or
@@ -78,8 +78,11 @@ shoes), holding one weapon, with a class mark. Everyone starts with no gear: bar
 shorts. That is the game's design and it stays; what matters is that it is **drawn in the Spiral Knights art
 style**, exactly like the armour.
 
-- **Proportions:** a very big round head (about 45% of the height, ≈ 0.6 across), a small body, short **thick**
-  limbs, big round mitten hands and big chunky feet. Helmets are bigger than the head.
+- **Proportions: not bulby.** About three heads tall: a big head (about a third of the height, ≈ 0.5 across)
+  on a **slim, heroic body**: a narrow torso tapering to a defined waist, slender arms and legs, hands and feet
+  in proportion. Only the head (and the helmet on it) is oversized; the body is never round, inflated or
+  balloon-like. Armour adds shape where it sits (a breastplate, shin plates, gauntlets) but the knight stays
+  lean between the plates. See the knights in [reference/spiral-knights/](reference/spiral-knights/README.md).
 - **Face:** simple and stylised, not anime or Animal Crossing: two big glossy dark eyes with a bright
   catch-light, no blush, no mouth or a tiny one. Closed helmets show a **dark visor opening** in which two small
   glowing eyes can show, the classic Spiral Knights look.
@@ -100,7 +103,7 @@ every one of these:
 | Smooth, simple single forms | **Layered** forms: rims, bands, straps, buckles, plates over plates, each with a chunky bevel that catches the light |
 | A generic cute chibi face (rosy cheeks) | A stylised face with big glossy eyes, or a dark visor with glowing eyes |
 | Muted beige and brown, low contrast | **Saturated** colour, strong light/dark contrast, glowing accents |
-| Thin limbs, small hands and feet | Thick limbs, big mitten hands, big chunky feet |
+| A round, bulby body: balloon torso, sausage limbs, mitten hands, blob feet | A **slim, heroic body** about three heads tall: tapered torso, defined waist, slender limbs, hands and feet in proportion; only the head is big |
 | Small, plain weapons | **Oversized**, ornate weapons with glowing parts |
 
 - **Gear reads from above.** The camera looks down at about 48°, so the top of the helmet, the shoulders and the
@@ -222,7 +225,7 @@ textures; anything that pokes through other gear when the knight moves; stretchi
    planted).
    Before showing anything, compare it side by side with the Spiral Knights screenshots in
    [reference/spiral-knights/](reference/spiral-knights/README.md) and with section 2 (the style problem to fix): hand-painted textures, layered bevelled forms, saturated
-   colour, thick limbs, oversized weapons. Run the checks, play the game and show screenshots. Change direction if asked;
+   colour, a slim body under a big head, oversized weapons. Run the checks, play the game and show screenshots. Change direction if asked;
    do not polish a rejected direction.
 2. **Gear:** all 14 helmets, 16 armours, 12 pants and 12 shoes.
 3. **Weapons:** all 15 swords, 15 guns and 10 bombs, plus the 10 planted bombs.
