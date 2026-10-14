@@ -115,7 +115,7 @@ test('blades only hit what the sweep covers', () => {
 
 test('a full Knight Brand charge lunges into the target and ends in a burning burst', () => {
   const { state, me, foe } = duel({ gap: 120 });
-  const swing = swingTicks(WEAPONS.brand.combo[0]) + Math.round(WEAPONS.brand.combo[0].recovery * BLADE.whiffRecovery); // the first cut whiffs at this range
+  const swing = swingTicks(WEAPONS.brand.combo[0]) + Math.max(BLADE.whiffMin, Math.round(WEAPONS.brand.combo[0].recovery * BLADE.whiffRecovery)); // the first cut whiffs at this range
   run(state, swing + WEAPONS.brand.chargeTicks + 3, () => ({ 0: { attack: true } }));
   assert.ok(me.charging && me.chargeTicks >= WEAPONS.brand.chargeTicks);
   const startX = me.x;
@@ -531,7 +531,9 @@ test('animation cancels: the shield or a dodge cuts recovery short, and a queued
   assert.equal(early.me.action, 'swing');
   // Combo cancel: after a cut that lands, a queued press starts the next cut partway through the recovery.
   const combo = duel({ gap: 50, a: { cls: 'recon' } });
-  run(combo.state, move.startup + 1, t => ({ 0: { attack: t === 0 } }));
+  run(combo.state, 1, () => ({ 0: { attack: true } }));
+  let waited = 0; while (!combo.me.hitIds.length && waited++ < 40) run(combo.state, 1);
+  run(combo.state, 1); // let go, then press again once the cut has landed
   run(combo.state, 1, () => ({ 0: { attack: true } }));
   run(combo.state, move.active + Math.ceil(move.recovery * BLADE.comboCancel) + 1 + BLADE.hitStop * 2);
   assert.deepEqual(events(combo.state, 'swing').map(event => event.step), [0, 1]);
@@ -544,7 +546,7 @@ test('animation cancels: the shield or a dodge cuts recovery short, and a queued
   run(air.state, move.active + move.recovery, () => ({ 0: { right: true } }));
   assert.deepEqual(events(air.state, 'swing').map(event => event.step), [0], 'no chained cut after a miss');
   assert.equal(air.me.action, 'swing', 'still recovering from the whiff'); assert.ok(air.me.whiffed);
-  run(air.state, Math.round(move.recovery * BLADE.whiffRecovery) + 2);
+  run(air.state, Math.max(BLADE.whiffMin, Math.round(move.recovery * BLADE.whiffRecovery)) + 2);
   assert.equal(air.me.action, 'idle'); assert.equal(air.me.comboStep, 0, 'the combo starts over');
   // Dodge cancel: a Striker's boost cuts recovery and slips away untouchable.
   const dodge = duel({ gap: 300, a: { cls: 'striker' } });
@@ -666,9 +668,9 @@ test('fighting: a hit interrupts a cut, and catching a knight committed is a cou
     return { state, foe, dealt: events(state, 'damage').find(event => event.targetId === foe.id).amount };
   };
   const plain = hitOn(false), punished = hitOn(true);
-  assert.equal(events(plain.state, 'counter').length, 0);
-  assert.equal(events(punished.state, 'counter').length, 1, 'hitting a whiffing knight is a counter');
-  assert.ok(Math.abs(punished.dealt / plain.dealt - L.FIGHT.counter.damage) < .08, 'a counter lands harder');
+  assert.equal(events(plain.state, 'counter').length + events(plain.state, 'punish').length, 0);
+  assert.equal(events(punished.state, 'punish').length, 1, 'hitting a whiffing knight is a punish');
+  assert.ok(Math.abs(punished.dealt / plain.dealt - L.FIGHT.punish.damage) < .08, 'a punish lands harder');
   assert.equal(punished.foe.action, 'idle', 'the hit knocked them out of their cut');
   assert.equal(punished.foe.comboStep, 0);
   assert.ok(events(punished.state, 'interrupt').some(event => event.playerId === punished.foe.id));
@@ -769,4 +771,29 @@ test('bases are safe: the other team cannot walk in, rounds stop at the edge, no
   run(shot.state, 120, t => ({ 4: { attack: t % 30 === 0 } }));
   assert.equal(shot.me.hp, shot.me.maxHp, 'rounds stop at the barrier');
   assert.ok(events(shot.state, 'barrier').length > 0, 'and spark on it');
+});
+
+test('timing beats mashing: a press before the cut lands breaks the combo; aim in the middle of the cut hits clean', () => {
+  const move = WEAPONS.brand.combo[0];
+  // Mashing: pressing again during the wind-up is ignored and keeps the cut out of the combo.
+  const mash = duel({ gap: 50, a: { cls: 'recon' } });
+  run(mash.state, swingTicks(move) + BLADE.hitStop + 4, t => ({ 0: { attack: t % 4 === 0 } }));
+  assert.ok(events(mash.state, 'mash').length >= 1, 'the early press is a mash');
+  assert.ok(events(mash.state, 'damage').length >= 1, 'the cut itself still lands');
+  assert.ok(events(mash.state, 'swing').every(event => event.step === 0), 'but never chains: every cut starts the combo over');
+  // A whiff recovers for a long time.
+  const air = duel({ gap: 300 });
+  run(air.state, 1, () => ({ 0: { attack: true } }));
+  run(air.state, swingTicks(move));
+  assert.equal(air.me.action, 'swing', 'still stuck recovering from the miss');
+  assert.ok(air.me.swingRecovery >= BLADE.whiffMin, 'a long recovery');
+  // Aim: a target in the middle of the cut is a clean hit at full damage; off to the side it deals less.
+  const hitAt = offset => {
+    const d = duel({ gap: 50, a: { cls: 'recon', aim: offset } });
+    run(d.state, swingTicks(move) + BLADE.hitStop * 2, t => ({ 0: { attack: t === 0, aim: offset } }));
+    return { clean: events(d.state, 'clean').length, dealt: events(d.state, 'damage').find(event => event.targetId === 4)?.amount ?? 0 };
+  };
+  const centre = hitAt(0), side = hitAt(move.arc / 2 * .9);
+  assert.equal(centre.clean, 1); assert.equal(side.clean, 0);
+  assert.ok(side.dealt > 0 && side.dealt < centre.dealt, 'an edge hit deals less than a clean one');
 });

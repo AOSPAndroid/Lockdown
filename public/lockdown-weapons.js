@@ -265,9 +265,15 @@ export const GUARD = Object.freeze({ raiseTicks: 6, max: 60, regenPerSecond: 15,
  * animation cancel), and a queued press may start the next cut once this fraction of
  * the recovery has passed (the last cut of a combo always recovers fully unless cancelled). */
 export const BLADE = Object.freeze({ comboCancel: .4, comboWindow: 36, hitStop: 4,
-  // Commitment: a cut that hits nothing (a whiff) recovers this much longer, cannot chain into the next
-  // cut and drops the combo, and you barely move meanwhile, so spamming swings at air leaves you open.
-  whiffRecovery: 1, whiffMove: .2,
+  // Commitment: a cut that hits nothing (a whiff) recovers twice its recovery longer (at least `whiffMin`
+  // ticks), cannot chain into the next cut and drops the combo, and you barely move meanwhile, so swinging
+  // at air leaves you wide open (a hit on a whiffed knight is a punish, see FIGHT).
+  whiffRecovery: 2, whiffMin: 36, whiffMove: .12,
+  // Timing: the next cut can only be queued once this one has landed. Pressing earlier (mashing) is
+  // ignored and locks the cut out of the combo, so it plays to the end and the next press starts over.
+  // Aim: a cut that meets the target near the middle of its arc is clean and deals its full damage; off
+  // the middle it deals less, and one that only clips the target with the edge of the arc grazes.
+  clean: Object.freeze({ within: .4 }), offCentre: .9, graze: Object.freeze({ beyond: .8, damage: .75 }),
   // Spiral Knights cancel: a shield, dash, Boost or cloak press after a cut lands drops its recovery and sends
   // the combo back to the quick first cut, after a short lag. Later cuts hit harder but are slower, lunge
   // further and commit you to their direction (you steer less).
@@ -276,8 +282,9 @@ export const BLADE = Object.freeze({ comboCancel: .4, comboWindow: 36, hitStop: 
  * accurate; holding the trigger sprays. Precise guns bloom harder. */
 /** Fighting rules that reward reading the opponent over mashing.
  * - interrupt: a hit that stuns cancels the target's sword cut or cast (heavy cuts and charge moves are unflinching).
- * - counter: hitting a knight while they wind up, recover from a whiff, recover from a charge move or hold a
- *   half-full charge lands harder and stuns longer.
+ * - counter: hitting a knight while they wind up, recover from a charge move or hold a half-full charge
+ *   lands harder and stuns longer.
+ * - punish: hitting a knight still recovering from a whiffed cut lands harder still.
  * - perfect: dodging an attack at the right moment (dash or Boost press) refunds part of the dash cooldown and
  *   makes your next hit within the window a riposte that lands harder.
  * - stagger: stun builds a stagger load that drains over time; past the limit the knight turns steady for a
@@ -285,6 +292,7 @@ export const BLADE = Object.freeze({ comboCancel: .4, comboWindow: 36, hitStop: 
  * - clash: two cuts that meet mid-swing bounce off each other; a heavy cut beats a light one. */
 export const FIGHT = Object.freeze({
   counter: Object.freeze({ damage: 1.25, stun: 1.5 }),
+  punish: Object.freeze({ damage: 1.5, stun: 2 }),
   perfect: Object.freeze({ window: 90, damage: 1.3, dashRefund: .6 }),
   stagger: Object.freeze({ limit: 54, drainPerTick: .4, steadyTicks: 72 }),
   clash: Object.freeze({ push: 240, stun: 12, hitStop: 6 }),

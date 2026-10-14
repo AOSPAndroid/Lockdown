@@ -67,7 +67,7 @@ class ModelLibrary {
 const CALLOUTS = Object.freeze({
   counter: ['COUNTER', '#ffb347', 'target'], riposte: ['RIPOSTE', '#ffe680', 'target'], perfectDodge: ['PERFECT', '#9ff0ff', 'player'],
   clash: ['CLASH', '#ffffff', 'player'], steady: ['STEADY', '#c9d6ff', 'player'], interrupt: ['INTERRUPTED', '#ff8a7a', 'player'],
-  whiff: ['MISS', '#b8b8b8', 'player'], sweetSpot: ['TIP', '#ffe680', 'target'], ambush: ['AMBUSH', '#d29bff', 'target'],
+  whiff: ['MISS', '#b8b8b8', 'player'], punish: ['PUNISH', '#ff7a4a', 'target'], clean: ['CLEAN', '#ffffff', 'target'], mash: ['TOO EARLY', '#9aa0aa', 'player'], sweetSpot: ['TIP', '#ffe680', 'target'], ambush: ['AMBUSH', '#d29bff', 'target'],
   guardBreak: ['GUARD BREAK', '#ffffff', 'player'], evade: ['DODGE', '#ffffff', 'player'],
 });
 const hash = (a, b) => { let h = (a * 374761393 + b * 668265263) | 0; h = (h ^ (h >>> 13)) * 1274126177; return ((h ^ (h >>> 16)) >>> 0) / 4294967296; };
@@ -854,7 +854,11 @@ export class Lockdown3DRenderer {
       let yaw;
       if (elapsed < startup) { const w = easeOut(elapsed / startup); yaw = from * w; arm = [-.05, 0, lerp(.5, 1.35, w)]; elbow = lerp(.5, 1.05, w); pitch = lerp(-.2, .25, w); }
       else if (elapsed < startup + active) { const p = easeOut((elapsed - startup) / active); yaw = lerp(from, to, p); arm = [-.05, 0, 1.45 - .12 * Math.sin(p * Math.PI)]; elbow = lerp(1.05, .08, Math.min(1, p * 1.6)); pitch = lerp(.25, -.05, p); body.z -= .12; }
-      else { const q = ease(Math.min(1, (elapsed - startup - active) / Math.max(1, total - startup - active))); yaw = lerp(to, 0, q); arm = [-.05, 0, lerp(1.45, .5, q)]; elbow = lerp(.08, .45, q); pitch = lerp(-.05, -.5, q); }
+      else {
+        const q = ease(Math.min(1, (elapsed - startup - active) / Math.max(1, total - startup - active))); yaw = lerp(to, 0, q); arm = [-.05, 0, lerp(1.45, .5, q)]; elbow = lerp(.08, .45, q); pitch = lerp(-.05, -.5, q);
+        // A miss throws you off balance: the blade drags low past the body, the knight stumbles forward.
+        if (player.whiffed) { const off = Math.sin(Math.min(1, q * 1.4) * Math.PI); body.z -= .3 * off; body.y -= .04 * off; arm[2] -= .6 * off; pitch -= .5 * off; T.head[2] += .15 * off; T.leg_L[2] += .45 * off; T.shin_L[2] -= .55 * off; T.leg_R[2] -= .25 * off; }
+      }
       // Across the body the shoulder only turns so far before the forearm would go through the chest: the torso
       // twist carries the rest of the wind-up and the elbow opens up.
       const cross = Math.max(0, -yaw * .7), spill = Math.max(0, cross - .28);
@@ -1235,6 +1239,15 @@ export class Lockdown3DRenderer {
     const lift = levelAt(map, owner.x, owner.y) * STOREY + KNIGHT * .4;
     mesh.position.set(owner.x * U, lift, owner.y * U);
     let shown = -1;
+    // The tell: while the cut winds up, its whole arc glows faintly on the floor in the swinger's colour,
+    // so the knight on the other end can read where it will land and dodge, block or step out.
+    const ground = levelAt(map, owner.x, owner.y) * STOREY + .035, a0 = Math.min(start, start + event.dir * event.arc), a1 = Math.max(start, start + event.dir * event.arc);
+    const tellMaterial = new THREE.MeshBasicMaterial({ color: TEAM_COLORS[owner.team]?.main || '#ffffff', transparent: true, opacity: 0, depthWrite: false, side: THREE.DoubleSide });
+    const tell = new THREE.Mesh(arcGeometry(reach * .3, reach, a0, a1, 24), tellMaterial); tell.position.set(owner.x * U, ground, owner.y * U);
+    this.addEffect(tell, now, delay + sweep + 60, (t, age) => {
+      const live = state.players[event.playerId]; if (live) tell.position.set(live.x * U, ground, live.y * U);
+      tellMaterial.opacity = age < delay ? .15 + .35 * (age / Math.max(1, delay)) : Math.max(0, .5 * (1 - (age - delay) / (sweep + 60)));
+    });
     this.addEffect(mesh, now, delay + sweep + 160, (t, age) => {
       const live = state.players[event.playerId]; if (live) mesh.position.set(live.x * U, lift, live.y * U);
       if (age < delay) { material.opacity = 0; return; }
