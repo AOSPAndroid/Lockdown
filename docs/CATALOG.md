@@ -395,7 +395,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Knight Brand `brand`
 
 - **Does:** Balanced three-cut combo. Charge: lunge forward and end in a burning burst.
-- **Stats:** Normal sword · 3-cut combo (14 / 19 / 27 damage) · difficulty ★ · good: Reliable three-cut combo; Charge lunges in and sets a burning burst · bad: No special strength
+- **Stats:** Normal sword · balanced cut, 3-cut combo (15 / 21 / 30 damage) · difficulty ★ · good: Reliable three-cut combo; Charge lunges in and sets a burning burst · bad: No special strength
 - **Looks:** A classic knight's broadsword: a straight polished blade with a fuller, a gold cross-guard with round ends and a red gem in the pommel. The reliable starter.
 - **Size:** ≈ 0.75 from grip to tip (just over half the knight's height), blade ≈ 0.12 wide, guard ≈ 0.24 across
 - **Make:** `models/weapons/brand.glb`, icon `icon_weapon_brand.png`
@@ -403,7 +403,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Troll Cleaver `cleaver`
 
 - **Does:** Slow, brutal overhead chain that stuns. Charge: leap and slam the ground around you.
-- **Stats:** Heavy sword · heavy (unflinching) · 2-cut combo (27 / 33 damage) · difficulty ★★ · good: Huge two-cut damage and long stuns; Not interrupted when hit mid-swing; Charge: leaping ground slam · bad: Very slow wind-up; Easy to see coming
+- **Stats:** Heavy sword · heavy (unflinching) · sweeping cut, 2-cut combo (22 / 26 damage) · difficulty ★★ · good: Huge two-cut damage and long stuns; Not interrupted when hit mid-swing; Charge: leaping ground slam · bad: Very slow wind-up; Easy to see coming
 - **Looks:** A huge troll-sized cleaver: a slab of notched dark iron as wide as the knight's head, a short wrapped handle and a ring through the spine. Looks too heavy to swing.
 - **Size:** heavy: ≈ 0.95 from grip to tip, blade ≈ 0.18 wide, guard ≈ 0.3 across
 - **Make:** `models/weapons/cleaver.glb`, icon `icon_weapon_cleaver.png`
@@ -411,7 +411,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Needle Rapier `rapier`
 
 - **Does:** Quick narrow thrusts that step you forward. Charge: a long lunge straight through the target.
-- **Stats:** Fast sword · 4-cut combo (9 / 10 / 11 / 15 damage) · difficulty ★★★ · good: Fastest cuts, long narrow reach; Sweet spot: +40% at the tip of its reach · bad: Narrow arc misses moving targets; Low damage up close
+- **Stats:** Fast sword · thrust cut, 4-cut combo (9 / 10 / 11 / 15 damage) · difficulty ★★★ · good: Fastest cuts, long narrow reach; Sweet spot: +40% at the tip of its reach · bad: Narrow arc misses moving targets; Low damage up close
 - **Looks:** A needle-thin rapier with a swept gold basket hilt and a long, fine point; elegant and fragile next to the others.
 - **Size:** long: ≈ 0.9 from grip to tip, slim (blade ≈ 0.06 wide)
 - **Make:** `models/weapons/rapier.glb`, icon `icon_weapon_rapier.png`
@@ -419,7 +419,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Briar Blade `thorn`
 
 - **Does:** Balanced combo. Charge: spray a short, wide shower of poison thorns.
-- **Stats:** Thorn sword · 3-cut combo (13 / 18 / 25 damage) · difficulty ★ · good: Steady combo; Charge sprays poison thorns · bad: Thorns are short range
+- **Stats:** Thorn sword · sweeping cut, 3-cut combo (10 / 14 / 20 damage) · difficulty ★ · good: Steady combo; Charge sprays poison thorns · bad: Thorns are short range
 - **Looks:** A sword grown from a briar: a green-wood blade wrapped in thorny vines with little purple poison buds, a root-knot guard.
 - **Size:** ≈ 0.75 from grip to tip (just over half the knight's height), blade ≈ 0.12 wide, guard ≈ 0.24 across
 - **Make:** `models/weapons/thorn.glb`, icon `icon_weapon_thorn.png`
@@ -427,7 +427,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Umbral Greatblade `greatblade`
 
 - **Does:** Heavy two-hit chain. Charge: a slow wave of shadow that carries knights along with it.
-- **Stats:** Dark sword · heavy (unflinching) · 2-cut combo (26 / 31 damage) · difficulty ★★ · good: Heavy two-cut combo, not interrupted when hit; Charge: a long shadow wave that drags knights · bad: Slow swings
+- **Stats:** Dark sword · heavy (unflinching) · precise cut, 2-cut combo (34 / 40 damage) · difficulty ★★ · good: Heavy two-cut combo, not interrupted when hit; Charge: a long shadow wave that drags knights · bad: Slow swings
 - **Looks:** A two-handed umbral greatblade: a long jagged black blade with purple veins of light running down it and a winged guard.
 - **Size:** heavy: ≈ 0.95 from grip to tip, blade ≈ 0.18 wide, guard ≈ 0.3 across
 - **Make:** `models/weapons/greatblade.glb`, icon `icon_weapon_greatblade.png`
@@ -435,7 +435,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Gyre Spur `spur`
 
 - **Does:** Fast light four-cut chain. Charge: spin three times, hitting everything around you each turn.
-- **Stats:** Spin sword · 4-cut combo (8 / 9 / 10 / 15 damage) · difficulty ★★ · good: Very fast four-cut chain; Charge: three full spins · bad: Light hits: easily out-traded by heavies
+- **Stats:** Spin sword · sweeping cut, 4-cut combo (6 / 7 / 8 / 12 damage) · difficulty ★★ · good: Very fast four-cut chain; Charge: three full spins · bad: Light hits: easily out-traded by heavies
 - **Looks:** A short spinning sword: a curved blade with three small hooked spurs along the back and a round gear-like guard.
 - **Size:** short: ≈ 0.6 from grip to tip
 - **Make:** `models/weapons/spur.glb`, icon `icon_weapon_spur.png`
@@ -443,7 +443,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Frostbite Edge `frostbite`
 
 - **Does:** Every cut chills: three chills freeze a knight solid. Charge: lunge into a freezing burst.
-- **Stats:** Frost sword · element: chill · 3-cut combo (12 / 15 / 21 damage) · difficulty ★★ · good: Every cut chills; the third freezes; Charge ends in a freezing burst · bad: Slightly weaker cuts; Freeze breaks on the next hit
+- **Stats:** Frost sword · element: chill · balanced cut, 3-cut combo (13 / 17 / 23 damage) · difficulty ★★ · good: Every cut chills; the third freezes; Charge ends in a freezing burst · bad: Slightly weaker cuts; Freeze breaks on the next hit
 - **Looks:** A blade of blue ice with frost crystals on the edge, a silver guard rimed with frost and a pale blue glowing core.
 - **Size:** ≈ 0.75 from grip to tip (just over half the knight's height), blade ≈ 0.12 wide, guard ≈ 0.24 across
 - **Make:** `models/weapons/frostbite.glb`, icon `icon_weapon_frostbite.png`
@@ -451,7 +451,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Blazebrand `blazebrand`
 
 - **Does:** Cuts may set knights on fire (30%). Charge: a rolling wall of flame that always burns.
-- **Stats:** Fire sword · element: burn · 3-cut combo (13 / 17 / 24 damage) · difficulty ★ · good: Cuts may set knights on fire; Charge: a wall of fire · bad: Burn is random on normal cuts
+- **Stats:** Fire sword · element: burn · precise cut, 3-cut combo (17 / 22 / 31 damage) · difficulty ★ · good: Cuts may set knights on fire; Charge: a wall of fire · bad: Burn is random on normal cuts
 - **Looks:** A sword of living flame: a red-hot orange blade with flickering fire along the edge, a blackened iron guard.
 - **Size:** ≈ 0.75 from grip to tip (just over half the knight's height), blade ≈ 0.12 wide, guard ≈ 0.24 across
 - **Make:** `models/weapons/blazebrand.glb`, icon `icon_weapon_blazebrand.png`
@@ -459,7 +459,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Volt Fang `voltedge`
 
 - **Does:** Fast cuts that may shock (15%); a hit can arc lightning to two more enemies nearby. Charge: an electric spin.
-- **Stats:** Shock sword · element: shock · 4-cut combo (8 / 9 / 10 / 15 damage) · difficulty ★★ · good: Fast cuts that may shock; Lightning jumps to two nearby enemies (40%) · bad: Light damage per cut
+- **Stats:** Shock sword · element: shock · sweeping cut, 4-cut combo (6 / 7 / 8 / 12 damage) · difficulty ★★ · good: Fast cuts that may shock; Lightning jumps to two nearby enemies (40%) · bad: Light damage per cut
 - **Looks:** A crackling sword: a short silver blade with a zigzag edge and a glowing cyan lightning core, copper coils on the guard.
 - **Size:** short: ≈ 0.6 from grip to tip
 - **Make:** `models/weapons/voltedge.glb`, icon `icon_weapon_voltedge.png`
@@ -467,7 +467,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Sanguine Sickle `sickle`
 
 - **Does:** Heals you for 30% of the damage it deals. Charge: a long draining lunge.
-- **Stats:** Vampire sword · element: drain · 3-cut combo (12 / 15 / 21 damage) · difficulty ★★ · good: Heals you for 30% of its damage; Charge: a long draining lunge · bad: Lower damage than a plain sword
+- **Stats:** Vampire sword · element: drain · sweeping cut, 3-cut combo (10 / 12 / 17 damage) · difficulty ★★ · good: Heals you for 30% of its damage; Charge: a long draining lunge · bad: Lower damage than a plain sword
 - **Looks:** A blood-red curved sickle-sword with a hooked tip, a bone handle and a dark red gem that pulses softly.
 - **Size:** ≈ 0.75 from grip to tip (just over half the knight's height), blade ≈ 0.12 wide, guard ≈ 0.24 across
 - **Make:** `models/weapons/sickle.glb`, icon `icon_weapon_sickle.png`
@@ -475,7 +475,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Hexblade `hexblade`
 
 - **Does:** Heavy cuts that may curse (35%): no dash and no class ability for a while. Charge: a cursing slam.
-- **Stats:** Curse sword · element: curse · heavy (unflinching) · 2-cut combo (25 / 29 damage) · difficulty ★★ · good: Heavy cuts that may curse (no dash, no ability); Not interrupted when hit mid-swing · bad: Slow two-cut combo
+- **Stats:** Curse sword · element: curse · heavy (unflinching) · precise cut, 2-cut combo (33 / 38 damage) · difficulty ★★ · good: Heavy cuts that may curse (no dash, no ability); Not interrupted when hit mid-swing · bad: Slow two-cut combo
 - **Looks:** A heavy cursed blade of dark violet steel etched with glowing purple runes, a skull on the guard and a chain on the pommel.
 - **Size:** heavy: ≈ 0.95 from grip to tip, blade ≈ 0.18 wide, guard ≈ 0.3 across
 - **Make:** `models/weapons/hexblade.glb`, icon `icon_weapon_hexblade.png`
@@ -483,7 +483,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Earthbreaker Maul `maul`
 
 - **Does:** The heaviest weapon: two huge, slow blows that are not interrupted when you are hit; the second shakes the ground around it. Charge: a crater-making slam.
-- **Stats:** Heavy hammer · heavy (unflinching) · 2-cut combo (35 / 46 damage) · difficulty ★★★ · good: Biggest single hits in the game; Second blow sends a shockwave; Never interrupted when hit mid-swing · bad: Extremely slow: whiffs are punished; Slowest charge
+- **Stats:** Heavy hammer · heavy (unflinching) · precise cut, 2-cut combo (46 / 60 damage) · difficulty ★★★ · good: Biggest single hits in the game; Second blow sends a shockwave; Never interrupted when hit mid-swing · bad: Extremely slow: whiffs are punished; Slowest charge
 - **Looks:** An enormous earthbreaker sledgehammer: a stone-and-iron block head bound with bronze bands, cracks of earth on the faces, a long thick haft.
 - **Size:** haft ≈ 0.75, head ≈ 0.28 × 0.28 × 0.36
 - **Make:** `models/weapons/maul.glb`, icon `icon_weapon_maul.png`
@@ -491,7 +491,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Dawnbringer `avenger`
 
 - **Does:** A blessed sword. Charge: a beam of light that pierces every knight down the lane.
-- **Stats:** Holy sword · element: holy · 3-cut combo (14 / 18 / 26 damage) · difficulty ★★ · good: Steady three-cut combo; Charge: a piercing beam of light down a whole lane · bad: Beam recovery leaves you open
+- **Stats:** Holy sword · element: holy · precise cut, 3-cut combo (18 / 23 / 34 damage) · difficulty ★★ · good: Steady three-cut combo; Charge: a piercing beam of light down a whole lane · bad: Beam recovery leaves you open
 - **Looks:** A holy sword: a white-gold blade with a sun-shaped guard, two small feathered wings at the hilt and a soft golden glow along the edge.
 - **Size:** ≈ 0.75 from grip to tip (just over half the knight's height), blade ≈ 0.12 wide, guard ≈ 0.24 across
 - **Make:** `models/weapons/avenger.glb`, icon `icon_weapon_avenger.png`
@@ -499,7 +499,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Tidebreaker `leviathan`
 
 - **Does:** The longest reach of any sword, a little slower. Charge: a long lunge that ends in a crashing burst.
-- **Stats:** Long sword · 3-cut combo (16 / 21 / 30 damage) · difficulty ★★ · good: Longest sword reach; Charge: long lunge into a crashing burst · bad: Slightly slower cuts
+- **Stats:** Long sword · precise cut, 3-cut combo (21 / 27 / 39 damage) · difficulty ★★ · good: Longest sword reach; Charge: long lunge into a crashing burst · bad: Slightly slower cuts
 - **Looks:** A very long sea-steel blade with a wave-curled tip, scale-patterned flat and a teal-green guard shaped like fins.
 - **Size:** long: ≈ 0.9 from grip to tip, slim (blade ≈ 0.06 wide)
 - **Make:** `models/weapons/leviathan.glb`, icon `icon_weapon_leviathan.png`
@@ -507,7 +507,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Tri-Fang Blade `troika`
 
 - **Does:** A three-blow heavy chain that is never interrupted when you are hit. Charge: a ground slam.
-- **Stats:** Heavy sword · heavy (unflinching) · 3-cut combo (24 / 28 / 36 damage) · difficulty ★★★ · good: Three huge blows, never interrupted when hit; Charge: ground slam · bad: Very slow wind-ups; A whiff leaves you wide open
+- **Stats:** Heavy sword · heavy (unflinching) · sweeping cut, 3-cut combo (19 / 22 / 29 damage) · difficulty ★★★ · good: Three huge blows, never interrupted when hit; Charge: ground slam · bad: Very slow wind-ups; A whiff leaves you wide open
 - **Looks:** A three-pronged heavy iron sword: one thick blade splitting into three at the tip, rough forged iron with a heavy round pommel.
 - **Size:** heavy: ≈ 0.95 from grip to tip, blade ≈ 0.18 wide, guard ≈ 0.3 across
 - **Make:** `models/weapons/troika.glb`, icon `icon_weapon_troika.png`

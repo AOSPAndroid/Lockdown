@@ -7,7 +7,7 @@ import { gameKey } from './keyboard-layout.js';
 import { GameAudio } from './lockdown-audio.js';
 import { getName, saveName } from './lockdown-name.js';
 
-const { TICK_RATE, RULES, CLASSES, ARMORS, ARMOR_IDS, GEAR, GEAR_SLOTS, combineGear, WEAPONS, WEAPON_IDS, WEAPON_NOTES, DEFAULT_LOADOUTS, SLOT_COUNT, MAPS, MAP_IDS, ABILITIES, INPUT_KEYS, GUARD, STATUS, STATUS_IDS } = Engine;
+const { TICK_RATE, RULES, CLASSES, ARMORS, ARMOR_IDS, GEAR, GEAR_SLOTS, combineGear, WEAPONS, WEAPON_IDS, WEAPON_NOTES, CUTS, DEFAULT_LOADOUTS, SLOT_COUNT, MAPS, MAP_IDS, ABILITIES, INPUT_KEYS, GUARD, STATUS, STATUS_IDS } = Engine;
 const $ = id => document.getElementById(id);
 const params = new URLSearchParams(location.search);
 const roomId = params.get('room');
@@ -552,7 +552,8 @@ const seconds = ticks => `${(ticks / TICK_RATE).toFixed(ticks < TICK_RATE ? 2 : 
 function weaponStats(weapon) {
   if (weapon.family === 'blade') {
     const combo = weapon.combo, time = combo.reduce((sum, move) => sum + move.startup + move.active + move.recovery, 0);
-    return [['Damage per cut', combo.map(move => move.damage).join(' / ')], ['Full combo', `${combo.length} cuts in ${seconds(time)}`], ['Reach', `${Math.max(...combo.map(move => move.reach))}`], ['Charge', seconds(weapon.chargeTicks)]];
+    const cut = CUTS[weapon.cut], degrees = combo.map(move => Math.round(move.arc * 180 / Math.PI));
+    return [['Cut', `${cut.label}: ${cut.note}`], ['Arc', `${[...new Set(degrees)].join('° / ')}°`], ['Damage per cut', combo.map(move => move.damage).join(' / ')], ['Full combo', `${combo.length} cuts in ${seconds(time)}`], ['Reach', `${Math.max(...combo.map(move => move.reach))}`], ['Charge', seconds(weapon.chargeTicks)]];
   }
   if (weapon.family === 'gun') return [['Damage per shot', String(weapon.damage)], ['Clip', `${weapon.clip} · ${(TICK_RATE / weapon.interval).toFixed(1)} shots/s`], ['Range', String(weapon.range)], ['Reload', seconds(weapon.reload)], ['Charge', seconds(weapon.chargeTicks)]];
   return [['Blast', weapon.cloud ? `${weapon.cloud.status} cloud, ${seconds(weapon.cloud.ticks)}` : `${weapon.damage} damage`], ['Radius', String(weapon.cloud?.radius || weapon.radius)], ['Fuse', seconds(weapon.fuse)], ['Charge', seconds(weapon.chargeTicks)]];
