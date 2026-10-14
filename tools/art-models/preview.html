@@ -1,0 +1,41 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Lockdown · Step 1 model review</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#d9ddd9;color:#273142;font:14px system-ui}header{height:105px;padding:20px 38px;border-bottom:1px solid #bac2bf;background:#eef0e9;display:flex;align-items:center;justify-content:space-between}h1{font-size:25px;margin:4px 0;font-weight:650;letter-spacing:-.8px}small{font-size:10px;letter-spacing:2px;color:#6b776e}p{margin:4px 0;color:#63716b}nav{display:flex;gap:8px;align-items:center}button,select{font:inherit;border:1px solid #b8c2bb;background:#fffef7;border-radius:7px;padding:9px 12px;color:#303e42;cursor:pointer}main{height:calc(100vh - 172px);position:relative}canvas#overlay{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}footer{height:67px;padding:16px 38px;background:#eef0e9;border-top:1px solid #bac2bf;display:flex;justify-content:space-between;align-items:center}.labels{position:absolute;bottom:23px;left:10%;right:10%;display:flex;justify-content:space-around;text-align:center;pointer-events:none}.labels b{font-size:17px;display:block}.labels span{font-size:12px;color:#60706a}.status{font-size:12px}.badge{background:#dce5da;border:1px solid #becbb8;border-radius:20px;padding:8px 14px}
+</style>
+<header><div><small>LOCKDOWN / ORIGINAL GAME ASSETS</small><h1>Three roles. One little knight.</h1><p>Step 1 · Rigid parts · Painted cloth, molded hair and warm bronze</p></div><nav>
+<select id="layout" aria-label="Layout"><option value="classes">Three classes</option><option value="body">Body and hair</option><option value="guardian">Guardian closeup</option></select>
+<select id="pose" aria-label="Pose"><option>Idle</option><option>Running</option><option>Swinging</option><option>Charging</option></select>
+<select id="angle" aria-label="View"><option value="front">Front three-quarter</option><option value="back">Back three-quarter</option><option value="side">Side</option><option value="game">Game angle</option></select>
+<button id="team">Swap teams</button><button id="pause">Pause motion</button></nav></header>
+<main><canvas id="overlay"></canvas><div class="labels" id="labels"></div></main>
+<footer><div><b>Actual GLBs · Actual game renderer</b><p class="status" id="status">Loading models…</p></div><div class="badge">Art review • weapons remain placeholders</div></footer>
+<script type="importmap">{"imports":{"three":"/vendor/three/three.module.min.js"}}</script>
+<script type="module">
+import * as T from '/vendor/three/three.module.min.js';
+import {Lockdown3DRenderer} from '/lockdown-renderer3d.js';
+import {MAPS} from '/lockdown-maps.js';
+const r=new Lockdown3DRenderer(document.querySelector('#overlay'),null,null);
+r.scene.background=new T.Color('#d9ddd9'); r.hemi.color.set('#e3e6ff');r.hemi.groundColor.set('#777263');
+r.sun.position.set(-3,7,4);r.sun.target.position.set(0,.5,0);Object.assign(r.sun.shadow.camera,{left:-5,right:5,top:5,bottom:-5,near:1,far:20});r.sun.shadow.camera.updateProjectionMatrix();
+const floor=new T.Mesh(new T.PlaneGeometry(200,200),new T.MeshStandardMaterial({color:'#ccd3cb',roughness:1}));floor.rotation.x=-Math.PI/2;floor.position.y=-.065;floor.receiveShadow=true;r.scene.add(floor);
+const $=s=>document.querySelector(s);let knights=[],players=[],version=-1,swap=false,paused=false,t=0,last=performance.now();
+function build(){for(const k of knights)r.scene.remove(k.group);knights=[];players=[];
+ const layout=$('#layout').value;const roles=layout==='classes'?['striker','guardian','recon']:layout==='body'?['base','hair']:['guardian'];
+ roles.forEach((cls,i)=>{const p={id:i,team:(i+(swap?1:0))%2,cls,helmet:cls==='base'?'unavailable':'none',armor:'none',pants:'none',shoes:'none',weapons:[],slot:0,x:(i-(roles.length-1)/2)*1.7*48,y:0,aim:Math.PI*.15,alive:true,vx:0,vy:0};players.push(p);knights.push(r.makeKnight(p));});
+ $('#labels').innerHTML=roles.map(cls=>`<div><b>${{striker:'Striker',guardian:'Guardian',recon:'Recon',base:'Base body',hair:'Bare-head hair'}[cls]}</b><span>${{striker:'Swept fin · Gold chevrons',guardian:'Bronze shield · Round crest',recon:'Pointed crest · Dark scarf',base:'1.300 units · Exact reference pivots',hair:'Sculpted locks · Cowlick · Team band'}[cls]}</span></div>`).join('');
+ const count=roles.length; r.camera3.position.set(0,2.5,count===1?3.4:count===2?4.6:6.2);r.camera3.lookAt(0,.65,0);r.camera3.updateProjectionMatrix();
+}
+for(const id of ['layout','pose','angle'])$('#'+id).addEventListener('change',()=>{if(id==='layout')build();});
+$('#team').onclick=()=>{swap=!swap;build()};$('#pause').onclick=()=>{paused=!paused;$('#pause').textContent=paused?'Resume motion':'Pause motion'};
+addEventListener('resize',()=>r.resize());
+function tick(now){requestAnimationFrame(tick);const dt=Math.min(.05,(now-last)/1000);last=now;if(!paused)t+=dt;
+ if(r.models.version!==version){version=r.models.version;build();$('#status').textContent=`${version}/5 models loaded · Body 3,972 tris · Hair 1,256 · Striker 544 · Guardian 1,424 · Recon 1,100`;}
+ for(let i=0;i<players.length;i++){const p=players[i],k=knights[i],pose=$('#pose').value;
+ p.aim=({front:Math.PI*.66,back:Math.PI*1.25,side:0,game:Math.PI*.3})[$('#angle').value];p.vx=pose==='Running'?80:0;p.action=pose==='Swinging'?'swing':'idle';p.charging=pose==='Charging';p.chargeTicks=80;p.weapons=pose==='Idle'||pose==='Running'?[]:['brand'];
+ p.actionTotal=50;p.actionTicks=50-(t*20)%50;p.swingStartup=12;p.swingActive=20;p.swingDir=1;p.swingArc=2.7;p.swingAim=p.aim;
+ k.stride=t*9;r.updateKnight(k,p,Object.values(MAPS)[0],t*1000,0);k.group.position.y=0;
+ }
+ if($('#angle').value==='game'){r.camera3.position.set(0,5.7,5.05);r.camera3.lookAt(0,.5,0)}else{const count=players.length;r.camera3.position.set(0,2.5,count===1?3.4:count===2?4.6:6.2);r.camera3.lookAt(0,.65,0)}
+ if(r.composer)r.composer.render();else r.gl.render(r.scene,r.camera3);
+}requestAnimationFrame(tick);
+</script></html>

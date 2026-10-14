@@ -1,4 +1,10 @@
 {
   "files": [],
-  "models": []
+  "models": [
+    "class/guardian.glb",
+    "class/recon.glb",
+    "class/striker.glb",
+    "helmet/none.glb",
+    "knight/body.glb"
+  ]
 }
