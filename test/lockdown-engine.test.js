@@ -960,3 +960,30 @@ test('the katana and the three-cut elemental swords end on a critical; narrow sw
   run(state, 200, t => ({ 0: { attack: t % 4 === 0 } }));
   assert.ok(events(state, 'critical').length >= 1, 'the third cut lands as a critical');
 });
+
+test('against spam: opening cuts stun briefly, the finisher is committal, and a Guardian can parry', () => {
+  const brand = WEAPONS.brand.combo;
+  // An opening cut stuns for half its listed stun, so the target can answer before the next cut lands.
+  const open = duel({ gap: 50, a: { cls: 'recon' } });
+  run(open.state, 1, () => ({ 0: { attack: true } }));
+  let waited = 0; while (!open.me.hitIds.length && waited++ < 40) run(open.state, 1);
+  assert.ok(open.foe.stunTicks <= Math.round(brand[0].stun * BLADE.chainStun), 'a short stun');
+  // The finisher: a long recovery that cannot be cancelled at first, and you are exposed while it plays out.
+  const last = duel({ gap: 50, a: { cls: 'recon' }, b: { hp: 1e4, maxHp: 1e4 } });
+  let t = 0; while (!(last.me.action === 'swing' && last.me.swingFinisher && last.me.hitIds.length) && t++ < 400) run(last.state, 1, () => ({ 0: { attack: t % 4 === 0 } }));
+  assert.ok(last.me.swingFinisher, 'reached the finisher');
+  run(last.state, BLADE.hitStop * 2 + last.me.swingActive);
+  assert.ok(last.me.swingRecovery >= Math.round(brand[2].recovery * BLADE.finisherRecovery) - 1, 'a long recovery');
+  run(last.state, 1, () => ({ 0: { ability: true } }));
+  assert.equal(last.me.action, 'swing', 'the off-hand cannot cancel the start of it');
+  Object.assign(last.foe, { stunTicks: 0 });
+  run(last.state, 30, k => ({ 4: { attack: k === 0, aim: Math.atan2(last.me.y - last.foe.y, last.me.x - last.foe.x) } }));
+  assert.ok(events(last.state, 'counter').some(event => event.targetId === last.me.id), 'hitting a knight in their finisher recovery is a counter');
+  // Parry: a shield raised just before the cut lands turns it aside.
+  const parry = duel({ gap: 50, a: { cls: 'recon' }, b: { cls: 'guardian' } });
+  const lands = brand[0].startup + Math.ceil(brand[0].active / 2);
+  run(parry.state, lands + 4, k => ({ 0: { attack: k === 0 }, 4: { ability: k >= lands - GUARD.raiseTicks - 2 } }));
+  assert.equal(events(parry.state, 'parry').length, 1, 'parried');
+  assert.equal(parry.foe.guardHp, GUARD.max, 'the shield takes nothing');
+  assert.ok(parry.me.stunTicks > 0 && parry.me.parriedTicks > 0, 'the attacker is stunned and left open');
+});

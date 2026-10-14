@@ -67,7 +67,7 @@ class ModelLibrary {
 const CALLOUTS = Object.freeze({
   counter: ['COUNTER', '#ffb347', 'target'], riposte: ['RIPOSTE', '#ffe680', 'target'], perfectDodge: ['PERFECT', '#9ff0ff', 'player'],
   clash: ['CLASH', '#ffffff', 'player'], steady: ['STEADY', '#c9d6ff', 'player'], interrupt: ['INTERRUPTED', '#ff8a7a', 'player'],
-  whiff: ['MISS', '#b8b8b8', 'player'], punish: ['PUNISH', '#ff7a4a', 'target'], clean: ['CLEAN', '#ffffff', 'target'], critical: ['CRITICAL', '#ff5a5a', 'target'],
+  whiff: ['MISS', '#b8b8b8', 'player'], punish: ['PUNISH', '#ff7a4a', 'target'], clean: ['CLEAN', '#ffffff', 'target'], critical: ['CRITICAL', '#ff5a5a', 'target'], parry: ['PARRY', '#9fd8ff', 'player'],
   followUp: ['FOLLOW-UP', '#ffcf4a', 'target'], reel: ['REELING', '#ffe08a', 'target'], sweetSpot: ['TIP', '#ffe680', 'target'], ambush: ['AMBUSH', '#d29bff', 'target'],
   guardBreak: ['GUARD BREAK', '#ffffff', 'player'], evade: ['DODGE', '#ffffff', 'player'],
 });

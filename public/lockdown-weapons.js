@@ -329,7 +329,12 @@ export const BLADE = Object.freeze({ comboCancel: .4, comboWindow: 36, hitStop: 
   // Spiral Knights cancel: a shield, dash, Boost or cloak press after a cut lands drops its recovery and sends
   // the combo back to the quick first cut, after a short lag. Later cuts hit harder but are slower, lunge
   // further and commit you to their direction (you steer less).
-  cancelLag: 6, moveFirst: .5, moveLater: .3,
+  cancelLag: 6, moveFirst: .35, moveLater: .2,
+  // Commitment against spam: an opening or middle cut stuns for only `chainStun` of its listed stun, so the
+  // target recovers in time to dash, guard or strike first (a counter) before the next cut lands; finishers,
+  // criticals and momentum blows keep their full stun. The last cut of a combo recovers `finisherRecovery`
+  // times longer, leaves you exposed (hits on you are counters), and its first `finisherLock` cannot be cancelled.
+  chainStun: .5, finisherRecovery: 2, finisherLock: .5,
   // Swap cancel: once a cut has landed, switching weapons drops its recovery and readies the new weapon after
   // this short lag, so a sweep can lead straight into a heavier blade (see FIGHT.reel).
   swapLag: 4 });
@@ -351,6 +356,9 @@ export const BLADE = Object.freeze({ comboCancel: .4, comboWindow: 36, hitStop: 
 export const FIGHT = Object.freeze({
   counter: Object.freeze({ damage: 1.25, stun: 1.5 }),
   punish: Object.freeze({ damage: 1.5, stun: 2 }),
+  // Parry: a Guardian shield raised just before a cut lands (within `window` ticks of it coming up) turns it
+  // aside: the shield takes nothing and the attacker is stunned and left exposed.
+  parry: Object.freeze({ window: 8, stun: 40, exposed: 60 }),
   // Reel: a sweeping cut knocks the target back reeling and slows them. The first hit on them with a different
   // sword before it wears off is a follow-up that lands harder (harder still with a heavy one); a gun's shots
   // all land harder while it lasts (knock them out of reach, switch to the gun, shoot). A dash shakes it off.

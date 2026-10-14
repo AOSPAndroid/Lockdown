@@ -402,7 +402,10 @@ function inRecovery(player) {
   return elapsed >= (player.chargeMoveTicks || 0);
 }
 /** A cut can be cancelled once it has landed (the rest of the sweep is skipped), or while it recovers. */
-const canCancel = player => inRecovery(player) || player.action === 'swing' && player.hitIds.length > 0 && !player.whiffed;
+const canCancel = player => {
+  if (player.action === 'swing' && player.swingFinisher) return player.actionTotal - player.actionTicks >= player.swingStartup + player.swingActive + Math.ceil(player.swingRecovery * BLADE.finisherLock);
+  return inRecovery(player) || player.action === 'swing' && player.hitIds.length > 0 && !player.whiffed;
+};
 /** The animation cancel: drop the rest of the recovery. As in Spiral Knights, the combo starts over at the
  * quick first cut, and a short lag passes before the next attack. */
 function cancelRecovery(state, player, by) {
@@ -420,7 +423,8 @@ function interrupt(state, player, by) {
 }
 /** Caught committed: winding up a cut, recovering from a whiff or a charge move, or holding a half-full charge. */
 function exposed(player) {
-  if (player.action === 'swing') return player.whiffed || player.actionTotal - player.actionTicks < player.swingStartup;
+  if (player.parriedTicks > 0) return true;
+  if (player.action === 'swing') { const elapsed = player.actionTotal - player.actionTicks; return player.whiffed || elapsed < player.swingStartup || player.swingFinisher && elapsed >= player.swingStartup + player.swingActive; }
   if (CHARGE_MOVES.has(player.action) || player.action === 'cast') return inRecovery(player);
   return player.charging && player.chargeTicks >= chargeTicksFor(player, currentWeapon(player)) * .5;
 }
@@ -601,6 +605,13 @@ function hitGuard(state, guard, amount, kind, attacker, push, angle, hitStop) {
     if (attacker && hitStop) attacker.hitStop = Math.max(attacker.hitStop, hitStop);
     return;
   }
+  if (kind === 'blade' && attacker && guard.guardRaise <= GUARD.raiseTicks + FIGHT.parry.window) {
+    // Parry: the shield came up just in time. It takes nothing; the cut is turned aside and its swinger left open.
+    interrupt(state, attacker, 'parry');
+    attacker.stunTicks = Math.max(attacker.stunTicks, FIGHT.parry.stun); attacker.parriedTicks = FIGHT.parry.exposed;
+    emit(state, 'parry', { playerId: guard.id, targetId: attacker.id, x: guard.x, y: guard.y });
+    return;
+  }
   guard.guardHp -= load;
   guard.pushX = Math.cos(angle) * push * GUARD.knockback; guard.pushY = Math.sin(angle) * push * GUARD.knockback;
   if (attacker && hitStop) attacker.hitStop = Math.max(attacker.hitStop, hitStop);
@@ -744,10 +755,11 @@ function explode(state, bomb) {
 function startSwing(state, player, weapon) {
   const move = weapon.combo[player.comboStep];
   breakCloak(state, player);
-  const speed = bladeSpeed(player), startup = Math.max(2, Math.round(move.startup / speed)), active = Math.max(2, Math.round(move.active / speed)), recovery = Math.max(2, Math.round(move.recovery / speed));
+  const finisher = weapon.combo.length > 1 && player.comboStep === weapon.combo.length - 1;
+  const speed = bladeSpeed(player), startup = Math.max(2, Math.round(move.startup / speed)), active = Math.max(2, Math.round(move.active / speed)), recovery = Math.max(2, Math.round(move.recovery / speed * (finisher ? BLADE.finisherRecovery : 1)));
   Object.assign(player, { action: 'swing', actionTotal: startup + active + recovery, actionTicks: startup + active + recovery, hitIds: [], bufferAttack: false, whiffed: false,
     swingAim: player.aim, swingDir: player.comboStep % 2 ? -1 : 1, swingReach: move.reach, swingArc: move.arc,
-    swingStartup: startup, swingActive: active, swingRecovery: recovery, swingDamage: move.damage * bladePower(player), swingMomentum: !!move.momentum, swingCritical: !!move.critical });
+    swingStartup: startup, swingActive: active, swingRecovery: recovery, swingDamage: move.damage * bladePower(player), swingMomentum: !!move.momentum, swingCritical: !!move.critical, swingFinisher: finisher });
   emit(state, 'swing', { playerId: player.id, weapon: weapon.id, step: player.comboStep, x: player.x, y: player.y, angle: player.aim, dir: player.swingDir, arc: move.arc, reach: move.reach, startup, active, momentum: !!move.momentum, critical: !!move.critical });
 }
 function startCharge(state, player, weapon) {
@@ -777,7 +789,7 @@ function tickAction(state, player, weapon) {
     else if (elapsed < startup + active) {
       // The blade sweeps from one side of the arc to the other across the active ticks.
       const start = player.swingAim - player.swingDir * move.arc / 2, progress = (elapsed - startup + 1) / active;
-      bladeContacts(state, player, move.reach, start, start + player.swingDir * move.arc * progress, player.swingDamage, { push: move.push, stun: move.stun, kind: 'blade', hitStop: move.critical ? BLADE.hitStop * 2 : BLADE.hitStop, weapon: weapon.id, status: weapon.onHit?.status, chance: weapon.onHit?.chance, sweetSpot: weapon.sweetSpot, reel: !!CUTS[weapon.cut]?.reel });
+      bladeContacts(state, player, move.reach, start, start + player.swingDir * move.arc * progress, player.swingDamage, { push: move.push, stun: player.swingFinisher || move.critical || move.momentum ? move.stun : Math.round(move.stun * BLADE.chainStun), kind: 'blade', hitStop: move.critical ? BLADE.hitStop * 2 : BLADE.hitStop, weapon: weapon.id, status: weapon.onHit?.status, chance: weapon.onHit?.chance, sweetSpot: weapon.sweetSpot, reel: !!CUTS[weapon.cut]?.reel });
       // A heavy blow that shakes the ground sends a shockwave around the impact on its first active tick.
       if (move.shockwave && elapsed === startup) {
         const wave = move.shockwave, center = { x: player.x + Math.cos(player.swingAim) * wave.offset, y: player.y + Math.sin(player.swingAim) * wave.offset };
@@ -1009,6 +1021,7 @@ function tickPlayer(state, player, input) {
   if (player.evadeTicks > 0) player.evadeTicks--;
   player.stagger = Math.max(0, player.stagger - FIGHT.stagger.drainPerTick);
   if (player.reelTicks > 0) player.reelTicks--;
+  if (player.parriedTicks > 0) player.parriedTicks--;
   if (player.steadyTicks > 0) player.steadyTicks--;
   if (player.riposteTicks > 0) player.riposteTicks--;
   if (player.dodgeTicks > 0) {
