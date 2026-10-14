@@ -13,6 +13,10 @@ this guide summarises both, so you can work from this page alone.
 
 ## 1. The Spiral Knights look
 
+**Look at [reference/spiral-knights/](reference/spiral-knights/README.md) first:** three Spiral Knights
+screenshots (a hedge maze, a Lockdown capture point, a base with a bridge) and enlarged close-ups of knights,
+with notes on what to take from each. They are reference only: match the style, never copy them.
+
 Spiral Knights is a stylised, cartoon 3D world: chibi knights in clockwork armour exploring a mechanical
 planet. Its art works because of a handful of rules. Follow them exactly.
 
@@ -79,8 +83,9 @@ Everyone starts in the plain steel **Recruit set** (the `none` piece of each gea
   slit, a grille, a hood's shadow) through which those two glowing eyes look out. This is the single most
   recognisable thing about a Spiral Knights knight: get it right first.
 - **Proportions:** the helmet is about **45% of the height** and **wider than the shoulders** (≈ 0.65 across).
-  A short barrel torso, short stubby legs, big round armoured mitten gauntlets, chunky rounded sabatons, big
-  rounded pauldrons. The knight reads as "a big helmet on a small armoured body".
+  A short barrel torso, short stubby legs, big round armoured mitten gauntlets, chunky rounded sabatons.
+  **Pauldrons are huge**, often as big as the helmet on heavy and fancy sets, so from above a knight reads as a
+  big helmet between two big shoulder plates. The knight reads as "a big helmet on a small armoured body".
 - **Polished, painted metal.** Recruit steel is a clean cool blue-grey with bright painted highlights on every
   rounded edge (metalness high, roughness low-to-medium), big round rivets, raised ridges and rims. Not matte
   clay, not plastic, not cloth. Cloth and fur gear (Wolver, Seraph, Gunslinger) still sits over the dark
@@ -197,8 +202,8 @@ textures; anything that pokes through other gear when the knight moves; stretchi
 1. **Style lock (stop for approval).** Make the knight body (dark under-suit, eye-lit head), the whole
    Recruit set (`helmet/none`, `armor/none`, `pants/none`, `shoes/none`), the three class pieces, the Cobalt set
    (helm, mail, cuisses), the Knight Brand, the Pulse Blaster and the Cannonball Bomb (in hand and planted).
-   Before showing anything, compare it with Spiral Knights screenshots (in `docs/reference/spiral-knights/` if
-   present) and with section 2: helmet as the head, two glowing eyes in a dark visor, no skin or hair, polished
+   Before showing anything, compare it side by side with the Spiral Knights screenshots in
+   [reference/spiral-knights/](reference/spiral-knights/README.md) and with section 2: helmet as the head, two glowing eyes in a dark visor, no skin or hair, polished
    painted metal, oversized weapons. Run the checks, play the game and show screenshots. Change direction if asked;
    do not polish a rejected direction.
 2. **Gear:** all 14 helmets, 16 armours, 12 pants and 12 shoes.
