@@ -41,7 +41,7 @@ const MAP_DEFS = {
   keep: {
     name: 'Old Keep',
     theme: 'castle',
-    description: 'A ruined castle courtyard. Towers guard the flanks and a moat rings the inner keep where B stands; cross by the bridges. Raised terraces fill the corner courtyards and a gatehouse walk overlooks the moat; stairs lead up from the courtyard.',
+    description: 'A ruined castle courtyard. Towers guard the flanks and thick walls ring the inner keep where B stands; enter by the gates. Raised terraces fill the corner courtyards and a gatehouse walk overlooks the keep; grand stairs lead up from the courtyard.',
     left: [
       '#####################',
       '#............#.......',
@@ -161,7 +161,7 @@ const MAP_DEFS = {
   foundry: {
     name: 'Clockwork Foundry',
     theme: 'foundry',
-    description: 'Molten channels split the floor; only three bridges cross each one. B sits on the gantry at the top. Raised control rooms overlook the lava from the corners, and a gantry crosses the south side.',
+    description: 'Long iron walls split the machine halls; only a few gaps cross each one. B sits under the gantry at the top. Raised control rooms overlook the halls from the corners, and a gantry crosses the south side.',
     left: [
       '#####################',
       '#........#...........',
@@ -221,7 +221,7 @@ const MAP_DEFS = {
   temple: {
     name: 'Sunken Temple',
     theme: 'ruins',
-    description: 'A half-flooded temple. Pools block your feet but not your shots, so gunners hold the water lines. A raised colonnade runs along the north and south walls, with stairs down between the pillars.',
+    description: 'An open temple court. Low walls break up the long lines, so gunners and swords both find their angles. A raised colonnade runs along the north and south walls, with grand stairs down between the pillars.',
     left: [
       '#####################',
       '#.................###',
@@ -341,7 +341,7 @@ const MAP_DEFS = {
   skyway: {
     name: 'Sky Bridges',
     theme: 'skyway',
-    description: 'Platforms floating over the void, joined by narrow bridges. Knockback near an edge is deadly to your plans, not your knight. Two raised altars float above the bridges; the central bridge climbs straight onto them.',
+    description: 'A marble fortress floating above the clouds, its halls joined by narrow walled bridges. Two raised altars stand above the bridges; the central bridges climb straight onto them.',
     left: [
       '#####################',
       '#.....###############',

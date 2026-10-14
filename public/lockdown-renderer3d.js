@@ -124,6 +124,9 @@ function wallTexture(theme) {
         const g = ctx.createLinearGradient(0, y, 0, y + course); g.addColorStop(0, 'rgba(255,255,255,.14)'); g.addColorStop(1, 'rgba(0,0,0,.2)'); ctx.fillStyle = g; ctx.fill();
       }
     }
+    // A darker plinth where the wall meets the floor.
+    const foot = ctx.createLinearGradient(0, s - 34, 0, s); foot.addColorStop(0, 'rgba(0,0,0,0)'); foot.addColorStop(.35, 'rgba(0,0,0,.3)'); foot.addColorStop(1, 'rgba(0,0,0,.42)');
+    ctx.fillStyle = foot; ctx.fillRect(0, s - 34, s, 34);
     grain(ctx, s, 10, 6);
   });
 }
@@ -291,13 +294,13 @@ export class Lockdown3DRenderer {
     const spawnTint = [new Set(map.spawns[0].map(p => `${Math.floor(p.x / TILE)},${Math.floor(p.y / TILE)}`)), new Set(map.spawns[1].map(p => `${Math.floor(p.x / TILE)},${Math.floor(p.y / TILE)}`))];
     const teamTint = team => { const c = colour(TEAM_COLORS[team].main); return [1.35 + c.r * .25, 1.3 + c.g * .25, 1.2 + c.b * .25]; };
     /** A vertical face along one cell edge, from y0 down to y1, facing (dx, dz). v runs down from `vTop`. */
-    const side = (builder, col, row, dx, dz, y0, y1, tint = [1, 1, 1], vTop = y0) => {
+    const side = (builder, col, row, dx, dz, y0, y1, tint = [1, 1, 1], vTop = y0, vScale = 1) => {
       if (y0 <= y1 + 1e-4) return;
       let a, b;
       if (dx === 1) { a = [col + 1, row + 1]; b = [col + 1, row]; } else if (dx === -1) { a = [col, row]; b = [col, row + 1]; }
       else if (dz === 1) { a = [col, row + 1]; b = [col + 1, row + 1]; } else { a = [col + 1, row]; b = [col, row]; }
       const along = dx ? row : col;
-      builder.quad([[a[0], y0, a[1]], [a[0], y1, a[1]], [b[0], y1, b[1]], [b[0], y0, b[1]]], [dx, 0, dz], [[along, vTop - y0], [along, vTop - y1], [along + 1, vTop - y1], [along + 1, vTop - y0]], tint);
+      builder.quad([[a[0], y0, a[1]], [a[0], y1, a[1]], [b[0], y1, b[1]], [b[0], y0, b[1]]], [dx, 0, dz], [[along, (vTop - y0) * vScale], [along, (vTop - y1) * vScale], [along + 1, (vTop - y1) * vScale], [along + 1, (vTop - y0) * vScale]], tint);
     };
     for (let row = 0; row < map.rows; row++) for (let col = 0; col < map.cols; col++) {
       const kind = cell(col, row);
@@ -334,7 +337,8 @@ export class Lockdown3DRenderer {
           const other = neighbour(dx, dz);
           if (other >= h) continue;
           // Masonry down to the floor it stands on, cliff below that (into a pit or off the map).
-          side(walls, col, row, dx, dz, hb, Math.max(other, floorH), [1, 1, 1], h);
+          // One wall texture spans exactly one wall face, cap band at the top, foot at the floor.
+          side(walls, col, row, dx, dz, hb, Math.max(other, floorH), [1, 1, 1], h, 1 / WALL);
           side(cliffs, col, row, dx, dz, Math.min(hb, floorH), other, [.8, .8, .8], floorH);
         }
       }
