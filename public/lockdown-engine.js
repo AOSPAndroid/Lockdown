@@ -489,7 +489,7 @@ function knockOut(state, attacker, target) {
   emit(state, 'kill', { playerId: attacker?.id ?? null, targetId: target.id, x: target.x, y: target.y, respawnTicks: target.respawnTicks });
 }
 /** Every hit goes through here: spawn protection, domes, shields, poison, marks, statuses, knockback. */
-function damage(state, attacker, target, amount, { push = 0, angle = 0, stun = 10, kind = 'hit', damageFamily = null, source = null, status = null, chance = 1, hitStop = 0, weapon = null } = {}) {
+function damage(state, attacker, target, amount, { push = 0, angle = 0, stun = 10, kind = 'hit', damageFamily = null, source = null, status = null, chance = 1, hitStop = 0, weapon = null, reel = false } = {}) {
   if (!target.alive || target.team === attacker?.team || target.shieldTicks > 0) return false;
   if (inBase(state, target) || attacker && inBase(state, attacker)) return false; // nobody fights across a base barrier
   // A Striker mid-dodge is untouchable.
@@ -535,6 +535,12 @@ function damage(state, attacker, target, amount, { push = 0, angle = 0, stun = 1
     total *= FIGHT.perfect.damage; attacker.riposteTicks = 0;
     emit(state, 'riposte', { playerId: attacker.id, targetId: target.id, x: target.x, y: target.y });
   }
+  // Follow-up: a different weapon catching a knight that a sweeping cut left reeling.
+  if (direct && target.reelTicks > 0 && weapon && weapon !== target.reelWeapon) {
+    const heavy = !!WEAPONS[weapon]?.heavy;
+    total *= heavy ? FIGHT.reel.heavy : FIGHT.reel.followUp; target.reelTicks = 0;
+    emit(state, 'followUp', { playerId: attacker.id, targetId: target.id, weapon, heavy, x: target.x, y: target.y });
+  }
   total = Math.max(1, Math.round(total));
   // Heavy weapons are unflinching mid-swing, and so is every charge move: a hit hurts but neither
   // stuns nor shoves you off the attack.
@@ -547,6 +553,7 @@ function damage(state, attacker, target, amount, { push = 0, angle = 0, stun = 1
     if (target.stagger >= FIGHT.stagger.limit) { target.stagger = 0; target.steadyTicks = stun + FIGHT.stagger.steadyTicks; emit(state, 'steady', { playerId: target.id, x: target.x, y: target.y }); }
   }
   target.hp -= total; target.stunTicks = Math.max(target.stunTicks, stun);
+  if (reel && !unflinching && target.hp > 0) { target.reelTicks = FIGHT.reel.ticks; target.reelWeapon = weapon; emit(state, 'reel', { playerId: attacker?.id ?? null, targetId: target.id, x: target.x, y: target.y }); }
   if (stun > 0) interrupt(state, target, 'hit');
   const shove = push * outfitOf(target).knockback;
   target.pushX = Math.cos(angle) * shove; target.pushY = Math.sin(angle) * shove; target.lastHurtTick = state.tick;
@@ -763,7 +770,7 @@ function tickAction(state, player, weapon) {
     else if (elapsed < startup + active) {
       // The blade sweeps from one side of the arc to the other across the active ticks.
       const start = player.swingAim - player.swingDir * move.arc / 2, progress = (elapsed - startup + 1) / active;
-      bladeContacts(state, player, move.reach, start, start + player.swingDir * move.arc * progress, player.swingDamage, { push: move.push, stun: move.stun, kind: 'blade', hitStop: BLADE.hitStop, weapon: weapon.id, status: weapon.onHit?.status, chance: weapon.onHit?.chance, sweetSpot: weapon.sweetSpot });
+      bladeContacts(state, player, move.reach, start, start + player.swingDir * move.arc * progress, player.swingDamage, { push: move.push, stun: move.stun, kind: 'blade', hitStop: BLADE.hitStop, weapon: weapon.id, status: weapon.onHit?.status, chance: weapon.onHit?.chance, sweetSpot: weapon.sweetSpot, reel: !!CUTS[weapon.cut]?.reel });
       // A heavy blow that shakes the ground sends a shockwave around the impact on its first active tick.
       if (move.shockwave && elapsed === startup) {
         const wave = move.shockwave, center = { x: player.x + Math.cos(player.swingAim) * wave.offset, y: player.y + Math.sin(player.swingAim) * wave.offset };
@@ -891,6 +898,7 @@ function tickDash(state, player, input, previous) {
   // Armour weight shortens the dash: heavy plate covers less ground than a scout's leathers.
   const length = Math.hypot(dx, dy), rule = RULES.dash, outfit = outfitOf(player), weight = outfit.speedMultiplier;
   Object.assign(player, { perfectUsed: false, dodgeX: dx / length, dodgeY: dy / length, dodgeTicks: rule.ticks, dodgeStep: rule.distance * weight * weight * outfit.dashDistance / rule.ticks, evadeTicks: Math.max(player.evadeTicks, rule.evadeTicks), dashCooldown: Math.round(rule.cooldown * outfit.dashCooldown) });
+  player.reelTicks = 0; // a dash shakes off a reel
   emit(state, 'dodge', { playerId: player.id, x: player.x, y: player.y, angle: Math.atan2(player.dodgeY, player.dodgeX) });
 }
 function tickAbilities(state, player, input, previous) {
@@ -979,6 +987,9 @@ function tickPlayer(state, player, input) {
   const nextFilled = () => { for (let step = 1; step <= SLOT_COUNT; step++) { const index = (player.slot + step) % SLOT_COUNT; if (filled(index)) return index; } return player.slot; };
   const picked = [0, 1, 2, 3].find(index => input[`slot${index + 1}`] && !previous[`slot${index + 1}`]);
   const slot = picked !== undefined ? picked : input.swap && !previous.swap ? nextFilled() : player.slot;
+  // Swap cancel: after a cut lands, switching weapons drops its recovery (a sweep into a heavy blade).
+  const swapCancel = slot !== player.slot && player.action === 'swing' && player.hitIds.length > 0 && !player.whiffed;
+  if (swapCancel) { cancelRecovery(state, player, 'swap'); player.cancelLag = BLADE.swapLag; }
   if (slot !== player.slot && player.actionTicks === 0 && !player.burst) { player.slot = slot; player.charging = false; player.chargeTicks = 0; player.comboStep = 0; player.bufferAttack = false; emit(state, 'swapWeapon', { playerId: player.id, weapon: player.weapons[slot] }); }
   if (player.stunTicks > 0 || frozen) { player.dashTicks = 0; player.boosting = false; }
   if (player.stunTicks > 0) { player.stunTicks--; player.guarding = false; tickGuard(state, player, emptyInput()); }
@@ -988,6 +999,7 @@ function tickPlayer(state, player, input) {
   if (player.held > 0) player.held--;
   if (player.evadeTicks > 0) player.evadeTicks--;
   player.stagger = Math.max(0, player.stagger - FIGHT.stagger.drainPerTick);
+  if (player.reelTicks > 0) player.reelTicks--;
   if (player.steadyTicks > 0) player.steadyTicks--;
   if (player.riposteTicks > 0) player.riposteTicks--;
   if (player.dodgeTicks > 0) {
@@ -1290,6 +1302,9 @@ function botInput(state, bot) {
       // Swords: cut only when the target is in reach (whiffs are punished), and jump on a committed enemy.
       const reach = weapon.combo[bot.comboStep]?.reach ?? weapon.combo[0].reach, inReach = d <= reach + RULES.radius + 6;
       brain.pulse = (brain.pulse + 1) % 14;
+      // A target left reeling: switch to another sword (a heavy one first) for the follow-up.
+      const followWith = target.reelTicks > 0 && target.reelWeapon === weapon.id ? [...bot.weapons.keys()].filter(i => i !== bot.slot && WEAPONS[bot.weapons[i]]?.family === 'blade').sort((a, b) => !!WEAPONS[bot.weapons[b]].heavy - !!WEAPONS[bot.weapons[a]].heavy)[0] : undefined;
+      if (followWith !== undefined && random(state) < brain.skill) input[`slot${followWith + 1}`] = !bot.previousInput[`slot${followWith + 1}`];
       // Press to start a cut, then again only once it lands (mashing would break the combo).
       if (bot.action === 'swing') input.attack = bot.hitIds.length > 0 && !bot.whiffed && !bot.previousInput.attack;
       else if (inReach && exposed(target) && !bot.previousInput.attack && random(state) < brain.skill) input.attack = true;

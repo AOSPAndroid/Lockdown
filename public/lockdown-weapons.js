@@ -22,12 +22,12 @@ const step = (damage, startup, active, recovery, reach, arc, push, stun, lunge) 
  * Balanced sits between. Thrusts keep the narrow line they are written with. Applied to every step's arc
  * and damage below. */
 export const CUTS = Object.freeze({
-  precise: Object.freeze({ arc: .55, damage: 1.2, label: 'Precise', note: 'narrow cut that hits hard: aim it' }),
-  balanced: Object.freeze({ arc: .75, damage: 1.1, label: 'Balanced', note: 'medium cut, medium damage' }),
-  sweeping: Object.freeze({ arc: 1, damage: .9, label: 'Sweeping', note: 'wide cut that catches crowds but hits lighter' }),
-  thrust: Object.freeze({ arc: 1, damage: 1, label: 'Thrust', note: 'a straight, narrow line with a sweet spot at the tip' }),
+  precise: Object.freeze({ arc: .55, damage: 1.2, push: .8, label: 'Precise', note: 'narrow cut that hits hard: aim it' }),
+  balanced: Object.freeze({ arc: .75, damage: 1.1, push: 1, label: 'Balanced', note: 'medium cut, medium damage' }),
+  sweeping: Object.freeze({ arc: 1, damage: .9, push: 3, reel: true, label: 'Sweeping', note: 'wide cut that hits lighter but knocks the enemy back reeling: close in and follow up with another weapon' }),
+  thrust: Object.freeze({ arc: 1, damage: 1, push: 1, label: 'Thrust', note: 'a straight, narrow line with a sweet spot at the tip' }),
 });
-const cuts = (cut, ...steps) => Object.freeze(steps.map(move => Object.freeze({ ...move, arc: Math.round(move.arc * CUTS[cut].arc * 100) / 100, damage: Math.round(move.damage * CUTS[cut].damage) })));
+const cuts = (cut, ...steps) => Object.freeze(steps.map(move => Object.freeze({ ...move, arc: Math.round(move.arc * CUTS[cut].arc * 100) / 100, damage: Math.round(move.damage * CUTS[cut].damage), push: Math.round(move.push * CUTS[cut].push) })));
 
 export const WEAPONS = Object.freeze({
   // ---------- blades ----------
@@ -277,7 +277,10 @@ export const BLADE = Object.freeze({ comboCancel: .4, comboWindow: 36, hitStop: 
   // Spiral Knights cancel: a shield, dash, Boost or cloak press after a cut lands drops its recovery and sends
   // the combo back to the quick first cut, after a short lag. Later cuts hit harder but are slower, lunge
   // further and commit you to their direction (you steer less).
-  cancelLag: 8, moveFirst: .5, moveLater: .3 });
+  cancelLag: 8, moveFirst: .5, moveLater: .3,
+  // Swap cancel: once a cut has landed, switching weapons drops its recovery and readies the new weapon after
+  // this short lag, so a sweep can lead straight into a heavier blade (see FIGHT.reel).
+  swapLag: 4 });
 /** Guns bloom: every shot widens the spread, which settles back while you hold fire. Measured shots stay
  * accurate; holding the trigger sprays. Precise guns bloom harder. */
 /** Fighting rules that reward reading the opponent over mashing.
@@ -285,6 +288,8 @@ export const BLADE = Object.freeze({ comboCancel: .4, comboWindow: 36, hitStop: 
  * - counter: hitting a knight while they wind up, recover from a charge move or hold a half-full charge
  *   lands harder and stuns longer.
  * - punish: hitting a knight still recovering from a whiffed cut lands harder still.
+ * - reel: a sweeping cut knocks the target back reeling; a different weapon catching them meanwhile (boost in,
+ *   swap to a heavy sword) is a follow-up that hits harder. A dash shakes the reel off.
  * - perfect: dodging an attack at the right moment (dash or Boost press) refunds part of the dash cooldown and
  *   makes your next hit within the window a riposte that lands harder.
  * - stagger: stun builds a stagger load that drains over time; past the limit the knight turns steady for a
@@ -293,6 +298,9 @@ export const BLADE = Object.freeze({ comboCancel: .4, comboWindow: 36, hitStop: 
 export const FIGHT = Object.freeze({
   counter: Object.freeze({ damage: 1.25, stun: 1.5 }),
   punish: Object.freeze({ damage: 1.5, stun: 2 }),
+  // Reel: a sweeping cut knocks the target back reeling. The first hit on them with a different weapon before
+  // it wears off is a follow-up that lands harder (harder still with a heavy weapon). Dashing shakes it off.
+  reel: Object.freeze({ ticks: 90, followUp: 1.3, heavy: 1.5 }),
   perfect: Object.freeze({ window: 90, damage: 1.3, dashRefund: .6 }),
   stagger: Object.freeze({ limit: 54, drainPerTick: .4, steadyTicks: 72 }),
   clash: Object.freeze({ push: 240, stun: 12, hitStop: 6 }),

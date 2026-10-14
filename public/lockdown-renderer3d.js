@@ -67,7 +67,8 @@ class ModelLibrary {
 const CALLOUTS = Object.freeze({
   counter: ['COUNTER', '#ffb347', 'target'], riposte: ['RIPOSTE', '#ffe680', 'target'], perfectDodge: ['PERFECT', '#9ff0ff', 'player'],
   clash: ['CLASH', '#ffffff', 'player'], steady: ['STEADY', '#c9d6ff', 'player'], interrupt: ['INTERRUPTED', '#ff8a7a', 'player'],
-  whiff: ['MISS', '#b8b8b8', 'player'], punish: ['PUNISH', '#ff7a4a', 'target'], clean: ['CLEAN', '#ffffff', 'target'], mash: ['TOO EARLY', '#9aa0aa', 'player'], sweetSpot: ['TIP', '#ffe680', 'target'], ambush: ['AMBUSH', '#d29bff', 'target'],
+  whiff: ['MISS', '#b8b8b8', 'player'], punish: ['PUNISH', '#ff7a4a', 'target'], clean: ['CLEAN', '#ffffff', 'target'], mash: ['TOO EARLY', '#9aa0aa', 'player'],
+  followUp: ['FOLLOW-UP', '#ffcf4a', 'target'], reel: ['REELING', '#ffe08a', 'target'], sweetSpot: ['TIP', '#ffe680', 'target'], ambush: ['AMBUSH', '#d29bff', 'target'],
   guardBreak: ['GUARD BREAK', '#ffffff', 'player'], evade: ['DODGE', '#ffffff', 'player'],
 });
 const hash = (a, b) => { let h = (a * 374761393 + b * 668265263) | 0; h = (h ^ (h >>> 13)) * 1274126177; return ((h ^ (h >>> 16)) >>> 0) / 4294967296; };
@@ -905,6 +906,8 @@ export class Lockdown3DRenderer {
       if (!view.dashing) view.ghosts = [now + 15, now + 55];
     }
     view.dashing = dashing;
+    // Reeling from a sweep: thrown back on the heels, arms out, head rocking.
+    if (player.reelTicks > 0 && action === 'idle') { const w = Math.min(1, player.reelTicks / 30); body.z += .2 * w; body.x += .1 * Math.sin(now / 90) * w; T.arm_L = [.6 * w, 0, -.5 * w]; T.head[0] += .2 * Math.sin(now / 120) * w; if (!snap) { arm[0] -= .5 * w; arm[2] -= .3 * w; } }
     if (player.stunTicks > 0) { T.head[2] += .3 * Math.sin(now / 80); T.head[0] += .2 * Math.sin(now / 110); body.x += .08 * Math.sin(now / 150); T.arm_L = [.1, 0, 0]; }
     const flash = this.flashes?.get(player.id), hurt = flash ? Math.max(0, 1 - (now - flash) / 180) : 0;
     if (hurt) { body.z += .22 * hurt; T.head[0] -= .15 * hurt; }

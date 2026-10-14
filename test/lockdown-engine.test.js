@@ -797,3 +797,31 @@ test('timing beats mashing: a press before the cut lands breaks the combo; aim i
   assert.equal(centre.clean, 1); assert.equal(side.clean, 0);
   assert.ok(side.dealt > 0 && side.dealt < centre.dealt, 'an edge hit deals less than a clean one');
 });
+
+test('sweep, close in, swap, follow up: a sweeping cut leaves the target reeling for a heavier blade', () => {
+  const { state, me, foe } = duel({ gap: 50, a: { cls: 'recon', weapons: ['thorn', 'greatblade', null, null] } });
+  assert.ok(L.CUTS[WEAPONS.thorn.cut].reel, 'the Briar Blade sweeps');
+  run(state, 1, () => ({ 0: { attack: true } }));
+  let waited = 0; while (!events(state, 'reel').length && waited++ < 60) run(state, 1);
+  assert.ok(foe.reelTicks > 0, 'the sweep leaves them reeling');
+  // Swap cancel: switching to the heavy blade drops the sweep's recovery.
+  run(state, BLADE.hitStop + 2);
+  run(state, 1, () => ({ 0: { slot2: true } }));
+  assert.equal(me.slot, 1); assert.ok(events(state, 'cancel').some(event => event.by === 'swap'));
+  // Close in and cut: a heavy follow-up.
+  Object.assign(me, { x: foe.x - 50, y: foe.y, aim: 0 });
+  run(state, BLADE.swapLag + 1);
+  run(state, 1, () => ({ 0: { attack: true } }));
+  run(state, WEAPONS.greatblade.combo[0].startup + WEAPONS.greatblade.combo[0].active + BLADE.hitStop * 2);
+  const follow = events(state, 'followUp');
+  assert.equal(follow.length, 1); assert.ok(follow[0].heavy, 'a heavy follow-up');
+  assert.equal(foe.reelTicks, 0, 'the follow-up uses the reel up');
+  // A dash shakes the reel off.
+  const shake = duel({ gap: 50, a: { cls: 'recon', weapons: ['thorn', null, null, null] } }), startX = shake.foe.x;
+  run(shake.state, 1, () => ({ 0: { attack: true } }));
+  waited = 0; while (!shake.foe.reelTicks && waited++ < 60) run(shake.state, 1);
+  run(shake.state, 40);
+  assert.ok(shake.foe.x - startX > 30, 'the sweep knocks them well back');
+  run(shake.state, 1, () => ({ 4: { dash: true, left: true } }));
+  assert.equal(shake.foe.reelTicks, 0);
+});
