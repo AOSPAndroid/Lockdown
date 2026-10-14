@@ -128,3 +128,11 @@ test('the host role passes on when the host leaves the Lockdown lobby', async t 
   second.send({ type: 'start' });
   await second.untilState(state => state.state.phase === 'countdown');
 });
+
+test('online rooms cannot be opened on the Dojo training map', async t => {
+  const game = await host(t);
+  const dojo = await game.make({ mapId: 'dojo' });
+  assert.equal(dojo.response.status, 400);
+  const keep = await game.make({ mapId: 'keep' });
+  assert.equal(keep.response.status, 201);
+});

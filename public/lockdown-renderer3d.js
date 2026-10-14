@@ -12,7 +12,7 @@ import { RenderPass } from './vendor/three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from './vendor/three/addons/postprocessing/UnrealBloomPass.js';
 import { OutputPass } from './vendor/three/addons/postprocessing/OutputPass.js';
 import { MAPS, TILE, isWall, levelCell, levelAt, STAIRS } from './lockdown-maps.js';
-import { WEAPONS, RULES, GUARD, ABILITIES, STATUS_IDS } from './lockdown-engine.js';
+import { WEAPONS, RULES, GUARD, ABILITIES, STATUS_IDS, chargeTicksFor } from './lockdown-engine.js';
 import { TEAM_COLORS } from './lockdown-renderer.js';
 
 const U = 1 / TILE;
@@ -22,6 +22,7 @@ const DEPTH = 2.6;          // how far the map's cliffs drop into the void
 const BEVEL = .1;           // chamfer on the top edges of wall blocks
 const KNIGHT = 1.3;          // knight height as drawn
 const FEET_RING = .3;       // team ring radius under each knight (before scaling)
+const CHARGE_SEGMENTS = 48; // pieces of the charge ring, filled one by one
 const KNIGHT_SCALE = 1.4;   // chunky, readable knights
 
 const THEMES = Object.freeze({
@@ -631,12 +632,18 @@ export class Lockdown3DRenderer {
     ring.position.y = .03; group.add(ring);
     const ringGlow = new THREE.Mesh(new THREE.CircleGeometry(ringRadius, 32), new THREE.MeshBasicMaterial({ color: team, transparent: true, opacity: .18, depthWrite: false, blending: THREE.AdditiveBlending }));
     ringGlow.rotation.x = -Math.PI / 2; ringGlow.position.y = .02; group.add(ringGlow);
+    // Charge ring: a gold band round the feet that fills from the front while you hold attack and
+    // pulses white when the charge is ready.
+    const chargeRing = new THREE.Mesh(arcGeometry(ringRadius + .08, ringRadius + .3, 0, Math.PI * 2, CHARGE_SEGMENTS), new THREE.MeshBasicMaterial({ color: '#ffc94a', transparent: true, opacity: 1, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide }));
+    chargeRing.position.y = .04; chargeRing.visible = false; group.add(chargeRing);
+    const chargeFloor = new THREE.Mesh(new THREE.CircleGeometry(ringRadius + .3, 40), new THREE.MeshBasicMaterial({ color: '#ffc94a', transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending }));
+    chargeFloor.rotation.x = -Math.PI / 2; chargeFloor.position.y = .025; chargeFloor.visible = false; group.add(chargeFloor);
     rig.traverse(node => { if (node.isMesh) node.castShadow = true; });
     this.scene.add(group);
     const hand = parts.hand_R || parts.arm_R || rig;
     const chargeGlow = new THREE.Sprite(new THREE.SpriteMaterial({ map: this.glow, color: '#ffd36b', transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending })); chargeGlow.position.x = .55; hand.add(chargeGlow);
     const boostTrail = new THREE.Sprite(new THREE.SpriteMaterial({ map: this.glow, color: '#ffd36b', transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending })); boostTrail.scale.set(2, 1, 1); boostTrail.position.set(-.6, .5, 0); group.add(boostTrail);
-    const view = { group, body, parts, hand, temporary, chargeGlow, boostTrail, ring, weaponId: null, weapon: null, stride: 0, lastX: player.x, lastY: player.y, key: this.knightKey(player), materials: [] };
+    const view = { group, body, parts, hand, temporary, chargeGlow, chargeRing, chargeFloor, boostTrail, ring, weaponId: null, weapon: null, stride: 0, lastX: player.x, lastY: player.y, key: this.knightKey(player), materials: [] };
     group.traverse(node => { if (node.material) view.materials.push(node.material); });
     return view;
   }
@@ -774,8 +781,16 @@ export class Lockdown3DRenderer {
     else if (weapon?.family === 'blade') armYaw = -.5; // at rest the blade points ahead and to the side
     if (player.charging) armPitch = -.5 - Math.sin(now / 60) * .05;
     // A charge glows on the weapon and burns gold when it is ready; Boost leaves a streak.
-    const chargeLevel = player.charging && weapon ? Math.min(1, player.chargeTicks / Math.max(1, weapon.chargeTicks || 120)) : 0;
+    const chargeLevel = player.charging && weapon ? Math.min(1, player.chargeTicks / Math.max(1, chargeTicksFor(player, weapon))) : 0;
     view.chargeGlow.material.opacity = chargeLevel * (chargeLevel >= 1 ? .9 + .1 * Math.sin(now / 50) : .5);
+    view.chargeRing.visible = view.chargeFloor.visible = chargeLevel > 0;
+    if (chargeLevel > 0) {
+      view.chargeFloor.material.opacity = chargeLevel >= 1 ? .4 + .12 * Math.sin(now / 45) : chargeLevel * .22;
+      view.chargeRing.geometry.setDrawRange(0, Math.ceil(chargeLevel * CHARGE_SEGMENTS) * 6);
+      const ready = chargeLevel >= 1, pulse = ready ? 1 + .1 * Math.sin(now / 45) : 1;
+      view.chargeRing.material.color.set(ready ? '#fff4c8' : '#ffc94a');
+      view.chargeRing.scale.setScalar(pulse);
+    }
     view.chargeGlow.scale.setScalar((.5 + chargeLevel * .8) * (view.temporary ? 1 : KNIGHT_SCALE));
     view.boostTrail.material.opacity = player.boosting ? .55 + .2 * Math.sin(now / 40) : 0;
     view.group.rotation.y = -facing;
@@ -965,6 +980,7 @@ export class Lockdown3DRenderer {
       else if (event.type === 'heartUse' || event.type === 'heartPickup') this.texts.push({ x: event.x, y: event.y, lift: KNIGHT + .2, text: `+${event.amount}`, color: '#7dff9a', born: now, life: 800, size: 15, rise: 26 });
       else if (event.type === 'status') this.texts.push({ x: event.x, y: event.y, lift: KNIGHT + .35, text: event.status.toUpperCase(), color: STATUS_COLOR[event.status] || '#ffffff', born: now, life: 600, size: 12, rise: 18 });
       else if (event.type === 'chain') this.beam(at(event.fromX, event.fromY, .5), at(event.toX, event.toY, .5), STATUS_COLOR.shock, 220, now);
+      if (event.type === 'chargeRelease') { this.ringEffect(at(event.x, event.y, .06), 1.4, '#ffd36b', 380, now); this.burst(at(event.x, event.y, KNIGHT * .5), '#ffe9a8', 1.3, 300, now, true); }
       if (event.type === 'clash') { this.burst(at(event.x, event.y, .5), '#ffffff', .9, 220, now, true); this.shakeNear(event.x, event.y, 4); }
       if (CALLOUTS[event.type] && mine && !(event.type === 'interrupt' && event.by === 'clash')) {
         const [text, color, on] = CALLOUTS[event.type], who = on === 'target' ? event.targetId : event.playerId;
@@ -1028,7 +1044,8 @@ export class Lockdown3DRenderer {
       const ally = viewerTeam === null || player.team === viewerTeam, team = TEAM_COLORS[player.team];
       ctx.textAlign = 'center'; ctx.font = '600 12px system-ui, sans-serif'; ctx.lineWidth = 3; ctx.strokeStyle = 'rgba(0,0,0,.6)';
       ctx.strokeText(player.name, head.x, head.y - 8); ctx.fillStyle = player.id === this.localId ? '#ffffff' : team.light; ctx.fillText(player.name, head.x, head.y - 8);
-      if (ally) {
+      // Health bars: allies only (and the Dojo's dummies).
+      if (ally || player.dummy) {
         const w = 40, pct = Math.max(0, player.hp / player.maxHp);
         ctx.fillStyle = 'rgba(0,0,0,.6)'; ctx.fillRect(head.x - w / 2 - 1, head.y - 3, w + 2, 6);
         ctx.fillStyle = pct > .5 ? team.light : pct > .25 ? '#ffd36b' : '#ff6b5a'; ctx.fillRect(head.x - w / 2, head.y - 2, w * pct, 4);

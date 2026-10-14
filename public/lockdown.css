@@ -34,6 +34,16 @@ kbd { display: inline-block; padding: 1px 6px; border: 1px solid var(--line); bo
 .ld-point[data-contested="true"] { animation: ld-pulse .6s infinite alternate; }
 @keyframes ld-pulse { to { box-shadow: 0 0 0 4px rgba(255,255,255,.18); } }
 .ld-timer { font: 700 13px/1 ui-monospace, monospace; padding: 3px 8px; border-radius: 6px; background: rgba(15,17,21,.78); }
+/* Dojo: no score or timer, a damage meter instead */
+.ld-app[data-mode="dojo"] .ld-top, .ld-app[data-mode="dojo"] #ld-roster, .ld-app[data-mode="dojo"] .ld-field:has(#ld-map), .ld-app[data-mode="dojo"] .ld-field:has(.ld-teams), .ld-app[data-mode="dojo"] #ld-dojo-link { display: none; }
+.ld-dojo { position: absolute; top: 12px; left: 12px; width: 220px; padding: 8px 10px; border-radius: 8px; background: rgba(15,17,21,.82); border: 1px solid var(--line); font-size: 12px; pointer-events: auto; }
+.ld-dojo header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
+.ld-dojo header b { letter-spacing: .14em; color: #ffd36b; } .ld-dojo header span { opacity: .65; font-size: 11px; }
+.ld-dojo dl { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 10px; margin: 0; }
+.ld-dojo dl div { display: flex; flex-direction: column; } .ld-dojo dt { opacity: .6; font-size: 10px; text-transform: uppercase; letter-spacing: .06em; }
+.ld-dojo dd { margin: 0; font: 700 16px/1.2 ui-monospace, monospace; }
+.ld-dojo-actions { display: flex; gap: 6px; margin-top: 8px; } .ld-dojo-actions button { flex: 1; padding: 4px 6px; border-radius: 6px; border: 1px solid var(--line); background: var(--panel-2); color: var(--text); font-size: 11px; }
+.ld-dojo-actions button[aria-pressed="true"] { border-color: #ffd36b; color: #ffd36b; }
 .ld-minimap { position: absolute; top: 12px; right: 12px; width: 216px; height: 132px; border-radius: 8px; border: 1px solid var(--line); background: rgba(15,17,21,.6); }
 .ld-feed { position: absolute; top: 152px; right: 12px; margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 4px; align-items: flex-end; }
 .ld-feed li { padding: 3px 8px; border-radius: 6px; background: rgba(15,17,21,.78); font-size: 12px; }

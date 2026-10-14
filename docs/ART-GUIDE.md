@@ -191,9 +191,10 @@ After every batch:
 - `node tools/art3d-index.mjs`: no errors (it checks folders, ids, rig parts, gear nodes, budgets, textures).
 - `node tools/lockdown-art-index.mjs`: no errors for icons.
 - `npm test`: everything passes.
-- `npm start`, open <http://localhost:3000/lockdown.html?solo=1>, press **B** in base to try gear and weapons,
-  and take screenshots: idle in base, running, swinging, charging, on a capture point, mid-fight, from several
-  sides. Put mismatched combinations side by side. Show the screenshots.
+- `npm start`, open the **Dojo** (<http://localhost:3000/lockdown.html?solo=1&dojo=1>): press **B** anywhere
+  to put the item on, and use the dummies to see it from every side. Take screenshots: idle, running,
+  swinging, charging (hold attack), hitting a dummy, next to the gallery. For arenas use a solo match
+  (<http://localhost:3000/lockdown.html?solo=1>): in base, on a capture point, mid-fight. Put mismatched combinations side by side. Show the screenshots.
 
 Never change gameplay code to make art fit. If an item's description in the catalogue seems wrong, say so.
 

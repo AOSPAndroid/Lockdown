@@ -14,7 +14,9 @@ npm install
 npm start
 ```
 
-Open <http://localhost:3000>. **Play solo** starts a practice match against seven bots. **Create room**
+Open <http://localhost:3000>. **Play solo** starts a practice match against seven bots. **Dojo** opens a
+training hall with dummies and a damage meter, where **B** changes class, gear and weapons anywhere: the
+place to try every weapon and charge attack. **Create room**
 opens an online room (up to eight people, Amber vs Cyan); share the link or the six-letter code with
 friends on your network, who open the same address. The host picks the arena and starts the match.
 
