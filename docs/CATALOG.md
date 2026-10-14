@@ -7,13 +7,13 @@ Read [MODELS.md](MODELS.md) for how models are built (rig, units, materials, bud
 for the overall look. All model paths are under `public/art/3d/`; icons are 2D PNGs under
 `public/art/lockdown/` (drawn at 96×96, see `public/art/lockdown/ASSETS.md`).
 
-**House style:** chunky, rounded, toy-like Spiral Knights-inspired shapes; soft painted materials; clean
+**House style:** Spiral Knights-style armoured knights (never a bare face, skin or hair: every head is a helmet with a dark visor and two glowing eyes); chunky, rounded, toy-like shapes; oversized weapons; soft painted materials; clean
 silhouettes that read from a camera ~48° above; light from the top-left. Original designs only. Team
 colour is never baked in: trims meant to show the team use a material named `team`.
 
 | Category | Items | Model files |
 |---|---|---|
-| Knight body | 1 | `models/knight/body.glb` |
+| Knight body | 1 | `models/knight/body.glb` (the dark under-suit and eye-lit head; the starter look is the Recruit set, the `none` piece of each gear slot) |
 | Class pieces | 3 | `models/class/<class>.glb` |
 | Helmets | 14 | `models/helmet/<id>.glb` |
 | Armor | 16 | `models/armor/<id>.glb` |
@@ -25,7 +25,7 @@ colour is never baked in: trims meant to show the team use a material named `tea
 
 ## The knight body
 
-- **Looks:** A chunky chibi knight, 1.3 units tall: a big round head (about 40% of the height), a compact torso, short sturdy legs and mitten-like hands. Underneath every outfit: a cream T-shirt with a `team` trim at the collar and hem, charcoal shorts, dark simple shoes, a friendly face with big dark oval eyes and rosy cheeks, and a smooth bald scalp (hair is the "bare head" helmet piece, so helmets never fight with hair). Arms and legs are separate rigid parts so the game can swing them.
+- **Looks:** A Spiral Knights-style knight, 1.3 units tall, always armoured: no skin, no hair, no human face ever shows. The body is the mannequin under the gear: a dark charcoal-navy padded under-suit (seen only in the gaps at the neck, elbows, waist and knees), big round armoured mitten gauntlets, and a head that is a dark void sphere with two small glowing pale eye-lights (soft white-blue, emissive). Every helmet is a shell over that head with a visor opening, so the same two glowing eyes look out of every helmet. Proportions: the helmet is about 45% of the height and wider than the shoulders; a short barrel torso; short stubby legs; chunky feet. Arms and legs are separate rigid parts so the game can swing them.
 - **Make:** `models/knight/body.glb`, built on the rig in [docs/reference/knight_rig.glb](reference/knight_rig.glb). Budget 4000 triangles.
 
 ## Classes (3)
@@ -54,11 +54,11 @@ Class pieces attach like gear (to `head`, `chest` or `arm_L`). Budget 1500 trian
 
 Attach to `head`. Budget 2500 triangles.
 
-### Bare head `none`
+### Recruit Helm `none`
 
-- **Does:** Nothing on your head. (no stat changes)
-- **Looks:** Bare head: tousled brown hair with a cowlick, sitting on the body's bald scalp, and a thin `team` hairband.
-- **Make:** `models/helmet/none.glb` (the hair), icon `icon_helmet_none.png`
+- **Does:** The plain steel helm every knight starts in. (no stat changes)
+- **Looks:** Recruit Helm (everyone starts in it): a big round polished-steel dome helm, wider than the shoulders, with a wide dark T-shaped visor opening where the two glowing eyes show, a raised ridge from brow to nape, a `team` band round the brow and a few big rivets. The plain, friendly starter look of the game.
+- **Make:** `models/helmet/none.glb` (part of the starter Recruit set), icon `icon_helmet_none.png`
 
 ### Sallet Helm `sallet`
 
@@ -69,7 +69,7 @@ Attach to `head`. Budget 2500 triangles.
 ### Marksman Visor `visor`
 
 - **Does:** A tinted visor: guns hit 10% harder and charge 10% faster, but it leaves your head bare to blades. (-5% vs swords, +10% gun damage, -10% gun charge time)
-- **Looks:** A slim dark tactical visor wrapping the eyes with a glowing cyan lens and a small brass earpiece; the top of the head stays bare.
+- **Looks:** A slim dark tactical visor wrapping the eyes with a glowing cyan lens and a small brass earpiece; worn on a dark padded skullcap that covers the whole head.
 - **Make:** `models/helmet/visor.glb`, icon `icon_helmet_visor.png`
 
 ### Horned Helm `horned`
@@ -105,7 +105,7 @@ Attach to `head`. Budget 2500 triangles.
 ### Mender Circlet `circlet`
 
 - **Does:** All healing you receive is 25% stronger. (+25% healing received)
-- **Looks:** A thin gold circlet with a small green gem on the forehead, over the loose hair.
+- **Looks:** A thin gold circlet with a small green gem on the forehead, over a dark padded coif that covers the head; the two glowing eyes look out from the shadow under it.
 - **Make:** `models/helmet/circlet.glb`, icon `icon_helmet_circlet.png`
 
 ### Cobalt Helm `cobalt`
@@ -135,18 +135,18 @@ Attach to `head`. Budget 2500 triangles.
 ### Clockwork Goggles `goggles`
 
 - **Does:** Your class ability recharges 15% faster; the lenses throw off your aim a little (guns −5%). (-5% gun damage, -15% ability cooldown)
-- **Looks:** Brass aviator goggles with round amber lenses pushed up on a leather strap over a bare head; a tiny ticking cog at the temple.
+- **Looks:** Brass aviator goggles with round amber lenses pushed up on a padded leather aviator cap that covers the whole head; a tiny ticking cog at the temple.
 - **Make:** `models/helmet/goggles.glb`, icon `icon_helmet_goggles.png`
 
 ## Armor (16)
 
 Attach to `chest` (plus optional `arm_L`, `arm_R` for sleeves and pauldrons, `hips` for coat tails or a skirt). Budget 3000 triangles.
 
-### Unarmored `none`
+### Recruit Plate `none`
 
-- **Does:** T-shirt and shorts. Normal speed, with no damage resistance. (no stat changes)
-- **Looks:** No armour: the cream T-shirt.
-- **Make:** nothing (the body's T-shirt), icon `icon_armor_none.png`
+- **Does:** The plain steel plate every knight starts in. Normal speed, with no damage resistance. (no stat changes)
+- **Looks:** Recruit Plate (everyone starts in it): a plain polished-steel cuirass with a rounded barrel chest, two small round steel pauldrons, a `team` stripe down the middle of the chest and a dark leather belt with a brass buckle.
+- **Make:** `models/armor/none.glb` (part of the starter Recruit set), icon `icon_armor_none.png`
 
 ### Scout Armor `scout`
 
@@ -187,7 +187,7 @@ Attach to `chest` (plus optional `arm_L`, `arm_R` for sleeves and pauldrons, `hi
 ### Windrunner Wraps `windrunner`
 
 - **Does:** Flowing silk wraps for runners: much faster, with quicker, longer dashes, but swords hit 8% softer and they barely protect you. (+5% vs guns, +18% speed, -8% sword damage, -35% dash cooldown, +20% dash distance)
-- **Looks:** Flowing pale-turquoise silk wraps and sashes that trail behind like ribbons; bare arms with wrapped forearms.
+- **Looks:** Flowing pale-turquoise silk wraps and sashes that trail behind like ribbons over a dark under-suit, with wrapped steel-capped forearms.
 - **Make:** `models/armor/windrunner.glb`, icon `icon_armor_windrunner.png`
 
 ### Juggernaut Plate `juggernaut`
@@ -199,13 +199,13 @@ Attach to `chest` (plus optional `arm_L`, `arm_R` for sleeves and pauldrons, `hi
 ### Bombardier Apron `bombardier`
 
 - **Does:** A scorched leather apron full of fuses: bombs charge 35% faster and hit 20% harder, and blasts barely scratch you, but guns lose their edge. (+5% vs guns, +5% vs swords, +40% vs bombs, -10% gun damage, +20% bomb damage, -35% bomb charge time)
-- **Looks:** A scorched brown leather apron over a soot-grey shirt, a belt of fused bombs and a coil of fuse cord on the shoulder.
+- **Looks:** A scorched brown leather apron over a soot-grey padded gambeson, a belt of fused bombs and a coil of fuse cord on the shoulder.
 - **Make:** `models/armor/bombardier.glb`, icon `icon_armor_bombardier.png`
 
 ### Berserker Hide `berserker`
 
 - **Does:** Bare arms and a wolf pelt: swords hit 25% harder and swing 10% faster, but bullets bite deeper. (-15% vs guns, +5% vs swords, +5% speed, +25% sword damage, +10% swing speed)
-- **Looks:** Bare arms painted with red war stripes and a wolf pelt over the shoulders with the head on the back; a bone necklace.
+- **Looks:** Dark iron bracers and a studded leather harness painted with red war stripes, a wolf pelt over the shoulders with the head on the back; a bone necklace.
 - **Make:** `models/armor/berserker.glb`, icon `icon_armor_berserker.png`
 
 ### Mirrorweave Cloak `mirrorweave`
@@ -235,18 +235,18 @@ Attach to `chest` (plus optional `arm_L`, `arm_R` for sleeves and pauldrons, `hi
 ### Clockwork Harness `clockwork`
 
 - **Does:** A ticking brass harness: your class ability and dash recharge much faster, but your guns and swords hit 5% softer. (+5% vs guns, +5% vs swords, +5% vs bombs, -5% gun damage, -5% sword damage, -20% dash cooldown, -35% ability cooldown)
-- **Looks:** A ticking brass harness over a dark shirt: exposed gears on the chest that turn, a winding key on the back and copper pipes on the shoulders.
+- **Looks:** A ticking brass harness over a dark padded gambeson: exposed gears on the chest that turn, a winding key on the back and copper pipes on the shoulders.
 - **Make:** `models/armor/clockwork.glb`, icon `icon_armor_clockwork.png`
 
 ## Pants (12)
 
 Attach to `hips`, `leg_L`, `leg_R`. Budget 2000 triangles.
 
-### Shorts `none`
+### Recruit Greaves `none`
 
-- **Does:** Plain shorts. (no stat changes)
-- **Looks:** No pants piece: the charcoal shorts.
-- **Make:** nothing (the body's shorts), icon `icon_pants_none.png`
+- **Does:** Plain steel tassets and shin plates. (no stat changes)
+- **Looks:** Recruit Greaves (everyone starts in them): a short skirt of three steel tassets over the hips and plain rounded steel shin plates over the dark under-suit.
+- **Make:** `models/pants/none.glb` (part of the starter Recruit set), icon `icon_pants_none.png`
 
 ### Plate Greaves `greaves`
 
@@ -318,16 +318,16 @@ Attach to `hips`, `leg_L`, `leg_R`. Budget 2000 triangles.
 
 Attach to `foot_L`, `foot_R`. Budget 1500 triangles.
 
-### Plain shoes `none`
+### Recruit Boots `none`
 
-- **Does:** Simple shoes. (no stat changes)
-- **Looks:** Plain dark shoes.
-- **Make:** nothing (the body's shoes), icon `icon_shoes_none.png`
+- **Does:** Plain steel sabatons. (no stat changes)
+- **Looks:** Recruit Boots (everyone starts in them): plain rounded steel sabatons with a thick dark sole, chunky and toy-like.
+- **Make:** `models/shoes/none.glb` (part of the starter Recruit set), icon `icon_shoes_none.png`
 
 ### Sprint Sneakers `sneakers`
 
 - **Does:** 8% faster, at the cost of 5 health. (+8% speed, -5 health)
-- **Looks:** White running sneakers with a bright sole stripe.
+- **Looks:** Light padded runner boots in white canvas over steel toe caps, with a bright sole stripe.
 - **Make:** `models/shoes/sneakers.glb`, icon `icon_shoes_sneakers.png`
 
 ### Iron Sabatons `sabatons`
@@ -397,7 +397,7 @@ Attach to `foot_L`, `foot_R`. Budget 1500 triangles.
 - **Does:** Balanced three-cut combo. Charge: lunge forward and end in a burning burst.
 - **Stats:** Normal sword · 3-cut combo (14 / 19 / 27 damage) · difficulty ★ · good: Reliable three-cut combo; Charge lunges in and sets a burning burst · bad: No special strength
 - **Looks:** A classic knight's broadsword: a straight polished blade with a fuller, a gold cross-guard with round ends and a red gem in the pommel. The reliable starter.
-- **Size:** ≈ 1.0 from grip to tip, blade ≈ 0.14 wide
+- **Size:** ≈ 1.05 from grip to tip (most of the knight's height), blade ≈ 0.2 wide, a chunky guard ≈ 0.35 across
 - **Make:** `models/weapons/brand.glb`, icon `icon_weapon_brand.png`
 
 ### Troll Cleaver `cleaver`
@@ -421,7 +421,7 @@ Attach to `foot_L`, `foot_R`. Budget 1500 triangles.
 - **Does:** Balanced combo. Charge: spray a short, wide shower of poison thorns.
 - **Stats:** Thorn sword · 3-cut combo (13 / 18 / 25 damage) · difficulty ★ · good: Steady combo; Charge sprays poison thorns · bad: Thorns are short range
 - **Looks:** A sword grown from a briar: a green-wood blade wrapped in thorny vines with little purple poison buds, a root-knot guard.
-- **Size:** ≈ 1.0 from grip to tip, blade ≈ 0.14 wide
+- **Size:** ≈ 1.05 from grip to tip (most of the knight's height), blade ≈ 0.2 wide, a chunky guard ≈ 0.35 across
 - **Make:** `models/weapons/thorn.glb`, icon `icon_weapon_thorn.png`
 
 ### Umbral Greatblade `greatblade`
@@ -445,7 +445,7 @@ Attach to `foot_L`, `foot_R`. Budget 1500 triangles.
 - **Does:** Every cut chills: three chills freeze a knight solid. Charge: lunge into a freezing burst.
 - **Stats:** Frost sword · element: chill · 3-cut combo (12 / 15 / 21 damage) · difficulty ★★ · good: Every cut chills; the third freezes; Charge ends in a freezing burst · bad: Slightly weaker cuts; Freeze breaks on the next hit
 - **Looks:** A blade of blue ice with frost crystals on the edge, a silver guard rimed with frost and a pale blue glowing core.
-- **Size:** ≈ 1.0 from grip to tip, blade ≈ 0.14 wide
+- **Size:** ≈ 1.05 from grip to tip (most of the knight's height), blade ≈ 0.2 wide, a chunky guard ≈ 0.35 across
 - **Make:** `models/weapons/frostbite.glb`, icon `icon_weapon_frostbite.png`
 
 ### Blazebrand `blazebrand`
@@ -453,7 +453,7 @@ Attach to `foot_L`, `foot_R`. Budget 1500 triangles.
 - **Does:** Cuts may set knights on fire (30%). Charge: a rolling wall of flame that always burns.
 - **Stats:** Fire sword · element: burn · 3-cut combo (13 / 17 / 24 damage) · difficulty ★ · good: Cuts may set knights on fire; Charge: a wall of fire · bad: Burn is random on normal cuts
 - **Looks:** A sword of living flame: a red-hot orange blade with flickering fire along the edge, a blackened iron guard.
-- **Size:** ≈ 1.0 from grip to tip, blade ≈ 0.14 wide
+- **Size:** ≈ 1.05 from grip to tip (most of the knight's height), blade ≈ 0.2 wide, a chunky guard ≈ 0.35 across
 - **Make:** `models/weapons/blazebrand.glb`, icon `icon_weapon_blazebrand.png`
 
 ### Volt Fang `voltedge`
@@ -469,7 +469,7 @@ Attach to `foot_L`, `foot_R`. Budget 1500 triangles.
 - **Does:** Heals you for 30% of the damage it deals. Charge: a long draining lunge.
 - **Stats:** Vampire sword · element: drain · 3-cut combo (12 / 15 / 21 damage) · difficulty ★★ · good: Heals you for 30% of its damage; Charge: a long draining lunge · bad: Lower damage than a plain sword
 - **Looks:** A blood-red curved sickle-sword with a hooked tip, a bone handle and a dark red gem that pulses softly.
-- **Size:** ≈ 1.0 from grip to tip, blade ≈ 0.14 wide
+- **Size:** ≈ 1.05 from grip to tip (most of the knight's height), blade ≈ 0.2 wide, a chunky guard ≈ 0.35 across
 - **Make:** `models/weapons/sickle.glb`, icon `icon_weapon_sickle.png`
 
 ### Hexblade `hexblade`
@@ -493,7 +493,7 @@ Attach to `foot_L`, `foot_R`. Budget 1500 triangles.
 - **Does:** A blessed sword. Charge: a beam of light that pierces every knight down the lane.
 - **Stats:** Holy sword · element: holy · 3-cut combo (14 / 18 / 26 damage) · difficulty ★★ · good: Steady three-cut combo; Charge: a piercing beam of light down a whole lane · bad: Beam recovery leaves you open
 - **Looks:** A holy sword: a white-gold blade with a sun-shaped guard, two small feathered wings at the hilt and a soft golden glow along the edge.
-- **Size:** ≈ 1.0 from grip to tip, blade ≈ 0.14 wide
+- **Size:** ≈ 1.05 from grip to tip (most of the knight's height), blade ≈ 0.2 wide, a chunky guard ≈ 0.35 across
 - **Make:** `models/weapons/avenger.glb`, icon `icon_weapon_avenger.png`
 
 ### Tidebreaker `leviathan`
@@ -519,7 +519,7 @@ Attach to `foot_L`, `foot_R`. Budget 1500 triangles.
 - **Does:** Reliable three-shot gun. Charge: a big bolt that pierces every knight in its path.
 - **Stats:** Blaster · 3-round clip, 9 damage · difficulty ★ · good: Reliable three-shot clip; Charge: a bolt that pierces everyone in line · bad: No special strength
 - **Looks:** A chunky brass pistol with a stubby barrel, a blue energy cell on top and a rounded grip; the friendly standard sidearm.
-- **Size:** ≈ 0.5 from grip to muzzle
+- **Size:** ≈ 0.5 from grip to muzzle, a fat body ≈ 0.25 tall
 - **Make:** `models/weapons/blaster.glb`, icon `icon_weapon_blaster.png`
 
 ### Ripple Caster `pulsar`
@@ -527,7 +527,7 @@ Attach to `foot_L`, `foot_R`. Budget 1500 triangles.
 - **Does:** Slow waves that widen as they travel and pass through knights. Charge: one huge wave.
 - **Stats:** Pulsar · 3-round clip, 11 damage · difficulty ★ · good: Wide waves are easy to land and pass through knights · bad: Low damage; Slow and short ranged
 - **Looks:** A wide-mouthed pulsar with a ringed barrel that flares like a trumpet and a glowing blue coil in the middle.
-- **Size:** ≈ 0.5 from grip to muzzle
+- **Size:** ≈ 0.5 from grip to muzzle, a fat body ≈ 0.25 tall
 - **Make:** `models/weapons/pulsar.glb`, icon `icon_weapon_pulsar.png`
 
 ### Ricochet Coil `alchemer`
@@ -535,7 +535,7 @@ Attach to `foot_L`, `foot_R`. Budget 1500 triangles.
 - **Does:** Bolts that bounce off walls. Charge: four shocking bolts that bounce twice.
 - **Stats:** Ricochet · 3-round clip, 9 damage · difficulty ★★★ · good: Bolts bounce off walls: hit around corners; Charge: four shocking bolts · bad: Bank shots take practice
 - **Looks:** A ricochet coil gun: copper coils wound round the barrel, a glass bulb of green liquid on top and a bent spout muzzle.
-- **Size:** ≈ 0.5 from grip to muzzle
+- **Size:** ≈ 0.5 from grip to muzzle, a fat body ≈ 0.25 tall
 - **Make:** `models/weapons/alchemer.glb`, icon `icon_weapon_alchemer.png`
 
 ### Rattle Autogun `autogun`
@@ -543,7 +543,7 @@ Attach to `foot_L`, `foot_R`. Budget 1500 triangles.
 - **Does:** Six fast, light rounds. Charge: a focused ten-round stream.
 - **Stats:** Autogun · 6-round clip, 4 damage · difficulty ★ · good: Six fast rounds, easy to keep on target · bad: Wide spread, light hits
 - **Looks:** A rattling autogun with a short drum magazine, a perforated barrel shroud and a crank on the side.
-- **Size:** ≈ 0.5 from grip to muzzle
+- **Size:** ≈ 0.5 from grip to muzzle, a fat body ≈ 0.25 tall
 - **Make:** `models/weapons/autogun.glb`, icon `icon_weapon_autogun.png`
 
 ### Tether Catalyst `catalyzer`
@@ -551,7 +551,7 @@ Attach to `foot_L`, `foot_R`. Budget 1500 triangles.
 - **Does:** Shots stick up to three charges on a knight. Charge: a detonator that blows them all at once.
 - **Stats:** Catalyzer · 3-round clip, 8 damage · difficulty ★★★ · good: Stack charges, then detonate them for a huge hit · bad: Weak until you detonate; Needs a follow-up shot
 - **Looks:** A tether catalyst: a stubby launcher with a red glass chamber of fizzing charges and a three-pronged claw muzzle.
-- **Size:** ≈ 0.5 from grip to muzzle
+- **Size:** ≈ 0.5 from grip to muzzle, a fat body ≈ 0.25 tall
 - **Make:** `models/weapons/catalyzer.glb`, icon `icon_weapon_catalyzer.png`
 
 ### Thunder Hand-cannon `magnus`
@@ -559,7 +559,7 @@ Attach to `foot_L`, `foot_R`. Budget 1500 triangles.
 - **Does:** Two heavy rounds with big knockback. Charge: a round that explodes on impact.
 - **Stats:** Hand-cannon · 2-round clip, 16 damage · difficulty ★★ · good: Heavy rounds with big knockback; Up to +40% damage at long range; Charge: explosive round · bad: Two-round clip, slow reload
 - **Looks:** A thunder hand-cannon: a huge revolver with a thick barrel, a big cylinder and a gold lightning emblem; heavy and loud.
-- **Size:** big: ≈ 0.65 from grip to muzzle
+- **Size:** big: ≈ 0.65 from grip to muzzle, body ≈ 0.3 tall
 - **Make:** `models/weapons/magnus.glb`, icon `icon_weapon_magnus.png`
 
 ### Longshot Rifle `rifle`
@@ -575,7 +575,7 @@ Attach to `foot_L`, `foot_R`. Budget 1500 triangles.
 - **Does:** Every round chills; three chills freeze. Charge: a piercing bolt that freezes on the spot.
 - **Stats:** Frost blaster · element: chill · 3-round clip, 7 damage · difficulty ★ · good: Every round chills; three freeze; Charge freezes on the spot · bad: Lower damage per round
 - **Looks:** A winter repeater: a white-and-blue pistol with an ice crystal chamber, frost on the barrel and a snowflake emblem.
-- **Size:** ≈ 0.5 from grip to muzzle
+- **Size:** ≈ 0.5 from grip to muzzle, a fat body ≈ 0.25 tall
 - **Make:** `models/weapons/frostgun.glb`, icon `icon_weapon_frostgun.png`
 
 ### Ember Caster `embercaster`
@@ -583,7 +583,7 @@ Attach to `foot_L`, `foot_R`. Budget 1500 triangles.
 - **Does:** Fire waves that may ignite (25%) every knight they pass. Charge: a huge wave that sets all of them alight.
 - **Stats:** Fire pulsar · element: burn · 3-round clip, 8 damage · difficulty ★ · good: Fire waves are easy to land; Charge always burns everyone it passes · bad: Short range, low damage
 - **Looks:** A fire pulsar: a black iron flared barrel with glowing orange vents and a small furnace chamber.
-- **Size:** ≈ 0.5 from grip to muzzle
+- **Size:** ≈ 0.5 from grip to muzzle, a fat body ≈ 0.25 tall
 - **Make:** `models/weapons/embercaster.glb`, icon `icon_weapon_embercaster.png`
 
 ### Volt Needle `voltneedle`
@@ -591,7 +591,7 @@ Attach to `foot_L`, `foot_R`. Budget 1500 triangles.
 - **Does:** Six fast needles that may shock (8%) and arc to a nearby enemy. Charge: a shocking ten-needle stream.
 - **Stats:** Shock autogun · element: shock · 6-round clip, 4 damage · difficulty ★ · good: Fast shocking needles that arc between enemies · bad: Very light hits
 - **Looks:** A shock autogun: a slim gun with a row of glowing cyan needles in the magazine and lightning coils along the barrel.
-- **Size:** ≈ 0.5 from grip to muzzle
+- **Size:** ≈ 0.5 from grip to muzzle, a fat body ≈ 0.25 tall
 - **Make:** `models/weapons/voltneedle.glb`, icon `icon_weapon_voltneedle.png`
 
 ### Viper Spitter `viper`
@@ -599,7 +599,7 @@ Attach to `foot_L`, `foot_R`. Budget 1500 triangles.
 - **Does:** Rounds that may poison (40%): poisoned knights hit softer and cannot heal. Charge: a fan of five venom bolts.
 - **Stats:** Toxic blaster · element: poison · 3-round clip, 10 damage · difficulty ★★ · good: Poison stops healing and weakens hits; Charge: a fan of venom bolts · bad: Poison is random on normal shots
 - **Looks:** A toxic blaster shaped like a snake head: green scales, two fang prongs at the muzzle and a glowing green venom vial.
-- **Size:** ≈ 0.5 from grip to muzzle
+- **Size:** ≈ 0.5 from grip to muzzle, a fat body ≈ 0.25 tall
 - **Make:** `models/weapons/viper.glb`, icon `icon_weapon_viper.png`
 
 ### Grim Hand-cannon `grimcannon`
@@ -607,7 +607,7 @@ Attach to `foot_L`, `foot_R`. Budget 1500 triangles.
 - **Does:** Heavy rounds that may curse (30%). Charge: a blast that curses everyone it catches.
 - **Stats:** Curse hand-cannon · element: curse · 2-round clip, 14 damage · difficulty ★★ · good: Heavy rounds that may curse; Up to +40% damage at long range; Charge: a cursing explosion · bad: Two-round clip, slow reload
 - **Looks:** A cursed hand-cannon: a dark iron barrel shaped like a gaping skull, violet runes and purple smoke curling from the muzzle.
-- **Size:** big: ≈ 0.65 from grip to muzzle
+- **Size:** big: ≈ 0.65 from grip to muzzle, body ≈ 0.3 tall
 - **Make:** `models/weapons/grimcannon.glb`, icon `icon_weapon_grimcannon.png`
 
 ### Iron Scattergun `scatter`
@@ -615,7 +615,7 @@ Attach to `foot_L`, `foot_R`. Budget 1500 triangles.
 - **Does:** Six pellets in a wide fan: brutal up close, useless far away. Charge: a single heavy slug that knocks knights flying.
 - **Stats:** Shotgun · 2-round clip, 6 pellets × 6 damage · difficulty ★★ · good: Six pellets: huge damage point blank; Charge: a slug that knocks knights flying · bad: Almost no damage at range; Two-shell clip
 - **Looks:** An iron scattergun: a short, very wide double barrel, a pump grip and a riveted iron body; built for close quarters.
-- **Size:** big: ≈ 0.65 from grip to muzzle
+- **Size:** big: ≈ 0.65 from grip to muzzle, body ≈ 0.3 tall
 - **Make:** `models/weapons/scatter.glb`, icon `icon_weapon_scatter.png`
 
 ### Northstar `polaris`
@@ -623,7 +623,7 @@ Attach to `foot_L`, `foot_R`. Budget 1500 triangles.
 - **Does:** Widening waves that pass through knights and bounce once off walls. Charge: a huge wave that bounces twice.
 - **Stats:** Pulsar · 3-round clip, 11 damage · difficulty ★★ · good: Waves pierce knights and bounce off walls · bad: Low damage per wave; Bank shots take practice
 - **Looks:** A star pulsar: a ringed barrel ending in a star-shaped emitter with a pale yellow glowing core and blue fins.
-- **Size:** ≈ 0.5 from grip to muzzle
+- **Size:** ≈ 0.5 from grip to muzzle, a fat body ≈ 0.25 tall
 - **Make:** `models/weapons/polaris.glb`, icon `icon_weapon_polaris.png`
 
 ### Rift Repeater `riftlocker`
@@ -631,7 +631,7 @@ Attach to `foot_L`, `foot_R`. Budget 1500 triangles.
 - **Does:** Slow violet bolts that pierce every knight in line. Charge: a stream of six piercing bolts.
 - **Stats:** Rift gun · 3-round clip, 8 damage · difficulty ★★ · good: Bolts pierce every knight in line; Charge: six piercing bolts · bad: Slow bolts are easy to dodge
 - **Looks:** A rift repeater: an angular black-and-violet gun with a floating purple crystal in an open frame where the barrel should be.
-- **Size:** ≈ 0.5 from grip to muzzle
+- **Size:** ≈ 0.5 from grip to muzzle, a fat body ≈ 0.25 tall
 - **Make:** `models/weapons/riftlocker.glb`, icon `icon_weapon_riftlocker.png`
 
 ## Bombs (10)

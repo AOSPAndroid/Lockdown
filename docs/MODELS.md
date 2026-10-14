@@ -10,12 +10,12 @@ All models are binary glTF (`.glb`) under `public/art/3d/models/`:
 
 | Folder | Files | What |
 |---|---|---|
-| `knight/` | `body.glb` | the knight body every class wears: the rig and the base outfit (T-shirt, shorts, shoes, face, bald scalp) |
+| `knight/` | `body.glb` | the knight body every class wears: the rig, the dark under-suit, the gauntlets and the dark head with two glowing eyes (no skin, hair or face) |
 | `class/` | `striker.glb`, `guardian.glb`, `recon.glb` | class pieces (crest, Guardian shield, scarf) |
-| `helmet/` | `<id>.glb` | one per helmet, including `none.glb` (the hair) |
-| `armor/` | `<id>.glb` | one per armour (not `none`) |
-| `pants/` | `<id>.glb` | one per pants piece (not `none`) |
-| `shoes/` | `<id>.glb` | one per pair of shoes (not `none`) |
+| `helmet/` | `<id>.glb` | one per helmet, including `none.glb` (the Recruit Helm) |
+| `armor/` | `<id>.glb` | one per armour, including `none.glb` (the Recruit Plate) |
+| `pants/` | `<id>.glb` | one per pants piece, including `none.glb` (the Recruit Greaves) |
+| `shoes/` | `<id>.glb` | one per pair of shoes, including `none.glb` (the Recruit Boots) |
 | `weapons/` | `<id>.glb` | every sword, gun and bomb as held in the hand |
 | `bombs/` | `<id>.glb` | every bomb as planted on the floor |
 
@@ -56,7 +56,7 @@ Positions are each part's pivot relative to its parent. Keep each part's own mes
 hangs below `leg_L`, the head sits above `head`). Names must match exactly (Blender's `.001` suffixes are
 ignored).
 
-## Gear, class pieces and hair
+## Gear and class pieces
 
 A gear file holds one top-level node per rig part it covers, **named after that part**. The game moves each
 node onto that part of the knight, keeping its local offset, so model each piece in the rig's space, around
@@ -64,14 +64,15 @@ the part's pivot, sized to fit over the body.
 
 | Slot | Top-level nodes |
 |---|---|
-| helmet (and hair `none`) | `head` |
+| helmet | `head` |
 | armor | `chest`; optional `arm_L`, `arm_R` (sleeves, pauldrons), `hips` (coat tails, skirt plates) |
 | pants | `hips`, `leg_L`, `leg_R` |
 | shoes | `foot_L`, `foot_R` |
 | class pieces | `head` (crest), `chest` (scarf, chevrons), `arm_L` (the Guardian shield) |
 
-Gear goes over the body's base outfit: a helmet covers the bald scalp, armour covers the T-shirt, pants
-the shorts, shoes the base shoes. Make pieces slightly larger than what they cover so nothing pokes through
+Gear goes over the body's dark under-suit. A knight always wears one piece per slot (the Recruit set to
+start), so the under-suit only shows in the gaps. Every helmet is a shell over the body's dark head with a
+visor opening that lets its two glowing eyes show. Make pieces slightly larger than what they cover so nothing pokes through
 in any pose (legs swing ±40°, arms ±35°, the right arm turns up to ±80° across a swing).
 
 ## Weapons and bombs

@@ -68,16 +68,32 @@ planet. Its art works because of a handful of rules. Follow them exactly.
 
 ## 2. Knights
 
-Every knight is the same **chunky chibi body** (1.3 units tall) wearing four gear pieces (helmet, armour,
-pants, shoes) and a class piece, holding one weapon.
+Every knight is a **Spiral Knights-style armoured knight** (1.3 units tall): the same body under four gear
+pieces (helmet, armour, pants, shoes) and a class piece, holding one weapon. **A knight is always in armour.**
+Everyone starts in the plain steel **Recruit set** (the `none` piece of each gear slot), never in clothes.
 
-- **Proportions:** the head is about 40–45% of the height and about 0.6 wide. The torso is short and round. The
-  legs are short and sturdy. Hands are mittens, big enough to read. Feet are chunky.
-- **Face:** the bare-headed body has a simple friendly face: two big dark oval eyes, small rosy cheeks, no
-  mouth detail needed. Closed helmets hide the face behind a **dark visor opening** in which two small light
-  eye-glints can show, the classic Spiral Knights look.
-- **Base outfit:** a cream T-shirt with a `team` trim, charcoal shorts, dark shoes and a bald scalp (the hair
-  is its own piece: the "bare head" helmet).
+- **No person ever shows.** No skin, no hair, no human face, no T-shirt or shorts. The body is a dark
+  charcoal-navy padded under-suit, seen only in the gaps at the neck, elbows, waist and knees.
+- **The helmet is the head.** The body's head is a dark void sphere with **two small glowing eye-lights**
+  (pale white-blue, emissive). Every helmet is a shell over it with a **dark visor opening** (a T-slot, a wide
+  slit, a grille, a hood's shadow) through which those two glowing eyes look out. This is the single most
+  recognisable thing about a Spiral Knights knight: get it right first.
+- **Proportions:** the helmet is about **45% of the height** and **wider than the shoulders** (≈ 0.65 across).
+  A short barrel torso, short stubby legs, big round armoured mitten gauntlets, chunky rounded sabatons, big
+  rounded pauldrons. The knight reads as "a big helmet on a small armoured body".
+- **Polished, painted metal.** Recruit steel is a clean cool blue-grey with bright painted highlights on every
+  rounded edge (metalness high, roughness low-to-medium), big round rivets, raised ridges and rims. Not matte
+  clay, not plastic, not cloth. Cloth and fur gear (Wolver, Seraph, Gunslinger) still sits over the dark
+  under-suit and keeps metal trims, buckles and caps.
+- **The Recruit set** is the friendly starter look and the style reference for everything else: a big round
+  polished-steel dome helm with a wide dark T-visor and a ridge from brow to nape; a plain steel cuirass with
+  a barrel chest, small round pauldrons and a `team` stripe; a skirt of three steel tassets with plain shin
+  plates; plain rounded steel sabatons.
+
+**Not this** (what the first attempt got wrong, because an older brief asked for it): a chibi kid with brown
+hair, a skin face with eyes and rosy cheeks, a cream T-shirt and shorts, bare hands, matte toy plastic, small
+weapons. If anything you make looks like a person in clothes, it is wrong.
+
 - **Gear reads from above.** The camera looks down at about 48°, so the top of the helmet, the shoulders and the
   weapon are what people see most. Put the most character there: crests, horns, plumes, shoulder plates.
 - **Sets.** Pieces with the same name share motifs, colours and materials and must look great together:
@@ -93,7 +109,7 @@ pants, shoes) and a class piece, holding one weapon.
 
 Spiral Knights weapons are the stars of every screenshot: oversized, chunky, colourful and glowing.
 
-- **Swords:** blade length close to the knight's height for normal swords (≈ 1.0 from grip to tip), longer and
+- **Swords:** blade length close to the knight's height for normal swords (≈ 1.05 from grip to tip, blade ≈ 0.2 wide), longer and
   much wider for heavies (≈ 1.3, blades 0.25 wide), long and slim for the rapier and the Tidebreaker, short and
   hooked for the four-cut swords. Big readable cross-guards, a pommel gem, a fuller or an engraved line on the
   blade. Elemental swords make the element the blade itself (ice, flame, lightning, poison vines, runes).
@@ -178,9 +194,12 @@ textures; anything that pokes through other gear when the knight moves; stretchi
 
 ## 8. How to work
 
-1. **Style lock (stop for approval).** Make the knight body, the bare-head hair, the three class pieces, one
-   full set (Cobalt helm, mail, cuisses, plus a pair of shoes), the Knight Brand, the Pulse Blaster and the Cannonball
-   Bomb (in hand and planted). Run the checks, play the game and show screenshots. Change direction if asked;
+1. **Style lock (stop for approval).** Make the knight body (dark under-suit, eye-lit head), the whole
+   Recruit set (`helmet/none`, `armor/none`, `pants/none`, `shoes/none`), the three class pieces, the Cobalt set
+   (helm, mail, cuisses), the Knight Brand, the Pulse Blaster and the Cannonball Bomb (in hand and planted).
+   Before showing anything, compare it with Spiral Knights screenshots (in `docs/reference/spiral-knights/` if
+   present) and with section 2: helmet as the head, two glowing eyes in a dark visor, no skin or hair, polished
+   painted metal, oversized weapons. Run the checks, play the game and show screenshots. Change direction if asked;
    do not polish a rejected direction.
 2. **Gear:** all 14 helmets, 16 armours, 12 pants and 12 shoes.
 3. **Weapons:** all 15 swords, 15 guns and 10 bombs, plus the 10 planted bombs.
@@ -206,10 +225,10 @@ Never change gameplay code to make art fit. If an item's description in the cata
 |---|---|---|
 | Knight body | 1 | `models/knight/body.glb` |
 | Class pieces | 3 | `models/class/{striker,guardian,recon}.glb` |
-| Helmets (incl. hair) | 14 | `models/helmet/<id>.glb` |
-| Armour | 15 | `models/armor/<id>.glb` (not `none`) |
-| Pants | 11 | `models/pants/<id>.glb` (not `none`) |
-| Shoes | 11 | `models/shoes/<id>.glb` (not `none`) |
+| Helmets (incl. Recruit Helm `none`) | 14 | `models/helmet/<id>.glb` |
+| Armour (incl. Recruit Plate `none`) | 16 | `models/armor/<id>.glb` |
+| Pants (incl. Recruit Greaves `none`) | 12 | `models/pants/<id>.glb` |
+| Shoes (incl. Recruit Boots `none`) | 12 | `models/shoes/<id>.glb` |
 | Swords | 15 | `models/weapons/<id>.glb` |
 | Guns | 15 | `models/weapons/<id>.glb` |
 | Bombs | 10 + 10 | `models/weapons/<id>.glb` and `models/bombs/<id>.glb` |

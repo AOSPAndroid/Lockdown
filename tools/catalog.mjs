@@ -29,21 +29,19 @@ const ICON = { helmet: 'icon_helmet_', armor: 'icon_armor_', pants: 'icon_pants_
 function gearSection(slot, table, title) {
   const rows = Object.values(table).map(piece => {
     const look = GEAR_LOOKS[slot][piece.id];
-    const files = piece.id === 'none'
-      ? (slot === 'helmet' ? `\`models/helmet/none.glb\` (the hair), icon \`${ICON[slot]}none.png\`` : `nothing (the body's ${slot === 'armor' ? 'T-shirt' : slot === 'pants' ? 'shorts' : 'shoes'}), icon \`${ICON[slot]}none.png\``)
-      : `\`models/${slot}/${piece.id}.glb\`, icon \`${ICON[slot]}${piece.id}.png\``;
+    const files = `\`models/${slot}/${piece.id}.glb\`${piece.id === 'none' ? ' (part of the starter Recruit set)' : ''}, icon \`${ICON[slot]}${piece.id}.png\``;
     return `### ${piece.name} \`${piece.id}\`\n\n- **Does:** ${piece.description} (${stats(piece)})\n- **Looks:** ${look}\n- **Make:** ${files}\n`;
   });
   return `## ${title} (${Object.keys(table).length})\n\nAttach to ${SLOT_PARTS[slot]}. Budget ${BUDGET[slot]} triangles.\n\n${rows.join('\n')}`;
 }
 function size(weapon) {
   if (weapon.family === 'bomb') return weapon.id === 'nitro' ? 'held ≈ 0.45 across; planted ≈ 0.6 tall' : 'held ≈ 0.28 across; planted ≈ 0.4 tall';
-  if (weapon.family === 'gun') return weapon.id === 'rifle' ? 'long: ≈ 1.0 from grip to muzzle' : ['magnus', 'grimcannon', 'scatter'].includes(weapon.id) ? 'big: ≈ 0.65 from grip to muzzle' : '≈ 0.5 from grip to muzzle';
+  if (weapon.family === 'gun') return weapon.id === 'rifle' ? 'long: ≈ 1.0 from grip to muzzle' : ['magnus', 'grimcannon', 'scatter'].includes(weapon.id) ? 'big: ≈ 0.65 from grip to muzzle, body ≈ 0.3 tall' : '≈ 0.5 from grip to muzzle, a fat body ≈ 0.25 tall';
   if (weapon.id === 'maul') return 'haft ≈ 1.0, head ≈ 0.4 × 0.4 × 0.5';
   if (weapon.heavy) return 'heavy: ≈ 1.3 from grip to tip, blade ≈ 0.25 wide';
   if (['rapier', 'leviathan'].includes(weapon.id)) return 'long: ≈ 1.2 from grip to tip, slim';
   if (['spur', 'voltedge'].includes(weapon.id)) return 'short: ≈ 0.8 from grip to tip';
-  return '≈ 1.0 from grip to tip, blade ≈ 0.14 wide';
+  return '≈ 1.05 from grip to tip (most of the knight\'s height), blade ≈ 0.2 wide, a chunky guard ≈ 0.35 across';
 }
 function weaponStats(weapon) {
   const notes = WEAPON_NOTES[weapon.id];
@@ -75,13 +73,13 @@ Read [MODELS.md](MODELS.md) for how models are built (rig, units, materials, bud
 for the overall look. All model paths are under \`public/art/3d/\`; icons are 2D PNGs under
 \`public/art/lockdown/\` (drawn at 96×96, see \`public/art/lockdown/ASSETS.md\`).
 
-**House style:** chunky, rounded, toy-like Spiral Knights-inspired shapes; soft painted materials; clean
+**House style:** Spiral Knights-style armoured knights (never a bare face, skin or hair: every head is a helmet with a dark visor and two glowing eyes); chunky, rounded, toy-like shapes; oversized weapons; soft painted materials; clean
 silhouettes that read from a camera ~48° above; light from the top-left. Original designs only. Team
 colour is never baked in: trims meant to show the team use a material named \`team\`.
 
 | Category | Items | Model files |
 |---|---|---|
-| Knight body | 1 | \`models/knight/body.glb\` |
+| Knight body | 1 | \`models/knight/body.glb\` (the dark under-suit and eye-lit head; the starter look is the Recruit set, the \`none\` piece of each gear slot) |
 | Class pieces | 3 | \`models/class/<class>.glb\` |
 | Helmets | ${counts.helmets} | \`models/helmet/<id>.glb\` |
 | Armor | ${counts.armor} | \`models/armor/<id>.glb\` |
