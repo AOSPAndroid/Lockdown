@@ -293,13 +293,13 @@ Knight sheets: 10 columns of 64×64 frames (at 1x): columns 1–2 idle, 3–6 wa
 | `icon_weapon_spur.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Gyre Spur. Clear silhouette on a transparent background. |
 | `icon_weapon_frostbite.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Frostbite Edge. Clear silhouette on a transparent background. |
 | `icon_weapon_blazebrand.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Blazebrand. Clear silhouette on a transparent background. |
-| `icon_weapon_voltedge.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Voltedge. Clear silhouette on a transparent background. |
+| `icon_weapon_voltedge.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Volt Fang. Clear silhouette on a transparent background. |
 | `icon_weapon_sickle.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Sanguine Sickle. Clear silhouette on a transparent background. |
 | `icon_weapon_hexblade.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Hexblade. Clear silhouette on a transparent background. |
 | `icon_weapon_maul.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Earthbreaker Maul. Clear silhouette on a transparent background. |
-| `icon_weapon_avenger.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Radiant Avenger. Clear silhouette on a transparent background. |
-| `icon_weapon_leviathan.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Leviathan Edge. Clear silhouette on a transparent background. |
-| `icon_weapon_troika.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Iron Troika. Clear silhouette on a transparent background. |
+| `icon_weapon_avenger.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Dawnbringer. Clear silhouette on a transparent background. |
+| `icon_weapon_leviathan.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Tidebreaker. Clear silhouette on a transparent background. |
+| `icon_weapon_troika.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Tri-Fang Blade. Clear silhouette on a transparent background. |
 | `icon_weapon_blaster.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Pulse Blaster. Clear silhouette on a transparent background. |
 | `icon_weapon_pulsar.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Ripple Caster. Clear silhouette on a transparent background. |
 | `icon_weapon_alchemer.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Ricochet Coil. Clear silhouette on a transparent background. |
@@ -313,18 +313,18 @@ Knight sheets: 10 columns of 64×64 frames (at 1x): columns 1–2 idle, 3–6 wa
 | `icon_weapon_viper.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Viper Spitter. Clear silhouette on a transparent background. |
 | `icon_weapon_grimcannon.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Grim Hand-cannon. Clear silhouette on a transparent background. |
 | `icon_weapon_scatter.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Iron Scattergun. Clear silhouette on a transparent background. |
-| `icon_weapon_polaris.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Polaris. Clear silhouette on a transparent background. |
+| `icon_weapon_polaris.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Northstar. Clear silhouette on a transparent background. |
 | `icon_weapon_riftlocker.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Rift Repeater. Clear silhouette on a transparent background. |
-| `icon_weapon_blast.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Blast Bomb. Clear silhouette on a transparent background. |
+| `icon_weapon_blast.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Cannonball Bomb. Clear silhouette on a transparent background. |
 | `icon_weapon_haze.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Ember Haze. Clear silhouette on a transparent background. |
 | `icon_weapon_frost.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Frost Haze. Clear silhouette on a transparent background. |
 | `icon_weapon_venom.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Venom Veil. Clear silhouette on a transparent background. |
 | `icon_weapon_storm.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Storm Haze. Clear silhouette on a transparent background. |
 | `icon_weapon_hex.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Hex Haze. Clear silhouette on a transparent background. |
-| `icon_weapon_shard.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Splinter Bomb. Clear silhouette on a transparent background. |
+| `icon_weapon_shard.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Shard Burst. Clear silhouette on a transparent background. |
 | `icon_weapon_vortex.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Vortex Bomb. Clear silhouette on a transparent background. |
 | `icon_weapon_nitro.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Nitro Colossus. Clear silhouette on a transparent background. |
-| `icon_weapon_spark.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Static Flash. Clear silhouette on a transparent background. |
+| `icon_weapon_spark.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Storm Flash. Clear silhouette on a transparent background. |
 | `icon_armor_none.png` | 48×48 | 1 | 24, 24 | Unarmored equipment icon. Neutral clothing or armor silhouette on a transparent background. |
 | `icon_armor_scout.png` | 48×48 | 1 | 24, 24 | Scout Armor equipment icon. Neutral clothing or armor silhouette on a transparent background. |
 | `icon_armor_ballistic.png` | 48×48 | 1 | 24, 24 | Ballistic Armor equipment icon. Neutral clothing or armor silhouette on a transparent background. |
@@ -363,13 +363,13 @@ Knight sheets: 10 columns of 64×64 frames (at 1x): columns 1–2 idle, 3–6 wa
 | `weapon_spur.png` | 64×32 | 1 | 12, 16 | Gyre Spur (blade) held in the hand, pointing right; the grip sits at the anchor. A short spinning sword: a curved blade with three small hooked spurs along the back and a round gear-like guard. |
 | `weapon_frostbite.png` | 64×32 | 1 | 12, 16 | Frostbite Edge (blade) held in the hand, pointing right; the grip sits at the anchor. A blade of blue ice with frost crystals on the edge, a silver guard rimed with frost and a pale blue glowing core. |
 | `weapon_blazebrand.png` | 64×32 | 1 | 12, 16 | Blazebrand (blade) held in the hand, pointing right; the grip sits at the anchor. A sword of living flame: a red-hot orange blade with flickering fire along the edge, a blackened iron guard. |
-| `weapon_voltedge.png` | 64×32 | 1 | 12, 16 | Voltedge (blade) held in the hand, pointing right; the grip sits at the anchor. A crackling sword: a short silver blade with a zigzag edge and a glowing cyan lightning core, copper coils on the guard. |
+| `weapon_voltedge.png` | 64×32 | 1 | 12, 16 | Volt Fang (blade) held in the hand, pointing right; the grip sits at the anchor. A crackling sword: a short silver blade with a zigzag edge and a glowing cyan lightning core, copper coils on the guard. |
 | `weapon_sickle.png` | 64×32 | 1 | 12, 16 | Sanguine Sickle (blade) held in the hand, pointing right; the grip sits at the anchor. A blood-red curved sickle-sword with a hooked tip, a bone handle and a dark red gem that pulses softly. |
 | `weapon_hexblade.png` | 64×32 | 1 | 12, 16 | Hexblade (blade) held in the hand, pointing right; the grip sits at the anchor. A heavy cursed blade of dark violet steel etched with glowing purple runes, a skull on the guard and a chain on the pommel. |
 | `weapon_maul.png` | 64×32 | 1 | 12, 16 | Earthbreaker Maul (blade) held in the hand, pointing right; the grip sits at the anchor. An enormous earthbreaker sledgehammer: a stone-and-iron block head bound with bronze bands, cracks of earth on the faces, a long thick haft. |
-| `weapon_avenger.png` | 64×32 | 1 | 12, 16 | Radiant Avenger (blade) held in the hand, pointing right; the grip sits at the anchor. A holy sword: a white-gold blade with a sun-shaped guard, two small feathered wings at the hilt and a soft golden glow along the edge. |
-| `weapon_leviathan.png` | 64×32 | 1 | 12, 16 | Leviathan Edge (blade) held in the hand, pointing right; the grip sits at the anchor. A very long sea-steel blade with a wave-curled tip, scale-patterned flat and a teal-green guard shaped like fins. |
-| `weapon_troika.png` | 64×32 | 1 | 12, 16 | Iron Troika (blade) held in the hand, pointing right; the grip sits at the anchor. A three-pronged heavy iron sword: one thick blade splitting into three at the tip, rough forged iron with a heavy round pommel. |
+| `weapon_avenger.png` | 64×32 | 1 | 12, 16 | Dawnbringer (blade) held in the hand, pointing right; the grip sits at the anchor. A holy sword: a white-gold blade with a sun-shaped guard, two small feathered wings at the hilt and a soft golden glow along the edge. |
+| `weapon_leviathan.png` | 64×32 | 1 | 12, 16 | Tidebreaker (blade) held in the hand, pointing right; the grip sits at the anchor. A very long sea-steel blade with a wave-curled tip, scale-patterned flat and a teal-green guard shaped like fins. |
+| `weapon_troika.png` | 64×32 | 1 | 12, 16 | Tri-Fang Blade (blade) held in the hand, pointing right; the grip sits at the anchor. A three-pronged heavy iron sword: one thick blade splitting into three at the tip, rough forged iron with a heavy round pommel. |
 | `weapon_blaster.png` | 64×32 | 1 | 12, 16 | Pulse Blaster (gun) held in the hand, pointing right; the grip sits at the anchor. A chunky brass pistol with a stubby barrel, a blue energy cell on top and a rounded grip; the friendly standard sidearm. |
 | `weapon_pulsar.png` | 64×32 | 1 | 12, 16 | Ripple Caster (gun) held in the hand, pointing right; the grip sits at the anchor. A wide-mouthed pulsar with a ringed barrel that flares like a trumpet and a glowing blue coil in the middle. |
 | `weapon_alchemer.png` | 64×32 | 1 | 12, 16 | Ricochet Coil (gun) held in the hand, pointing right; the grip sits at the anchor. A ricochet coil gun: copper coils wound round the barrel, a glass bulb of green liquid on top and a bent spout muzzle. |
@@ -383,18 +383,18 @@ Knight sheets: 10 columns of 64×64 frames (at 1x): columns 1–2 idle, 3–6 wa
 | `weapon_viper.png` | 64×32 | 1 | 12, 16 | Viper Spitter (gun) held in the hand, pointing right; the grip sits at the anchor. A toxic blaster shaped like a snake head: green scales, two fang prongs at the muzzle and a glowing green venom vial. |
 | `weapon_grimcannon.png` | 64×32 | 1 | 12, 16 | Grim Hand-cannon (gun) held in the hand, pointing right; the grip sits at the anchor. A cursed hand-cannon: a dark iron barrel shaped like a gaping skull, violet runes and purple smoke curling from the muzzle. |
 | `weapon_scatter.png` | 64×32 | 1 | 12, 16 | Iron Scattergun (gun) held in the hand, pointing right; the grip sits at the anchor. An iron scattergun: a short, very wide double barrel, a pump grip and a riveted iron body; built for close quarters. |
-| `weapon_polaris.png` | 64×32 | 1 | 12, 16 | Polaris (gun) held in the hand, pointing right; the grip sits at the anchor. A star pulsar: a ringed barrel ending in a star-shaped emitter with a pale yellow glowing core and blue fins. |
+| `weapon_polaris.png` | 64×32 | 1 | 12, 16 | Northstar (gun) held in the hand, pointing right; the grip sits at the anchor. A star pulsar: a ringed barrel ending in a star-shaped emitter with a pale yellow glowing core and blue fins. |
 | `weapon_riftlocker.png` | 64×32 | 1 | 12, 16 | Rift Repeater (gun) held in the hand, pointing right; the grip sits at the anchor. A rift repeater: an angular black-and-violet gun with a floating purple crystal in an open frame where the barrel should be. |
-| `weapon_blast.png` | 64×32 | 1 | 12, 16 | Blast Bomb (bomb) held in the hand, pointing right; the grip sits at the anchor. A round black iron bomb with a brass band, a short fuse and a lit spark; the classic. |
+| `weapon_blast.png` | 64×32 | 1 | 12, 16 | Cannonball Bomb (bomb) held in the hand, pointing right; the grip sits at the anchor. A round black iron bomb with a brass band, a short fuse and a lit spark; the classic. |
 | `weapon_haze.png` | 64×32 | 1 | 12, 16 | Ember Haze (bomb) held in the hand, pointing right; the grip sits at the anchor. A round clay pot bomb with a cork stopper leaking orange smoke, painted with flame symbols. |
 | `weapon_frost.png` | 64×32 | 1 | 12, 16 | Frost Haze (bomb) held in the hand, pointing right; the grip sits at the anchor. A round glass bomb full of swirling blue frost with a silver cap and snowflake etching. |
 | `weapon_venom.png` | 64×32 | 1 | 12, 16 | Venom Veil (bomb) held in the hand, pointing right; the grip sits at the anchor. A green glass flask bomb with bubbling toxic liquid, a skull-and-crossbones tag and a wax seal. |
 | `weapon_storm.png` | 64×32 | 1 | 12, 16 | Storm Haze (bomb) held in the hand, pointing right; the grip sits at the anchor. A brass sphere with copper coils and a lightning rod on top, crackling with cyan sparks. |
 | `weapon_hex.png` | 64×32 | 1 | 12, 16 | Hex Haze (bomb) held in the hand, pointing right; the grip sits at the anchor. A dark violet orb bound in chains with a glowing rune on the front and a purple wisp rising from it. |
-| `weapon_shard.png` | 64×32 | 1 | 12, 16 | Splinter Bomb (bomb) held in the hand, pointing right; the grip sits at the anchor. A spiky ball of sharp crystal shards held together by an iron band, like a sea urchin. |
+| `weapon_shard.png` | 64×32 | 1 | 12, 16 | Shard Burst (bomb) held in the hand, pointing right; the grip sits at the anchor. A spiky ball of sharp crystal shards held together by an iron band, like a sea urchin. |
 | `weapon_vortex.png` | 64×32 | 1 | 12, 16 | Vortex Bomb (bomb) held in the hand, pointing right; the grip sits at the anchor. A black sphere with a swirling purple vortex window in the middle and four small antenna fins. |
 | `weapon_nitro.png` | 64×32 | 1 | 12, 16 | Nitro Colossus (bomb) held in the hand, pointing right; the grip sits at the anchor. A huge barrel-sized bomb: riveted red iron with hazard stripes, a thick fuse and NITRO stencilled on it (as shapes, no readable text needed). |
-| `weapon_spark.png` | 64×32 | 1 | 12, 16 | Static Flash (bomb) held in the hand, pointing right; the grip sits at the anchor. A small white flash-bulb grenade with a glass dome full of crackling light and a pull ring. |
+| `weapon_spark.png` | 64×32 | 1 | 12, 16 | Storm Flash (bomb) held in the hand, pointing right; the grip sits at the anchor. A small white flash-bulb grenade with a glass dome full of crackling light and a pull ring. |
 
 ## Projectiles
 
@@ -409,22 +409,22 @@ Knight sheets: 10 columns of 64×64 frames (at 1x): columns 1–2 idle, 3–6 wa
 | `proj_detonator.png` | 18×18 | 1 | 9, 9 | Red-orange detonator orb that sets off stuck catalysts. |
 | `proj_thorn.png` | 14×6 | 1 | 7, 3 | Briar Blade thorn, green and sharp, pointing right. |
 | `proj_wave.png` | 48×64 | 1 | 24, 32 | Umbral Greatblade shadow wave: a dark violet crescent, convex side facing right. The game scales it to its size. |
-| `proj_shard.png` | 14×6 | 1 | 7, 3 | Splinter Bomb fragment, pointing right. |
+| `proj_shard.png` | 14×6 | 1 | 7, 3 | Shard Burst fragment, pointing right. |
 
 ## Bombs
 
 | File | Size (px, draw at 2x) | Frames | Anchor | Notes |
 |---|---|---|---|---|
-| `bomb_blast.png` | 32×32 | 1 | 16, 24 | Blast Bomb planted on the floor, seen from the ¾ camera (the fuse ring is drawn by the game). |
+| `bomb_blast.png` | 32×32 | 1 | 16, 24 | Cannonball Bomb planted on the floor, seen from the ¾ camera (the fuse ring is drawn by the game). |
 | `bomb_haze.png` | 32×32 | 1 | 16, 24 | Ember Haze planted on the floor, seen from the ¾ camera (the fuse ring is drawn by the game). |
 | `bomb_frost.png` | 32×32 | 1 | 16, 24 | Frost Haze planted on the floor, seen from the ¾ camera (the fuse ring is drawn by the game). |
 | `bomb_venom.png` | 32×32 | 1 | 16, 24 | Venom Veil planted on the floor, seen from the ¾ camera (the fuse ring is drawn by the game). |
 | `bomb_storm.png` | 32×32 | 1 | 16, 24 | Storm Haze planted on the floor, seen from the ¾ camera (the fuse ring is drawn by the game). |
 | `bomb_hex.png` | 32×32 | 1 | 16, 24 | Hex Haze planted on the floor, seen from the ¾ camera (the fuse ring is drawn by the game). |
-| `bomb_shard.png` | 32×32 | 1 | 16, 24 | Splinter Bomb planted on the floor, seen from the ¾ camera (the fuse ring is drawn by the game). |
+| `bomb_shard.png` | 32×32 | 1 | 16, 24 | Shard Burst planted on the floor, seen from the ¾ camera (the fuse ring is drawn by the game). |
 | `bomb_vortex.png` | 32×32 | 1 | 16, 24 | Vortex Bomb planted on the floor, seen from the ¾ camera (the fuse ring is drawn by the game). |
 | `bomb_nitro.png` | 32×32 | 1 | 16, 24 | Nitro Colossus planted on the floor, seen from the ¾ camera (the fuse ring is drawn by the game). |
-| `bomb_spark.png` | 32×32 | 1 | 16, 24 | Static Flash planted on the floor, seen from the ¾ camera (the fuse ring is drawn by the game). |
+| `bomb_spark.png` | 32×32 | 1 | 16, 24 | Storm Flash planted on the floor, seen from the ¾ camera (the fuse ring is drawn by the game). |
 
 ## Effects
 

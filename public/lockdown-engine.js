@@ -934,6 +934,8 @@ function tickPlayer(state, player, input) {
   player.previousInput = input;
 }
 
+/** Flinch follows the round's weight: light rapid-fire rounds barely flinch, heavy rounds stagger. */
+const shotStun = shot => Math.round(Math.min(8, 3 + shot.damage * .3));
 function tickProjectiles(state) {
   const map = MAPS[state.mapId], survivors = [];
   for (const shot of state.projectiles) {
@@ -972,7 +974,7 @@ function tickProjectiles(state) {
         // Precision rounds hit harder the farther they have flown.
         const flown = Math.hypot(shot.x - shot.ox, shot.y - shot.oy), long = shot.longShot ? 1 + shot.longShot.bonus * clamp((flown - shot.longShot.from) / Math.max(1, shot.range - shot.longShot.from), 0, 1) : 1;
         if (long > 1.15) emit(state, 'longShot', { playerId: shot.ownerId, targetId: target.id, x: target.x, y: target.y, bonus: long });
-        const landed = damage(state, owner, target, shot.damage * long, { push: shot.push, angle: Math.atan2(shot.vy, shot.vx), stun: 8, kind: shot.kind, damageFamily, source: shot, status: shot.status, chance: shot.chance, weapon: shot.weapon });
+        const landed = damage(state, owner, target, shot.damage * long, { push: shot.push, angle: Math.atan2(shot.vy, shot.vx), stun: shotStun(shot), kind: shot.kind, damageFamily, source: shot, status: shot.status, chance: shot.chance, weapon: shot.weapon });
         if (landed && shot.kind === 'catalyst') { target.catalysts = Math.min(3, (target.catalysts || 0) + 1); target.catalystTicks = 6 * TICK_RATE; emit(state, 'catalyst', { playerId: target.id, count: target.catalysts }); }
         if (shot.kind === 'detonator' && target.alive && target.catalysts > 0) {
           const count = target.catalysts; target.catalysts = 0;

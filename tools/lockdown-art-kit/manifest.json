@@ -6558,7 +6558,7 @@
    16
   ],
   "frames": 1,
-  "description": "Voltedge (blade) held in the hand, pointing right; the grip sits at the anchor. A crackling sword: a short silver blade with a zigzag edge and a glowing cyan lightning core, copper coils on the guard."
+  "description": "Volt Fang (blade) held in the hand, pointing right; the grip sits at the anchor. A crackling sword: a short silver blade with a zigzag edge and a glowing cyan lightning core, copper coils on the guard."
  },
  {
   "key": "icon_weapon_voltedge",
@@ -6573,7 +6573,7 @@
    24
   ],
   "frames": 1,
-  "description": "HUD/lobby icon for the Voltedge. Clear silhouette on a transparent background."
+  "description": "HUD/lobby icon for the Volt Fang. Clear silhouette on a transparent background."
  },
  {
   "key": "weapon_sickle",
@@ -6678,7 +6678,7 @@
    16
   ],
   "frames": 1,
-  "description": "Radiant Avenger (blade) held in the hand, pointing right; the grip sits at the anchor. A holy sword: a white-gold blade with a sun-shaped guard, two small feathered wings at the hilt and a soft golden glow along the edge."
+  "description": "Dawnbringer (blade) held in the hand, pointing right; the grip sits at the anchor. A holy sword: a white-gold blade with a sun-shaped guard, two small feathered wings at the hilt and a soft golden glow along the edge."
  },
  {
   "key": "icon_weapon_avenger",
@@ -6693,7 +6693,7 @@
    24
   ],
   "frames": 1,
-  "description": "HUD/lobby icon for the Radiant Avenger. Clear silhouette on a transparent background."
+  "description": "HUD/lobby icon for the Dawnbringer. Clear silhouette on a transparent background."
  },
  {
   "key": "weapon_leviathan",
@@ -6708,7 +6708,7 @@
    16
   ],
   "frames": 1,
-  "description": "Leviathan Edge (blade) held in the hand, pointing right; the grip sits at the anchor. A very long sea-steel blade with a wave-curled tip, scale-patterned flat and a teal-green guard shaped like fins."
+  "description": "Tidebreaker (blade) held in the hand, pointing right; the grip sits at the anchor. A very long sea-steel blade with a wave-curled tip, scale-patterned flat and a teal-green guard shaped like fins."
  },
  {
   "key": "icon_weapon_leviathan",
@@ -6723,7 +6723,7 @@
    24
   ],
   "frames": 1,
-  "description": "HUD/lobby icon for the Leviathan Edge. Clear silhouette on a transparent background."
+  "description": "HUD/lobby icon for the Tidebreaker. Clear silhouette on a transparent background."
  },
  {
   "key": "weapon_troika",
@@ -6738,7 +6738,7 @@
    16
   ],
   "frames": 1,
-  "description": "Iron Troika (blade) held in the hand, pointing right; the grip sits at the anchor. A three-pronged heavy iron sword: one thick blade splitting into three at the tip, rough forged iron with a heavy round pommel."
+  "description": "Tri-Fang Blade (blade) held in the hand, pointing right; the grip sits at the anchor. A three-pronged heavy iron sword: one thick blade splitting into three at the tip, rough forged iron with a heavy round pommel."
  },
  {
   "key": "icon_weapon_troika",
@@ -6753,7 +6753,7 @@
    24
   ],
   "frames": 1,
-  "description": "HUD/lobby icon for the Iron Troika. Clear silhouette on a transparent background."
+  "description": "HUD/lobby icon for the Tri-Fang Blade. Clear silhouette on a transparent background."
  },
  {
   "key": "weapon_blaster",
@@ -7158,7 +7158,7 @@
    16
   ],
   "frames": 1,
-  "description": "Polaris (gun) held in the hand, pointing right; the grip sits at the anchor. A star pulsar: a ringed barrel ending in a star-shaped emitter with a pale yellow glowing core and blue fins."
+  "description": "Northstar (gun) held in the hand, pointing right; the grip sits at the anchor. A star pulsar: a ringed barrel ending in a star-shaped emitter with a pale yellow glowing core and blue fins."
  },
  {
   "key": "icon_weapon_polaris",
@@ -7173,7 +7173,7 @@
    24
   ],
   "frames": 1,
-  "description": "HUD/lobby icon for the Polaris. Clear silhouette on a transparent background."
+  "description": "HUD/lobby icon for the Northstar. Clear silhouette on a transparent background."
  },
  {
   "key": "weapon_riftlocker",
@@ -7218,7 +7218,7 @@
    16
   ],
   "frames": 1,
-  "description": "Blast Bomb (bomb) held in the hand, pointing right; the grip sits at the anchor. A round black iron bomb with a brass band, a short fuse and a lit spark; the classic."
+  "description": "Cannonball Bomb (bomb) held in the hand, pointing right; the grip sits at the anchor. A round black iron bomb with a brass band, a short fuse and a lit spark; the classic."
  },
  {
   "key": "icon_weapon_blast",
@@ -7233,7 +7233,7 @@
    24
   ],
   "frames": 1,
-  "description": "HUD/lobby icon for the Blast Bomb. Clear silhouette on a transparent background."
+  "description": "HUD/lobby icon for the Cannonball Bomb. Clear silhouette on a transparent background."
  },
  {
   "key": "weapon_haze",
@@ -7398,7 +7398,7 @@
    16
   ],
   "frames": 1,
-  "description": "Splinter Bomb (bomb) held in the hand, pointing right; the grip sits at the anchor. A spiky ball of sharp crystal shards held together by an iron band, like a sea urchin."
+  "description": "Shard Burst (bomb) held in the hand, pointing right; the grip sits at the anchor. A spiky ball of sharp crystal shards held together by an iron band, like a sea urchin."
  },
  {
   "key": "icon_weapon_shard",
@@ -7413,7 +7413,7 @@
    24
   ],
   "frames": 1,
-  "description": "HUD/lobby icon for the Splinter Bomb. Clear silhouette on a transparent background."
+  "description": "HUD/lobby icon for the Shard Burst. Clear silhouette on a transparent background."
  },
  {
   "key": "weapon_vortex",
@@ -7488,7 +7488,7 @@
    16
   ],
   "frames": 1,
-  "description": "Static Flash (bomb) held in the hand, pointing right; the grip sits at the anchor. A small white flash-bulb grenade with a glass dome full of crackling light and a pull ring."
+  "description": "Storm Flash (bomb) held in the hand, pointing right; the grip sits at the anchor. A small white flash-bulb grenade with a glass dome full of crackling light and a pull ring."
  },
  {
   "key": "icon_weapon_spark",
@@ -7503,7 +7503,7 @@
    24
   ],
   "frames": 1,
-  "description": "HUD/lobby icon for the Static Flash. Clear silhouette on a transparent background."
+  "description": "HUD/lobby icon for the Storm Flash. Clear silhouette on a transparent background."
  },
  {
   "key": "proj_bullet",
@@ -7653,7 +7653,7 @@
    3
   ],
   "frames": 1,
-  "description": "Splinter Bomb fragment, pointing right."
+  "description": "Shard Burst fragment, pointing right."
  },
  {
   "key": "bomb_blast",
@@ -7668,7 +7668,7 @@
    24
   ],
   "frames": 1,
-  "description": "Blast Bomb planted on the floor, seen from the ¾ camera (the fuse ring is drawn by the game)."
+  "description": "Cannonball Bomb planted on the floor, seen from the ¾ camera (the fuse ring is drawn by the game)."
  },
  {
   "key": "bomb_haze",
@@ -7758,7 +7758,7 @@
    24
   ],
   "frames": 1,
-  "description": "Splinter Bomb planted on the floor, seen from the ¾ camera (the fuse ring is drawn by the game)."
+  "description": "Shard Burst planted on the floor, seen from the ¾ camera (the fuse ring is drawn by the game)."
  },
  {
   "key": "bomb_vortex",
@@ -7803,7 +7803,7 @@
    24
   ],
   "frames": 1,
-  "description": "Static Flash planted on the floor, seen from the ¾ camera (the fuse ring is drawn by the game)."
+  "description": "Storm Flash planted on the floor, seen from the ¾ camera (the fuse ring is drawn by the game)."
  },
  {
   "key": "fx_slash",
