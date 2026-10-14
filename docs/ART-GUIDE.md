@@ -84,8 +84,8 @@ Everyone starts in the plain steel **Recruit set** (the `none` piece of each gea
   recognisable thing about a Spiral Knights knight: get it right first.
 - **Proportions:** the helmet is about **45% of the height** and **wider than the shoulders** (≈ 0.65 across).
   A short barrel torso, short stubby legs, big round armoured mitten gauntlets, chunky rounded sabatons.
-  **Pauldrons are huge**, often as big as the helmet on heavy and fancy sets, so from above a knight reads as a
-  big helmet between two big shoulder plates. The knight reads as "a big helmet on a small armoured body".
+  Shoulders are modest on most sets: **huge pauldrons are the Guardian's mark** (its class piece) and belong
+  to the heaviest plate (Heavy, Juggernaut), not to every knight. The knight reads as "a big helmet on a small armoured body".
 - **Polished, painted metal.** Recruit steel is a clean cool blue-grey with bright painted highlights on every
   rounded edge (metalness high, roughness low-to-medium), big round rivets, raised ridges and rims. Not matte
   clay, not plastic, not cloth. Cloth and fur gear (Wolver, Seraph, Gunslinger) still sits over the dark
@@ -202,7 +202,10 @@ textures; anything that pokes through other gear when the knight moves; stretchi
 0. **Design options (stop for a choice).** Before any full model set, show **three or four different design
    directions** for the knight, each one a Recruit-set knight holding the Knight Brand, every one clearly in
    the Spiral Knights style (see [reference/spiral-knights/](reference/spiral-knights/README.md)) but
-   different in proportions, helmet shape, shoulder size, materials and colour. Present them side by side on
+   different in the **general art style**: proportions, shape language (how round, how blocky, how many
+   bevels), how the metal and cloth are painted (glossy or soft, how strong the edge highlights), colour
+   and detail level. Show each direction on the Recruit set **and on two other armours** (Cobalt and Scout),
+   so the style of the armours can be judged too, not just one outfit. Present them side by side on
    one sheet, each with a short name and what makes it different, next to a reference close-up, plus each one
    in the Dojo at game distance. Quick block-outs are fine: no need to finish or polish, no icons, nothing
    committed as final. Wait until one direction (or a mix) is picked. Repeat if none is right.

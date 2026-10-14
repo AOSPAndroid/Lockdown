@@ -721,6 +721,14 @@ export class Lockdown3DRenderer {
   }
   temporaryClassMarks(player, team, parts) {
     const crest = new THREE.Mesh(this.crestGeometry(player.cls), new THREE.MeshStandardMaterial({ color: team, emissive: team, emissiveIntensity: .35, roughness: .4 })); crest.position.y = .25; parts.head.add(crest);
+    if (player.cls === 'guardian') {
+      // The Guardian's mark: huge bronze pauldrons with a team rim.
+      const bronze = new THREE.MeshStandardMaterial({ color: '#a8783e', metalness: .7, roughness: .35 }), rim = new THREE.MeshStandardMaterial({ color: team, emissive: team, emissiveIntensity: .3 });
+      for (const arm of [parts.arm_L, parts.arm_R]) {
+        const pad = new THREE.Mesh(new THREE.SphereGeometry(.16, 14, 10, 0, Math.PI * 2, 0, Math.PI / 2), bronze); pad.position.y = .05; pad.scale.set(1, .8, 1.1); arm.add(pad);
+        const edge = new THREE.Mesh(new THREE.TorusGeometry(.16, .025, 6, 20), rim); edge.rotation.x = Math.PI / 2; edge.position.y = .05; edge.scale.set(1, 1.1, 1); arm.add(edge);
+      }
+    }
     if (player.cls === 'guardian') { const shield = new THREE.Mesh(new THREE.CylinderGeometry(.2, .2, .05, 18), new THREE.MeshStandardMaterial({ color: '#8a6a3a', metalness: .6, roughness: .4 })); shield.rotation.x = Math.PI / 2; shield.position.set(.08, -.08, -.05); parts.arm_L.add(shield); }
   }
   armorColour(id) {

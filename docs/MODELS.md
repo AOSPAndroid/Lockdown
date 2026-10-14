@@ -68,7 +68,7 @@ the part's pivot, sized to fit over the body.
 | armor | `chest`; optional `arm_L`, `arm_R` (sleeves, pauldrons), `hips` (coat tails, skirt plates) |
 | pants | `hips`, `leg_L`, `leg_R` |
 | shoes | `foot_L`, `foot_R` |
-| class pieces | `head` (crest), `chest` (scarf, chevrons), `arm_L` (the Guardian shield) |
+| class pieces | `head` (crest), `chest` (scarf, chevrons), `arm_L` and `arm_R` (the Guardian's big pauldrons; its shield on `arm_L`) |
 
 Gear goes over the body's dark under-suit. A knight always wears one piece per slot (the Recruit set to
 start), so the under-suit only shows in the gaps. Every helmet is a shell over the body's dark head with a

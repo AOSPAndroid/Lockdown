@@ -10,7 +10,7 @@ export const BODY_LOOK = 'A Spiral Knights-style knight, 1.3 units tall, always 
 
 export const CLASS_LOOKS = Object.freeze({
   striker: 'Lean and fast. A swept-back fin crest on the helmet in `team` colour, small gold go-faster chevrons on the shoulders. While Boost is held the game adds a gold speed streak behind the knight.',
-  guardian: 'Broad and steady. A round crest knob on the helmet in `team` colour and a round riveted bronze shield on the left arm (part of the class, worn over any armour). The shield bubble and dome are drawn by the game.',
+  guardian: 'Broad and steady. Huge rounded bronze pauldrons, nearly as big as the helmet, with a `team` rim (on `arm_L` and `arm_R`, worn over any armour: the Guardian\'s mark), a round crest knob on the helmet in `team` colour and a round riveted bronze shield on the left arm. The shield bubble and dome are drawn by the game.',
   recon: 'Slim and sly. A short pointed hood-tip crest in `team` colour and a dark scarf. Cloaked, the knight turns translucent (drawn by the game).',
 });
 

@@ -18,7 +18,7 @@ blurry: read shapes, proportions and colour from them, not detail.
 | File | Look for |
 |---|---|
 | [closeup-shield-and-hammer.jpg](closeup-shield-and-hammer.jpg) | A gold dome helm with a dark visor, a huge heater shield with a bold gold emblem on the left arm, a heavy hammer much longer than the knight's arm, a purple gem on the gauntlet. |
-| [closeup-pauldrons-and-gun.jpg](closeup-pauldrons-and-gun.jpg) | **Pauldrons as big as the helmet** (magenta teardrop plates); a white and orange striped dome helm; a long ornate gun; one strong colour per set with white and gold trim. |
+| [closeup-pauldrons-and-gun.jpg](closeup-pauldrons-and-gun.jpg) | Pauldrons as big as the helmet (magenta teardrop plates): in Lockdown that is the **Guardian's** look, not every knight's; a white and orange striped dome helm; a long ornate gun; one strong colour per set with white and gold trim. |
 | [closeup-melee-group.jpg](closeup-melee-group.jpg) | Four knights from above: what reads at game size is the helmet top, the shoulders, the shield and the weapon. A white helm with a long dark visor slot; green armour with big ridged shoulder plates; glowing green slashes. |
 | [closeup-halo-knight.jpg](closeup-halo-knight.jpg) | A tall blue and white helm with a gold halo, a gold plated skirt, blue trousers tucked into sabatons. |
 
@@ -27,8 +27,8 @@ blurry: read shapes, proportions and colour from them, not detail.
 1. **The helmet is the knight.** Big, wider than the shoulders, every one a different silhouette, with a dark
    visor where glowing eyes show. A few Spiral Knights costume helms show stylised hair; Lockdown keeps the
    visor look on every helmet.
-2. **Huge shoulders.** Pauldrons are often as big as the helmet, so from above a knight is a big helmet between
-   two big shoulder plates.
+2. **Shoulders depend on the role.** Huge pauldrons (as big as the helmet) are the Guardian's mark and the
+   heaviest plate's; most knights have modest, rounded shoulders.
 3. **Bold colour per set.** One saturated main colour (magenta, green, blue, gold) with white, steel or gold
    trim. Glossy painted metal with bright edge highlights.
 4. **Oversized gear.** Shields, hammers, swords and guns are big, chunky and readable from far away.

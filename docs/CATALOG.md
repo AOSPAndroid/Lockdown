@@ -41,7 +41,7 @@ Class pieces attach like gear (to `head`, `chest` or `arm_L`). Budget 1500 trian
 ### Guardian `guardian`
 
 - **Does:** 120 HP, ability: Shield. Most health · bombs charge 30% faster. The only knight with a shield. Hold it to raise a dome that covers teammates inside and slowly heals everyone in it. When the dome breaks you keep a small personal shield for a few hits; then it all recharges.
-- **Looks:** Broad and steady. A round crest knob on the helmet in `team` colour and a round riveted bronze shield on the left arm (part of the class, worn over any armour). The shield bubble and dome are drawn by the game.
+- **Looks:** Broad and steady. Huge rounded bronze pauldrons, nearly as big as the helmet, with a `team` rim (on `arm_L` and `arm_R`, worn over any armour: the Guardian's mark), a round crest knob on the helmet in `team` colour and a round riveted bronze shield on the left arm. The shield bubble and dome are drawn by the game.
 - **Make:** `models/class/guardian.glb`
 
 ### Recon `recon`
