@@ -1,6 +1,29 @@
 {
   "files": [],
   "models": [
-    "knight/body.glb"
+    "armor/cobalt.glb",
+    "armor/scout.glb",
+    "bombs/blast.glb",
+    "class/guardian.glb",
+    "class/recon.glb",
+    "helmet/bucket.glb",
+    "helmet/circlet.glb",
+    "helmet/cobalt.glb",
+    "helmet/demo.glb",
+    "helmet/feather.glb",
+    "helmet/goggles.glb",
+    "helmet/hood.glb",
+    "helmet/horned.glb",
+    "helmet/lampcap.glb",
+    "helmet/sallet.glb",
+    "helmet/seraph.glb",
+    "helmet/visor.glb",
+    "helmet/wolver.glb",
+    "knight/body.glb",
+    "pants/cobalt.glb",
+    "shoes/sabatons.glb",
+    "weapons/blast.glb",
+    "weapons/blaster.glb",
+    "weapons/brand.glb"
   ]
 }
