@@ -1,7 +1,7 @@
 # Lockdown art brief
 
 Lockdown is a top-down team brawl in the spirit of Spiral Knights' Lockdown: up to 4v4, three control points,
-swords, guns and bombs, on six themed arenas. This brief lists all 369 sprites the game draws. Read AGENTS.md first:
+swords, guns and bombs, on six themed arenas. This brief lists all 375 sprites the game draws. Read AGENTS.md first:
 it says how to work and what quality bar the art must reach.
 
 Knight sheets: 10 columns of 64×64 frames (at 1x): columns 1–2 idle, 3–6 walk, 7–10 run.
@@ -304,11 +304,14 @@ Knight sheets: 10 columns of 64×64 frames (at 1x): columns 1–2 idle, 3–6 wa
 | `icon_weapon_flamesabre.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Ember Sabre. Clear silhouette on a transparent background. |
 | `icon_weapon_frostsabre.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Rime Sabre. Clear silhouette on a transparent background. |
 | `icon_weapon_stormsabre.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Storm Sabre. Clear silhouette on a transparent background. |
+| `icon_weapon_katana.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Moonlit Katana. Clear silhouette on a transparent background. |
 | `icon_weapon_blaster.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Pulse Blaster. Clear silhouette on a transparent background. |
 | `icon_weapon_pulsar.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Ripple Caster. Clear silhouette on a transparent background. |
 | `icon_weapon_alchemer.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Ricochet Coil. Clear silhouette on a transparent background. |
 | `icon_weapon_autogun.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Rattle Autogun. Clear silhouette on a transparent background. |
 | `icon_weapon_sixgun.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Prairie Sixgun. Clear silhouette on a transparent background. |
+| `icon_weapon_embersixgun.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Ember Sixgun. Clear silhouette on a transparent background. |
+| `icon_weapon_peacemaker.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Iron Peacemaker. Clear silhouette on a transparent background. |
 | `icon_weapon_catalyzer.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Tether Catalyst. Clear silhouette on a transparent background. |
 | `icon_weapon_magnus.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Thunder Hand-cannon. Clear silhouette on a transparent background. |
 | `icon_weapon_rifle.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Longshot Rifle. Clear silhouette on a transparent background. |
@@ -379,11 +382,14 @@ Knight sheets: 10 columns of 64×64 frames (at 1x): columns 1–2 idle, 3–6 wa
 | `weapon_flamesabre.png` | 64×32 | 1 | 12, 16 | Ember Sabre (blade) held in the hand, pointing right; the grip sits at the anchor. A fencing sabre of red-hot steel: an orange glowing curved blade trailing small flames, a blackened basket guard. |
 | `weapon_frostsabre.png` | 64×32 | 1 | 12, 16 | Rime Sabre (blade) held in the hand, pointing right; the grip sits at the anchor. A fencing sabre of pale blue ice-steel: a curved frosted blade with crystals along the spine, a silver basket guard. |
 | `weapon_stormsabre.png` | 64×32 | 1 | 12, 16 | Storm Sabre (blade) held in the hand, pointing right; the grip sits at the anchor. A fencing sabre crackling with lightning: a dark curved blade with a glowing cyan edge, a copper basket guard with coils. |
+| `weapon_katana.png` | 64×32 | 1 | 12, 16 | Moonlit Katana (blade) held in the hand, pointing right; the grip sits at the anchor. A slender curved katana: a mirror-bright single-edged blade with a wavy temper line, a small round guard and a long wrapped two-hand grip, a pale blue glint along the edge. |
 | `weapon_blaster.png` | 64×32 | 1 | 12, 16 | Pulse Blaster (gun) held in the hand, pointing right; the grip sits at the anchor. A chunky brass pistol with a stubby barrel, a blue energy cell on top and a rounded grip; the friendly standard sidearm. |
 | `weapon_pulsar.png` | 64×32 | 1 | 12, 16 | Ripple Caster (gun) held in the hand, pointing right; the grip sits at the anchor. A wide-mouthed pulsar with a ringed barrel that flares like a trumpet and a glowing blue coil in the middle. |
 | `weapon_alchemer.png` | 64×32 | 1 | 12, 16 | Ricochet Coil (gun) held in the hand, pointing right; the grip sits at the anchor. A ricochet coil gun: copper coils wound round the barrel, a glass bulb of green liquid on top and a bent spout muzzle. |
 | `weapon_autogun.png` | 64×32 | 1 | 12, 16 | Rattle Autogun (gun) held in the hand, pointing right; the grip sits at the anchor. A rattling autogun with a short drum magazine, a perforated barrel shroud and a crank on the side. |
 | `weapon_sixgun.png` | 64×32 | 1 | 12, 16 | Prairie Sixgun (gun) held in the hand, pointing right; the grip sits at the anchor. A frontier six-shooter: a long octagonal barrel, a six-chamber revolving cylinder with brass caps, a hammer and a curved wooden grip. |
+| `weapon_embersixgun.png` | 64×32 | 1 | 12, 16 | Ember Sixgun (gun) held in the hand, pointing right; the grip sits at the anchor. A six-shooter that runs hot: a blackened barrel glowing orange at the muzzle, a cylinder of red-hot rounds and a charred wooden grip. |
+| `weapon_peacemaker.png` | 64×32 | 1 | 12, 16 | Iron Peacemaker (gun) held in the hand, pointing right; the grip sits at the anchor. A big heavy revolver: a thick iron barrel with a top rib, a massive six-chamber cylinder, a heavy hammer and a steel-capped grip. |
 | `weapon_catalyzer.png` | 64×32 | 1 | 12, 16 | Tether Catalyst (gun) held in the hand, pointing right; the grip sits at the anchor. A tether catalyst: a stubby launcher with a red glass chamber of fizzing charges and a three-pronged claw muzzle. |
 | `weapon_magnus.png` | 64×32 | 1 | 12, 16 | Thunder Hand-cannon (gun) held in the hand, pointing right; the grip sits at the anchor. A thunder hand-cannon: a huge revolver with a thick barrel, a big cylinder and a gold lightning emblem; heavy and loud. |
 | `weapon_rifle.png` | 64×32 | 1 | 12, 16 | Longshot Rifle (gun) held in the hand, pointing right; the grip sits at the anchor. A long precision rifle: a slim long barrel, a brass scope, a wooden stock and a small bipod folded under the barrel. |

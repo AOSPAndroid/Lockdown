@@ -893,7 +893,8 @@ test('the off-hand cancel: the class button cancels a landed cut even when the a
 test('heavy momentum: the second blow winds up faster and hits far harder, and a miss is punished hard', () => {
   for (const id of ['cleaver', 'greatblade', 'hexblade']) {
     const [first, second] = WEAPONS[id].combo;
-    assert.ok(second.momentum && second.startup < first.startup && second.damage > first.damage * 1.5, `${id}: a fast, heavy momentum blow`);
+    assert.ok(first.startup <= WEAPONS.brand.combo[0].startup + 1, `${id}: the first swing is a normal one`);
+    assert.ok(second.momentum && second.damage > first.damage * 1.5, `${id}: then a heavy momentum blow`);
   }
   const land = () => {
     const d = duel({ gap: 50, a: { cls: 'recon', weapons: ['greatblade', null, null, null] } });
@@ -931,4 +932,18 @@ test('the six-shooter fires six light shots as fast as you click, then reloads q
     assert.equal(sabre.cut, 'sweeping'); assert.ok(sabre.combo[0].stun >= WEAPONS.brand.combo[0].stun, `${id} stuns hard`);
   }
   assert.equal(WEAPONS.flamesabre.onHit.status, 'burn');
+});
+
+test('the katana: the narrowest cut; a clean hit lands extra hard, an edge hit barely scratches', () => {
+  const katana = WEAPONS.katana, move = katana.combo[0];
+  assert.ok(move.arc < WEAPONS.blazebrand.combo[0].arc, 'narrower than the elemental swords');
+  const hitAt = offset => {
+    const d = duel({ gap: 50, a: { cls: 'recon', aim: offset, weapons: ['katana', null, null, null] } });
+    run(d.state, swingTicks(move) + BLADE.hitStop * 2, t => ({ 0: { attack: t === 0, aim: offset } }));
+    return events(d.state, 'damage').find(event => event.targetId === 4)?.amount ?? 0;
+  };
+  const clean = hitAt(0), edge = hitAt((move.arc / 2 + Math.atan2(L.RULES.radius, 50)) * .8); // near the edge of the cut
+  assert.ok(Math.abs(clean - Math.round(move.damage * katana.aim.clean)) <= 1, 'a clean hit lands 30% harder');
+  assert.ok(edge > 0 && edge <= Math.ceil(move.damage * katana.aim.graze), 'an edge hit deals half');
+  for (const id of ['sixgun', 'embersixgun', 'peacemaker']) assert.equal(WEAPONS[id].clip, 6, `${id} is a six-shooter`);
 });

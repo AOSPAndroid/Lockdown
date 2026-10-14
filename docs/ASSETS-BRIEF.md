@@ -90,7 +90,7 @@ middle of the grip, pointing **+X**. Planted bombs: origin on the floor, standin
 |---|---|---|
 | normal sword | 0.75 | blade ≈ 0.12 wide, guard ≈ 0.24 |
 | heavy sword | 0.95 | blade ≈ 0.18 wide |
-| rapier, Tidebreaker | 0.9 | slim |
+| rapier, Tidebreaker, katana | 0.9 | slim |
 | four-cut sword | 0.6 | short, hooked |
 | maul | 0.75 haft | head ≈ 0.28 × 0.28 × 0.36 |
 | pistol | 0.5 | body ≈ 0.25 tall |
@@ -134,7 +134,7 @@ Keep the look and push it further toward the LBX references: crisper plate edges
 1. **Refit (stop for approval):** the step-1 pieces above on the new skeleton, plus `shoes/sabatons` in the Cobalt style. Show them in the
    Dojo: idle, walk, run, dash, sword combo, shooting, Guardian guard.
 2. **All armour:** 13 helmets, 15 armours, 11 pants, 11 shoes (not the `none` pieces: that's the skeleton).
-3. **All weapons:** 19 swords, 16 guns, 10 bombs + 10 planted.
+3. **All weapons:** 20 swords, 18 guns, 10 bombs + 10 planted.
 4. **Icons** (96×96, see ART-GUIDE section 5), made from the models.
 
 After every batch: `node tools/art3d-index.mjs` (no errors), `npm test` (all pass), then `npm start` and open

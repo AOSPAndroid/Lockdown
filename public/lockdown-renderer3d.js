@@ -749,7 +749,7 @@ export class Lockdown3DRenderer {
     const brass = new THREE.MeshStandardMaterial({ color: '#b8893a', roughness: .35, metalness: .8 }), grip = new THREE.MeshStandardMaterial({ color: '#4a3020', roughness: .8 });
     if (weapon.family === 'blade') {
       // Sized to the catalogue (sword ≈ 0.75, heavy ≈ 0.95, long ≈ 0.9 from grip to tip), before KNIGHT_SCALE.
-      const heavy = !!weapon.heavy, length = id === 'maul' ? .42 : heavy ? .47 : ['rapier', 'leviathan'].includes(id) ? .43 : ['spur', 'voltedge'].includes(id) ? .22 : .33, width = id === 'rapier' ? .03 : heavy ? .13 : .085;
+      const heavy = !!weapon.heavy, length = id === 'maul' ? .42 : heavy ? .47 : ['rapier', 'leviathan', 'katana'].includes(id) ? .43 : ['spur', 'voltedge'].includes(id) ? .22 : .33, width = id === 'rapier' ? .03 : heavy ? .13 : .085;
       const handle = new THREE.Mesh(new THREE.CylinderGeometry(.025, .025, .18, 6), grip); handle.rotation.z = Math.PI / 2; handle.position.x = .02;
       const guard = new THREE.Mesh(new THREE.BoxGeometry(.04, .035, .17), brass); guard.position.x = .12;
       if (id === 'maul') { const head = new THREE.Mesh(new THREE.BoxGeometry(.24, .24, .34), new THREE.MeshStandardMaterial({ color: '#7a7066', roughness: .5, metalness: .5 })); head.position.x = .12 + length; const shaft = new THREE.Mesh(new THREE.CylinderGeometry(.035, .035, length, 6), grip); shaft.rotation.z = Math.PI / 2; shaft.position.x = .12 + length / 2; group.add(handle, shaft, head); }

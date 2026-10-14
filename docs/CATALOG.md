@@ -19,8 +19,8 @@ colour is never baked in: trims meant to show the team use a material named `tea
 | Armor | 16 | `models/armor/<id>.glb` |
 | Pants | 12 | `models/pants/<id>.glb` |
 | Shoes | 12 | `models/shoes/<id>.glb` |
-| Swords | 19 | `models/weapons/<id>.glb` |
-| Guns | 16 | `models/weapons/<id>.glb` |
+| Swords | 20 | `models/weapons/<id>.glb` |
+| Guns | 18 | `models/weapons/<id>.glb` |
 | Bombs | 10 | `models/weapons/<id>.glb` + `models/bombs/<id>.glb` |
 
 ## The robot frame (knight body)
@@ -390,7 +390,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 - **Looks:** Thin liquid-silver feet with a mirror sheen and little speed streaks.
 - **Make:** `models/shoes/quicksilver.glb`, icon `icon_shoes_quicksilver.png`
 
-## Swords (19)
+## Swords (20)
 
 ### Knight Brand `brand`
 
@@ -403,7 +403,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Troll Cleaver `cleaver`
 
 - **Does:** Slow, brutal overhead chain that stuns. Charge: leap and slam the ground around you.
-- **Stats:** Heavy sword · heavy (unflinching) · sweeping cut, 2-cut combo (24 / 43 damage) · difficulty ★★ · good: Second blow spins round on the first one's momentum: fast and brutal; Not interrupted when hit mid-swing; Charge: leaping ground slam · bad: Very slow first wind-up; Missing the second blow leaves you spun round and wide open
+- **Stats:** Heavy sword · heavy (unflinching) · sweeping cut, 2-cut combo (18 / 43 damage) · difficulty ★★ · good: Second blow spins round on the first one's momentum: fast and brutal; Not interrupted when hit mid-swing; Charge: leaping ground slam · bad: Very slow first wind-up; Missing the second blow leaves you spun round and wide open
 - **Looks:** A huge troll-sized cleaver: a slab of notched dark iron as wide as the knight's head, a short wrapped handle and a ring through the spine. Looks too heavy to swing.
 - **Size:** heavy: ≈ 0.95 from grip to tip, blade ≈ 0.18 wide, guard ≈ 0.3 across
 - **Make:** `models/weapons/cleaver.glb`, icon `icon_weapon_cleaver.png`
@@ -427,7 +427,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Umbral Greatblade `greatblade`
 
 - **Does:** Heavy two-hit chain. Charge: a slow wave of shadow that carries knights along with it.
-- **Stats:** Dark sword · heavy (unflinching) · precise cut, 2-cut combo (31 / 53 damage) · difficulty ★★ · good: Second blow spins round on momentum for huge damage; Not interrupted when hit; Charge: a long shadow wave that drags knights · bad: Slow first swing; Missing the second blow is punished hard
+- **Stats:** Dark sword · heavy (unflinching) · precise cut, 2-cut combo (23 / 53 damage) · difficulty ★★ · good: Second blow spins round on momentum for huge damage; Not interrupted when hit; Charge: a long shadow wave that drags knights · bad: Slow first swing; Missing the second blow is punished hard
 - **Looks:** A two-handed umbral greatblade: a long jagged black blade with purple veins of light running down it and a winged guard.
 - **Size:** heavy: ≈ 0.95 from grip to tip, blade ≈ 0.18 wide, guard ≈ 0.3 across
 - **Make:** `models/weapons/greatblade.glb`, icon `icon_weapon_greatblade.png`
@@ -475,7 +475,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Hexblade `hexblade`
 
 - **Does:** Heavy cuts that may curse (35%): no dash and no class ability for a while. Charge: a cursing slam.
-- **Stats:** Curse sword · element: curse · heavy (unflinching) · precise cut, 2-cut combo (30 / 50 damage) · difficulty ★★ · good: Heavy cuts that may curse (no dash, no ability); Second blow spins round on momentum for huge damage · bad: Slow first swing; Missing the second blow is punished hard
+- **Stats:** Curse sword · element: curse · heavy (unflinching) · precise cut, 2-cut combo (22 / 50 damage) · difficulty ★★ · good: Heavy cuts that may curse (no dash, no ability); Second blow spins round on momentum for huge damage · bad: Slow first swing; Missing the second blow is punished hard
 - **Looks:** A heavy cursed blade of dark violet steel etched with glowing purple runes, a skull on the guard and a chain on the pommel.
 - **Size:** heavy: ≈ 0.95 from grip to tip, blade ≈ 0.18 wide, guard ≈ 0.3 across
 - **Make:** `models/weapons/hexblade.glb`, icon `icon_weapon_hexblade.png`
@@ -544,7 +544,15 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 - **Size:** ≈ 0.75 from grip to tip (just over half the knight's height), blade ≈ 0.12 wide, guard ≈ 0.24 across
 - **Make:** `models/weapons/stormsabre.glb`, icon `icon_weapon_stormsabre.png`
 
-## Guns (16)
+### Moonlit Katana `katana`
+
+- **Does:** Fast, narrow, deadly cuts: a clean hit lands 30% harder, an edge hit only half. Charge: a lightning draw-cut dash.
+- **Stats:** Katana · precise cut, 3-cut combo (20 / 24 / 34 damage) · difficulty ★★★ · good: Hardest light cuts: a clean hit lands 30% harder; Charge: a long draw-cut dash · bad: Narrowest cut of all; An edge hit deals only half
+- **Looks:** A slender curved katana: a mirror-bright single-edged blade with a wavy temper line, a small round guard and a long wrapped two-hand grip, a pale blue glint along the edge.
+- **Size:** long: ≈ 0.9 from grip to tip, slim (blade ≈ 0.06 wide)
+- **Make:** `models/weapons/katana.glb`, icon `icon_weapon_katana.png`
+
+## Guns (18)
 
 ### Pulse Blaster `blaster`
 
@@ -585,6 +593,22 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 - **Looks:** A frontier six-shooter: a long octagonal barrel, a six-chamber revolving cylinder with brass caps, a hammer and a curved wooden grip.
 - **Size:** ≈ 0.5 from grip to muzzle, a fat body ≈ 0.25 tall
 - **Make:** `models/weapons/sixgun.glb`, icon `icon_weapon_sixgun.png`
+
+### Ember Sixgun `embersixgun`
+
+- **Does:** Six fast incendiary shots, each may set the target on fire (20%). Charge: fan six burning rounds.
+- **Stats:** Fire six-shooter · element: burn · 6-round clip, 4 damage · difficulty ★ · good: Fast shots that may set on fire (20%); Burning keeps hurting after the shots · bad: Lowest damage per shot
+- **Looks:** A six-shooter that runs hot: a blackened barrel glowing orange at the muzzle, a cylinder of red-hot rounds and a charred wooden grip.
+- **Size:** ≈ 0.5 from grip to muzzle, a fat body ≈ 0.25 tall
+- **Make:** `models/weapons/embersixgun.glb`, icon `icon_weapon_embersixgun.png`
+
+### Iron Peacemaker `peacemaker`
+
+- **Does:** A heavy revolver: six hard-hitting shots with a kick, but a slower trigger and reload. Charge: fan six heavy rounds.
+- **Stats:** Heavy six-shooter · 6-round clip, 8 damage · difficulty ★★ · good: Hardest-hitting six-shooter, with knockback; Very accurate · bad: Slower trigger and reload
+- **Looks:** A big heavy revolver: a thick iron barrel with a top rib, a massive six-chamber cylinder, a heavy hammer and a steel-capped grip.
+- **Size:** ≈ 0.5 from grip to muzzle, a fat body ≈ 0.25 tall
+- **Make:** `models/weapons/peacemaker.glb`, icon `icon_weapon_peacemaker.png`
 
 ### Tether Catalyst `catalyzer`
 

@@ -41,7 +41,7 @@ function size(weapon) {
   if (weapon.family === 'gun') return weapon.id === 'rifle' ? 'long: ≈ 1.0 from grip to muzzle' : ['magnus', 'grimcannon', 'scatter'].includes(weapon.id) ? 'big: ≈ 0.65 from grip to muzzle, body ≈ 0.3 tall' : '≈ 0.5 from grip to muzzle, a fat body ≈ 0.25 tall';
   if (weapon.id === 'maul') return 'haft ≈ 0.75, head ≈ 0.28 × 0.28 × 0.36';
   if (weapon.heavy) return 'heavy: ≈ 0.95 from grip to tip, blade ≈ 0.18 wide, guard ≈ 0.3 across';
-  if (['rapier', 'leviathan'].includes(weapon.id)) return 'long: ≈ 0.9 from grip to tip, slim (blade ≈ 0.06 wide)';
+  if (['rapier', 'leviathan', 'katana'].includes(weapon.id)) return 'long: ≈ 0.9 from grip to tip, slim (blade ≈ 0.06 wide)';
   if (['spur', 'voltedge'].includes(weapon.id)) return 'short: ≈ 0.6 from grip to tip';
   return '≈ 0.75 from grip to tip (just over half the knight\'s height), blade ≈ 0.12 wide, guard ≈ 0.24 across';
 }

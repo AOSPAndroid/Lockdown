@@ -686,8 +686,9 @@ function bladeContacts(state, player, reach, from, to, amount, options) {
     let aimed = 1;
     if (options.kind === 'blade') {
       const share = Math.abs(bearing - player.swingAim) / (player.swingArc / 2 + pad);
-      if (share <= BLADE.clean.within) emit(state, 'clean', { playerId: player.id, targetId: target.id, x: target.x, y: target.y });
-      else aimed = share > BLADE.graze.beyond ? BLADE.graze.damage : BLADE.offCentre;
+      const sharp = WEAPONS[options.weapon]?.aim; // the katana rewards and punishes aim harder
+      if (share <= BLADE.clean.within) { aimed = sharp?.clean ?? 1; emit(state, 'clean', { playerId: player.id, targetId: target.id, x: target.x, y: target.y }); }
+      else aimed = share > BLADE.graze.beyond ? sharp?.graze ?? BLADE.graze.damage : BLADE.offCentre;
     }
     damage(state, player, target, (tip ? amount * sweetSpot.bonus : amount) * aimed, { angle: Math.atan2(target.y - player.y, target.x - player.x), damageFamily: 'blade', ...rest });
   }
