@@ -63,6 +63,36 @@ for (const theme of readdirSync(dir).filter(name => statSync(join(dir, name)).is
   }
 }
 // Models: public/art/3d/models/<kind>/<id>.glb
+/** Models download into every player's browser, so each stays small: at most MODEL_KB, and every
+ * embedded image a power of two no bigger than 1024² (see docs/MODELS.md, "Materials"). */
+const MODEL_KB = 600, IMAGE_MAX = 1024;
+function imageSize(data) {
+  if (data[0] === 0x89 && data.toString('latin1', 1, 4) === 'PNG') return [data.readUInt32BE(16), data.readUInt32BE(20)];
+  if (data[0] === 0xff && data[1] === 0xd8) {
+    for (let at = 2; at + 9 < data.length;) {
+      if (data[at] !== 0xff) { at++; continue; }
+      const marker = data[at + 1], length = data.readUInt16BE(at + 2);
+      if (marker >= 0xc0 && marker <= 0xcf && ![0xc4, 0xc8, 0xcc].includes(marker)) return [data.readUInt16BE(at + 7), data.readUInt16BE(at + 5)];
+      at += 2 + length;
+    }
+  }
+  return null;
+}
+function downloadProblems(bytes, gltf) {
+  const problems = [], kb = Math.round(bytes.length / 1024);
+  if (kb > MODEL_KB) problems.push(`${kb} KB, over the ${MODEL_KB} KB limit (embed one texture per model, at most 1024² and 512² for small items, JPEG or WebP for opaque colour, and only the part of an atlas the model uses)`);
+  const binStart = 20 + bytes.readUInt32LE(12) + 8;
+  (gltf.images || []).forEach((image, index) => {
+    if (image.uri && !image.uri.startsWith('data:')) { problems.push(`image ${index} is an external file (${image.uri}): embed it in the .glb`); return; }
+    const view = gltf.bufferViews?.[image.bufferView]; if (!view) return;
+    const size = imageSize(bytes.subarray(binStart + (view.byteOffset || 0), binStart + (view.byteOffset || 0) + view.byteLength));
+    if (!size) return;
+    const [w, h] = size, pow2 = n => (n & (n - 1)) === 0;
+    if (w > IMAGE_MAX || h > IMAGE_MAX || !pow2(w) || !pow2(h)) problems.push(`image ${index} is ${w}×${h}: use a power of two no bigger than ${IMAGE_MAX}² (1024, 512 or 256)`);
+  });
+  return problems;
+}
+
 const models = [], modelDir = join(dir, 'models');
 let kinds = []; try { kinds = readdirSync(modelDir).filter(name => statSync(join(modelDir, name)).isDirectory()); } catch { /* no models yet */ }
 for (const kind of kinds) {
@@ -73,7 +103,8 @@ for (const kind of kinds) {
     if (!file.endsWith('.glb')) { errors.push(`${where}: models must be binary glTF (.glb)`); continue; }
     const id = file.slice(0, -4);
     if (!rule.ids.includes(id)) { errors.push(`${where}: no ${kind} item is called "${id}"`); continue; }
-    let gltf; try { gltf = readGlb(readFileSync(join(modelDir, kind, file))); } catch (problem) { errors.push(`${where}: ${problem.message}`); continue; }
+    let gltf, bytes; try { bytes = readFileSync(join(modelDir, kind, file)); gltf = readGlb(bytes); } catch (problem) { errors.push(`${where}: ${problem.message}`); continue; }
+    for (const problem of downloadProblems(bytes, gltf)) errors.push(`${where}: ${problem}`);
     const names = nodeNames(gltf), strip = name => name.replace(/\.\d+$/, '');
     if (kind === 'knight') { const missing = RIG_PARTS.filter(part => !names.all.map(strip).includes(part)); if (missing.length) errors.push(`${where}: the body is missing rig parts ${missing.join(', ')}`); }
     if (rule.gear) { const stray = names.top.map(strip).filter(name => !RIG_PARTS.includes(name)); if (stray.length) errors.push(`${where}: top-level nodes must be named after rig parts; found ${stray.join(', ')}`); }

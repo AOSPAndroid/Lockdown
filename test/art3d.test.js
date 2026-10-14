@@ -65,3 +65,24 @@ test('every item has a look and the catalogue is up to date (node tools/catalog.
   spawnSync(process.execPath, [new URL('../tools/catalog.mjs', import.meta.url).pathname]);
   assert.equal(readFileSync(new URL('../docs/CATALOG.md', import.meta.url), 'utf8'), before, 'docs/CATALOG.md matches the game data');
 });
+
+test('the 3D art tool keeps model downloads small: file size and embedded texture size', () => {
+  // A hand-built .glb holding one embedded PNG (only its header matters) padded to `kb`.
+  const glbWithImage = (width, height, kb) => {
+    const png = Buffer.alloc(kb * 1024); Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]).copy(png); png.writeUInt32BE(width, 16); png.writeUInt32BE(height, 20);
+    const json = Buffer.from(JSON.stringify({ asset: { version: '2.0' }, scene: 0, scenes: [{ nodes: [0] }], nodes: [{ name: 'brand' }], images: [{ bufferView: 0, mimeType: 'image/png' }], bufferViews: [{ buffer: 0, byteOffset: 0, byteLength: png.length }], buffers: [{ byteLength: png.length }] }));
+    const jsonChunk = Buffer.concat([json, Buffer.alloc((4 - json.length % 4) % 4, 0x20)]), header = Buffer.alloc(12), jh = Buffer.alloc(8), bh = Buffer.alloc(8);
+    jh.writeUInt32LE(jsonChunk.length, 0); jh.write('JSON', 4, 'latin1'); bh.writeUInt32LE(png.length, 0); bh.write('BIN\0', 4, 'latin1');
+    header.write('glTF', 0, 'latin1'); header.writeUInt32LE(2, 4); header.writeUInt32LE(12 + 8 + jsonChunk.length + 8 + png.length, 8);
+    return Buffer.concat([header, jh, jsonChunk, bh, png]);
+  };
+  const dir = mkdtempSync(join(tmpdir(), 'models-')), weapons = join(dir, 'models', 'weapons');
+  mkdirSync(weapons, { recursive: true });
+  writeFileSync(join(weapons, 'brand.glb'), glbWithImage(512, 512, 200));
+  writeFileSync(join(weapons, 'blaster.glb'), glbWithImage(1254, 1254, 1900));
+  const run = spawnSync(process.execPath, [tool, dir], { encoding: 'utf8' });
+  const errorsFor = file => run.stdout.split('\n').filter(line => line.startsWith(`ERROR models/${file}`)).join('\n');
+  assert.equal(errorsFor('weapons/brand.glb'), '', 'a 200 KB model with a 512² texture is fine');
+  assert.match(errorsFor('weapons/blaster.glb'), /over the 600 KB limit/);
+  assert.match(errorsFor('weapons/blaster.glb'), /1254×1254: use a power of two/);
+});

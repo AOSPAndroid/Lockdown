@@ -94,7 +94,7 @@ colour is never baked in: trims meant to show the team use a material named \`te
 ## The knight body
 
 - **Looks:** ${BODY_LOOK}
-- **Make:** \`models/knight/body.glb\`, built on the rig in [docs/reference/knight_rig.glb](reference/knight_rig.glb). Budget 4000 triangles.
+- **Make:** \`models/knight/body.glb\`, built on skeleton D, [docs/reference/knight_rig_4_heads.glb](reference/knight_rig_4_heads.glb). Budget 4000 triangles.
 
 ## Classes (3)
 

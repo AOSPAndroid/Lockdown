@@ -26,7 +26,7 @@ colour is never baked in: trims meant to show the team use a material named `tea
 ## The knight body
 
 - **Looks:** The starting knight, before any gear, in the Spiral Knights style: 1.3 units tall, about three heads tall. A big head (about a third of the height) on a **slim, heroic body**, not a round or bulby one: a narrow torso that tapers to a defined waist, slender arms and legs, hands and feet in proportion (gloved hands, neat boots), a confident upright stance. Underneath every outfit: a cream T-shirt with a `team` trim at the collar and hem, charcoal shorts, dark boots and a smooth bald scalp (hair is the "bare head" helmet piece, so helmets never fight with hair). The face is simple and stylised, not anime: two big glossy dark eyes with a bright catch-light, no blush, no mouth or a tiny one. Painted like Spiral Knights: soft hand-painted gradients on cloth, folds and seams painted in, a light rim on top of every form. Arms and legs are separate rigid parts so the game can swing them.
-- **Make:** `models/knight/body.glb`, built on the rig in [docs/reference/knight_rig.glb](reference/knight_rig.glb). Budget 4000 triangles.
+- **Make:** `models/knight/body.glb`, built on skeleton D, [docs/reference/knight_rig_4_heads.glb](reference/knight_rig_4_heads.glb). Budget 4000 triangles.
 
 ## Classes (3)
 
