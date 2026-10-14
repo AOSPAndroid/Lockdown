@@ -73,6 +73,26 @@ planet. Its art works because of a handful of rules. Follow them exactly.
 
 ## 2. Knights
 
+### Chosen direction: Stack
+
+**Stack is the approved direction for all new and replacement art.** Use **D**, the four-head skeleton
+[`reference/knight_rig_4_heads.glb`](reference/knight_rig_4_heads.glb), at **1.3 units tall**. Keep its named
+parts, hierarchy and pivots: a prominent head above a slim, heroic body, defined waist and slender limbs.
+
+Build layered, overlapping plates, banded helmets, rolled rims and firm bevels. Paint broad visible brush
+strokes, coloured gradients, dark seams, rivets and sparse edge scuffs. Highlights are **strong and broad
+enough to read from the game camera**, concentrated on upper edges and bevels; retain saturated midtones
+and deep coloured recesses. Glow stays on small gems and lenses.
+
+Keep each catalogue item's palette: deep cobalt blue and silver for Cobalt, warm tan leather for Scout,
+cream shirt, charcoal shorts and shoes, chestnut hair, and warm bronze/gold details. Team colours belong
+only on `team*` trims. Follow the **Stack row** below for shape, painting and detail density.
+
+![Approved Stack direction, bottom row; all options use the D four-head skeleton](reference/stack-style-comparison.jpg)
+
+The approved mockups and their source files are saved on the unmerged
+[`art/style-mockups` branch](https://github.com/AOSPAndroid/Lockdown/tree/art/style-mockups/review/style-contrast).
+
 Every knight is the same **chibi body** (1.3 units tall) wearing four gear pieces (helmet, armour, pants,
 shoes), holding one weapon, with a class mark. Everyone starts with no gear: bare-headed, in a T-shirt and
 shorts. That is the game's design and it stays; what matters is that it is **drawn in the Spiral Knights art
