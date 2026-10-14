@@ -30,7 +30,7 @@ colour is never baked in: trims meant to show the team use a material named `tea
 
 ## Classes (3)
 
-Class pieces attach like gear (both shields go on `arm_L`). Budget 1500 triangles each.
+Class pieces attach like gear (both shields go on `forearm_L`; templates `templates/shield_guardian.glb` and `shield_recon.glb`). Budget 1500 triangles each.
 
 ### Striker `striker`
 
@@ -52,7 +52,7 @@ Class pieces attach like gear (both shields go on `arm_L`). Budget 1500 triangle
 
 ## Helmets (14)
 
-Attach to `head`. Budget 2500 triangles.
+Attach to `head`; template `docs/reference/templates/helmet.glb`. Budget 2500 triangles.
 
 ### Bare head `none`
 
@@ -140,7 +140,7 @@ Attach to `head`. Budget 2500 triangles.
 
 ## Armor (16)
 
-Attach to `chest` (plus optional `arm_L`, `arm_R` for sleeves and pauldrons, `hips` for coat tails or a skirt). Budget 3000 triangles.
+Attach to `chest`, `arm_L`/`arm_R` (pauldrons), `forearm_L`/`forearm_R` (bracers), optional `hips` (coat tails); template `docs/reference/templates/armor.glb`. Budget 3000 triangles.
 
 ### Unarmored `none`
 
@@ -240,7 +240,7 @@ Attach to `chest` (plus optional `arm_L`, `arm_R` for sleeves and pauldrons, `hi
 
 ## Pants (12)
 
-Attach to `hips`, `leg_L`, `leg_R`. Budget 2000 triangles.
+Attach to `hips`, `leg_L`/`leg_R` (thighs), `shin_L`/`shin_R` (knees and shins); template `templates/pants.glb`. Budget 2000 triangles.
 
 ### Bare legs `none`
 
@@ -316,7 +316,7 @@ Attach to `hips`, `leg_L`, `leg_R`. Budget 2000 triangles.
 
 ## Shoes (12)
 
-Attach to `foot_L`, `foot_R`. Budget 1500 triangles.
+Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triangles.
 
 ### Bare feet `none`
 

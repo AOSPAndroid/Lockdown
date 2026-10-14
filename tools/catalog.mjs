@@ -22,7 +22,7 @@ function stats(piece) {
   }
   return parts.join(', ') || 'no stat changes';
 }
-const SLOT_PARTS = { helmet: '`head`', armor: '`chest` (plus optional `arm_L`, `arm_R` for sleeves and pauldrons, `hips` for coat tails or a skirt)', pants: '`hips`, `leg_L`, `leg_R`', shoes: '`foot_L`, `foot_R`' };
+const SLOT_PARTS = { helmet: '`head`; template `docs/reference/templates/helmet.glb`', armor: '`chest`, `arm_L`/`arm_R` (pauldrons), `forearm_L`/`forearm_R` (bracers), optional `hips` (coat tails); template `docs/reference/templates/armor.glb`', pants: '`hips`, `leg_L`/`leg_R` (thighs), `shin_L`/`shin_R` (knees and shins); template `templates/pants.glb`', shoes: '`foot_L`, `foot_R`; template `templates/shoes.glb`' };
 const BUDGET = { helmet: 2500, armor: 3000, pants: 2000, shoes: 1500 };
 const ICON = { helmet: 'icon_helmet_', armor: 'icon_armor_', pants: 'icon_pants_', shoes: 'icon_shoes_' };
 
@@ -98,7 +98,7 @@ colour is never baked in: trims meant to show the team use a material named \`te
 
 ## Classes (3)
 
-Class pieces attach like gear (both shields go on \`arm_L\`). Budget 1500 triangles each.
+Class pieces attach like gear (both shields go on \`forearm_L\`; templates \`templates/shield_guardian.glb\` and \`shield_recon.glb\`). Budget 1500 triangles each.
 
 ${Object.entries(CLASSES).map(([id, cls]) => `### ${cls.name || id[0].toUpperCase() + id.slice(1)} \`${id}\`\n\n- **Does:** ${cls.hp} HP, ability: ${cls.ability}. ${cls.perks}. ${cls.description}\n- **Looks:** ${CLASS_LOOKS[id]}\n- **Make:** ${id === 'striker' ? 'nothing (the game draws the neon line); icon only' : `\`models/class/${id}.glb\``}\n`).join('\n')}
 ${gearSection('helmet', HELMETS, 'Helmets')}

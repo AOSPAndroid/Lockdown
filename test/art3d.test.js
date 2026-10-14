@@ -99,3 +99,21 @@ test('the 3D art tool keeps weapons in proportion to the knight', async () => {
   assert.equal(errorsFor('weapons/brand.glb'), '', 'a 0.75 sword is fine');
   assert.match(errorsFor('weapons/rapier.glb'), /1\.26 long, over 1 for a sword/);
 });
+
+test('the shared skeleton, the body and every template pass the asset checker', async () => {
+  const { RIG_PARTS, GEAR_PARTS, templates } = await import('../public/lockdown-skeleton.js');
+  const { writeGlb, readGlb, nodeNames } = await import('../tools/glb.mjs');
+  assert.equal(RIG_PARTS.length, 15, 'knees, elbows and ankles are their own parts');
+  const body = readGlb(readFileSync(new URL('../public/art/3d/models/knight/body.glb', import.meta.url)));
+  assert.deepEqual([...nodeNames(body).all].sort(), [...RIG_PARTS].sort(), 'the game body is the core skeleton');
+  // Install each gear and shield template as a real item and let the checker judge it.
+  const t = templates(), dir = mkdtempSync(join(tmpdir(), 'models-')), models = join(dir, 'models');
+  const items = { helmet: ['helmet', 'sallet'], armor: ['armor', 'scout'], pants: ['pants', 'greaves'], shoes: ['shoes', 'sabatons'], shield_guardian: ['class', 'guardian'], shield_recon: ['class', 'recon'], sword: ['weapons', 'brand'], gun: ['weapons', 'blaster'], gun_rifle: ['weapons', 'rifle'], sword_heavy: ['weapons', 'cleaver'], bomb: ['weapons', 'blast'], bomb_planted: ['bombs', 'blast'] };
+  for (const [name, [folder, id]] of Object.entries(items)) { mkdirSync(join(models, folder), { recursive: true }); writeFileSync(join(models, folder, `${id}.glb`), writeGlb({ nodes: t[name] })); }
+  const run = spawnSync(process.execPath, [tool, dir], { encoding: 'utf8' });
+  assert.deepEqual(run.stdout.split('\n').filter(line => line.startsWith('ERROR')), [], 'templates are valid items');
+  for (const slot of ['helmet', 'armor', 'pants', 'shoes']) for (const node of t[slot]) assert.ok(GEAR_PARTS[slot].includes(node.name), `${slot} template node ${node.name}`);
+  const names = list => { const out = []; const walk = n => { out.push(n.name); (n.children || []).forEach(walk); }; list.forEach(walk); return out; };
+  for (const part of ['barrel', 'muzzle']) assert.ok(names(t.gun).includes(part), `guns have a ${part}`);
+  assert.ok(names(t.bomb_planted).includes('fuse'), 'planted bombs have a fuse');
+});

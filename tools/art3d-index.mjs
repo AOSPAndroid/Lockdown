@@ -10,17 +10,17 @@ import { join, resolve } from 'node:path';
 import { decodePng } from './lockdown-art-kit/png.mjs';
 import { readGlb, nodeNames, triangleCount } from './glb.mjs';
 import { WEAPONS } from '../public/lockdown-weapons.js';
+import { RIG_PARTS, GEAR_PARTS } from '../public/lockdown-skeleton.js';
 import { HELMETS, ARMORS, PANTS, SHOES } from '../public/lockdown-equipment.js';
 
 /** Model folders, the ids each may hold, and triangle budgets (see docs/MODELS.md). */
-const RIG_PARTS = ['hips', 'chest', 'head', 'arm_L', 'hand_L', 'arm_R', 'hand_R', 'leg_L', 'foot_L', 'leg_R', 'foot_R'];
 const MODEL_KINDS = {
   knight: { ids: ['body'], budget: 4000 },
-  helmet: { ids: Object.keys(HELMETS), budget: 2500, gear: true },
-  armor: { ids: Object.keys(ARMORS), budget: 3000, gear: true },
-  pants: { ids: Object.keys(PANTS), budget: 2000, gear: true },
-  shoes: { ids: Object.keys(SHOES), budget: 1500, gear: true },
-  class: { ids: ['striker', 'guardian', 'recon'], budget: 1500, gear: true },
+  helmet: { ids: Object.keys(HELMETS), budget: 2500, gear: GEAR_PARTS.helmet },
+  armor: { ids: Object.keys(ARMORS), budget: 3000, gear: GEAR_PARTS.armor },
+  pants: { ids: Object.keys(PANTS), budget: 2000, gear: GEAR_PARTS.pants },
+  shoes: { ids: Object.keys(SHOES), budget: 1500, gear: GEAR_PARTS.shoes },
+  class: { ids: ['guardian', 'recon'], budget: 1500, gear: GEAR_PARTS.class },
   weapons: { ids: Object.keys(WEAPONS), budget: 1500 },
   bombs: { ids: Object.keys(WEAPONS).filter(id => WEAPONS[id].family === 'bomb'), budget: 1200 },
 };
@@ -125,7 +125,7 @@ for (const kind of kinds) {
     if (kind === 'weapons') { const length = longestExtent(gltf), limit = WEAPON_MAX[WEAPONS[id].family]; if (length > limit) errors.push(`${where}: ${length.toFixed(2)} long, over ${limit} for a ${WEAPONS[id].family === 'blade' ? 'sword' : WEAPONS[id].family} (see its size in docs/CATALOG.md)`); }
     const names = nodeNames(gltf), strip = name => name.replace(/\.\d+$/, '');
     if (kind === 'knight') { const missing = RIG_PARTS.filter(part => !names.all.map(strip).includes(part)); if (missing.length) errors.push(`${where}: the body is missing rig parts ${missing.join(', ')}`); }
-    if (rule.gear) { const stray = names.top.map(strip).filter(name => !RIG_PARTS.includes(name)); if (stray.length) errors.push(`${where}: top-level nodes must be named after rig parts; found ${stray.join(', ')}`); }
+    if (rule.gear) { const stray = names.top.map(strip).filter(name => !rule.gear.includes(name)); if (stray.length) errors.push(`${where}: top-level nodes must be named after the parts this slot covers (${rule.gear.join(', ')}); found ${stray.join(', ')}`); }
     const triangles = triangleCount(gltf);
     if (triangles > rule.budget) errors.push(`${where}: ${triangles} triangles, over the ${rule.budget} budget`);
     models.push(`${kind}/${file}`);

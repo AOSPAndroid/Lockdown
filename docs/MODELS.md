@@ -44,49 +44,67 @@ broad shoulders and chest, a narrow waist, long legs and big wedge feet (LBX-sty
 shoulders, piston elbows and knees) so the swings look mechanical.
 
 ```
-hips                (0, 0.56, 0)          waist joint; the body bobs and leans from here
-├─ leg_L            (0, −0.03, −0.085)    hip joint; swings forward/back (about Z)
-│  └─ foot_L        (0, −0.43, 0)         ankle
-├─ leg_R            (0, −0.03, +0.085)
-│  └─ foot_R        (0, −0.43, 0)
-└─ chest            (0, 0.06, 0)          waist
-   ├─ head          (0, 0.41, 0)          neck (at 1.03); the head is compact, ≈ 0.26 tall and 0.24 across
-   ├─ arm_L         (0, 0.33, −0.25)      shoulder; hangs down, swings when running
-   │  └─ hand_L     (0, −0.38, 0)
-   └─ arm_R         (0.04, 0.26, +0.25)   shoulder; points forward (+X) holding the weapon,
-      └─ hand_R     (0.36, 0, 0)          the weapon socket; turns across a sword's arc
+hips                  (0, 0.56, 0)        waist joint; the body bobs, sways and leans from here
+├─ leg_L              (0, −0.03, −0.085)  hip joint: the thigh swings forward and back
+│  └─ shin_L          (0, −0.215, 0)      knee: bends on the forward swing
+│     └─ foot_L       (0, −0.215, 0)      ankle: stays flat, then pushes off
+├─ leg_R …            (0, −0.03, +0.085)  (the same: shin_R, foot_R)
+└─ chest              (0, 0.06, 0)        spine: twists against the hips, turns into a swing
+   ├─ head            (0, 0.41, 0)        neck (at 1.03): a compact head, ≈ 0.26 tall
+   ├─ arm_L           (0, 0.33, −0.25)    shoulder: hangs down in the rest pose
+   │  └─ forearm_L    (0, −0.19, 0)       elbow (the class shields go here)
+   │     └─ hand_L    (0, −0.19, 0)       wrist
+   └─ arm_R …         (0, 0.33, +0.25)    (the same: forearm_R, hand_R)
+                                           the weapon sits in the right fist, 0.045 below the wrist
 ```
 
-Positions are each part's pivot relative to its parent. Keep each part's own mesh around its pivot (a leg
-hangs below `leg_L`, the head sits above `head`). Names must match exactly (Blender's `.001` suffixes are
-ignored).
+The rest pose has **both arms hanging straight down** and the legs straight. The game animates every joint
+itself (no skinning, no animation clips): a walk that blends into a run with knees and ankles bending, a
+body bob, sway and lean, arms swinging against the legs, an idle with breathing and the weapon held loosely,
+and sword swings that run through the shoulder, elbow and wrist. So every part must hold up when its joint
+turns: legs swing ±45° and knees bend to 90°, arms rise to overhead and sweep ±90° across a swing, elbows
+bend to 70°.
+
+Positions are each part's pivot relative to its parent; the names, hierarchy and pivots are defined once in
+`public/lockdown-skeleton.js`. Keep each part's own mesh around its pivot (a thigh hangs below `leg_L`, the
+head sits above `head`). Names must match exactly (Blender's `.001` suffixes are ignored).
 
 ## Gear and class pieces
 
 A gear file holds one top-level node per rig part it covers, **named after that part**. The game moves each
 node onto that part of the knight, keeping its local offset, so model each piece in the rig's space, around
-the part's pivot, sized to fit over the body.
+the part's pivot, sized to fit over the skeleton. Each slot may only use its own parts (the checker enforces it):
 
 | Slot | Top-level nodes |
 |---|---|
 | helmet (head unit) | `head` |
-| armor | `chest`; optional `arm_L`, `arm_R` (sleeves, pauldrons), `hips` (coat tails, skirt plates) |
-| pants | `hips`, `leg_L`, `leg_R` |
+| armor | `chest`; `arm_L`, `arm_R` (pauldrons, upper sleeves); `forearm_L`, `forearm_R` (bracers, gauntlets); optional `hips` (coat tails, a skirt of plates) |
+| pants | `hips` (waist skirt), `leg_L`, `leg_R` (thighs), `shin_L`, `shin_R` (knee guards, shins) |
 | shoes | `foot_L`, `foot_R` |
-| class pieces | `arm_L` (the Guardian's big shield, the Recon's tiny shield) |
+| class pieces | `forearm_L` (the Guardian's big shield, the Recon's tiny shield) |
 
-Armour parts go over the frame's plain base plates: a head unit replaces the look of the bare head (keep the
-visor and the two glowing eyes, or give the head its own), armour covers the chest plate and shoulder caps,
-pants the thigh and shin plates, shoes the feet. Make pieces slightly larger than what they cover so nothing pokes through
-in any pose (legs swing ±40°, arms ±35°, the right arm turns up to ±80° across a swing).
+Split pieces at the joints: a thigh plate goes on `leg_L`, the knee guard and shin plate on `shin_L`, so the
+knee can bend between them. The templates in `docs/reference/templates/` (one per slot) are the fit volumes
+as blocks on exactly these nodes: start from them.
 
 ## Weapons and bombs
 
 - **In hand** (`weapons/<id>.glb`): the origin is the middle of the grip, the blade or barrel points along
-  **+X**, the flat of a blade faces ±Y (edge forward along the swing). The game puts it in `hand_R`.
+  **+X**, the flat of a blade faces ±Y (edge forward along the swing). The game puts it in the right fist.
 - **Planted** (`bombs/<id>.glb`): the origin is where the bomb touches the floor; it stands up along +Y.
-- Sizes are in each item's catalogue entry (a normal sword ≈ 1.0 from grip to tip, heavy ≈ 1.3, a pistol
-  ≈ 0.5, the rifle ≈ 1.0).
+- Sizes are in each item's catalogue entry (a normal sword ≈ 0.75 from grip to tip, heavy ≈ 0.95, a pistol
+  ≈ 0.5, the rifle ≈ 1.0); [reference/weapon_sizes.glb](reference/weapon_sizes.glb) shows them all.
+- **Named parts the game animates** (start from the template for the type, `docs/reference/templates/`):
+
+| Type | Template | Nodes | What the game does with them |
+|---|---|---|---|
+| sword (normal, heavy, long, short) | `sword*.glb` | `grip`, `guard`, `blade`, `tip` | `tip` marks the end of the blade |
+| maul | `maul.glb` | `grip`, `head`, `tip` | |
+| gun (pistol, cannon, rifle) | `gun*.glb` | `body`, `barrel`, `core`, `muzzle` | `barrel` kicks back on every shot; the muzzle flash comes out of `muzzle` |
+| bomb in hand | `bomb.glb` | `body`, `fuse` | `fuse` glows and flickers while charging (give it an emissive material) |
+| planted bomb | `bomb_planted.glb` | `body`, `fuse` | `fuse` blinks faster as the bomb is about to blow; `body` swells just before |
+| Guardian shield | `shield_guardian.glb` | `forearm_L` > `plate` | raised in front when the Guardian guards |
+| Recon shield | `shield_recon.glb` | `forearm_L` > `buckler` > `lens` | the `lens` material flares while cloaked |
 
 ## Materials
 

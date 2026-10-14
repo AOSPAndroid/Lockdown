@@ -165,12 +165,13 @@ each catalogue entry (`icon_weapon_<id>`, `icon_helmet_<id>`, `icon_armor_<id>`,
   `helmet|armor|pants|shoes/<id>.glb`, `weapons/<id>.glb`, `bombs/<id>.glb`.
 - **1 unit = 1 floor tile; the knight is 1.3 tall; Y up; the knight faces +X**; origin between the feet.
 - **Rigid named parts, no skinning, no animation** (natural for robots). The game swings the parts itself. Build the body on
-  `docs/reference/knight_rig.glb` (the five-heads-tall robot frame): `hips` > `chest` > `head`, `arm_L` > `hand_L`, `arm_R` > `hand_R`, and
-  `hips` > `leg_L` > `foot_L`, `leg_R` > `foot_R`, with the same names and pivots.
+  `docs/reference/knight_rig.glb` (the core skeleton, arms hanging down): `hips` > `chest` > `head`,
+  `arm_L` > `forearm_L` > `hand_L` (and `_R`), `hips` > `leg_L` > `shin_L` > `foot_L` (and `_R`). The game animates
+  every joint (walk, run, idle, swings), so pieces are split at the joints.
 - **Gear** files hold one top-level node per body part they cover, named after it: helmets `head`; armour
-  `chest` (plus optional `arm_L`, `arm_R`, `hips`); pants `hips`, `leg_L`, `leg_R`; shoes `foot_L`, `foot_R`; class
-  pieces `arm_L`. Make them slightly bigger than what they cover, since legs swing ±40°, arms ±35°
-  and the weapon arm up to ±80°.
+  `chest`, `arm_L/R`, `forearm_L/R` (optional `hips`); pants `hips`, `leg_L/R`, `shin_L/R`; shoes `foot_L/R`; class
+  pieces `forearm_L`. Start from the templates in `docs/reference/templates/` and keep their node names (guns
+  need `barrel` and `muzzle`, bombs a `fuse`: the game animates them).
 - **Weapons:** origin at the middle of the grip, pointing **+X**. **Planted bombs:** origin on the floor, standing
   up +Y.
 - **Materials:** glTF metal/rough. Materials named `team…` take the team colour. Glowing parts get an emissive

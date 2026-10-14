@@ -14,6 +14,8 @@ import { OutputPass } from './vendor/three/addons/postprocessing/OutputPass.js';
 import { MAPS, TILE, isWall, levelCell, levelAt, STAIRS } from './lockdown-maps.js';
 import { WEAPONS, RULES, GUARD, ABILITIES, STATUS_IDS, chargeTicksFor } from './lockdown-engine.js';
 import { TEAM_COLORS } from './lockdown-renderer.js';
+import { RIG, RIG_PARTS, GEAR_PARTS, GRIP, SHIELDS, skeletonParts } from './lockdown-skeleton.js';
+export { RIG_PARTS };
 
 const U = 1 / TILE;
 const STOREY = .8;          // height of the raised floor
@@ -37,7 +39,6 @@ const THEMES = Object.freeze({
 const ELEMENT = Object.freeze({ holy: '#fff2a0', burn: '#ff7a2a', chill: '#7cc8ff', freeze: '#bfeaff', shock: '#8fe0ff', poison: '#6ee05a', curse: '#b26bff', drain: '#ff4d6d' });
 const STATUS_COLOR = Object.freeze({ burn: '#ff8a3d', poison: '#7bd65a', shock: '#7fc8ff', freeze: '#bfeaff', chill: '#6fb6ff', curse: '#b26bff' });
 /** The named parts of a knight rig (docs/MODELS.md). */
-export const RIG_PARTS = Object.freeze(['hips', 'chest', 'head', 'arm_L', 'hand_L', 'arm_R', 'hand_R', 'leg_L', 'foot_L', 'leg_R', 'foot_R']);
 /** Models listed in public/art/3d/index.json load once; instances get their own materials, and
  * materials named "team..." take the knight's team colour. */
 class ModelLibrary {
@@ -233,8 +234,6 @@ function arcGeometry(inner, outer, from, to, segments = 24) {
   return geometry;
 }
 const SIDES = [[1, 0], [-1, 0], [0, 1], [0, -1]];
-/** The rig parts each gear slot covers (see docs/MODELS.md). */
-const GEAR_PARTS = Object.freeze({ helmet: ['head'], armor: ['chest', 'arm_L', 'arm_R'], pants: ['hips', 'leg_L', 'leg_R'], shoes: ['foot_L', 'foot_R'] });
 
 export class Lockdown3DRenderer {
   constructor(overlayCanvas, assets, overlay2d) {
@@ -612,30 +611,17 @@ export class Lockdown3DRenderer {
    * hand_R. The game animates the parts itself, so models need no skinning or animation clips. */
   makeKnight(player) {
     const group = new THREE.Group(), team = colour(TEAM_COLORS[player.team].main), body = new THREE.Group(); group.add(body);
-    const bodyModel = this.models.instance('knight/body.glb', team);
-    let rig, parts;
-    if (bodyModel) { rig = bodyModel; parts = Object.fromEntries(RIG_PARTS.map(name => [name, rig.getObjectByName(name) || null])); }
-    else ({ rig, parts } = this.temporaryBody(player, team));
+    const { rig, parts } = this.knightRig(team);
     body.add(rig);
-    const temporary = !bodyModel;
-    // Gear: a model per piece adds its meshes to the parts it names (the starter Recruit set is the
-    // `none` piece of each slot). Without one, the piece shows as colour and simple shapes: on the
-    // temporary knight, or as a tinted shell over the body model's own parts.
+    // Gear: a model per piece adds its meshes to the parts it names. Without one, the piece shows as a
+    // tinted shell over the skeleton's own parts, so every choice shows while models arrive one by one.
     for (const slot of ['helmet', 'armor', 'pants', 'shoes']) {
       const id = player[slot] || 'none', model = this.models.instance(`${slot}/${id}.glb`, team);
-      if (model) this.attachGear(model, parts, temporary);
-      else if (temporary) this.temporaryGear(slot, id, player, team, parts);
-      else this.shellGear(slot, id, parts);
+      if (model) this.attachGear(model, parts); else this.shellGear(slot, id, parts);
     }
-    // Class pieces (Striker fin, Guardian shield, Recon hood tip) attach like gear.
+    // Class pieces (the Guardian's big shield, the Recon's tiny shield) go on the left forearm.
     const classModel = this.models.instance(`class/${player.cls}.glb`, team);
-    if (classModel) this.attachGear(classModel, parts, temporary);
-    else if (temporary) this.temporaryClassMarks(player, team, parts);
-    else {
-      // On a body model, the temporary marks (sized for the temporary rig) go in a scaled-up holder.
-      const holder = new THREE.Group(); holder.scale.setScalar(KNIGHT_SCALE); holder.userData.gear = true;
-      parts.arm_L?.add(holder); this.temporaryClassMarks(player, team, { ...parts, arm_L: holder });
-    }
+    if (classModel) this.attachGear(classModel, parts); else this.classMarks(player, team, parts);
     // Team ring at the feet: bright, so allies and enemies read at a glance.
     const ringRadius = FEET_RING * KNIGHT_SCALE;
     const ring = new THREE.Mesh(arcGeometry(ringRadius - .07, ringRadius, 0, Math.PI * 2, 40), new THREE.MeshBasicMaterial({ color: team, transparent: true, opacity: .95, depthWrite: false, blending: THREE.AdditiveBlending }));
@@ -650,20 +636,21 @@ export class Lockdown3DRenderer {
     chargeFloor.rotation.x = -Math.PI / 2; chargeFloor.position.y = .025; chargeFloor.visible = false; group.add(chargeFloor);
     rig.traverse(node => { if (node.isMesh) node.castShadow = true; });
     this.scene.add(group);
-    const hand = parts.hand_R || parts.arm_R || rig;
-    const chargeGlow = new THREE.Sprite(new THREE.SpriteMaterial({ map: this.glow, color: '#ffd36b', transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending })); chargeGlow.position.x = .55; hand.add(chargeGlow);
+    // The weapon socket: the centre of the right fist, the weapon pointing +X.
+    const hand = new THREE.Group(); hand.position.set(...GRIP); (parts.hand_R || rig).add(hand);
+    const chargeGlow = new THREE.Sprite(new THREE.SpriteMaterial({ map: this.glow, color: '#ffd36b', transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending })); chargeGlow.position.x = .5; hand.add(chargeGlow);
+    // Arms pitch, then yaw (so a raised arm sweeps across a swing); the rest bend in their own plane.
+    for (const name of ['arm_L', 'arm_R']) if (parts[name]) parts[name].rotation.order = 'YZX';
     const boostTrail = new THREE.Sprite(new THREE.SpriteMaterial({ map: this.glow, color: '#ffd36b', transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending })); boostTrail.scale.set(2, 1, 1); boostTrail.position.set(-.6, .5, 0); group.add(boostTrail);
-    const view = { group, body, parts, hand, temporary, chargeGlow, chargeRing, chargeFloor, boostTrail, ring, weaponId: null, weapon: null, stride: 0, lastX: player.x, lastY: player.y, key: this.knightKey(player), materials: [] };
+    const view = { group, body, parts, hand, chargeGlow, chargeRing, chargeFloor, boostTrail, ring, weaponId: null, weapon: null, lastX: player.x, lastY: player.y, key: this.knightKey(player), materials: [], pose: {}, gait: { phase: 0, speed: 0, run: 0 } };
     group.traverse(node => { if (node.material) view.materials.push(node.material); });
     return view;
   }
   knightKey(player) { return [player.team, player.cls, player.armor, player.helmet, player.pants, player.shoes, this.models.version].join('|'); }
   /** Gear model: each top-level node named after a rig part moves onto that part, keeping its offset. */
-  attachGear(model, parts, temporary = false) {
+  attachGear(model, parts) {
     for (const child of [...model.children]) {
       const part = parts[child.name.replace(/\.\d+$/, '')];
-      // Models are made at final size; the temporary rig is scaled up as a whole, so undo that.
-      if (temporary) { child.position.divideScalar(KNIGHT_SCALE); child.scale.divideScalar(KNIGHT_SCALE); }
       child.userData.gear = true;
       if (part) part.add(child); else console.warn(`gear node "${child.name}" names no rig part`);
     }
@@ -683,81 +670,49 @@ export class Lockdown3DRenderer {
       }
     }
   }
-  /** The temporary knight: Spiral Knights proportions from simple shapes, built on the same named rig.
-   * A dark under-suit and a dark head with two glowing eyes; gear (the Recruit set to start) goes on top. */
-  temporaryBody(player, team) {
-    const std = (c, extra = {}) => new THREE.MeshStandardMaterial({ color: c, roughness: .4, metalness: .15, ...extra });
-    const rig = new THREE.Group(); rig.scale.setScalar(KNIGHT_SCALE);
-    const node = (name, parent, x, y, z) => { const n = new THREE.Group(); n.name = name; n.position.set(x, y, z); parent.add(n); return n; };
-    // The reference rig's pivots (docs/MODELS.md) divided by KNIGHT_SCALE: a five-heads-tall battle robot.
-    const hips = node('hips', rig, 0, .4, 0), chest = node('chest', hips, 0, .043, 0), head = node('head', chest, 0, .293, 0);
-    const legL = node('leg_L', hips, 0, -.021, -.061), legR = node('leg_R', hips, 0, -.021, .061), footL = node('foot_L', legL, 0, -.307, 0), footR = node('foot_R', legR, 0, -.307, 0);
-    const armL = node('arm_L', chest, 0, .236, -.179), armR = node('arm_R', chest, .029, .186, .179), handL = node('hand_L', armL, 0, -.271, 0), handR = node('hand_R', armR, .257, 0, 0);
-    const parts = { hips, chest, head, leg_L: legL, leg_R: legR, foot_L: footL, foot_R: footR, arm_L: armL, arm_R: armR, hand_L: handL, hand_R: handR };
-    const frame = std('#3a3f48', { metalness: .55, roughness: .45 }), plate = std('#9fb0c2', { metalness: .45, roughness: .35 }), teamMat = std(team, { emissive: team, emissiveIntensity: .4 });
-    const mesh = (geometry, material, parent, x = 0, y = 0, z = 0, slot = null) => { const m = new THREE.Mesh(geometry, material); m.position.set(x, y, z); if (slot) m.userData.slot = slot; parent.add(m); return m; };
-    const box = (w, h, d) => new THREE.BoxGeometry(w, h, d), joint = r => new THREE.SphereGeometry(r, 10, 8);
-    // The bare frame: dark joints and core, light base plates (the slots' gear recolours the plates).
-    mesh(box(.12, .08, .16), frame, hips);
-    mesh(box(.13, .02, .17), teamMat, hips, 0, .045, 0);
-    const chestGeo = new THREE.CylinderGeometry(.13, .085, .24, 4, 1); chestGeo.rotateY(Math.PI / 4); chestGeo.scale(.75, 1, 1.1);
-    mesh(chestGeo, plate, chest, 0, .145, 0, 'armor');
-    mesh(box(.02, .14, .03), teamMat, chest, .085, .16, 0);
-    mesh(new THREE.CylinderGeometry(.035, .04, .05, 10), frame, chest, 0, .275, 0);
-    mesh(box(.15, .15, .15), frame, head, 0, .095, 0);
-    mesh(box(.02, .04, .14), std('#14171c', { roughness: .3 }), head, .076, .1, 0);
-    const eye = std('#fff2b0', { emissive: '#ffd84a', emissiveIntensity: 2.2 }); // the core skeleton's yellow eyes
-    mesh(joint(.016), eye, head, .087, .1, -.034); mesh(joint(.016), eye, head, .087, .1, .034);
-    mesh(box(.08, .045, .012), teamMat, head, -.01, .19, 0).rotation.z = .3;
-    for (const arm of [armL, armR]) {
-      const along = arm === armR; // the weapon arm points forward (+X), the other hangs down
-      const at = d => along ? [d, 0, 0] : [0, -d, 0], seg = (l, w) => along ? box(l, w, w) : box(w, l, w);
-      mesh(joint(.045), frame, arm);
-      mesh(new THREE.SphereGeometry(.06, 12, 8, 0, Math.PI * 2, 0, Math.PI / 2), plate, arm, 0, .01, 0, 'armor');
-      mesh(seg(.13, .062), frame, arm, ...at(.075));
-      mesh(joint(.032), frame, arm, ...at(.15));
-      mesh(seg(.12, .072), plate, arm, ...at(.215), 'armor');
-    }
-    for (const hand of [handL, handR]) mesh(box(.06, .06, .06), frame, hand);
-    for (const leg of [legL, legR]) {
-      mesh(box(.075, .14, .08), plate, leg, 0, -.075, 0, 'pants');
-      mesh(joint(.035), frame, leg, 0, -.155, 0);
-      mesh(box(.085, .14, .09), plate, leg, 0, -.235, 0, 'pants');
-    }
-    for (const foot of [footL, footR]) mesh(box(.16, .065, .095), plate, foot, .025, -.035, 0, 'shoes');
-    return { rig, parts };
+  /** The body: its model, or the core skeleton built from public/lockdown-skeleton.js (the same shapes). */
+  knightRig(team) {
+    const model = this.models.instance('knight/body.glb', team);
+    if (model) return { rig: model, parts: Object.fromEntries(RIG_PARTS.map(name => [name, model.getObjectByName(name) || null])) };
+    this.skeletonMaterials ||= new Map();
+    const shapes = skeletonParts(), parts = {};
+    const materialFor = spec => {
+      const key = spec.name === 'team_stripe' ? `${spec.name}:${team.getHexString()}` : spec.name;
+      if (!this.skeletonMaterials.has(key)) {
+        const material = new THREE.MeshStandardMaterial({ name: spec.name, metalness: spec.metal, roughness: spec.rough });
+        material.color.setRGB(...spec.color); if (spec.emissive) { material.emissive.setRGB(...spec.emissive); material.emissiveIntensity = 1.2; }
+        if (spec.name === 'team_stripe') material.color.copy(team);
+        this.skeletonMaterials.set(key, material);
+      }
+      return this.skeletonMaterials.get(key).clone();
+    };
+    const build = ([name, [x, y, z], children]) => {
+      const node = new THREE.Group(); node.name = name; node.position.set(x, y, z); parts[name] = node;
+      for (const { positions, normals, indices, material } of shapes[name]?.parts || []) {
+        const geometry = new THREE.BufferGeometry(); geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3)); geometry.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3)); geometry.setIndex(indices);
+        node.add(new THREE.Mesh(geometry, materialFor(material)));
+      }
+      for (const child of children) node.add(build(child));
+      return node;
+    };
+    return { rig: build(RIG), parts };
   }
-  /** Temporary gear: recolours the matching frame plates and adds a few pieces (head shell, pauldrons). */
-  temporaryGear(slot, id, player, team, parts) {
-    if (id === 'none') return; // the bare frame
-    const tint = colour(this.armorColour(id)), std = (c, extra = {}) => new THREE.MeshStandardMaterial({ color: c, roughness: .35, metalness: .3, ...extra });
-    if (slot === 'helmet') {
-      // A tinted shell over the frame head, set back so the visor and eyes still show, and a crest on top.
-      const shell = new THREE.Mesh(new THREE.BoxGeometry(.18, .17, .19), std(tint)); shell.position.set(-.02, .105, 0); parts.head.add(shell);
-      const crest = new THREE.Mesh(new THREE.BoxGeometry(.15, .06, .03), std(tint.clone().offsetHSL(0, 0, .12))); crest.position.set(-.02, .215, 0); parts.head.add(crest);
-      return;
-    }
-    for (const part of Object.values(parts)) for (const child of part.children) if (child.isMesh && child.userData.slot === slot) child.material = std(tint);
-    if (slot === 'armor') for (const arm of [parts.arm_L, parts.arm_R]) {
-      const pad = new THREE.Mesh(new THREE.BoxGeometry(.1, .05, .1), std(tint)); pad.position.y = .04; arm.add(pad);
-    }
-  }
-  /** Class marks: the Guardian's big round shield and the Recon's tiny cloaking shield, both on the left
-   * arm. The Striker has no piece: its neon trail is drawn every frame (see updateTrail). */
-  temporaryClassMarks(player, team, parts) {
+  /** Class marks without a model: the Guardian's big round shield and the Recon's tiny cloaking shield, on
+   * the left forearm (SHIELDS in lockdown-skeleton.js). The Striker's mark is its neon trail. */
+  classMarks(player, team, parts) {
+    const arm = parts.forearm_L; if (!arm) return;
     if (player.cls === 'guardian') {
-      const face = new THREE.MeshStandardMaterial({ color: '#4a5a9e', metalness: .3, roughness: .4 }), gold = new THREE.MeshStandardMaterial({ color: '#d8b45a', metalness: .8, roughness: .3 });
-      const rim = new THREE.MeshStandardMaterial({ color: team, emissive: team, emissiveIntensity: .3, metalness: .4, roughness: .4 });
-      const shield = new THREE.Group(); shield.position.set(.06, -.17, -.07); parts.arm_L.add(shield);
-      const plate = new THREE.Mesh(new THREE.CylinderGeometry(.24, .24, .035, 28), face); plate.rotation.x = Math.PI / 2; shield.add(plate);
-      const edge = new THREE.Mesh(new THREE.TorusGeometry(.24, .022, 8, 32), gold); shield.add(edge);
-      const band = new THREE.Mesh(new THREE.TorusGeometry(.205, .01, 6, 32), rim); band.position.z = -.02; shield.add(band);
-      const boss = new THREE.Mesh(new THREE.ConeGeometry(.05, .1, 12), gold); boss.rotation.x = -Math.PI / 2; boss.position.z = -.06; shield.add(boss);
+      const { radius, at } = SHIELDS.guardian, gold = new THREE.MeshStandardMaterial({ color: '#d8b45a', metalness: .5, roughness: .3 });
+      const shield = new THREE.Group(); shield.position.set(...at); shield.userData.gear = true; arm.add(shield);
+      const plate = new THREE.Mesh(new THREE.CylinderGeometry(radius, radius, .04, 32), new THREE.MeshStandardMaterial({ color: '#4a5a9e', metalness: .3, roughness: .4 })); plate.rotation.x = Math.PI / 2; shield.add(plate);
+      const edge = new THREE.Mesh(new THREE.TorusGeometry(radius, .03, 8, 36), gold); shield.add(edge);
+      const band = new THREE.Mesh(new THREE.TorusGeometry(radius * .85, .014, 6, 36), new THREE.MeshStandardMaterial({ color: team, emissive: team, emissiveIntensity: .3 })); band.position.z = -.025; shield.add(band);
+      const boss = new THREE.Mesh(new THREE.ConeGeometry(.07, .14, 12), gold); boss.rotation.x = -Math.PI / 2; boss.position.z = -.09; shield.add(boss);
     }
     if (player.cls === 'recon') {
-      const buckler = new THREE.Mesh(new THREE.CylinderGeometry(.07, .07, .03, 16), new THREE.MeshStandardMaterial({ color: '#8a929e', metalness: .75, roughness: .3 })); buckler.rotation.x = Math.PI / 2; buckler.position.set(.02, -.2, -.05); parts.arm_L.add(buckler);
-      const lens = new THREE.Mesh(new THREE.SphereGeometry(.032, 12, 8), new THREE.MeshStandardMaterial({ color: '#c9a2ff', emissive: '#a070ff', emissiveIntensity: 1.6 })); lens.position.set(0, -.025, 0); lens.scale.y = .5; buckler.add(lens);
-      lens.userData.cloakLens = true;
+      const { radius, at } = SHIELDS.recon;
+      const buckler = new THREE.Mesh(new THREE.CylinderGeometry(radius, radius, .03, 18), new THREE.MeshStandardMaterial({ color: '#8a929e', metalness: .5, roughness: .3 })); buckler.rotation.x = Math.PI / 2; buckler.position.set(...at); buckler.userData.gear = true; arm.add(buckler);
+      const lens = new THREE.Mesh(new THREE.SphereGeometry(.04, 12, 8), new THREE.MeshStandardMaterial({ color: '#c9a2ff', emissive: '#a070ff', emissiveIntensity: 1.6 })); lens.position.y = -.025; lens.scale.y = .5; lens.userData.cloakLens = true; buckler.add(lens);
     }
   }
   armorColour(id) {
@@ -767,12 +722,11 @@ export class Lockdown3DRenderer {
     return palette[Math.abs(h) % palette.length];
   }
   /** A weapon in hand: its model (grip at the origin, pointing +X) or a temporary one. */
-  makeWeapon(id, temporaryRig) {
+  makeWeapon(id) {
     const model = id && this.models.instance(`weapons/${id}.glb`);
-    if (model) { model.traverse(node => { if (node.isMesh) node.castShadow = true; }); if (temporaryRig) model.scale.setScalar(1 / KNIGHT_SCALE); return model; }
-    const group = this.temporaryWeapon(id);
-    // The temporary weapon is sized for the temporary rig, which is scaled up as a whole.
-    if (!temporaryRig) group.scale.setScalar(KNIGHT_SCALE);
+    if (model) { model.traverse(node => { if (node.isMesh) node.castShadow = true; }); return model; }
+    // The temporary weapons are drawn small and scaled up to their catalogue sizes.
+    const group = this.temporaryWeapon(id); group.scale.setScalar(KNIGHT_SCALE);
     return group;
   }
   temporaryWeapon(id) {
@@ -804,36 +758,121 @@ export class Lockdown3DRenderer {
     group.traverse(node => { if (node.isMesh) node.castShadow = true; });
     return group;
   }
+  /** Procedural animation on the skeleton's joints (rotations about Z swing a limb forward, about X out to the
+   * side, about Y turn it). A gait from how far the knight really moved: walking blends into running, thighs
+   * swing, knees bend on the forward swing, feet stay flat then push off, the body bobs, sways and leans, the
+   * chest counter-twists and the arms swing against the legs. Standing still breathes and shifts weight with
+   * the weapon held loosely. Actions take over: sword swings run through shoulder, elbow and wrist with the
+   * torso, lunges, slams, spins, charges, aiming, guarding, dodges, stuns and a recoil when hit. Every joint
+   * eases toward its target, so nothing snaps. Returns the direction the knight faces. */
+  animateKnight(view, player, weapon, now) {
+    const parts = view.parts, gait = view.gait, T = {};
+    const dt = Math.min(.05, Math.max(.001, (now - (view.lastNow ?? now - 16)) / 1000)); view.lastNow = now;
+    const ease = t => t * t * (3 - 2 * t), easeOut = t => 1 - (1 - t) ** 3;
+    const action = player.action || 'idle', family = weapon?.family || 'none';
+    let facing = player.aim;
+    if (['swing', 'lunge', 'lungeBurst', 'slam'].includes(action)) facing = player.swingAim ?? facing;
+    // ---- gait ----
+    const dx = (player.x - view.lastX) * U, dz = (player.y - view.lastY) * U; view.lastX = player.x; view.lastY = player.y;
+    const step = Math.hypot(dx, dz) < .6 ? Math.hypot(dx, dz) : 0; // a respawn is a jump, not a step
+    gait.speed = lerp(gait.speed, step / dt, 1 - Math.exp(-dt * 10));
+    const ahead = step > 1e-5 ? (dx * Math.cos(facing) + dz * Math.sin(facing)) / step : 1, backwards = ahead < -.3;
+    const m = Math.min(1, gait.speed / .7);
+    gait.run = lerp(gait.run, Math.min(1, Math.max(0, (gait.speed - 1.4) / 2.2)), 1 - Math.exp(-dt * 6));
+    const r = gait.run, ph = (gait.phase += step / lerp(.8, 1.5, r) * Math.PI * 2 * (backwards ? -1 : 1));
+    const hipAmp = lerp(.42, .75, r) * m, kneeAmp = lerp(.6, 1.35, r) * m;
+    for (const [side, offset] of [['L', 0], ['R', Math.PI]]) {
+      const a = ph + offset, thigh = hipAmp * Math.sin(a);
+      const knee = -(lerp(.05, .14, r) * m + kneeAmp * Math.max(0, Math.sin(a + 1.05)) ** 1.6);
+      const toeOff = -lerp(.35, .7, r) * m * Math.max(0, -Math.sin(a)) * Math.max(0, Math.cos(a)) * 2;
+      const heel = .2 * m * Math.max(0, Math.sin(a)) * Math.max(0, -Math.cos(a)) * 2;
+      T[`leg_${side}`] = [0, 0, thigh]; T[`shin_${side}`] = [0, 0, knee]; T[`foot_${side}`] = [0, 0, -(thigh + knee) * .85 + toeOff + heel];
+    }
+    const armSwing = lerp(.35, .85, r) * m, breath = Math.sin(now / 650), idle = 1 - m;
+    const body = { y: m * (lerp(.012, .04, r) * Math.abs(Math.cos(ph)) - .02 * r) + idle * .006 * breath, x: m * lerp(.035, .05, r) * Math.sin(ph), z: -(lerp(.05, .2, r) * m + (player.boosting ? .14 : 0)) * (backwards ? -.6 : 1) };
+    const sway = idle * .025 * Math.sin(now / 1900), hipTwist = -.08 * m * Math.sin(ph);
+    T.hips = [sway, hipTwist, 0];
+    T.leg_L[0] -= sway; T.leg_R[0] -= sway;
+    T.chest = [0, .14 * m * Math.sin(ph) - hipTwist, idle * .025 * breath];
+    T.head = [.03 * m * Math.sin(ph * 2), idle * .12 * Math.sin(now / 2300), -body.z * .5 + .02 * m * Math.sin(ph * 2)];
+    T.arm_L = [.07, 0, -armSwing * Math.sin(ph) + .05 + idle * .02 * breath]; T.forearm_L = [0, 0, lerp(.25, 1.3, r) * m * (.75 + .25 * Math.sin(ph)) + .18]; T.hand_L = [0, 0, -.1];
+    // ---- the weapon arm, by weapon ----
+    const recoil = Math.max(0, 1 - (now - (view.recoilAt || -1e9)) / 140);
+    const aiming = family === 'gun' && (player.fireCooldown > 0 || player.charging || now - (view.recoilAt || -1e9) < 600);
+    let arm = [-.07, 0, .1 + armSwing * .5 * Math.sin(ph)], elbow = .45 + .5 * r * m, pitch = -.5 + .04 * Math.sin(now / 900) * idle;
+    if (family === 'gun') {
+      if (aiming) { arm = [-.05, 0, 1.45]; elbow = .12 + recoil * .25; pitch = recoil * .3; T.arm_L = [-.25, 0, 1.15]; T.forearm_L = [0, 0, .9]; }
+      else { arm = [-.05, 0, .55 + armSwing * .15 * Math.sin(ph)]; elbow = 1; pitch = -.12; }
+    } else if (family === 'bomb') { arm = [-.06, 0, .35 + armSwing * .4 * Math.sin(ph)]; elbow = .75; pitch = -.2; }
+    else if (family === 'none') { arm = [-.07, 0, armSwing * Math.sin(ph) + .05]; elbow = .2 + .9 * r * m; pitch = -1.2; }
+    let twist = 0, snap = false;
+    const total = player.actionTotal || 1, elapsed = total - (player.actionTicks || 0);
+    if (action === 'swing') {
+      // Wind up across the body, cut through the arc with the elbow snapping straight, follow through, settle.
+      const startup = player.swingStartup || 1, active = player.swingActive || 1, dir = player.swingDir || 1, arc = player.swingArc || 1.6;
+      const from = -dir * arc / 2 * 1.15, to = dir * arc / 2 * 1.1;
+      let yaw;
+      if (elapsed < startup) { const w = easeOut(elapsed / startup); yaw = from * w; arm = [-.05, 0, lerp(.5, 1.35, w)]; elbow = lerp(.5, 1.05, w); pitch = lerp(-.2, .25, w); }
+      else if (elapsed < startup + active) { const p = easeOut((elapsed - startup) / active); yaw = lerp(from, to, p); arm = [-.05, 0, 1.45 - .12 * Math.sin(p * Math.PI)]; elbow = lerp(1.05, .08, Math.min(1, p * 1.6)); pitch = lerp(.25, -.05, p); body.z -= .12; }
+      else { const q = ease(Math.min(1, (elapsed - startup - active) / Math.max(1, total - startup - active))); yaw = lerp(to, 0, q); arm = [-.05, 0, lerp(1.45, .5, q)]; elbow = lerp(.08, .45, q); pitch = lerp(-.05, -.5, q); }
+      twist = -yaw * .3; arm[1] = -yaw * .7; snap = true;
+      T.leg_L[2] += .25; T.leg_R[2] -= .2; T.shin_L[2] -= .2; T.shin_R[2] -= .25;
+      T.arm_L = [.25, 0, .5]; T.forearm_L = [0, 0, .6];
+    } else if (action === 'lunge' || action === 'lungeBurst') {
+      arm = [-.05, 0, 1.5]; elbow = .05; pitch = 0; body.z -= .32; snap = true;
+      T.leg_L = [0, 0, .75]; T.shin_L = [0, 0, -.25]; T.foot_L = [0, 0, -.5]; T.leg_R = [0, 0, -.55]; T.shin_R = [0, 0, -.5]; T.foot_R = [0, 0, .5];
+      T.arm_L = [.2, 0, -.6]; T.forearm_L = [0, 0, .4];
+    } else if (action === 'spin') {
+      twist = (now / 55) % (Math.PI * 2); arm = [-.05, 0, 1.45]; elbow = .1; pitch = 0; snap = true;
+      for (const side of ['L', 'R']) { T[`leg_${side}`][2] += .25; T[`shin_${side}`] = [0, 0, -.5]; }
+    } else if (action === 'slam') {
+      const rising = player.actionTicks > total - (player.chargeMoveTicks || 0);
+      if (rising) { arm = [0, 0, 2.9]; elbow = .4; pitch = 1.2; body.z += .1; T.arm_L = [-.2, 0, 2.6]; T.forearm_L = [0, 0, .5]; }
+      else { arm = [0, 0, .7]; elbow = .1; pitch = -.55; body.z -= .35; body.y -= .08; T.arm_L = [-.2, 0, .7]; T.forearm_L = [0, 0, .2]; for (const side of ['L', 'R']) { T[`leg_${side}`] = [0, 0, .45]; T[`shin_${side}`] = [0, 0, -.8]; T[`foot_${side}`] = [0, 0, .35]; } }
+      snap = true;
+    } else if (action === 'cast') {
+      arm = [-.05, 0, .3]; elbow = .5; pitch = -1; body.z -= .2; body.y -= .05;
+      for (const side of ['L', 'R']) { T[`leg_${side}`][2] += .3; T[`shin_${side}`] = [0, 0, -.55]; T[`foot_${side}`] = [0, 0, .25]; }
+    } else if (player.charging) {
+      const tremble = Math.sin(now / 35) * .03 * (player.chargeTicks >= chargeTicksFor(player, weapon) ? 1 : .4);
+      if (family === 'bomb') { arm = [-.2, 0, 2.6 + tremble]; elbow = .55; pitch = 1.2; }
+      else if (family === 'blade') { arm = [-.1, .7, 1.15 + tremble]; elbow = 1.15; pitch = .45; twist = -.3; T.leg_L[2] += .3; T.leg_R[2] -= .25; T.shin_L[2] -= .25; T.shin_R[2] -= .25; }
+      else if (family === 'gun') arm[2] += tremble;
+    }
+    if (player.guarding) { T.arm_L = [-.3, 0, 1.35]; T.forearm_L = [0, 0, .55]; twist -= .2; body.z += .06; }
+    if (player.dodgeTicks > 0) { body.z -= .4; body.y -= .06; T.leg_L = [0, 0, .5]; T.leg_R = [0, 0, -.3]; T.shin_L = [0, 0, -.9]; T.shin_R = [0, 0, -.9]; T.arm_L = [.2, 0, -.5]; if (!snap) arm[2] -= .3; }
+    if (player.stunTicks > 0) { T.head[2] += .3 * Math.sin(now / 80); T.head[0] += .2 * Math.sin(now / 110); body.x += .08 * Math.sin(now / 150); T.arm_L = [.1, 0, 0]; }
+    const flash = this.flashes?.get(player.id), hurt = flash ? Math.max(0, 1 - (now - flash) / 180) : 0;
+    if (hurt) { body.z += .22 * hurt; T.head[0] -= .15 * hurt; }
+    T.chest[1] += twist; T.arm_R = arm; T.forearm_R = [0, 0, elbow]; T.hand_R = [0, 0, pitch - arm[2] - elbow];
+    // ---- apply, easing every joint toward its target (frozen knights and hit-stop hold the pose) ----
+    if (player.status?.freeze > 0 || player.hitStop > 0) return facing;
+    const k = 1 - Math.exp(-dt * 16), pose = view.pose;
+    for (const [name, target] of Object.entries(T)) {
+      const part = parts[name]; if (!part) continue;
+      const fast = snap && ['arm_R', 'forearm_R', 'hand_R', 'chest'].includes(name) ? 1 : k, now3 = pose[name] || (pose[name] = [0, 0, 0]);
+      for (let i = 0; i < 3; i++) now3[i] = lerp(now3[i], target[i], fast);
+      part.rotation.set(now3[0], now3[1], now3[2]);
+    }
+    const b = pose.body || (pose.body = { y: 0, x: 0, z: 0 });
+    for (const key of ['y', 'x', 'z']) b[key] = lerp(b[key], body[key], k);
+    view.body.position.y = b.y; view.body.rotation.x = b.x; view.body.rotation.z = b.z;
+    // Gun barrels kick back when they fire.
+    const barrel = view.weapon?.getObjectByName?.('barrel');
+    if (barrel) { barrel.userData.x0 ??= barrel.position.x; barrel.position.x = barrel.userData.x0 - .06 * recoil; }
+    const fuse = view.weapon?.getObjectByName?.('fuse');
+    if (fuse) fuse.traverse(node => { if (node.material?.emissive) node.material.emissiveIntensity = player.charging ? 1.5 + Math.sin(now / 30) : .6; });
+    return facing;
+  }
   updateKnight(view, player, map, now, viewer) {
     const x = player.x * U, z = player.y * U, ground = levelAt(map, player.x, player.y) * STOREY, parts = view.parts;
     view.group.position.set(x, ground, z);
     // Weapon in hand follows the selected slot.
     const weaponId = player.weapons?.[player.slot] || null;
-    if (weaponId !== view.weaponId) { if (view.weapon) view.hand.remove(view.weapon); view.weaponId = weaponId; view.weapon = this.makeWeapon(weaponId, view.temporary); view.hand.add(view.weapon); view.weapon.traverse(node => { if (node.material) view.materials.push(node.material); }); }
-    const moved = Math.hypot(player.x - view.lastX, player.y - view.lastY); view.lastX = player.x; view.lastY = player.y;
-    if (moved < 30) view.stride += moved * U * 7;
-    const moving = Math.hypot(player.vx || 0, player.vy || 0) > 30, swing = Math.sin(view.stride) * (moving ? .7 : 0);
-    if (parts.leg_L) parts.leg_L.rotation.z = swing;
-    if (parts.leg_R) parts.leg_R.rotation.z = -swing;
-    if (parts.arm_L) parts.arm_L.rotation.z = -swing * .8;
-    // Lean into a run; a boost leans harder.
-    view.body.rotation.z = moving ? (player.boosting ? -.28 : -.12) : 0;
-    view.body.position.y = moving ? Math.abs(Math.cos(view.stride)) * .05 : Math.sin(now / 400) * .012;
-    // Face the aim; a swing turns the weapon arm across its arc.
-    const weapon = WEAPONS[weaponId];
-    let facing = player.aim, armYaw = 0, armPitch = 0;
-    if (player.action === 'swing') {
-      const elapsed = player.actionTotal - player.actionTicks, startup = player.swingStartup || 1, active = player.swingActive || 1;
-      const progress = elapsed < startup ? 0 : Math.min(1, (elapsed - startup) / active), wind = elapsed < startup ? elapsed / startup : 1;
-      facing = player.swingAim;
-      armYaw = -player.swingDir * (player.swingArc / 2) * (wind * (1 - progress) * 1.15) + player.swingDir * (player.swingArc / 2) * progress;
-    } else if (['lunge', 'lungeBurst'].includes(player.action)) { facing = player.swingAim; armYaw = 0; }
-    else if (player.action === 'spin') armYaw = (now / 60) % (Math.PI * 2);
-    else if (player.action === 'slam') { facing = player.swingAim; armPitch = player.actionTicks > (player.actionTotal - (player.chargeMoveTicks || 0)) ? -.9 : .4; }
-    else if (weapon?.family === 'blade') armYaw = -.5; // at rest the blade points ahead and to the side
-    if (player.charging) armPitch = -.5 - Math.sin(now / 60) * .05;
-    // A charge glows on the weapon and burns gold when it is ready; Boost leaves a streak.
+    if (weaponId !== view.weaponId) { if (view.weapon) view.hand.remove(view.weapon); view.weaponId = weaponId; view.weapon = this.makeWeapon(weaponId); view.hand.add(view.weapon); view.weapon.traverse(node => { if (node.material) view.materials.push(node.material); }); }
+    const weapon = WEAPONS[weaponId], facing = this.animateKnight(view, player, weapon, now);
     const chargeLevel = player.charging && weapon ? Math.min(1, player.chargeTicks / Math.max(1, chargeTicksFor(player, weapon))) : 0;
+    // A charge glows on the weapon and burns gold when it is ready; Boost leaves a streak.
     view.chargeGlow.material.opacity = chargeLevel * (chargeLevel >= 1 ? .9 + .1 * Math.sin(now / 50) : .5);
     view.chargeRing.visible = view.chargeFloor.visible = chargeLevel > 0;
     if (chargeLevel > 0) {
@@ -843,7 +882,7 @@ export class Lockdown3DRenderer {
       view.chargeRing.material.color.set(ready ? '#fff4c8' : '#ffc94a');
       view.chargeRing.scale.setScalar(pulse);
     }
-    view.chargeGlow.scale.setScalar((.5 + chargeLevel * .8) * (view.temporary ? 1 : KNIGHT_SCALE));
+    view.chargeGlow.scale.setScalar((.5 + chargeLevel * .8) * KNIGHT_SCALE);
     view.boostTrail.material.opacity = player.boosting ? .55 + .2 * Math.sin(now / 40) : 0;
     // The Recon's tiny shield is the cloaking device: its lens flares while cloaked.
     if (player.cls === 'recon') {
@@ -851,7 +890,6 @@ export class Lockdown3DRenderer {
       if (view.lens) view.lens.material.emissiveIntensity = player.cloakTicks > 0 ? 4 + Math.sin(now / 60) : 1.6;
     }
     view.group.rotation.y = -facing;
-    if (parts.arm_R) { parts.arm_R.rotation.y = -armYaw; parts.arm_R.rotation.z = armPitch; }
     // Cloak, spawn shield and hit flash.
     const cloaked = player.cloakTicks > 0, alpha = cloaked ? .3 : 1;
     for (const material of view.materials) { if (material.blending === THREE.AdditiveBlending) continue; if (material.transparent !== (alpha < 1)) { material.transparent = alpha < 1; material.needsUpdate = true; } material.opacity = alpha; }
@@ -1014,6 +1052,10 @@ export class Lockdown3DRenderer {
       view.position.set(bomb.x * U, levelAt(map, bomb.x, bomb.y) * STOREY, bomb.y * U);
       const urgency = 1 - bomb.fuse / Math.max(1, bomb.total), blink = Math.sin(now / (120 - urgency * 90)) > 0;
       view.userData.light.visible = blink; view.userData.zone.material.opacity = .25 + urgency * .5;
+      // Models with the template's named parts: the fuse blinks with the warning light, the body swells at the end.
+      const fuse = view.getObjectByName('fuse'), bodyNode = view.getObjectByName('body');
+      if (fuse) fuse.traverse(node => { if (node.material?.emissive) node.material.emissiveIntensity = blink ? 2.5 : .4; });
+      if (bodyNode) bodyNode.scale.setScalar(1 + Math.max(0, urgency - .75) * .5 * (1 + Math.sin(now / 40)));
     }
     for (const [id, view] of this.bombs) if (!seen.has(id)) { this.scene.remove(view); this.bombs.delete(id); }
   }
@@ -1066,7 +1108,13 @@ export class Lockdown3DRenderer {
         if (event.targetId === this.localId) this.shake = Math.max(this.shake, Math.min(8, 2 + event.amount / 5));
       } else if (event.type === 'explosion') { this.burst(at(event.x, event.y, .3), event.burst ? '#ffcf8a' : '#ffb347', (event.radius || 60) * U * 2, 420, now, true); this.shakeNear(event.x, event.y, 6); }
       else if (event.type === 'slam') { this.ringEffect(at(event.x, event.y, .05), (event.radius || 80) * U, '#ffe0a0', 420, now); this.shakeNear(event.x, event.y, 7); }
-      else if (event.type === 'shot') this.burst(at(event.x + Math.cos(event.angle) * 22, event.y + Math.sin(event.angle) * 22, KNIGHT * .45), '#fff4c0', .45, 90, now);
+      else if (event.type === 'shot') {
+        // The flash comes out of the gun's muzzle node when the model has one; the shooter's arm and barrel kick.
+        const shooter = this.knights?.get(event.playerId), muzzle = shooter?.weapon?.getObjectByName?.('muzzle');
+        if (shooter) shooter.recoilAt = now;
+        const position = muzzle ? muzzle.getWorldPosition(new THREE.Vector3()) : at(event.x + Math.cos(event.angle) * 22, event.y + Math.sin(event.angle) * 22, KNIGHT * .45);
+        this.burst(position, '#fff4c0', .45, 90, now);
+      }
       else if (event.type === 'kill') this.burst(at(event.x, event.y, .5), '#ffffff', 1.6, 500, now, true);
       else if (event.type === 'capture') this.ringEffect(at(event.x, event.y, .05), RULES.pointRadius * U, TEAM_COLORS[event.team]?.main || '#ffffff', 900, now);
       else if (event.type === 'heal' || event.type === 'dome') this.ringEffect(at(event.x, event.y, .05), (event.radius || 60) * U, '#7dff9a', 500, now);

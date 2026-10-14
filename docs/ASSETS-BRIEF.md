@@ -21,9 +21,15 @@ no gear is just the skeleton.
 ![The core skeleton](reference/skeleton-sheet.png)
 
 - [reference/knight_rig.glb](reference/knight_rig.glb): the skeleton. Import it into Blender and model on it.
-- 1.3 units tall, faces **+X**, **Y up**, origin between the feet. Rigid named parts, no skinning, no animation:
-  `hips` > `chest` > `head`, `arm_L` > `hand_L`, `arm_R` > `hand_R` (the weapon socket, arm pointing forward),
-  `hips` > `leg_L` > `foot_L`, `leg_R` > `foot_R`. Pivots are in [MODELS.md](MODELS.md).
+- 1.3 units tall, faces **+X**, **Y up**, origin between the feet. **Both arms hang down** in the rest pose.
+- Rigid named parts, no skinning, no animation clips. 15 parts, split at every joint:
+  `hips` > `chest` > `head`, `arm_L` > `forearm_L` > `hand_L` (and `_R`), `hips` > `leg_L` > `shin_L` > `foot_L`
+  (and `_R`). Pivots are in [MODELS.md](MODELS.md).
+- **The game animates the joints**: a walk that blends into a run with knees and ankles bending, a body bob,
+  sway and lean, arms swinging against the legs, an idle with breathing and the weapon held loosely, sword
+  swings through shoulder, elbow and wrist, lunges, slams, aiming, guarding. So split armour at the joints
+  (a thigh plate on `leg_L`, the knee guard and shin on `shin_L`) and keep every piece clear of its neighbours
+  when the joint turns.
 
 ## Where armour goes: the fit guide
 
@@ -35,14 +41,30 @@ Model each piece **around these volumes** (about 1.5× at most; crests, wings, t
 | Slot | File | Top-level nodes | Volumes (size w×h×d, centre, in the part's own space) |
 |---|---|---|---|
 | helmet (head unit) | `helmet/<id>.glb` | `head` | 0.30 × 0.30 × 0.30 at (0, 0.15, 0); crest zone 0.24 × 0.12 × 0.06 at (−0.02, 0.36, 0) |
-| armor | `armor/<id>.glb` | `chest`, `arm_L`, `arm_R` (optional `hips` for coat tails) | chest 0.28 × 0.32 × 0.42 at (0, 0.25, 0); pauldrons 0.15 × 0.11 × 0.15 at each shoulder pivot; forearm guards 0.08 × 0.13 × 0.08 at (0, −0.28, 0) on `arm_L` and 0.13 × 0.08 × 0.08 at (0.28, 0, 0) on `arm_R` |
-| pants | `pants/<id>.glb` | `hips`, `leg_L`, `leg_R` | waist skirt 0.22 × 0.13 × 0.30 at (0, −0.01, 0); thigh 0.12 × 0.17 × 0.12 at (0, −0.11, 0); shin 0.12 × 0.17 × 0.12 at (0, −0.31, 0) |
+| armor | `armor/<id>.glb` | `chest`, `arm_L`, `arm_R`, `forearm_L`, `forearm_R` (optional `hips` for coat tails) | chest 0.28 × 0.32 × 0.42 at (0, 0.25, 0); pauldrons 0.15 × 0.11 × 0.15 at (0, 0, 0) on each `arm_`; bracers 0.08 × 0.13 × 0.08 at (0, −0.09, 0) on each `forearm_` |
+| pants | `pants/<id>.glb` | `hips`, `leg_L`, `leg_R`, `shin_L`, `shin_R` | waist skirt 0.22 × 0.13 × 0.30 at (0, −0.01, 0); thighs 0.12 × 0.17 × 0.12 at (0, −0.1, 0) on each `leg_`; knees and shins 0.12 × 0.17 × 0.12 at (0, −0.1, 0) on each `shin_` |
 | shoes | `shoes/<id>.glb` | `foot_L`, `foot_R` | foot 0.26 × 0.09 × 0.14 at (0.03, −0.055, 0) |
-| class | `class/guardian.glb`, `class/recon.glb` | `arm_L` | Guardian shield ≈ 0.7 across at (0.05, −0.22, −0.1), facing out (−Z); Recon shield ≈ 0.22 across on the forearm |
+| class | `class/guardian.glb`, `class/recon.glb` | `forearm_L` | Guardian shield ≈ 0.7 across at (0.03, −0.1, −0.08), facing out (−Z); Recon shield ≈ 0.22 across at (0.02, −0.09, −0.055) |
 
 Each node is moved onto that part of the skeleton keeping its offset, so model it in the rig's space, around
 the part's pivot. Nothing may poke through when legs swing ±40°, arms ±35° and the weapon arm turns ±80°.
-`arm_R` points forward (+X): its pauldron and forearm guard follow that direction.
+
+## Templates: start every piece from one
+
+![Templates](reference/templates-sheet.png)
+
+`docs/reference/templates/` has a blockout for every asset type with the **node names to keep**: `helmet`,
+`armor`, `pants`, `shoes` (the fit volumes on the right parts), `shield_guardian`, `shield_recon`, `sword`,
+`sword_heavy`, `sword_long`, `sword_short`, `maul`, `gun`, `gun_cannon`, `gun_rifle`, `bomb` and
+`bomb_planted`. Open the right one, model over the blocks, keep the names, delete the blocks. The game
+animates these named parts:
+
+| Node | In | What the game does |
+|---|---|---|
+| `barrel`, `muzzle` | guns | the barrel kicks back on every shot; the muzzle flash comes out of `muzzle` |
+| `fuse` | bombs (held and planted) | glows and flickers while charging; blinks faster before it blows |
+| `tip` | swords, maul | marks the end of the blade |
+| `lens` (material name) | Recon shield | flares while the Recon is cloaked |
 
 ## Weapons: sizes
 
@@ -71,6 +93,7 @@ middle of the grip, pointing **+X**. Planted bombs: origin on the floor, standin
   JPEG or WebP for colour. Each `.glb` **under 600 KB**.
 - Materials named `team…` take the team colour (a stripe, a band). Glowing parts are emissive; the Recon's lens
   material has `lens` in its name.
+- Weapons: the game holds them in the right fist (0.045 below the wrist), origin at the middle of the grip.
 - Triangle budgets: armour 3000, helmet 2500, pants 2000, shoes, class piece and weapon 1500, planted bomb 1200.
 - `node tools/art3d-index.mjs` checks all of this (ids, nodes, budgets, size, textures, weapon lengths) and must
   report no errors.
