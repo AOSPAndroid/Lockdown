@@ -7,6 +7,10 @@
  * the game needs no models; materials are painted procedurally per theme. Scene units: one map
  * tile = 1, x east, z south (the engine's y), y up. */
 import * as THREE from './vendor/three/three.module.min.js';
+import { EffectComposer } from './vendor/three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from './vendor/three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from './vendor/three/addons/postprocessing/UnrealBloomPass.js';
+import { OutputPass } from './vendor/three/addons/postprocessing/OutputPass.js';
 import { MAPS, TILE, isWall, levelCell, levelAt, STAIRS } from './lockdown-maps.js';
 import { WEAPONS, RULES, GUARD, ABILITIES, STATUS_IDS } from './lockdown-engine.js';
 import { TEAM_COLORS } from './lockdown-renderer.js';
@@ -24,9 +28,9 @@ const THEMES = Object.freeze({
   castle: { bg: '#0d1117', sky: '#b9c8d8', ground: '#2a2420', floor: ['#8e9088', '#9a9b91', '#84867e'], grout: '#5f615b', wall: '#8a7f6e', wallDark: '#5a5145', wallTop: '#b9ae97', trim: '#d8cdb4', cliff: '#4a4038', pit: 'water', pitColor: '#1d5f7e', lamp: '#ffcf86', style: 'flagstone' },
   maze: { bg: '#0b1410', sky: '#d8f0c0', ground: '#1f2a16', floor: ['#6fa042', '#78aa48', '#669a3c'], grout: '#57843a', wall: '#3f8a2c', wallDark: '#2a5e1e', wallTop: '#8fd14c', trim: '#a8e05a', cliff: '#5a4a32', pit: 'bog', pitColor: '#2e4a24', lamp: '#fff0a0', style: 'grass', hedge: true },
   foundry: { bg: '#0b0a12', sky: '#c8b8d8', ground: '#1a1420', floor: ['#4e5763', '#556070', '#48515c'], grout: '#363d47', wall: '#b23e36', wallDark: '#6e2622', wallTop: '#d0584a', trim: '#e2b04a', cliff: '#3a2e3c', pit: 'lava', pitColor: '#ff6a1a', lamp: '#ffe2a6', style: 'metal' },
-  ruins: { bg: '#0c1214', sky: '#e8dcc0', ground: '#2a2418', floor: ['#cdb88e', '#d6c299', '#c3ad83'], grout: '#a8946c', wall: '#cdb990', wallDark: '#8e7b58', wallTop: '#e6d6b0', trim: '#f2e6c6', cliff: '#7a6648', pit: 'water', pitColor: '#1f8a8a', lamp: '#ffe0a0', style: 'sandstone' },
+  ruins: { exposure: .9, bloom: .96, bg: '#0c1214', sky: '#e8dcc0', ground: '#2a2418', floor: ['#cdb88e', '#d6c299', '#c3ad83'], grout: '#a8946c', wall: '#cdb990', wallDark: '#8e7b58', wallTop: '#e6d6b0', trim: '#f2e6c6', cliff: '#7a6648', pit: 'water', pitColor: '#1f8a8a', lamp: '#ffe0a0', style: 'sandstone' },
   graveyard: { bg: '#0a0a12', sky: '#9a9ab8', ground: '#16141e', floor: ['#4a4e58', '#52566a', '#444852'], grout: '#33363f', wall: '#5c5a6c', wallDark: '#38364a', wallTop: '#7c7a90', trim: '#9a98b0', cliff: '#2c2a38', pit: 'chasm', pitColor: '#1a1428', lamp: '#b8a8ff', style: 'slate' },
-  skyway: { bg: '#6f9fd8', sky: '#ffffff', ground: '#8aa8d0', floor: ['#dcd6c6', '#e4dfd0', '#d2ccbb'], grout: '#b8ae96', wall: '#e8e2d2', wallDark: '#b0a68e', wallTop: '#f6f1e4', trim: '#d8b45a', cliff: '#9a8c74', pit: 'sky', pitColor: '#8ab8ec', lamp: '#fff2c0', style: 'marble' },
+  skyway: { exposure: .72, bloom: .98, bg: '#5f8fcc', sky: '#e8f0ff', ground: '#6a84a8', floor: ['#cfc8b6', '#d8d1c0', '#c5bead'], grout: '#b8ae96', wall: '#e8e2d2', wallDark: '#b0a68e', wallTop: '#f6f1e4', trim: '#d8b45a', cliff: '#9a8c74', pit: 'sky', pitColor: '#8ab8ec', lamp: '#fff2c0', style: 'marble' },
 });
 const ELEMENT = Object.freeze({ burn: '#ff7a2a', chill: '#7cc8ff', freeze: '#bfeaff', shock: '#8fe0ff', poison: '#6ee05a', curse: '#b26bff', drain: '#ff4d6d' });
 const STATUS_COLOR = Object.freeze({ burn: '#ff8a3d', poison: '#7bd65a', shock: '#7fc8ff', freeze: '#bfeaff', chill: '#6fb6ff', curse: '#b26bff' });
@@ -205,8 +209,10 @@ export class Lockdown3DRenderer {
     this.canvas = document.createElement('canvas'); this.canvas.className = 'ld-arena3d';
     this.canvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;';
     overlayCanvas.parentNode.insertBefore(this.canvas, overlayCanvas);
+    // ?quality=low drops shadows and glow for slower machines.
+    this.quality = new URLSearchParams(globalThis.location?.search || '').get('quality') === 'low' ? 'low' : 'high';
     this.gl = new THREE.WebGLRenderer({ canvas: this.canvas, antialias: true, powerPreference: 'high-performance' });
-    this.gl.shadowMap.enabled = true; this.gl.shadowMap.type = THREE.PCFSoftShadowMap;
+    this.gl.shadowMap.enabled = this.quality === 'high'; this.gl.shadowMap.type = THREE.PCFSoftShadowMap;
     this.gl.toneMapping = THREE.ACESFilmicToneMapping; this.gl.toneMappingExposure = 1.15;
     this.scene = new THREE.Scene();
     this.camera3 = new THREE.PerspectiveCamera(34, 16 / 9, .5, 120);
@@ -222,12 +228,20 @@ export class Lockdown3DRenderer {
     this.effects = []; this.texts = []; this.seenEvents = new Set(); this.eventOrder = []; this.localId = null; this.shake = 0;
     this.camera = { x: 0, y: 0, zoom: 1 }; // kept for callers that read it
     this.raycaster = new THREE.Raycaster();
+    // Glow: lamps, crystals, shots, team rings and slashes bloom softly, as in Spiral Knights.
+    if (this.quality === 'high') {
+      this.composer = new EffectComposer(this.gl);
+      this.composer.addPass(new RenderPass(this.scene, this.camera3));
+      this.bloom = new UnrealBloomPass(new THREE.Vector2(640, 360), .5, .5, .85);
+      this.composer.addPass(this.bloom); this.composer.addPass(new OutputPass());
+    }
     this.resize();
   }
   resize() {
     const ratio = Math.min(2, globalThis.devicePixelRatio || 1), rect = this.overlayCanvas.getBoundingClientRect();
     const width = Math.max(1, Math.round(rect.width)), height = Math.max(1, Math.round(rect.height));
     this.gl.setPixelRatio(ratio); this.gl.setSize(width, height, false);
+    if (this.composer) { this.composer.setPixelRatio(ratio); this.composer.setSize(width, height); }
     this.camera3.aspect = width / height; this.camera3.updateProjectionMatrix();
     this.overlay?.resize();
   }
@@ -259,6 +273,9 @@ export class Lockdown3DRenderer {
     this.scene.background = colour(t.bg);
     this.scene.fog = theme === 'skyway' ? new THREE.Fog(t.bg, 30, 70) : new THREE.Fog(t.bg, 24, 46);
     this.hemi.color = colour(t.sky); this.hemi.groundColor = colour(t.ground);
+    // Pale themes need less light and a higher glow threshold, or the whole floor blooms.
+    this.gl.toneMappingExposure = t.exposure ?? 1.15;
+    if (this.bloom) this.bloom.threshold = t.bloom ?? .85;
     const tex = { floor: floorTexture(theme), wall: wallTexture(theme), top: plainTexture(t.wallTop, { dark: shadeHex(t.wallTop, -.05), blobs: t.hedge ? 0 : 10 }), cliff: plainTexture(t.cliff, { dark: shadeHex(t.cliff, -.06), blobs: 24, strength: 14 }) };
     const material = {
       floor: new THREE.MeshStandardMaterial({ map: tex.floor, vertexColors: true, roughness: t.style === 'marble' ? .55 : .9, metalness: t.style === 'metal' ? .25 : 0 }),
@@ -322,13 +339,35 @@ export class Lockdown3DRenderer {
         }
       }
     }
+    this.applyArt(theme, material);
     const add = (builder, mat, { cast = true, receive = true } = {}) => { if (builder.empty) return; const mesh = new THREE.Mesh(builder.build(), mat); mesh.castShadow = cast; mesh.receiveShadow = receive; group.add(mesh); return mesh; };
     add(floors, material.floor, { cast: false }); add(walls, material.wall); add(tops, material.top); add(cliffs, material.cliff);
     this.buildPits(map, group, theme);
     if (t.hedge) this.buildHedges(map, group, t, top);
     this.buildLamps(map, group, t, cell, base);
+    this.buildRailings(map, group, t, cell, top);
+    this.buildPillars(map, group, t, cell, top);
+    this.buildBanners(map, group, top);
     this.buildBases(map, group);
     this.buildPoints(map, group);
+  }
+  /** Painted art replaces the procedural materials wherever a file exists (see docs/LOOK.md):
+   * public/art/3d/<theme>/{floor,wall,wall_top,cliff}.png, each with an optional *_normal.png.
+   * public/art/3d/index.json lists what is there (node tools/art3d-index.mjs writes it). */
+  applyArt(theme, material) {
+    const slots = { floor: material.floor, wall: material.wall, wall_top: material.top, cliff: material.cliff };
+    const index = Lockdown3DRenderer.artIndex ||= fetch('/art/3d/index.json').then(response => response.ok ? response.json() : { files: [] }).then(data => new Set(data.files || [])).catch(() => new Set());
+    const loader = new THREE.TextureLoader();
+    index.then(files => {
+      for (const [slot, target] of Object.entries(slots)) {
+        const file = `${theme}/${slot}.png`, normal = `${theme}/${slot}_normal.png`;
+        if (files.has(file)) loader.load(`/art/3d/${file}`, texture => {
+          texture.colorSpace = THREE.SRGBColorSpace; texture.wrapS = texture.wrapT = THREE.RepeatWrapping; texture.anisotropy = 8;
+          target.map = texture; target.needsUpdate = true;
+        });
+        if (files.has(normal)) loader.load(`/art/3d/${normal}`, texture => { texture.wrapS = texture.wrapT = THREE.RepeatWrapping; target.normalMap = texture; target.needsUpdate = true; });
+      }
+    });
   }
   /** Stairs: four steps climbing one storey toward the arrow, with side walls down to the ground. */
   buildStairs(map, col, row, [dx, dz], floors, cliffs, top) {
@@ -421,6 +460,66 @@ export class Lockdown3DRenderer {
     }
     this.lampCount = placed;
   }
+  /** Glass barriers along raised edges that drop to lower ground, with brass posts topped by balls. */
+  buildRailings(map, group, t, cell, top) {
+    const glass = new Builder(), posts = new Map(), H = .5;
+    for (let row = 0; row < map.rows; row++) for (let col = 0; col < map.cols; col++) {
+      if (cell(col, row) !== 'floor' || STAIRS[levelCell(map, col, row)]) continue;
+      const h = top(col, row); if (!(h > 0)) continue;
+      for (const [dx, dz] of SIDES) {
+        const kind = cell(col + dx, row + dz), other = top(col + dx, row + dz);
+        if (kind !== 'floor' || other === null || other >= h) continue;
+        let a, b;
+        if (dx === 1) { a = [col + 1, row]; b = [col + 1, row + 1]; } else if (dx === -1) { a = [col, row]; b = [col, row + 1]; }
+        else if (dz === 1) { a = [col, row + 1]; b = [col + 1, row + 1]; } else { a = [col, row]; b = [col + 1, row]; }
+        const inset = .04, ax = a[0] - dx * inset, az = a[1] - dz * inset, bx = b[0] - dx * inset, bz = b[1] - dz * inset;
+        glass.quad([[ax, h + H, az], [ax, h, az], [bx, h, bz], [bx, h + H, bz]], [dx, 0, dz], [[0, 0], [0, 1], [1, 1], [1, 0]]);
+        for (const [x, z] of [[ax, az], [bx, bz]]) posts.set(`${x.toFixed(2)},${z.toFixed(2)}`, [x, h, z]);
+      }
+    }
+    if (glass.empty) return;
+    const pane = new THREE.Mesh(glass.build(), new THREE.MeshStandardMaterial({ color: '#a8dcff', emissive: '#3a8cff', emissiveIntensity: .35, transparent: true, opacity: .28, roughness: .1, metalness: .2, side: THREE.DoubleSide, depthWrite: false }));
+    group.add(pane);
+    const list = [...posts.values()], postGeo = new THREE.CylinderGeometry(.05, .06, H + .08, 8), ballGeo = new THREE.SphereGeometry(.09, 12, 10), brass = new THREE.MeshStandardMaterial({ color: t.trim || '#d8b45a', roughness: .3, metalness: .8 });
+    const postMesh = new THREE.InstancedMesh(postGeo, brass, list.length), ballMesh = new THREE.InstancedMesh(ballGeo, brass, list.length), m = new THREE.Matrix4();
+    list.forEach(([x, h, z], i) => { postMesh.setMatrixAt(i, m.makeTranslation(x, h + (H + .08) / 2, z)); ballMesh.setMatrixAt(i, m.makeTranslation(x, h + H + .12, z)); });
+    postMesh.castShadow = ballMesh.castShadow = true; group.add(postMesh, ballMesh);
+  }
+  /** Where a wall line ends, a stout pillar with a ball on top marks it. */
+  buildPillars(map, group, t, cell, top) {
+    const spots = [];
+    for (let row = 1; row < map.rows - 1; row++) for (let col = 1; col < map.cols - 1; col++) {
+      if (cell(col, row) !== 'wall') continue;
+      const around = SIDES.filter(([dx, dz]) => cell(col + dx, row + dz) === 'wall').length;
+      if (around <= 1) spots.push([col + .5, top(col, row), row + .5]);
+    }
+    if (!spots.length) return;
+    const capGeo = new THREE.CylinderGeometry(.4, .44, .16, 16), ballGeo = new THREE.SphereGeometry(.2, 16, 12);
+    const capMat = new THREE.MeshStandardMaterial({ color: t.wallTop, roughness: .6 }), ballMat = new THREE.MeshStandardMaterial({ color: t.hedge ? '#d8c890' : '#e6c27a', roughness: .3, metalness: .7 });
+    const caps = new THREE.InstancedMesh(capGeo, capMat, spots.length), balls = new THREE.InstancedMesh(ballGeo, ballMat, spots.length), m = new THREE.Matrix4();
+    spots.forEach(([x, y, z], i) => { caps.setMatrixAt(i, m.makeTranslation(x, y + .08, z)); balls.setMatrixAt(i, m.makeTranslation(x, y + .34, z)); });
+    caps.castShadow = balls.castShadow = true; group.add(caps, balls);
+  }
+  /** Team banners hang on the walls around each base, facing the camera. */
+  buildBanners(map, group, top) {
+    map.spawns.forEach((spots, team) => {
+      const cols = spots.map(p => Math.floor(p.x / TILE)), rows = spots.map(p => Math.floor(p.y / TILE));
+      const c0 = Math.min(...cols), c1 = Math.max(...cols), r0 = Math.min(...rows);
+      const texture = canvasTexture(128, (ctx, s) => {
+        ctx.fillStyle = TEAM_COLORS[team].main; ctx.beginPath(); ctx.moveTo(8, 0); ctx.lineTo(s - 8, 0); ctx.lineTo(s - 8, s * .82); ctx.lineTo(s / 2, s); ctx.lineTo(8, s * .82); ctx.closePath(); ctx.fill();
+        ctx.fillStyle = 'rgba(255,255,255,.85)'; ctx.beginPath(); ctx.arc(s / 2, s * .42, s * .2, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = TEAM_COLORS[team].main; ctx.beginPath(); ctx.moveTo(s / 2, s * .28); ctx.lineTo(s * .6, s * .5); ctx.lineTo(s * .4, s * .5); ctx.closePath(); ctx.fill();
+        ctx.fillStyle = '#e6c27a'; ctx.fillRect(8, 0, s - 16, 8);
+      }, { repeat: false });
+      const material = new THREE.MeshStandardMaterial({ map: texture, transparent: true, side: THREE.DoubleSide, roughness: .8, emissive: TEAM_COLORS[team].main, emissiveIntensity: .15 });
+      // On the south face of the wall row above the base.
+      for (let col = c0; col <= c1; col++) {
+        if (!isWall(map, col, r0 - 1) || (col - c0) % 2) continue;
+        const banner = new THREE.Mesh(new THREE.PlaneGeometry(.62, .9), material);
+        banner.position.set(col + .5, top(col, r0 - 1) - .62, r0 + .02); group.add(banner);
+      }
+    });
+  }
   /** Bases: three heart pads against the back wall of each spawn room. */
   buildBases(map, group) {
     this.pads = [];
@@ -498,7 +597,7 @@ export class Lockdown3DRenderer {
     body.add(legL, legR, bootL, bootR, torso, belt, helmet, face, eyeL, eyeR, brim, band, crest, padL, padR);
     // Arms: the right hand holds the weapon on a pivot that the swing turns.
     const armMat = std(player.armor === 'none' ? '#f1c9a5' : armorColor);
-    const armL = new THREE.Mesh(new THREE.CapsuleGeometry(.06, .12, 4, 8), armMat); armL.position.set(.02, .4, -.25); armL.rotation.x = .3;
+    const armL = new THREE.Mesh(new THREE.CapsuleGeometry(.06, .12, 4, 8), armMat); armL.position.set(.02, .4, -.25); armL.rotation.x = .3; armL.geometry.translate(0, -.06, 0); armL.position.y = .46;
     const pivot = new THREE.Group(); pivot.position.set(.05, .38, .24); body.add(armL, pivot);
     const armR = new THREE.Mesh(new THREE.CapsuleGeometry(.06, .12, 4, 8), armMat); armR.rotation.z = Math.PI / 2; armR.position.set(.08, 0, 0); pivot.add(armR);
     const hand = new THREE.Group(); hand.position.set(.18, 0, 0); pivot.add(hand);
@@ -511,7 +610,9 @@ export class Lockdown3DRenderer {
     group.traverse(node => { if (node.isMesh && node !== ring && node !== ringGlow) { node.castShadow = true; } });
     group.scale.setScalar(KNIGHT_SCALE);
     this.scene.add(group);
-    const view = { group, body, legL, legR, bootL, bootR, pivot, hand, ring, weaponId: null, weapon: null, stride: 0, lastX: player.x, lastY: player.y, key: this.knightKey(player), materials: [] };
+    const chargeGlow = new THREE.Sprite(new THREE.SpriteMaterial({ map: this.glow, color: '#ffd36b', transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending })); chargeGlow.scale.setScalar(.9); hand.add(chargeGlow); chargeGlow.position.x = .4;
+    const boostTrail = new THREE.Sprite(new THREE.SpriteMaterial({ map: this.glow, color: '#ffd36b', transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending })); boostTrail.scale.set(1.4, .7, 1); boostTrail.position.set(-.45, .35, 0); group.add(boostTrail);
+    const view = { group, body, legL, legR, armL, chargeGlow, boostTrail, bootL, bootR, pivot, hand, ring, weaponId: null, weapon: null, stride: 0, lastX: player.x, lastY: player.y, key: this.knightKey(player), materials: [] };
     group.traverse(node => { if (node.material) view.materials.push(node.material); });
     return view;
   }
@@ -563,7 +664,9 @@ export class Lockdown3DRenderer {
     const moved = Math.hypot(player.x - view.lastX, player.y - view.lastY); view.lastX = player.x; view.lastY = player.y;
     if (moved < 30) view.stride += moved * U * 7;
     const moving = Math.hypot(player.vx || 0, player.vy || 0) > 30, swing = Math.sin(view.stride) * (moving ? .7 : 0);
-    view.legL.rotation.z = swing; view.legR.rotation.z = -swing; view.bootL.position.x = .03 + Math.sin(view.stride) * (moving ? .08 : 0); view.bootR.position.x = .03 - Math.sin(view.stride) * (moving ? .08 : 0);
+    view.legL.rotation.z = swing; view.legR.rotation.z = -swing; view.armL.rotation.z = -swing * .8;
+    // Lean into a run; a boost leans harder.
+    view.body.rotation.z = moving ? (player.boosting ? -.28 : -.12) : 0; view.bootL.position.x = .03 + Math.sin(view.stride) * (moving ? .08 : 0); view.bootR.position.x = .03 - Math.sin(view.stride) * (moving ? .08 : 0);
     view.body.position.y = moving ? Math.abs(Math.cos(view.stride)) * .04 : Math.sin(now / 400) * .01;
     // Face the aim; a swing turns the weapon arm across its arc.
     const weapon = WEAPONS[weaponId];
@@ -578,6 +681,11 @@ export class Lockdown3DRenderer {
     else if (player.action === 'slam') { facing = player.swingAim; armPitch = player.actionTicks > (player.actionTotal - (player.chargeMoveTicks || 0)) ? -.9 : .4; }
     else if (weapon?.family === 'blade') armYaw = -.5; // at rest the blade points ahead and to the side
     if (player.charging) armPitch = -.5 - Math.sin(now / 60) * .05;
+    // A charge glows on the weapon and burns gold when it is ready; Boost leaves a streak.
+    const chargeLevel = player.charging && weapon ? Math.min(1, player.chargeTicks / Math.max(1, weapon.chargeTicks || 120)) : 0;
+    view.chargeGlow.material.opacity = chargeLevel * (chargeLevel >= 1 ? .9 + .1 * Math.sin(now / 50) : .5);
+    view.chargeGlow.scale.setScalar(.5 + chargeLevel * .8);
+    view.boostTrail.material.opacity = player.boosting ? .55 + .2 * Math.sin(now / 40) : 0;
     view.group.rotation.y = -facing;
     view.pivot.rotation.y = -armYaw; view.pivot.rotation.z = armPitch;
     // Cloak, spawn shield and hit flash.
@@ -617,7 +725,7 @@ export class Lockdown3DRenderer {
     this.updatePickups(state, map, now);
     this.updateClouds(state, map, now);
     this.updateEffects(now);
-    this.gl.render(this.scene, this.camera3);
+    if (this.composer) this.composer.render(); else this.gl.render(this.scene, this.camera3);
     this.drawOverlay(state, map, now, local, pointer);
   }
   updatePoints(state, now) {

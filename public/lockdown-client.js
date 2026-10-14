@@ -28,8 +28,8 @@ const app = $('ld-app'), canvas = $('ld-arena'), minimap = $('ld-minimap');
 const audio = new GameAudio();
 const assets = createAssetLibrary({ onChange: () => refreshIcons() });
 const renderer = new LockdownRenderer(canvas, assets);
-// ?view=3d draws the arena in real 3D; the 2D renderer still draws the minimap and the reticle.
-const scene = new URLSearchParams(location.search).get('view') === '3d' ? await create3dScene() : renderer;
+// The arena is drawn in 3D (?view=2d for the flat view); the 2D renderer still draws the minimap and the reticle.
+const scene = new URLSearchParams(location.search).get('view') === '2d' ? renderer : await create3dScene();
 async function create3dScene() {
   try { const { Lockdown3DRenderer } = await import('./lockdown-renderer3d.js'); return new Lockdown3DRenderer(canvas, assets, renderer); }
   catch (problem) { console.warn('3D view unavailable, using 2D', problem); return renderer; }
