@@ -70,9 +70,9 @@ export const SHOES = Object.freeze({
   treads: piece('treads', 'Mud Treads', 'Status effects last 25% less; heavy soles slow you 3%.', 0, 0, 0, .97, { statusDuration: .75 }),
   clogs: piece('clogs', 'Rocket Clogs', 'A huge 35% longer dash that takes 20% longer to recharge.', 0, 0, 0, 1, { dashDistance: 1.35, dashCooldown: 1.2 }),
   sandals: piece('sandals', 'Healer Sandals', 'Mend 1 HP a second out of combat and heal 10% more.', 0, 0, 0, 1, { regen: 1, healing: 1.1 }),
-  striders: piece('striders', 'Water Striders', 'Walk across water and bog, cutting corners nobody else can, but the light soles leave you 5% weaker to swords.', 0, -.05, 0, 1, { walk: ['water', 'bog'] }),
-  magma: piece('magma', 'Magma Walkers', 'Stride over molten lava; thick soles add 10% blast protection, but slow you 4%.', 0, 0, .10, .96, { walk: ['lava'] }),
-  hover: piece('hover', 'Hover Boots', 'Float over every pit: water, bog, lava and open sky. Hovering is slower (8%) and dashes are 15% shorter.', 0, 0, 0, .92, { walk: ['water', 'bog', 'lava', 'chasm'], dashDistance: .85 }),
+  striders: piece('striders', 'Stride Boots', 'Long, light strides: 6% faster and your class ability recovers 15% sooner, but 5% weaker to swords.', 0, -.05, 0, 1.06, { abilityCooldown: .85 }),
+  magma: piece('magma', 'Magma Treads', 'Fireproof soles: burn, poison, shock and frost last 35% less and blasts hurt 10% less, but you are 4% slower.', 0, 0, .10, .96, { statusDuration: .65 }),
+  hover: piece('hover', 'Hover Boots', 'Float a hair off the floor: 40% less knockback and dashes go 20% further, but hovering is 6% slower.', 0, 0, 0, .94, { knockback: .6, dashDistance: 1.2 }),
   quicksilver: piece('quicksilver', 'Quicksilver Slippers', '15% faster than anything else on your feet, but paper-thin: 8% weaker to everything.', -.08, -.08, -.08, 1.15),
 });
 

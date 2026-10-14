@@ -123,20 +123,13 @@ test('bots carry a blade, a gun and a bomb from the whole armoury, and never pit
   assert.ok(['frostbite', 'blazebrand', 'voltedge', 'sickle', 'hexblade', 'frostgun', 'embercaster', 'voltneedle', 'viper', 'grimcannon'].some(id => seen.has(id)));
 });
 
-test('shoes cross the pits they are made for: water, lava, or everything', () => {
-  const crosses = (mapId, shoes) => {
-    const state = L.createState({ mapId, seed: 1 }); L.setConnected(state, 0, true); L.setPlayerSetup(state, 0, { shoes }); L.startMatch(state, [0]); state.phase = 'fight';
-    for (const player of state.players) if (player.id) Object.assign(player, { alive: false, bot: false, respawnTicks: 1e9 });
-    const map = MAPS[mapId]; let pit = null;
-    for (let row = 0; row < map.rows && !pit; row++) for (let col = 2; col < map.cols; col++) if (map.grid[row][col] === '~' && map.grid[row][col - 1] === '.' && map.grid[row][col - 2] === '.' && map.levels[row][col - 1] === '0' && map.levels[row][col - 2] === '0') { pit = [col, row]; break; }
-    const player = state.players[0]; Object.assign(player, { x: (pit[0] - 1.5) * TILE, y: (pit[1] + .5) * TILE });
-    for (let t = 0; t < 60; t++) L.step(state, { 0: { ...L.emptyInput(0), right: true } });
-    return player.x > pit[0] * TILE;
-  };
-  assert.equal(MAPS.keep.pit, 'water'); assert.equal(MAPS.foundry.pit, 'lava'); assert.equal(MAPS.skyway.pit, 'chasm');
-  assert.equal(crosses('keep', 'none'), false); assert.equal(crosses('keep', 'striders'), true); assert.equal(crosses('foundry', 'striders'), false);
-  assert.equal(crosses('foundry', 'magma'), true); assert.equal(crosses('skyway', 'magma'), false);
-  for (const mapId of ['keep', 'foundry', 'skyway', 'temple']) assert.equal(crosses(mapId, 'hover'), true, mapId);
+test('arenas are walls and two floors: no pits anywhere, and the old pit shoes carry new perks', () => {
+  for (const id of L.MAP_IDS) assert.ok(!MAPS[id].grid.join('').includes('~'), `${id} has no pits`);
+  const gear = shoes => L.combineGear({ shoes });
+  assert.ok(gear('striders').abilityCooldown < 1 && gear('striders').speedMultiplier > 1, 'Stride Boots: faster, quicker ability');
+  assert.ok(gear('magma').statusDuration < 1 && gear('magma').bombResistance > 0, 'Magma Treads: shorter statuses, blast protection');
+  assert.ok(gear('hover').knockback < 1 && gear('hover').dashDistance > 1, 'Hover Boots: less knockback, longer dash');
+  for (const shoes of Object.keys(L.SHOES)) assert.equal(gear(shoes).walk.length, 0, `${shoes} no longer walks on pits`);
   assert.ok(L.combineGear({ shoes: 'quicksilver' }).speedMultiplier > L.combineGear({ shoes: 'sneakers' }).speedMultiplier);
 });
 
@@ -174,7 +167,7 @@ test('weapon traits: heavy swings are unflinching, the rapier tip hits harder, l
   assert.equal(close.tip, false); assert.equal(far.tip, true);
   assert.equal(far.dealt, Math.round(WEAPONS.rapier.combo[0].damage * WEAPONS.rapier.sweetSpot.bonus));
   // Longshot Rifle: more damage the farther it flies.
-  const shoot = gap => { const { state, foe } = duel({ mapId: 'keep', a: { cls: 'guardian', weapons: ['rifle', 'brand', 'blast', null] }, gap }); run(state, 50, t => ({ 0: { attack: t === 0 } })); return 400 - foe.hp; };
+  const shoot = gap => { const { state, foe } = duel({ mapId: 'temple', a: { cls: 'guardian', weapons: ['rifle', 'brand', 'blast', null] }, gap }); run(state, 50, t => ({ 0: { attack: t === 0 } })); return 400 - foe.hp; };
   const near = shoot(120), longer = shoot(600);
   assert.equal(near, WEAPONS.rifle.damage); assert.ok(longer > near * 1.3, `${longer} vs ${near}`);
   // Maul: the second blow shakes the ground and hits a second knight beside the target.
