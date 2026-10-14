@@ -1,5 +1,9 @@
 # Spiral Knights reference
 
+> **The knights are no longer Spiral Knights-style:** they are LBX-style battle robots, see
+> [../lbx/](../lbx/README.md). Use these screenshots only for the arenas, the camera, capture points, bases and
+> effects, not for knights, armour or weapons.
+
 Screenshots of **Spiral Knights** (© Three Rings / Grey Havens) for **style reference only**. Study them to
 match the look; never trace, copy, rip or recolour anything in them, and never ship them with the game. Every
 Lockdown model, texture and name is original. The close-ups are enlarged crops of the full shots, so they are

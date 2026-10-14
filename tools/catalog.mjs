@@ -30,7 +30,7 @@ function gearSection(slot, table, title) {
   const rows = Object.values(table).map(piece => {
     const look = GEAR_LOOKS[slot][piece.id];
     const files = piece.id === 'none'
-      ? (slot === 'helmet' ? `\`models/helmet/none.glb\` (the hair), icon \`${ICON[slot]}none.png\`` : `nothing (the body's ${slot === 'armor' ? 'T-shirt' : slot === 'pants' ? 'shorts' : 'shoes'}), icon \`${ICON[slot]}none.png\``)
+      ? `nothing (the bare frame's own ${slot === 'helmet' ? 'head' : slot === 'armor' ? 'chest plate' : slot === 'pants' ? 'leg plates' : 'feet'}, part of the body), icon \`${ICON[slot]}none.png\``
       : `\`models/${slot}/${piece.id}.glb\`, icon \`${ICON[slot]}${piece.id}.png\``;
     return `### ${piece.name} \`${piece.id}\`\n\n- **Does:** ${piece.description} (${stats(piece)})\n- **Looks:** ${look}\n- **Make:** ${files}\n`;
   });
@@ -75,13 +75,13 @@ Read [MODELS.md](MODELS.md) for how models are built (rig, units, materials, bud
 for the overall look. All model paths are under \`public/art/3d/\`; icons are 2D PNGs under
 \`public/art/lockdown/\` (drawn at 96×96, see \`public/art/lockdown/ASSETS.md\`).
 
-**House style:** the Spiral Knights art style (see [ART-GUIDE.md](ART-GUIDE.md) and [reference/spiral-knights/](reference/spiral-knights/README.md)): chunky, rounded, toy-like shapes with hand-painted textures; oversized weapons; soft painted materials; clean
+**House style:** small battle robots in the LBX style (see [ART-GUIDE.md](ART-GUIDE.md) and [reference/lbx/](reference/lbx/README.md)), original designs: crisp hard-surface armour plates over a dark frame, panel lines, gold bolts, glowing camera eyes, a painted model-kit finish; clean
 silhouettes that read from a camera ~48° above; light from the top-left. Original designs only. Team
 colour is never baked in: trims meant to show the team use a material named \`team\`.
 
 | Category | Items | Model files |
 |---|---|---|
-| Knight body | 1 | \`models/knight/body.glb\` (with the T-shirt, shorts and shoes; the hair is \`helmet/none.glb\`) |
+| Robot frame | 1 | \`models/knight/body.glb\` (the frame, its plain base plates and the bare head) |
 | Class pieces | 2 | \`models/class/guardian.glb\` (big shield), \`models/class/recon.glb\` (tiny cloaking shield); the Striker's neon line is drawn by the game |
 | Helmets | ${counts.helmets} | \`models/helmet/<id>.glb\` |
 | Armor | ${counts.armor} | \`models/armor/<id>.glb\` |
@@ -91,10 +91,10 @@ colour is never baked in: trims meant to show the team use a material named \`te
 | Guns | ${counts.guns} | \`models/weapons/<id>.glb\` |
 | Bombs | ${counts.bombs} | \`models/weapons/<id>.glb\` + \`models/bombs/<id>.glb\` |
 
-## The knight body
+## The robot frame (knight body)
 
 - **Looks:** ${BODY_LOOK}
-- **Make:** \`models/knight/body.glb\`, built on skeleton D, [docs/reference/knight_rig_4_heads.glb](reference/knight_rig_4_heads.glb). Budget 4000 triangles.
+- **Make:** \`models/knight/body.glb\`, built on the robot rig in [docs/reference/knight_rig.glb](reference/knight_rig.glb). Budget 4000 triangles.
 
 ## Classes (3)
 

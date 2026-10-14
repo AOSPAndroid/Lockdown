@@ -1,7 +1,7 @@
 # The Lockdown look
 
-How Lockdown gets its Spiral Knights-style look, and exactly how to make art that keeps it. Read this
-before touching anything visual. The mechanics are finished; this document is about design and assets.
+How Lockdown's arenas get their look, and exactly how to make art that keeps it. The knights are LBX-style
+battle robots: see [ART-GUIDE.md](ART-GUIDE.md). Read this before touching the arenas. The mechanics are finished; this document is about design and assets.
 
 ![Clockwork Foundry mid-fight](screenshots/foundry-fight.jpg)
 
@@ -17,7 +17,7 @@ metal plates; the high floor is a full storey up, reached by **grand stairs**, a
 glass barriers on brass posts. Walls are thick bevelled blocks with a lit cap band on top, a patterned
 face and a dark plinth at the foot; where a wall line ends, a stout pillar with a brass ball marks it.
 Light comes from the top-left, shadows are soft, and everything that glows (lamps, crystals, team
-rings, shots, slashes) blooms. Knights are chunky chibi figures with big helmets and a bright team ring
+rings, shots, slashes) blooms. Knights are small battle robots (LBX-style, about five heads tall) with a bright team ring
 at their feet. Colour does the reading: Amber vs Cyan on rings, helmet bands, banners and capture rings.
 
 ## 2. Design rules (do not break these)
@@ -46,7 +46,7 @@ at their feet. Colour does the reading: Amber vs Cyan on rings, helmet bands, ba
 | Raised floor | 0.8 units up (`STOREY`) |
 | Walls | 1.3 units above their floor (`WALL`), top edges chamfered 0.1 (`BEVEL`) |
 | Cliffs | drop 2.6 units below the floor into the void (`DEPTH`) |
-| Knights | 1.3 units tall (chibi: helmet ≈ 40% of the height), team ring radius 0.42 |
+| Knights | 1.3 units tall (battle robots, head ≈ 20% of the height), team ring radius 0.42 |
 | Capture court | radius 2.75 units; hazard-striped rim; platform with 8 lamp studs and a floating crystal |
 | Lights | hemisphere 1.6 (theme sky over theme ground) + sun 2.4 from the top-left, soft shadows (PCF, 2048 map) |
 | Tone | ACES filmic, exposure 1.15 (pale themes lower: ruins 0.9, skyway 0.72) |

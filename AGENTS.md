@@ -5,10 +5,12 @@ guns and bombs, three classes, gear, bots and online rooms. **The work now is de
 
 ## Read first
 
-- **`docs/ART-GUIDE.md`: all the art guidance in one place (the Spiral Knights-style direction, characters,
+- **`docs/ART-GUIDE.md`: all the art guidance in one place (the knights are LBX-style battle robots; characters,
   weapons, arenas, icons, technical rules, workflow and the delivery checklist). Start here.**
-- **`docs/reference/spiral-knights/`: Spiral Knights screenshots and knight close-ups with notes. This is the
-  look to match (reference only, never copy). Compare your work with them side by side.**
+- **`docs/reference/lbx/`: LBX robot reference images with notes. This is the look to match for knights,
+  armour and weapons (reference only, never copy a design). Compare your work with them side by side.**
+- `docs/reference/spiral-knights/`: Spiral Knights screenshots, now a reference for arenas, camera and effects
+  only (not for the knights).
 - `docs/LOOK.md`: the target look, the design rules, every number, the texture slots and their rules.
 - `docs/MODELS.md`: the model contract (rig, units, materials, budgets).
 - `docs/CATALOG.md`: every item to make (body, classes, helmets, armour, pants, shoes, swords, guns, bombs),

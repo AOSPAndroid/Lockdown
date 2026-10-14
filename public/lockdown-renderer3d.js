@@ -686,70 +686,82 @@ export class Lockdown3DRenderer {
   /** The temporary knight: Spiral Knights proportions from simple shapes, built on the same named rig.
    * A dark under-suit and a dark head with two glowing eyes; gear (the Recruit set to start) goes on top. */
   temporaryBody(player, team) {
-    const std = (c, extra = {}) => new THREE.MeshStandardMaterial({ color: c, roughness: .55, metalness: .1, ...extra });
+    const std = (c, extra = {}) => new THREE.MeshStandardMaterial({ color: c, roughness: .4, metalness: .15, ...extra });
     const rig = new THREE.Group(); rig.scale.setScalar(KNIGHT_SCALE);
     const node = (name, parent, x, y, z) => { const n = new THREE.Group(); n.name = name; n.position.set(x, y, z); parent.add(n); return n; };
-    // The reference rig's pivots (docs/MODELS.md) divided by KNIGHT_SCALE: a big head on a slim body.
-    const hips = node('hips', rig, 0, .33, 0), chest = node('chest', hips, 0, .043, 0), head = node('head', chest, 0, .257, 0);
-    const legL = node('leg_L', hips, 0, -.014, -.054), legR = node('leg_R', hips, 0, -.014, .054), footL = node('foot_L', legL, 0, -.257, 0), footR = node('foot_R', legR, 0, -.257, 0);
-    const armL = node('arm_L', chest, 0, .193, -.136), armR = node('arm_R', chest, .03, .143, .136), handL = node('hand_L', armL, 0, -.214, 0), handR = node('hand_R', armR, .214, 0, 0);
+    // The reference rig's pivots (docs/MODELS.md) divided by KNIGHT_SCALE: a five-heads-tall battle robot.
+    const hips = node('hips', rig, 0, .4, 0), chest = node('chest', hips, 0, .043, 0), head = node('head', chest, 0, .293, 0);
+    const legL = node('leg_L', hips, 0, -.021, -.061), legR = node('leg_R', hips, 0, -.021, .061), footL = node('foot_L', legL, 0, -.307, 0), footR = node('foot_R', legR, 0, -.307, 0);
+    const armL = node('arm_L', chest, 0, .236, -.179), armR = node('arm_R', chest, .029, .186, .179), handL = node('hand_L', armL, 0, -.271, 0), handR = node('hand_R', armR, .257, 0, 0);
     const parts = { hips, chest, head, leg_L: legL, leg_R: legR, foot_L: footL, foot_R: footR, arm_L: armL, arm_R: armR, hand_L: handL, hand_R: handR };
-    const skin = std('#f3cfae', { roughness: .75 }), shirt = std('#efe6d2', { roughness: .8 }), shorts = std('#3a3a42', { roughness: .8 });
-    const mesh = (geometry, material, parent, x = 0, y = 0, z = 0) => { const m = new THREE.Mesh(geometry, material); m.position.set(x, y, z); parent.add(m); return m; };
-    // T-shirt and shorts underneath everything: a tapered torso and slender limbs.
-    const torsoGeo = new THREE.CylinderGeometry(.1, .075, .2, 14); torsoGeo.scale(.8, 1, 1);
-    const torso = mesh(torsoGeo, shirt, chest, 0, .105, 0); torso.userData.slot = 'armor';
-    mesh(new THREE.CylinderGeometry(.078, .085, .07, 14), shorts, hips, 0, 0, 0).scale.set(.8, 1, 1);
-    mesh(new THREE.TorusGeometry(.078, .014, 6, 20), std(team, { emissive: team, emissiveIntensity: .35 }), hips, 0, .035, 0).rotation.x = Math.PI / 2;
-    const legGeo = new THREE.CapsuleGeometry(.037, .18, 4, 8); legGeo.translate(0, -.125, 0);
-    for (const leg of [legL, legR]) mesh(legGeo, shorts, leg).userData.slot = 'pants';
-    for (const foot of [footL, footR]) mesh(new THREE.BoxGeometry(.13, .06, .08), std('#2a2a30'), foot, .02, -.03, 0).userData.slot = 'shoes';
-    mesh(new THREE.SphereGeometry(.155, 18, 14), skin, head, 0, .15, 0).scale.set(1, .95, 1.05);
-    const eye = new THREE.CapsuleGeometry(.02, .035, 3, 6), eyeMat = std('#1a1c22', { roughness: .3 });
-    mesh(eye, eyeMat, head, .145, .14, -.055); mesh(eye, eyeMat, head, .145, .14, .055);
-    const armGeo = new THREE.CapsuleGeometry(.031, .16, 4, 8); armGeo.translate(0, -.1, 0);
-    const left = mesh(armGeo, skin, armL); left.rotation.x = .2; left.userData.slot = 'armor';
-    const rightGeo = new THREE.CapsuleGeometry(.031, .16, 4, 8); rightGeo.rotateZ(Math.PI / 2); rightGeo.translate(.1, 0, 0);
-    mesh(rightGeo, skin, armR).userData.slot = 'armor';
+    const frame = std('#3a3f48', { metalness: .55, roughness: .45 }), plate = std('#d4d8de'), teamMat = std(team, { emissive: team, emissiveIntensity: .4 });
+    const mesh = (geometry, material, parent, x = 0, y = 0, z = 0, slot = null) => { const m = new THREE.Mesh(geometry, material); m.position.set(x, y, z); if (slot) m.userData.slot = slot; parent.add(m); return m; };
+    const box = (w, h, d) => new THREE.BoxGeometry(w, h, d), joint = r => new THREE.SphereGeometry(r, 10, 8);
+    // The bare frame: dark joints and core, light base plates (the slots' gear recolours the plates).
+    mesh(box(.12, .08, .16), frame, hips);
+    mesh(box(.13, .02, .17), teamMat, hips, 0, .045, 0);
+    const chestGeo = new THREE.CylinderGeometry(.13, .085, .24, 4, 1); chestGeo.rotateY(Math.PI / 4); chestGeo.scale(.75, 1, 1.1);
+    mesh(chestGeo, plate, chest, 0, .145, 0, 'armor');
+    mesh(box(.02, .14, .03), teamMat, chest, .085, .16, 0);
+    mesh(new THREE.CylinderGeometry(.035, .04, .05, 10), frame, chest, 0, .275, 0);
+    mesh(box(.15, .15, .15), plate, head, 0, .095, 0);
+    mesh(box(.02, .04, .14), std('#14171c', { roughness: .3 }), head, .076, .1, 0);
+    const eye = std('#e8f6ff', { emissive: '#9fe3ff', emissiveIntensity: 2 });
+    mesh(joint(.016), eye, head, .087, .1, -.034); mesh(joint(.016), eye, head, .087, .1, .034);
+    mesh(box(.08, .045, .012), teamMat, head, -.01, .19, 0).rotation.z = .3;
+    for (const arm of [armL, armR]) {
+      const along = arm === armR; // the weapon arm points forward (+X), the other hangs down
+      const at = d => along ? [d, 0, 0] : [0, -d, 0], seg = (l, w) => along ? box(l, w, w) : box(w, l, w);
+      mesh(joint(.045), frame, arm);
+      mesh(new THREE.SphereGeometry(.06, 12, 8, 0, Math.PI * 2, 0, Math.PI / 2), plate, arm, 0, .01, 0, 'armor');
+      mesh(seg(.13, .062), frame, arm, ...at(.075));
+      mesh(joint(.032), frame, arm, ...at(.15));
+      mesh(seg(.12, .072), plate, arm, ...at(.215), 'armor');
+    }
+    for (const hand of [handL, handR]) mesh(box(.06, .06, .06), frame, hand);
+    for (const leg of [legL, legR]) {
+      mesh(box(.075, .14, .08), plate, leg, 0, -.075, 0, 'pants');
+      mesh(joint(.035), frame, leg, 0, -.155, 0);
+      mesh(box(.085, .14, .09), plate, leg, 0, -.235, 0, 'pants');
+    }
+    for (const foot of [footL, footR]) mesh(box(.16, .065, .095), plate, foot, .025, -.035, 0, 'shoes');
     return { rig, parts };
   }
-  /** Temporary gear: recolours the matching body shapes and adds a few pieces (helmet, pauldrons). */
+  /** Temporary gear: recolours the matching frame plates and adds a few pieces (head shell, pauldrons). */
   temporaryGear(slot, id, player, team, parts) {
-    const tint = colour(this.armorColour(id)), std = (c, extra = {}) => new THREE.MeshStandardMaterial({ color: c, roughness: .4, metalness: .5, ...extra });
+    if (id === 'none') return; // the bare frame
+    const tint = colour(this.armorColour(id)), std = (c, extra = {}) => new THREE.MeshStandardMaterial({ color: c, roughness: .35, metalness: .3, ...extra });
     if (slot === 'helmet') {
-      const bare = id === 'none', shell = std(bare ? '#5a3a28' : tint, bare ? { roughness: .9, metalness: 0 } : {});
-      // Hair sits back from the face; a helmet is a bigger shell with a brim over the eyes.
-      const helmet = new THREE.Mesh(new THREE.SphereGeometry(bare ? .165 : .185, 18, 14), shell); helmet.position.set(bare ? -.035 : -.02, bare ? .18 : .17, 0); helmet.scale.set(.95, .92, 1.02); parts.head.add(helmet);
-      if (!bare) { const brim = new THREE.Mesh(new THREE.TorusGeometry(.15, .03, 8, 20, Math.PI), shell); brim.rotation.set(0, Math.PI / 2, Math.PI / 2); brim.position.set(.07, .2, 0); parts.head.add(brim); }
-      const band = new THREE.Mesh(new THREE.TorusGeometry(bare ? .155 : .178, .016, 6, 24), std(team, { emissive: team, emissiveIntensity: .5 })); band.rotation.x = Math.PI / 2; band.position.set(bare ? -.03 : -.02, .2, 0); parts.head.add(band);
+      // A tinted shell over the frame head, set back so the visor and eyes still show, and a crest on top.
+      const shell = new THREE.Mesh(new THREE.BoxGeometry(.18, .17, .19), std(tint)); shell.position.set(-.02, .105, 0); parts.head.add(shell);
+      const crest = new THREE.Mesh(new THREE.BoxGeometry(.15, .06, .03), std(tint.clone().offsetHSL(0, 0, .12))); crest.position.set(-.02, .215, 0); parts.head.add(crest);
       return;
     }
-    if (id === 'none') return;
-    // Recolour the body shapes that belong to this slot, metal for armour.
     for (const part of Object.values(parts)) for (const child of part.children) if (child.isMesh && child.userData.slot === slot) child.material = std(tint);
-    if (slot === 'armor') {
-      const pad = new THREE.SphereGeometry(.06, 10, 8, 0, Math.PI * 2, 0, Math.PI / 2), material = std(tint);
-      const padL = new THREE.Mesh(pad, material), padR = new THREE.Mesh(pad, material); padL.position.set(0, .19, -.12); padR.position.set(0, .19, .12); parts.chest.add(padL, padR);
+    if (slot === 'armor') for (const arm of [parts.arm_L, parts.arm_R]) {
+      const pad = new THREE.Mesh(new THREE.BoxGeometry(.1, .05, .1), std(tint)); pad.position.y = .04; arm.add(pad);
     }
   }
-  /** Class marks: the Guardian's big shield and the Recon's tiny cloaking shield, both on the left arm.
-   * The Striker has no piece: its neon trail is drawn every frame (see updateTrail). */
+  /** Class marks: the Guardian's big round shield and the Recon's tiny cloaking shield, both on the left
+   * arm. The Striker has no piece: its neon trail is drawn every frame (see updateTrail). */
   temporaryClassMarks(player, team, parts) {
     if (player.cls === 'guardian') {
-      const bronze = new THREE.MeshStandardMaterial({ color: '#a8783e', metalness: .65, roughness: .35 }), rim = new THREE.MeshStandardMaterial({ color: team, emissive: team, emissiveIntensity: .3, metalness: .4, roughness: .4 });
-      const shield = new THREE.Group(); shield.position.set(.07, -.13, -.05); parts.arm_L.add(shield);
-      const plate = new THREE.Mesh(new THREE.CylinderGeometry(.2, .2, .04, 24), bronze); plate.rotation.x = Math.PI / 2; plate.scale.set(.85, 1, 1.25); shield.add(plate);
-      const edge = new THREE.Mesh(new THREE.TorusGeometry(.2, .024, 8, 28), rim); edge.scale.set(.85, 1.25, 1); shield.add(edge);
-      const boss = new THREE.Mesh(new THREE.SphereGeometry(.06, 12, 8), new THREE.MeshStandardMaterial({ color: '#d8b45a', metalness: .8, roughness: .3 })); boss.position.z = -.03; boss.scale.z = .6; shield.add(boss);
+      const face = new THREE.MeshStandardMaterial({ color: '#4a5a9e', metalness: .3, roughness: .4 }), gold = new THREE.MeshStandardMaterial({ color: '#d8b45a', metalness: .8, roughness: .3 });
+      const rim = new THREE.MeshStandardMaterial({ color: team, emissive: team, emissiveIntensity: .3, metalness: .4, roughness: .4 });
+      const shield = new THREE.Group(); shield.position.set(.06, -.17, -.07); parts.arm_L.add(shield);
+      const plate = new THREE.Mesh(new THREE.CylinderGeometry(.24, .24, .035, 28), face); plate.rotation.x = Math.PI / 2; shield.add(plate);
+      const edge = new THREE.Mesh(new THREE.TorusGeometry(.24, .022, 8, 32), gold); shield.add(edge);
+      const band = new THREE.Mesh(new THREE.TorusGeometry(.205, .01, 6, 32), rim); band.position.z = -.02; shield.add(band);
+      const boss = new THREE.Mesh(new THREE.ConeGeometry(.05, .1, 12), gold); boss.rotation.x = -Math.PI / 2; boss.position.z = -.06; shield.add(boss);
     }
     if (player.cls === 'recon') {
-      const buckler = new THREE.Mesh(new THREE.CylinderGeometry(.07, .07, .03, 16), new THREE.MeshStandardMaterial({ color: '#8a929e', metalness: .75, roughness: .3 })); buckler.rotation.x = Math.PI / 2; buckler.position.set(.02, -.15, -.04); parts.arm_L.add(buckler);
+      const buckler = new THREE.Mesh(new THREE.CylinderGeometry(.07, .07, .03, 16), new THREE.MeshStandardMaterial({ color: '#8a929e', metalness: .75, roughness: .3 })); buckler.rotation.x = Math.PI / 2; buckler.position.set(.02, -.2, -.05); parts.arm_L.add(buckler);
       const lens = new THREE.Mesh(new THREE.SphereGeometry(.032, 12, 8), new THREE.MeshStandardMaterial({ color: '#c9a2ff', emissive: '#a070ff', emissiveIntensity: 1.6 })); lens.position.set(0, -.025, 0); lens.scale.y = .5; buckler.add(lens);
       lens.userData.cloakLens = true;
     }
   }
   armorColour(id) {
-    if (!id || id === 'none') return '#b8c2d0'; // the Recruit set: plain polished steel
+    if (!id || id === 'none') return '#d4d8de'; // the bare frame's light plates
     const palette = ['#9aa4b2', '#c08a4a', '#5a6270', '#a8483e', '#4e7a52', '#e4dcc8', '#6e5a8e', '#3e6e8a', '#b49a5a', '#7a3e5a'];
     let h = 0; for (const ch of id) h = (h * 31 + ch.charCodeAt(0)) | 0;
     return palette[Math.abs(h) % palette.length];

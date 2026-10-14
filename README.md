@@ -2,7 +2,8 @@
 
 A 4v4 control-point brawl in the spirit of Spiral Knights' Lockdown, in the browser: three capture
 points, swords, guns and bombs, Striker / Guardian / Recon classes, four gear slots, a four-slot
-inventory with hearts, and bots in every empty seat. Drawn in real 3D (three.js): chunky bevelled
+inventory with hearts, and bots in every empty seat. The knights are small battle robots (in the style of
+the LBX anime) built from a frame and swappable armour parts. Drawn in real 3D (three.js): chunky bevelled
 fortresses floating in the void, grand stairs to a second floor, glowing lamps and crystals.
 
 ![Clockwork Foundry mid-fight](docs/screenshots/foundry-fight.jpg)

@@ -20,7 +20,7 @@ const armor = (id, name, description, gunResistance, bladeResistance, bombResist
 });
 
 export const ARMORS = Object.freeze({
-  none: armor('none', 'Unarmored', 'T-shirt and shorts. Normal speed, with no damage resistance.', 0, 0, 0, 1, 'none'),
+  none: armor('none', 'Unarmored', 'The bare robot frame. Normal speed, with no damage resistance.', 0, 0, 0, 1, 'none'),
   scout: armor('scout', 'Scout Armor', 'Light armor for faster movement and longer dashes, with modest protection.', .10, .10, .05, 1.15, 'light'),
   ballistic: armor('ballistic', 'Ballistic Armor', 'Specialized protection against guns, with a small speed cost.', .30, .08, .15, .95, 'ballistic'),
   duelist: armor('duelist', 'Duelist Armor', 'Specialized protection against swords, with a small speed cost.', .08, .25, .10, .95, 'duelist'),
@@ -42,7 +42,7 @@ export const ARMOR_IDS = Object.freeze(Object.keys(ARMORS));
 /** Helmets, pants and shoes. Same fields as body armour; every piece may help or hurt. */
 const piece = (id, name, description, gun, blade, bomb, speed, perks = {}) => armor(id, name, description, gun, blade, bomb, speed, id, perks);
 export const HELMETS = Object.freeze({
-  none: piece('none', 'Bare head', 'Nothing on your head.', 0, 0, 0, 1),
+  none: piece('none', 'Bare head', 'The frame\'s plain head unit.', 0, 0, 0, 1),
   sallet: piece('sallet', 'Sallet Helm', 'A plain steel sallet: solid all-round protection, a little heavy.', .08, .08, .05, .97),
   visor: piece('visor', 'Marksman Visor', 'A tinted visor: guns hit 10% harder and charge 10% faster, but it leaves your head bare to blades.', 0, -.05, 0, 1, { gunDamage: 1.1, gunCharge: .9 }),
   horned: piece('horned', 'Horned Helm', 'Swords hit 10% harder; the horns make you an easy target for guns.', -.05, .05, 0, 1, { bladeDamage: 1.1 }),
@@ -58,7 +58,7 @@ export const HELMETS = Object.freeze({
   goggles: piece('goggles', 'Clockwork Goggles', 'Your class ability recharges 15% faster; the lenses throw off your aim a little (guns −5%).', 0, 0, 0, 1, { abilityCooldown: .85, gunDamage: .95 }),
 });
 export const PANTS = Object.freeze({
-  none: piece('none', 'Shorts', 'Plain shorts.', 0, 0, 0, 1),
+  none: piece('none', 'Bare legs', 'The frame\'s plain leg plates.', 0, 0, 0, 1),
   greaves: piece('greaves', 'Plate Greaves', 'Steel leg plates: good against swords, a little slower.', .05, .10, .05, .94),
   leggings: piece('leggings', 'Runner Leggings', '6% faster with a 10% longer dash; no protection.', 0, 0, 0, 1.06, { dashDistance: 1.1 }),
   chausses: piece('chausses', 'Chainmail Chausses', 'Blast protection and 20% less knockback, slightly slower.', .05, .05, .15, .97, { knockback: .8 }),
@@ -72,7 +72,7 @@ export const PANTS = Object.freeze({
   kilt: piece('kilt', 'Kilt of Fury', 'Swords hit 10% harder, but bullets find bare knees (guns hit you 10% harder).', -.10, 0, 0, 1.03, { bladeDamage: 1.1 }),
 });
 export const SHOES = Object.freeze({
-  none: piece('none', 'Plain shoes', 'Simple shoes.', 0, 0, 0, 1),
+  none: piece('none', 'Bare feet', 'The frame\'s plain feet.', 0, 0, 0, 1),
   sneakers: piece('sneakers', 'Sprint Sneakers', '8% faster, at the cost of 5 health.', 0, 0, 0, 1.08, { maxHp: -5 }),
   sabatons: piece('sabatons', 'Iron Sabatons', 'Rooted to the ground: 30% less knockback and some blast protection, but 8% slower.', 0, 0, .10, .92, { knockback: .7 }),
   dashboots: piece('dashboots', 'Dash Boots', 'The dash recharges 25% faster and goes 15% further.', 0, 0, 0, 1, { dashCooldown: .75, dashDistance: 1.15 }),

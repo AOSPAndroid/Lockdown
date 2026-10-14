@@ -1,9 +1,9 @@
 # Lockdown art guide
 
-Everything an artist (or an art agent) needs to make Lockdown's art, in one place. The target is a style
-**very close to Spiral Knights**: same proportions, same chunky toy-like shapes, same painted materials, same
-bright readable colour, same glow. Everything else is ours: the designs, names and every pixel and vertex are
-original. Never copy, trace, rip or recolour Spiral Knights assets, logos or names.
+Everything an artist (or an art agent) needs to make Lockdown's art, in one place. **The knights are small
+battle robots in the style of the LBX anime and its model kits:** a robot frame with swappable armour parts,
+crisp hard-surface plates, glowing camera eyes, big weapons and shields. The designs, names and every pixel and
+vertex are **original**: never copy, trace or recolour an existing LBX robot (or any other), its logos or names.
 
 The item list is [CATALOG.md](CATALOG.md): 98 items, each with what it does, how it looks, its size and the
 exact files to make. The fine print for models is [MODELS.md](MODELS.md) and for arenas [LOOK.md](LOOK.md);
@@ -11,42 +11,39 @@ this guide summarises both, so you can work from this page alone.
 
 ---
 
-## 1. The Spiral Knights look
+## 1. The LBX robot look
 
-**Look at [reference/spiral-knights/](reference/spiral-knights/README.md) first:** three Spiral Knights
-screenshots (a hedge maze, a Lockdown capture point, a base with a bridge) and enlarged close-ups of knights,
-with notes on what to take from each. They are reference only: match the style, never copy them.
+**Look at [reference/lbx/](reference/lbx/README.md) first:** reference images of an LBX-style robot with
+notes on what to take from them. They are reference only: match the style, never copy the design.
 
-Spiral Knights is a stylised, cartoon 3D world: chibi knights in clockwork armour exploring a mechanical
-planet. Its art works because of a handful of rules. Follow them exactly.
+The game's design maps straight onto LBX: every knight is the same **robot frame**, and the four gear slots are
+its swappable **armour parts**: helmet = head unit, armour = chest and arm armour, pants = waist and leg armour,
+shoes = feet. Starting with no gear means a **bare frame**.
 
 ### Shapes
-- **Big, simple primary forms with crisp bevels.** Every object reads as two or three clear shapes: a dome
-  helmet, a breastplate, a slab blade. Forms are firm and defined, never soft, inflated or bulby. Small detail is rare and always big enough to read at game size.
-- **Exaggerated scale.** Helmets are bigger than the head. Swords are bold but not huge: about half to two-thirds of the knight's height. Guns are
-  fat, short and toy-like. Shields are big. Heavy items look *ridiculously* heavy.
-- **Soft bevels everywhere.** No knife-sharp edges and no perfectly flat boxes. Every edge gets a rounded or
-  chamfered bevel that catches the light.
-- **Strong silhouettes.** An item must be identifiable from its black silhouette alone at 70 pixels tall. Horns,
-  crests, plumes, wings, prongs and flared muzzles are good; thin straps and filigree are not.
-- **Segmented, mechanical feel.** Armour is made of separate plates and rings; guns have visible coils,
-  cylinders, canisters and vents; there is a clockwork logic to how pieces fit.
+- **Hard-surface, crisp and chamfered.** Armour is made of distinct plates with flat faces, wide chamfers and
+  clean edges, like a plastic model kit. No soft, inflated or bulby forms.
+- **Two layers.** A dark gunmetal **inner frame** (visible at the neck, shoulders, elbows, waist, knees and
+  ankles: ball joints, pistons, cylinders) under light **armour plates**. The contrast between dark frame and
+  bright plates is a big part of the look.
+- **Heroic proportions.** About **five heads tall**: a compact head, broad shoulders and chest, a narrow waist,
+  long armoured legs and big wedge feet. Not chibi, not a cute kid, not a mannequin.
+- **Strong silhouettes.** Each robot is identifiable from its silhouette at 70 pixels tall: crests, horns, fins,
+  antennae, shoulder shapes, big feet. Thin wires and filigree don't read.
+- **Mechanical detail where it reads:** panel lines, vents, gold bolt caps at the joints, emblems on the chest,
+  layered plates on thighs and shins.
 
 ### Materials and painting
-- **Hand-painted look on simple shading.** Colour comes from painted gradients, not from photographic
-  texture. Light tops, darker bottoms, a painted highlight along upper edges, soft ambient occlusion in creases.
-- **Metal is painted, not photoreal.** Steel is a cool blue-grey with a bright painted highlight band; gold
-  and brass are warm yellow-orange with white-yellow highlights. Shadows lean toward the material's hue, never
-  muddy black-grey.
-- **Every model gets a hand-painted texture** (one albedo, 512² to 1024²): two to five colour areas per item
-  with painted gradients, edge highlights, seams, panel lines and rivets painted in. Wear is a few chips and
-  dents, never grime or noise. Flat untextured colours look like a vinyl toy, not Spiral Knights.
-- **Glow is an accent.** Energy cores, gems, elemental parts, lenses and runes glow with a bright core and a
-  soft halo. The rest of the item never glows.
+- **Painted plastic, like a finished model kit.** Clean satin colours, crisp panel lines (dark lines in the
+  seams), a light edge highlight on chamfers, soft shading in recesses. Little wear: a few scuffs at most.
+- **One hand-painted texture per model** (panel lines, highlights and emblems painted in). Flat untextured colour
+  looks like a toy, not a kit.
+- **Metal** (weapons, joints, bolts) is painted too: steel blue-grey with a bright edge, gold with warm highlights.
+- **Glow is an accent:** camera eyes, lenses, energy cores, gems and elemental parts. Plates never glow.
 
 ### Colour
-- **Saturated but harmonious.** Clear hues, slightly softened. Each item has one dominant colour, one secondary
-  and one small accent (often gold or a glowing element colour).
+- **White or light base plates + one strong main colour + one accent + gold.** For example white and royal
+  blue with a red crest and gold bolts. Each armour set has its own main colour (in its catalogue entry).
 - **Element colour code** (keep it consistent on every sword, gun, bomb, effect and icon):
 
 | Element | Colours | Feel |
@@ -62,86 +59,47 @@ planet. Its art works because of a handful of rules. Follow them exactly.
 | Rift | violet crystal, black frame | floating, angular |
 
 - **Team colours are not part of any item:** Amber `#e39a3b` and Cyan `#3bb8c4` are painted on by the game,
-  on materials named `team`.
+  on materials named `team` (a chest stripe, an antenna fin, a shield band).
 
 ### Light
 - Key light from the **top-left**, a cool fill from the sky, a soft warm bounce from the floor. The game lights
-  every model this way, so **never bake lighting or shadows** into textures; paint only form shading
-  (light tops, darker undersides, edge highlights).
+  every model this way, so **never bake lighting or shadows** into textures; paint only panel lines, edge
+  highlights and soft recess shading.
 
 ---
 
-## 2. Knights
+## 2. Knights (the robots)
 
-### Chosen direction: Stack
+Every knight is the same **robot frame** (1.3 units tall), wearing four armour parts and a class mark, holding
+one weapon. Build it on the rig in [reference/knight_rig.glb](reference/knight_rig.glb): about five heads tall,
+broad shoulders, narrow waist, long legs, big feet.
 
-**Stack is the approved direction for all new and replacement art.** Use **D**, the four-head skeleton
-[`reference/knight_rig_4_heads.glb`](reference/knight_rig_4_heads.glb), at **1.3 units tall**. Keep its named
-parts, hierarchy and pivots: a prominent head above a slim, heroic body, defined waist and slender limbs.
-
-Build layered, overlapping plates, banded helmets, rolled rims and firm bevels. Paint broad visible brush
-strokes, coloured gradients, dark seams, rivets and sparse edge scuffs. Highlights are **strong and broad
-enough to read from the game camera**, concentrated on upper edges and bevels; retain saturated midtones
-and deep coloured recesses. Glow stays on small gems and lenses.
-
-Keep each catalogue item's palette: deep cobalt blue and silver for Cobalt, warm tan leather for Scout,
-cream shirt, charcoal shorts and shoes, chestnut hair, and warm bronze/gold details. Team colours belong
-only on `team*` trims. Follow the **Stack row** below for shape, painting and detail density.
-
-![Approved Stack direction, bottom row; all options use the D four-head skeleton](reference/stack-style-comparison.jpg)
-
-The approved mockups and their source files are saved on the unmerged
-[`art/style-mockups` branch](https://github.com/AOSPAndroid/Lockdown/tree/art/style-mockups/review/style-contrast).
-
-Every knight is the same **chibi body** (1.3 units tall) wearing four gear pieces (helmet, armour, pants,
-shoes), holding one weapon, with a class mark. Everyone starts with no gear: bare-headed, in a T-shirt and
-shorts. That is the game's design and it stays; what matters is that it is **drawn in the Spiral Knights art
-style**, exactly like the armour.
-
-- **Proportions: not bulby.** About three heads tall: a big head (about a third of the height, ≈ 0.5 across)
-  on a **slim, heroic body**: a narrow torso tapering to a defined waist, slender arms and legs, hands and feet
-  in proportion. Only the head (and the helmet on it) is oversized; the body is never round, inflated or
-  balloon-like. Armour adds shape where it sits (a breastplate, shin plates, gauntlets) but the knight stays
-  lean between the plates. See the knights in [reference/spiral-knights/](reference/spiral-knights/README.md).
-- **Face:** simple and stylised, not anime or Animal Crossing: two big glossy dark eyes with a bright
-  catch-light, no blush, no mouth or a tiny one. Closed helmets show a **dark visor opening** in which two small
-  glowing eyes can show, the classic Spiral Knights look.
-- **Base outfit:** a cream T-shirt with a `team` trim, charcoal shorts, chunky dark shoes and a bald scalp. The
-  hair is its own piece (the "bare head" helmet): a few big glossy sculpted clumps, never strands.
-- **Painted like the armour.** The T-shirt has painted folds, seams and a soft gradient; the hair has painted
-  highlights; skin has a warm painted gradient. The bare knight must look like it belongs in the screenshots in
-  [reference/spiral-knights/](reference/spiral-knights/README.md), not in a different game.
-
-### The style problem to fix
-
-The first attempt had the right pieces but the wrong art style. Compare it with the references and avoid
-every one of these:
-
-| First attempt | Spiral Knights style |
-|---|---|
-| Flat, untextured colours with soft vertex shading: a matte vinyl toy | A **hand-painted texture on every model**: gradients, painted edge highlights, panel lines, seams, rivets, a few chips |
-| Smooth, simple single forms | **Layered** forms: rims, bands, straps, buckles, plates over plates, each with a chunky bevel that catches the light |
-| A generic cute chibi face (rosy cheeks) | A stylised face with big glossy eyes, or a dark visor with glowing eyes |
-| Muted beige and brown, low contrast | **Saturated** colour, strong light/dark contrast, glowing accents |
-| A round, bulby body: balloon torso, sausage limbs, mitten hands, blob feet | A **slim, heroic body** about three heads tall: tapered torso, defined waist, slender limbs, hands and feet in proportion; only the head is big |
-| Small, plain weapons | **Oversized**, ornate weapons with glowing parts |
-
-- **Gear reads from above.** The camera looks down at about 48°, so the top of the helmet, the shoulders and the
-  weapon are what people see most. Put the most character there: crests, horns, plumes, shoulder plates.
-- **Sets.** Pieces with the same name share motifs, colours and materials and must look great together:
-  Cobalt (deep blue steel, silver rivets, star emblem), Wolver (grey wolf pelt, ears, claws), Volcanic Demo
-  (soot black, orange glowing grilles, fuses), Seraph (white silk, gold edges, halo, small wings), Vog Cub (shaggy
-  orange-black fur with ember tips). Every other piece must also look right with any other piece.
+- **The bare frame** (the body, and what a knight with no gear looks like): the dark inner frame with plain
+  light-grey base plates (chest plate with a `team` stripe, shoulder caps, thigh, shin and foot plates) and the
+  bare head unit: a compact rounded head with a dark visor band, **two round glowing camera eyes** and a small
+  `team` antenna fin. It must look like a real, cool robot on its own, not unfinished.
+- **Armour parts** go over the frame plates and change the silhouette: a new head unit, a new chest and
+  pauldrons, new thighs and shins, new feet. Each set has its own shape language and main colour (Cobalt: deep
+  blue knight; Wolver: grey wolf; Volcanic Demo: black and glowing orange; Seraph: white and gold with a halo;
+  Vog Cub: shaggy orange-black). Every part must also look right mixed with any other part.
+- **Heads read from above.** The camera looks down at about 48°, so the head, the shoulders and the weapon are
+  what people see most. Put the most character there: crests, horns, fins, antennae, shoulder shapes.
 - **Class marks** read on any outfit:
-  - **Guardian:** a **big shield** on the left arm (a tall heater shield, about as tall as the body), the class piece `class/guardian.glb`.
-  - **Recon:** a **tiny round shield** on the left forearm with a glowing lens, the cloaking device, `class/recon.glb`. The game makes the lens flare when it cloaks.
+  - **Guardian:** a **big round battle shield** on the left arm (≈ 0.7 across, gold rim and radial vanes, a
+    pointed boss), `class/guardian.glb`.
+  - **Recon:** a **tiny round shield** on the left forearm with a glowing lens, the cloaking device,
+    `class/recon.glb`. The game makes the lens flare when it cloaks.
   - **Striker:** nothing to model. The game draws a thin **neon line** in team colour trailing behind it.
+- **No capes or cloth that should flow:** models are rigid. A cape, if any, is a stiff swept plate.
+
+**Not this:** a chibi kid, a person in clothes, skin, hair, a cute face, soft rounded toy shapes, flat untextured
+colours, a copy of an existing LBX robot.
 
 ---
 
 ## 3. Weapons
 
-Spiral Knights weapons are the stars of every screenshot: oversized, chunky, colourful and glowing.
+Weapons are the stars of every screenshot: bold, machined, colourful and glowing, sized for the robot.
 
 - **Swords:** a normal sword is ≈ 0.75 from grip to tip (just over half the knight's 1.3 height), blade ≈ 0.12
   wide, guard ≈ 0.24 across. Heavies are longer and wider (≈ 0.95, blades ≈ 0.18 wide), the rapier and the
@@ -183,7 +141,7 @@ Optional `<slot>_normal.png` for any of them. Albedo only: no baked light, no pe
 ## 5. Menu icons
 
 Every item also needs a menu icon (the armory and inventory show them): `public/art/lockdown/icon_*.png`,
-drawn at **96×96** with a transparent background. The Spiral Knights icon style: the item rendered in 3D
+drawn at **96×96** with a transparent background. The icon style: the item rendered in 3D
 from a three-quarter view, slightly from above, filling the frame, lit from the top-left, with a soft dark
 outline so it reads on any background. Make icons from your models so they match exactly. File names are in
 each catalogue entry (`icon_weapon_<id>`, `icon_helmet_<id>`, `icon_armor_<id>`, `icon_pants_<id>`,
@@ -197,17 +155,17 @@ each catalogue entry (`icon_weapon_<id>`, `icon_helmet_<id>`, `icon_armor_<id>`,
 - Binary glTF (`.glb`) under `public/art/3d/models/`: `knight/body.glb`, `class/<class>.glb`,
   `helmet|armor|pants|shoes/<id>.glb`, `weapons/<id>.glb`, `bombs/<id>.glb`.
 - **1 unit = 1 floor tile; the knight is 1.3 tall; Y up; the knight faces +X**; origin between the feet.
-- **Rigid named parts, no skinning, no animation.** The game swings the parts itself. Build the body on
-  `docs/reference/knight_rig.glb`: `hips` > `chest` > `head`, `arm_L` > `hand_L`, `arm_R` > `hand_R`, and
+- **Rigid named parts, no skinning, no animation** (natural for robots). The game swings the parts itself. Build the body on
+  `docs/reference/knight_rig.glb` (the five-heads-tall robot frame): `hips` > `chest` > `head`, `arm_L` > `hand_L`, `arm_R` > `hand_R`, and
   `hips` > `leg_L` > `foot_L`, `leg_R` > `foot_R`, with the same names and pivots.
 - **Gear** files hold one top-level node per body part they cover, named after it: helmets `head`; armour
   `chest` (plus optional `arm_L`, `arm_R`, `hips`); pants `hips`, `leg_L`, `leg_R`; shoes `foot_L`, `foot_R`; class
-  pieces `head`, `chest` or `arm_L`. Make them slightly bigger than what they cover, since legs swing ±40°, arms ±35°
+  pieces `arm_L`. Make them slightly bigger than what they cover, since legs swing ±40°, arms ±35°
   and the weapon arm up to ±80°.
 - **Weapons:** origin at the middle of the grip, pointing **+X**. **Planted bombs:** origin on the floor, standing
   up +Y.
 - **Materials:** glTF metal/rough. Materials named `team…` take the team colour. Glowing parts get an emissive
-  colour. At most one 1024² texture set per model, embedded; flat colours with painted vertex shading are fine.
+  colour. One painted texture per model, embedded, a power of two (1024² at most); each `.glb` under 600 KB.
 - **Triangle budgets:** body 4000, armour 3000, helmet 2500, pants 2000, shoes/class piece/weapon 1500, planted
   bomb 1200.
 
@@ -217,10 +175,12 @@ Full details: [MODELS.md](MODELS.md).
 
 ## 7. Do and don't
 
-**Do:** chunky, rounded, oversized, bevelled, painted, saturated, glowing accents, readable from above,
-matching sets, the element colour code, original designs.
+**Do:** crisp hard-surface plates over a dark frame, five-heads-tall heroic robots, panel lines, gold bolts,
+glowing camera eyes, one strong colour per set, readable from above, matching sets, the element colour code,
+original designs.
 
-**Don't:** copy or trace Spiral Knights (or any game's) assets, logos or names; photoreal or noisy textures;
+**Don't:** copy or trace an LBX robot (or any game's or show's) designs, logos or names; chibi or bulby shapes;
+skin, hair or faces; photoreal or noisy textures;
 pixel art or voxels; thin spindly parts; grimdark or gore; text on items; baked lighting; team colours in
 textures; anything that pokes through other gear when the knight moves; stretching or smearing art to fix it
 (redraw instead).
@@ -229,25 +189,17 @@ textures; anything that pokes through other gear when the knight moves; stretchi
 
 ## 8. How to work
 
-0. **Design options (stop for a choice).** Before any full model set, show **three or four different design
-   directions** for the knight, each one holding the Knight Brand, every one clearly in
-   the Spiral Knights style (see [reference/spiral-knights/](reference/spiral-knights/README.md)) but
-   different in the **general art style**: proportions, shape language (how round, how blocky, how many
-   bevels), how the metal, cloth, skin and hair are painted (glossy or soft, how strong the edge highlights),
-   colour and detail level. Show each direction on the bare starting knight (T-shirt, shorts, hair) **and on
-   two armoured outfits** (the Cobalt set, and Scout armour with the Sallet helm),
-   so the style of the armours can be judged too, not just one outfit. Present them side by side on
-   one sheet, each with a short name and what makes it different, next to a reference close-up, plus each one
-   in the Dojo at game distance. Quick block-outs are fine: no need to finish or polish, no icons, nothing
-   committed as final. Wait until one direction (or a mix) is picked. Repeat if none is right.
-1. **Style lock (stop for approval).** In the chosen direction only, make the knight body (with the T-shirt,
-   shorts and shoes), the hair (`helmet/none`), the Guardian's big shield and the Recon's tiny shield, the
-   Cobalt set (helm, mail, cuisses), the Knight Brand, the Pulse Blaster and the Cannonball Bomb (in hand and
-   planted).
-   Before showing anything, compare it side by side with the Spiral Knights screenshots in
-   [reference/spiral-knights/](reference/spiral-knights/README.md) and with section 2 (the style problem to fix): hand-painted textures, layered bevelled forms, saturated
-   colour, a slim body under a big head, oversized weapons. Run the checks, play the game and show screenshots. Change direction if asked;
-   do not polish a rejected direction.
+0. **Design options (stop for a choice).** Before any full model set, show **three different robot design
+   directions**, all clearly LBX-style (see [reference/lbx/](reference/lbx/README.md)) but different in shape
+   language (sleek, chunky, angular), proportions within "about five heads", how much frame shows, colour
+   scheme and detail level. Show each on the **bare frame** and on **two armoured builds** (the Cobalt set, and
+   Scout armour with the Sallet head), each holding the Knight Brand, plus a Guardian with its big shield. One
+   comparison sheet with a short name per direction, next to the reference, plus each one in the Dojo at game
+   distance. Quick block-outs with painted textures; nothing final. Wait for a pick.
+1. **Style lock (stop for approval).** In the chosen direction only: the robot frame (`knight/body.glb`, which
+   includes the bare head), the Guardian's big shield and the Recon's tiny shield, the Cobalt set (head, chest,
+   legs), the Knight Brand, the Pulse Blaster and the Cannonball Bomb (in hand and planted). Run the checks,
+   play the game and show screenshots next to the reference.
 2. **Gear:** all 14 helmets, 16 armours, 12 pants and 12 shoes.
 3. **Weapons:** all 15 swords, 15 guns and 10 bombs, plus the 10 planted bombs.
 4. **Icons** for every item, made from the models.
@@ -270,10 +222,10 @@ Never change gameplay code to make art fit. If an item's description in the cata
 
 | What | Count | Where |
 |---|---|---|
-| Knight body | 1 | `models/knight/body.glb` |
+| Robot frame | 1 | `models/knight/body.glb` (with the bare head and base plates) |
 | Class pieces | 2 | `models/class/guardian.glb` (big shield), `models/class/recon.glb` (tiny cloaking shield) |
-| Helmets (incl. the hair, `none`) | 14 | `models/helmet/<id>.glb` |
-| Armour | 15 | `models/armor/<id>.glb` (not `none`: the T-shirt is part of the body) |
+| Helmets | 13 | `models/helmet/<id>.glb` (not `none`: the bare head is part of the body) |
+| Armour | 15 | `models/armor/<id>.glb` (not `none`: the bare plates are part of the body) |
 | Pants | 11 | `models/pants/<id>.glb` (not `none`) |
 | Shoes | 11 | `models/shoes/<id>.glb` (not `none`) |
 | Swords | 15 | `models/weapons/<id>.glb` |

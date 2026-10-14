@@ -2,7 +2,7 @@
 
 The game draws every knight, piece of gear, weapon and bomb from code today. Each one is replaced by a
 real model the moment its file exists. This page is the contract those files must follow. What to make
-is in [CATALOG.md](CATALOG.md); the overall look is in [LOOK.md](LOOK.md).
+is in [CATALOG.md](CATALOG.md); the overall look is in [ART-GUIDE.md](ART-GUIDE.md) (LBX-style battle robots).
 
 ## Files
 
@@ -10,9 +10,9 @@ All models are binary glTF (`.glb`) under `public/art/3d/models/`:
 
 | Folder | Files | What |
 |---|---|---|
-| `knight/` | `body.glb` | the knight body every class wears: the rig and the base outfit (T-shirt, shorts, shoes, face, bald scalp) |
+| `knight/` | `body.glb` | the robot frame every knight is built on: the rig, the dark inner frame, the plain base plates and the bare head (visor and two glowing camera eyes) |
 | `class/` | `guardian.glb`, `recon.glb` | class pieces: the Guardian's big shield, the Recon's tiny cloaking shield (the Striker's neon trail is drawn by the game) |
-| `helmet/` | `<id>.glb` | one per helmet, including `none.glb` (the hair) |
+| `helmet/` | `<id>.glb` | one per head unit (not `none`: the bare head is part of the body) |
 | `armor/` | `<id>.glb` | one per armour (not `none`) |
 | `pants/` | `<id>.glb` | one per pants piece (not `none`) |
 | `shoes/` | `<id>.glb` | one per pair of shoes (not `none`) |
@@ -36,25 +36,23 @@ one at a time.
 The game animates knights by turning named parts, so models need **no skinning and no animation clips**:
 every part is a rigid piece parented to the part above it, pivoting at its joint. Build on the mannequin
 in [reference/knight_rig.glb](reference/knight_rig.glb) (`node tools/make-reference-rig.mjs` writes it):
-same names, same hierarchy, same pivots. It is about three heads tall: a big head on a **slim** body, with a
-tapered torso, a defined waist and slender limbs. Never make the body round or bulby.
-**The chosen skeleton is D, [reference/knight_rig_4_heads.glb](reference/knight_rig_4_heads.glb)** (four heads
-tall, the Stack direction in ART-GUIDE). Build the body on it. `knight_rig.glb` (3 heads) and
-`knight_rig_3.5_heads.glb` stay as the other options; [reference/skeleton-options.jpg](reference/skeleton-options.jpg)
-compares them all.
+same names, same hierarchy, same pivots. It is a **battle-robot frame about five heads tall**: a compact head,
+broad shoulders and chest, a narrow waist, long legs and big wedge feet (LBX-style, see
+[reference/lbx/](reference/lbx/README.md)). Rigid parts are natural for a robot: model visible joints (ball
+shoulders, piston elbows and knees) so the swings look mechanical.
 
 ```
-hips                (0, 0.46, 0)          pelvis; the body bobs and leans from here
-├─ leg_L            (0, −0.02, −0.075)    hip joint; swings forward/back (about Z)
-│  └─ foot_L        (0, −0.36, 0)         ankle
-├─ leg_R            (0, −0.02, +0.075)
-│  └─ foot_R        (0, −0.36, 0)
+hips                (0, 0.56, 0)          waist joint; the body bobs and leans from here
+├─ leg_L            (0, −0.03, −0.085)    hip joint; swings forward/back (about Z)
+│  └─ foot_L        (0, −0.43, 0)         ankle
+├─ leg_R            (0, −0.03, +0.085)
+│  └─ foot_R        (0, −0.43, 0)
 └─ chest            (0, 0.06, 0)          waist
-   ├─ head          (0, 0.36, 0)          neck (at 0.88); the head is big, ≈ 0.42 tall and 0.46 across
-   ├─ arm_L         (0, 0.27, −0.19)      shoulder; hangs down, swings when running
-   │  └─ hand_L     (0, −0.30, 0)
-   └─ arm_R         (0.04, 0.20, +0.19)   shoulder; points forward (+X) holding the weapon,
-      └─ hand_R     (0.30, 0, 0)          the weapon socket; turns across a sword's arc
+   ├─ head          (0, 0.41, 0)          neck (at 1.03); the head is compact, ≈ 0.26 tall and 0.24 across
+   ├─ arm_L         (0, 0.33, −0.25)      shoulder; hangs down, swings when running
+   │  └─ hand_L     (0, −0.38, 0)
+   └─ arm_R         (0.04, 0.26, +0.25)   shoulder; points forward (+X) holding the weapon,
+      └─ hand_R     (0.36, 0, 0)          the weapon socket; turns across a sword's arc
 ```
 
 Positions are each part's pivot relative to its parent. Keep each part's own mesh around its pivot (a leg
@@ -69,14 +67,15 @@ the part's pivot, sized to fit over the body.
 
 | Slot | Top-level nodes |
 |---|---|
-| helmet (and the hair, `none`) | `head` |
+| helmet (head unit) | `head` |
 | armor | `chest`; optional `arm_L`, `arm_R` (sleeves, pauldrons), `hips` (coat tails, skirt plates) |
 | pants | `hips`, `leg_L`, `leg_R` |
 | shoes | `foot_L`, `foot_R` |
 | class pieces | `arm_L` (the Guardian's big shield, the Recon's tiny shield) |
 
-Gear goes over the body's base outfit: a helmet covers the bald scalp, armour covers the T-shirt, pants
-the shorts, shoes the base shoes. Make pieces slightly larger than what they cover so nothing pokes through
+Armour parts go over the frame's plain base plates: a head unit replaces the look of the bare head (keep the
+visor and the two glowing eyes, or give the head its own), armour covers the chest plate and shoulder caps,
+pants the thigh and shin plates, shoes the feet. Make pieces slightly larger than what they cover so nothing pokes through
 in any pose (legs swing ±40°, arms ±35°, the right arm turns up to ±80° across a swing).
 
 ## Weapons and bombs
@@ -96,7 +95,7 @@ in any pose (legs swing ±40°, arms ±35°, the right arm turns up to ±80° ac
 - **Glow:** give glowing parts (gems, cores, lenses, runes) an emissive colour; the game's bloom makes them
   glow. Keep glow to small accents.
 - **One hand-painted albedo texture per model**, embedded in the `.glb`: painted gradients, edge highlights,
-  seams, panel lines and rivets, in the Spiral Knights style. Untextured flat colours are not enough. A normal
+  panel lines, emblems and bolts, like a finished model kit (see ART-GUIDE). Untextured flat colours are not enough. A normal
   map is optional. Keep small glowing parts as separate emissive materials. If a part should flare in game
   (the Recon's cloak lens), name its material with `lens` in it.
 - **Keep downloads small.** Every player downloads every model, so each `.glb` stays **under 600 KB**. Each texture
