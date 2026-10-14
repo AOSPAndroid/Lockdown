@@ -8,6 +8,21 @@
 import { readdirSync, readFileSync, writeFileSync, statSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { decodePng } from './lockdown-art-kit/png.mjs';
+import { readGlb, nodeNames, triangleCount } from './glb.mjs';
+import { WEAPONS } from '../public/lockdown-weapons.js';
+import { HELMETS, ARMORS, PANTS, SHOES } from '../public/lockdown-equipment.js';
+
+/** Model folders, the ids each may hold, and triangle budgets (see docs/MODELS.md). */
+const RIG_PARTS = ['hips', 'chest', 'head', 'arm_L', 'hand_L', 'arm_R', 'hand_R', 'leg_L', 'foot_L', 'leg_R', 'foot_R'];
+const MODEL_KINDS = {
+  knight: { ids: ['body'], budget: 4000 },
+  helmet: { ids: Object.keys(HELMETS), budget: 2500, gear: true },
+  armor: { ids: Object.keys(ARMORS), budget: 3000, gear: true },
+  pants: { ids: Object.keys(PANTS), budget: 2000, gear: true },
+  shoes: { ids: Object.keys(SHOES), budget: 1500, gear: true },
+  weapons: { ids: Object.keys(WEAPONS), budget: 1500 },
+  bombs: { ids: Object.keys(WEAPONS).filter(id => WEAPONS[id].family === 'bomb'), budget: 1200 },
+};
 
 const dir = process.argv[2] ? resolve(process.argv[2]) : new URL('../public/art/3d/', import.meta.url).pathname;
 const SLOTS = ['floor', 'wall', 'wall_top', 'cliff'];
@@ -46,7 +61,27 @@ for (const theme of readdirSync(dir).filter(name => statSync(join(dir, name)).is
     files.push(`${theme}/${file}`);
   }
 }
-writeFileSync(join(dir, 'index.json'), JSON.stringify({ files: files.sort() }, null, 2) + '\n');
-console.log(`${files.length} textures listed in public/art/3d/index.json.`);
+// Models: public/art/3d/models/<kind>/<id>.glb
+const models = [], modelDir = join(dir, 'models');
+let kinds = []; try { kinds = readdirSync(modelDir).filter(name => statSync(join(modelDir, name)).isDirectory()); } catch { /* no models yet */ }
+for (const kind of kinds) {
+  const rule = MODEL_KINDS[kind];
+  for (const file of readdirSync(join(modelDir, kind))) {
+    const where = `models/${kind}/${file}`;
+    if (!rule) { errors.push(`${where}: unknown model folder (use ${Object.keys(MODEL_KINDS).join(', ')})`); continue; }
+    if (!file.endsWith('.glb')) { errors.push(`${where}: models must be binary glTF (.glb)`); continue; }
+    const id = file.slice(0, -4);
+    if (!rule.ids.includes(id)) { errors.push(`${where}: no ${kind} item is called "${id}"`); continue; }
+    let gltf; try { gltf = readGlb(readFileSync(join(modelDir, kind, file))); } catch (problem) { errors.push(`${where}: ${problem.message}`); continue; }
+    const names = nodeNames(gltf), strip = name => name.replace(/\.\d+$/, '');
+    if (kind === 'knight') { const missing = RIG_PARTS.filter(part => !names.all.map(strip).includes(part)); if (missing.length) errors.push(`${where}: the body is missing rig parts ${missing.join(', ')}`); }
+    if (rule.gear) { const stray = names.top.map(strip).filter(name => !RIG_PARTS.includes(name)); if (stray.length) errors.push(`${where}: top-level nodes must be named after rig parts; found ${stray.join(', ')}`); }
+    const triangles = triangleCount(gltf);
+    if (triangles > rule.budget) errors.push(`${where}: ${triangles} triangles, over the ${rule.budget} budget`);
+    models.push(`${kind}/${file}`);
+  }
+}
+writeFileSync(join(dir, 'index.json'), JSON.stringify({ files: files.sort(), models: models.sort() }, null, 2) + '\n');
+console.log(`${files.length} textures and ${models.length} models listed in public/art/3d/index.json.`);
 for (const error of errors) console.log(`ERROR ${error}`);
 if (errors.length) { console.log(`\n${errors.length} errors: fix them before handing the art over.`); process.exitCode = 1; }

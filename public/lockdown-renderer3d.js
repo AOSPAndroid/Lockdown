@@ -34,6 +34,33 @@ const THEMES = Object.freeze({
 });
 const ELEMENT = Object.freeze({ holy: '#fff2a0', burn: '#ff7a2a', chill: '#7cc8ff', freeze: '#bfeaff', shock: '#8fe0ff', poison: '#6ee05a', curse: '#b26bff', drain: '#ff4d6d' });
 const STATUS_COLOR = Object.freeze({ burn: '#ff8a3d', poison: '#7bd65a', shock: '#7fc8ff', freeze: '#bfeaff', chill: '#6fb6ff', curse: '#b26bff' });
+/** The named parts of a knight rig (docs/MODELS.md). */
+export const RIG_PARTS = Object.freeze(['hips', 'chest', 'head', 'arm_L', 'hand_L', 'arm_R', 'hand_R', 'leg_L', 'foot_L', 'leg_R', 'foot_R']);
+/** Models listed in public/art/3d/index.json load once; instances get their own materials, and
+ * materials named "team..." take the knight's team colour. */
+class ModelLibrary {
+  constructor(onChange) {
+    this.scenes = new Map(); this.version = 0;
+    if (typeof fetch !== 'function') return;
+    fetch('/art/3d/index.json').then(response => response.ok ? response.json() : {}).then(async data => {
+      const list = data.models || [];
+      if (!list.length) return;
+      const { GLTFLoader } = await import('./vendor/three/addons/loaders/GLTFLoader.js');
+      const loader = new GLTFLoader();
+      for (const file of list) loader.load(`/art/3d/models/${file}`, gltf => { this.scenes.set(file, gltf.scene); this.version++; onChange?.(); }, undefined, problem => console.warn(`model ${file} failed to load`, problem));
+    }).catch(() => {});
+  }
+  instance(file, team = null) {
+    const source = this.scenes.get(file); if (!source) return null;
+    const copy = source.clone(true);
+    copy.traverse(node => {
+      if (!node.isMesh) return;
+      node.material = Array.isArray(node.material) ? node.material.map(material => material.clone()) : node.material.clone();
+      for (const material of [node.material].flat()) if (team && /^team/i.test(material.name || '')) { material.color = team.clone(); if (material.emissive) { material.emissive = team.clone(); material.emissiveIntensity = .35; } }
+    });
+    return copy;
+  }
+}
 const CALLOUTS = Object.freeze({
   counter: ['COUNTER', '#ffb347', 'target'], riposte: ['RIPOSTE', '#ffe680', 'target'], perfectDodge: ['PERFECT', '#9ff0ff', 'player'],
   clash: ['CLASH', '#ffffff', 'player'], steady: ['STEADY', '#c9d6ff', 'player'], interrupt: ['INTERRUPTED', '#ff8a7a', 'player'],
@@ -231,6 +258,7 @@ export class Lockdown3DRenderer {
     this.effects = []; this.texts = []; this.seenEvents = new Set(); this.eventOrder = []; this.localId = null; this.shake = 0;
     this.camera = { x: 0, y: 0, zoom: 1 }; // kept for callers that read it
     this.raycaster = new THREE.Raycaster();
+    this.models = new ModelLibrary();
     // Glow: lamps, crystals, shots, team rings and slashes bloom softly, as in Spiral Knights.
     if (this.quality === 'high') {
       this.composer = new EffectComposer(this.gl);
@@ -574,53 +602,98 @@ export class Lockdown3DRenderer {
   }
 
   // ---------- knights ----------
+  /** Knights are a rig of named parts (see docs/MODELS.md): hips > chest > head / arm_L > hand_L /
+   * arm_R > hand_R, and hips > leg_L > foot_L / leg_R > foot_R. The body model (or the temporary one
+   * built here) provides the parts; each gear piece adds meshes to parts by name; the weapon sits in
+   * hand_R. The game animates the parts itself, so models need no skinning or animation clips. */
   makeKnight(player) {
-    const group = new THREE.Group(), team = colour(TEAM_COLORS[player.team].main), armorColor = colour(this.armorColour(player.armor)), helmColor = colour(this.armorColour(player.helmet === 'none' ? player.armor : player.helmet));
-    const std = (c, extra = {}) => new THREE.MeshStandardMaterial({ color: c, roughness: .55, metalness: .25, ...extra });
-    const body = new THREE.Group(); group.add(body);
-    const legGeo = new THREE.CapsuleGeometry(.075, .12, 4, 8), legMat = std(player.pants === 'none' ? '#3a3a42' : this.armorColour(player.pants));
-    const legL = new THREE.Mesh(legGeo, legMat), legR = new THREE.Mesh(legGeo, legMat); legL.position.set(0, .15, -.1); legR.position.set(0, .15, .1);
-    const bootMat = std(player.shoes === 'none' ? '#2a2a30' : this.armorColour(player.shoes));
-    const bootL = new THREE.Mesh(new THREE.BoxGeometry(.2, .08, .13), bootMat), bootR = bootL.clone(); bootL.position.set(.03, .04, -.1); bootR.position.set(.03, .04, .1);
-    const torso = new THREE.Mesh(new THREE.CapsuleGeometry(.2, .1, 6, 12), std(player.armor === 'none' ? '#efe6d2' : armorColor, { metalness: player.armor === 'none' ? 0 : .45 }));
-    torso.scale.set(.95, 1, 1.1); torso.position.y = .38;
-    const belt = new THREE.Mesh(new THREE.TorusGeometry(.2, .035, 6, 20), std(team, { emissive: team, emissiveIntensity: .35 })); belt.rotation.x = Math.PI / 2; belt.position.y = .3;
-    const helmet = new THREE.Mesh(new THREE.SphereGeometry(.26, 18, 14), std(player.helmet === 'none' ? '#5a3a28' : helmColor, { metalness: player.helmet === 'none' ? 0 : .5, roughness: player.helmet === 'none' ? .9 : .35 }));
-    helmet.position.set(-.03, .7, 0); helmet.scale.set(.95, .95, 1);
-    // The face shows through an open visor: skin, two dark eyes and a brim above them.
-    const face = new THREE.Mesh(new THREE.SphereGeometry(.2, 16, 12), std('#f3cfae', { metalness: 0, roughness: .75 })); face.position.set(.12, .66, 0); face.scale.set(.75, .78, .95);
-    const eyeGeo = new THREE.CapsuleGeometry(.025, .04, 3, 6), eyeMat = std('#1a1c22', { metalness: 0, roughness: .3 });
-    const eyeL = new THREE.Mesh(eyeGeo, eyeMat), eyeR = new THREE.Mesh(eyeGeo, eyeMat); eyeL.position.set(.27, .67, -.07); eyeR.position.set(.27, .67, .07);
-    const brim = new THREE.Mesh(new THREE.TorusGeometry(.21, .045, 8, 20, Math.PI), std(player.helmet === 'none' ? '#5a3a28' : helmColor, { metalness: .5, roughness: .35 }));
-    brim.rotation.set(0, Math.PI / 2, Math.PI / 2); brim.position.set(.1, .74, 0);
-    // A team band round the helmet and a class crest on top: readable from the camera above.
-    const band = new THREE.Mesh(new THREE.TorusGeometry(.255, .03, 6, 24), std(team, { emissive: team, emissiveIntensity: .5 })); band.rotation.x = Math.PI / 2; band.position.y = .62;
-    const crest = new THREE.Mesh(this.crestGeometry(player.cls), std(team, { emissive: team, emissiveIntensity: .35 })); crest.position.y = .95;
-    const pauldronGeo = new THREE.SphereGeometry(.1, 10, 8, 0, Math.PI * 2, 0, Math.PI / 2), pauldronMat = std(player.armor === 'none' ? '#efe6d2' : armorColor, { metalness: player.armor === 'none' ? 0 : .5 });
-    const padL = new THREE.Mesh(pauldronGeo, pauldronMat), padR = new THREE.Mesh(pauldronGeo, pauldronMat); padL.position.set(0, .5, -.2); padR.position.set(0, .5, .2);
-    body.add(legL, legR, bootL, bootR, torso, belt, helmet, face, eyeL, eyeR, brim, band, crest, padL, padR);
-    // Arms: the right hand holds the weapon on a pivot that the swing turns.
-    const armMat = std(player.armor === 'none' ? '#f1c9a5' : armorColor);
-    const armL = new THREE.Mesh(new THREE.CapsuleGeometry(.06, .12, 4, 8), armMat); armL.position.set(.02, .4, -.25); armL.rotation.x = .3; armL.geometry.translate(0, -.06, 0); armL.position.y = .46;
-    const pivot = new THREE.Group(); pivot.position.set(.05, .38, .24); body.add(armL, pivot);
-    const armR = new THREE.Mesh(new THREE.CapsuleGeometry(.06, .12, 4, 8), armMat); armR.rotation.z = Math.PI / 2; armR.position.set(.08, 0, 0); pivot.add(armR);
-    const hand = new THREE.Group(); hand.position.set(.18, 0, 0); pivot.add(hand);
-    if (player.cls === 'guardian') { const shield = new THREE.Mesh(new THREE.CylinderGeometry(.2, .2, .05, 18), std('#8a6a3a', { metalness: .6 })); shield.rotation.x = Math.PI / 2; shield.position.set(.1, .4, -.3); body.add(shield); }
+    const group = new THREE.Group(), team = colour(TEAM_COLORS[player.team].main), body = new THREE.Group(); group.add(body);
+    const bodyModel = this.models.instance('knight/body.glb', team);
+    let rig, parts;
+    if (bodyModel) { rig = bodyModel; parts = Object.fromEntries(RIG_PARTS.map(name => [name, rig.getObjectByName(name) || null])); }
+    else ({ rig, parts } = this.temporaryBody(player, team));
+    body.add(rig);
+    const temporary = !bodyModel;
+    // Gear: a model per piece adds its meshes to the parts it names; without one the temporary
+    // knight shows the piece as colour and simple shapes.
+    for (const slot of ['helmet', 'armor', 'pants', 'shoes']) {
+      const id = player[slot] || 'none', model = id !== 'none' || slot === 'helmet' ? this.models.instance(`${slot}/${id}.glb`, team) : null;
+      if (model) this.attachGear(model, parts, temporary);
+      else if (temporary) this.temporaryGear(slot, id, player, team, parts);
+    }
+    if (temporary) this.temporaryClassMarks(player, team, parts);
     // Team ring at the feet: bright, so allies and enemies read at a glance.
-    const ring = new THREE.Mesh(arcGeometry(FEET_RING - .05, FEET_RING, 0, Math.PI * 2, 40), new THREE.MeshBasicMaterial({ color: team, transparent: true, opacity: .95, depthWrite: false, blending: THREE.AdditiveBlending }));
+    const ringRadius = FEET_RING * KNIGHT_SCALE;
+    const ring = new THREE.Mesh(arcGeometry(ringRadius - .07, ringRadius, 0, Math.PI * 2, 40), new THREE.MeshBasicMaterial({ color: team, transparent: true, opacity: .95, depthWrite: false, blending: THREE.AdditiveBlending }));
     ring.position.y = .03; group.add(ring);
-    const ringGlow = new THREE.Mesh(new THREE.CircleGeometry(FEET_RING, 32), new THREE.MeshBasicMaterial({ color: team, transparent: true, opacity: .18, depthWrite: false, blending: THREE.AdditiveBlending }));
+    const ringGlow = new THREE.Mesh(new THREE.CircleGeometry(ringRadius, 32), new THREE.MeshBasicMaterial({ color: team, transparent: true, opacity: .18, depthWrite: false, blending: THREE.AdditiveBlending }));
     ringGlow.rotation.x = -Math.PI / 2; ringGlow.position.y = .02; group.add(ringGlow);
-    group.traverse(node => { if (node.isMesh && node !== ring && node !== ringGlow) { node.castShadow = true; } });
-    group.scale.setScalar(KNIGHT_SCALE);
+    rig.traverse(node => { if (node.isMesh) node.castShadow = true; });
     this.scene.add(group);
-    const chargeGlow = new THREE.Sprite(new THREE.SpriteMaterial({ map: this.glow, color: '#ffd36b', transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending })); chargeGlow.scale.setScalar(.9); hand.add(chargeGlow); chargeGlow.position.x = .4;
-    const boostTrail = new THREE.Sprite(new THREE.SpriteMaterial({ map: this.glow, color: '#ffd36b', transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending })); boostTrail.scale.set(1.4, .7, 1); boostTrail.position.set(-.45, .35, 0); group.add(boostTrail);
-    const view = { group, body, legL, legR, armL, chargeGlow, boostTrail, bootL, bootR, pivot, hand, ring, weaponId: null, weapon: null, stride: 0, lastX: player.x, lastY: player.y, key: this.knightKey(player), materials: [] };
+    const hand = parts.hand_R || parts.arm_R || rig;
+    const chargeGlow = new THREE.Sprite(new THREE.SpriteMaterial({ map: this.glow, color: '#ffd36b', transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending })); chargeGlow.position.x = .55; hand.add(chargeGlow);
+    const boostTrail = new THREE.Sprite(new THREE.SpriteMaterial({ map: this.glow, color: '#ffd36b', transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending })); boostTrail.scale.set(2, 1, 1); boostTrail.position.set(-.6, .5, 0); group.add(boostTrail);
+    const view = { group, body, parts, hand, temporary, chargeGlow, boostTrail, ring, weaponId: null, weapon: null, stride: 0, lastX: player.x, lastY: player.y, key: this.knightKey(player), materials: [] };
     group.traverse(node => { if (node.material) view.materials.push(node.material); });
     return view;
   }
-  knightKey(player) { return [player.team, player.cls, player.armor, player.helmet, player.pants, player.shoes].join('|'); }
+  knightKey(player) { return [player.team, player.cls, player.armor, player.helmet, player.pants, player.shoes, this.models.version].join('|'); }
+  /** Gear model: each top-level node named after a rig part moves onto that part, keeping its offset. */
+  attachGear(model, parts, temporary = false) {
+    for (const child of [...model.children]) {
+      const part = parts[child.name.replace(/\.\d+$/, '')];
+      // Models are made at final size; the temporary rig is scaled up as a whole, so undo that.
+      if (temporary) { child.position.divideScalar(KNIGHT_SCALE); child.scale.divideScalar(KNIGHT_SCALE); }
+      if (part) part.add(child); else console.warn(`gear node "${child.name}" names no rig part`);
+    }
+  }
+  /** The temporary knight: chunky chibi proportions from simple shapes, built on the same named rig. */
+  temporaryBody(player, team) {
+    const std = (c, extra = {}) => new THREE.MeshStandardMaterial({ color: c, roughness: .55, metalness: .1, ...extra });
+    const rig = new THREE.Group(); rig.scale.setScalar(KNIGHT_SCALE);
+    const node = (name, parent, x, y, z) => { const n = new THREE.Group(); n.name = name; n.position.set(x, y, z); parent.add(n); return n; };
+    const hips = node('hips', rig, 0, .22, 0), chest = node('chest', hips, 0, .06, 0), head = node('head', chest, 0, .36, 0);
+    const legL = node('leg_L', hips, 0, 0, -.1), legR = node('leg_R', hips, 0, 0, .1), footL = node('foot_L', legL, 0, -.18, 0), footR = node('foot_R', legR, 0, -.18, 0);
+    const armL = node('arm_L', chest, .02, .2, -.25), armR = node('arm_R', chest, .05, .1, .24), handL = node('hand_L', armL, 0, -.14, 0), handR = node('hand_R', armR, .18, 0, 0);
+    const parts = { hips, chest, head, leg_L: legL, leg_R: legR, foot_L: footL, foot_R: footR, arm_L: armL, arm_R: armR, hand_L: handL, hand_R: handR };
+    const skin = std('#f3cfae', { roughness: .75 }), shirt = std('#efe6d2', { roughness: .8 }), shorts = std('#3a3a42', { roughness: .8 });
+    const mesh = (geometry, material, parent, x = 0, y = 0, z = 0) => { const m = new THREE.Mesh(geometry, material); m.position.set(x, y, z); parent.add(m); return m; };
+    // T-shirt and shorts underneath everything.
+    const torso = mesh(new THREE.CapsuleGeometry(.2, .1, 6, 12), shirt, chest, 0, .1, 0); torso.scale.set(.95, 1, 1.1); torso.userData.slot = 'armor';
+    mesh(new THREE.TorusGeometry(.2, .035, 6, 20), std(team, { emissive: team, emissiveIntensity: .35 }), hips, 0, .02, 0).rotation.x = Math.PI / 2;
+    for (const leg of [legL, legR]) mesh(new THREE.CapsuleGeometry(.075, .12, 4, 8), shorts, leg, 0, -.08, 0).userData.slot = 'pants';
+    for (const foot of [footL, footR]) mesh(new THREE.BoxGeometry(.2, .08, .13), std('#2a2a30'), foot, .03, -.02, 0).userData.slot = 'shoes';
+    mesh(new THREE.SphereGeometry(.2, 16, 12), skin, head, .12, 0, 0).scale.set(.75, .78, .95);
+    const eye = new THREE.CapsuleGeometry(.025, .04, 3, 6), eyeMat = std('#1a1c22', { roughness: .3 });
+    mesh(eye, eyeMat, head, .27, .01, -.07); mesh(eye, eyeMat, head, .27, .01, .07);
+    const armGeo = new THREE.CapsuleGeometry(.06, .12, 4, 8); armGeo.translate(0, -.07, 0);
+    const left = mesh(armGeo, skin, armL); left.rotation.x = .3; left.userData.slot = 'armor';
+    const rightGeo = new THREE.CapsuleGeometry(.06, .12, 4, 8); rightGeo.rotateZ(Math.PI / 2); rightGeo.translate(.08, 0, 0);
+    mesh(rightGeo, skin, armR).userData.slot = 'armor';
+    return { rig, parts };
+  }
+  /** Temporary gear: recolours the matching body shapes and adds a few pieces (helmet, pauldrons). */
+  temporaryGear(slot, id, player, team, parts) {
+    const tint = colour(this.armorColour(id)), std = (c, extra = {}) => new THREE.MeshStandardMaterial({ color: c, roughness: .4, metalness: .5, ...extra });
+    if (slot === 'helmet') {
+      const bare = id === 'none', shell = std(bare ? '#5a3a28' : tint, bare ? { roughness: .9, metalness: 0 } : {});
+      const helmet = new THREE.Mesh(new THREE.SphereGeometry(.26, 18, 14), shell); helmet.position.set(-.03, 0, 0); helmet.scale.set(.95, .95, 1); parts.head.add(helmet);
+      const brim = new THREE.Mesh(new THREE.TorusGeometry(.21, .045, 8, 20, Math.PI), shell); brim.rotation.set(0, Math.PI / 2, Math.PI / 2); brim.position.set(.1, .04, 0); parts.head.add(brim);
+      const band = new THREE.Mesh(new THREE.TorusGeometry(.255, .03, 6, 24), std(team, { emissive: team, emissiveIntensity: .5 })); band.rotation.x = Math.PI / 2; band.position.y = -.08; parts.head.add(band);
+      return;
+    }
+    if (id === 'none') return;
+    // Recolour the body shapes that belong to this slot, metal for armour.
+    for (const part of Object.values(parts)) for (const child of part.children) if (child.isMesh && child.userData.slot === slot) child.material = std(tint);
+    if (slot === 'armor') {
+      const pad = new THREE.SphereGeometry(.1, 10, 8, 0, Math.PI * 2, 0, Math.PI / 2), material = std(tint);
+      const padL = new THREE.Mesh(pad, material), padR = new THREE.Mesh(pad, material); padL.position.set(0, .22, -.2); padR.position.set(0, .22, .2); parts.chest.add(padL, padR);
+    }
+  }
+  temporaryClassMarks(player, team, parts) {
+    const crest = new THREE.Mesh(this.crestGeometry(player.cls), new THREE.MeshStandardMaterial({ color: team, emissive: team, emissiveIntensity: .35, roughness: .4 })); crest.position.y = .25; parts.head.add(crest);
+    if (player.cls === 'guardian') { const shield = new THREE.Mesh(new THREE.CylinderGeometry(.2, .2, .05, 18), new THREE.MeshStandardMaterial({ color: '#8a6a3a', metalness: .6, roughness: .4 })); shield.rotation.x = Math.PI / 2; shield.position.set(.08, -.08, -.05); parts.arm_L.add(shield); }
+  }
   armorColour(id) {
     if (!id || id === 'none') return '#d8d2c4';
     const palette = ['#9aa4b2', '#c08a4a', '#5a6270', '#a8483e', '#4e7a52', '#e4dcc8', '#6e5a8e', '#3e6e8a', '#b49a5a', '#7a3e5a'];
@@ -632,46 +705,58 @@ export class Lockdown3DRenderer {
     if (cls === 'recon') return new THREE.ConeGeometry(.1, .14, 6);
     return new THREE.SphereGeometry(.08, 10, 8);
   }
-  makeWeapon(id) {
+  /** A weapon in hand: its model (grip at the origin, pointing +X) or a temporary one. */
+  makeWeapon(id, temporaryRig) {
+    const model = id && this.models.instance(`weapons/${id}.glb`);
+    if (model) { model.traverse(node => { if (node.isMesh) node.castShadow = true; }); if (temporaryRig) model.scale.setScalar(1 / KNIGHT_SCALE); return model; }
+    const group = this.temporaryWeapon(id);
+    // The temporary weapon is sized for the temporary rig, which is scaled up as a whole.
+    if (!temporaryRig) group.scale.setScalar(KNIGHT_SCALE);
+    return group;
+  }
+  temporaryWeapon(id) {
     const weapon = WEAPONS[id], group = new THREE.Group();
     if (!weapon) return group;
     const glow = weapon.element ? colour(ELEMENT[weapon.element] || '#ffffff') : null;
     const metal = new THREE.MeshStandardMaterial({ color: '#d8dde6', roughness: .25, metalness: .85, emissive: glow || '#000000', emissiveIntensity: glow ? .55 : 0 });
     const brass = new THREE.MeshStandardMaterial({ color: '#b8893a', roughness: .35, metalness: .8 }), grip = new THREE.MeshStandardMaterial({ color: '#4a3020', roughness: .8 });
     if (weapon.family === 'blade') {
-      const heavy = !!weapon.heavy, length = id === 'maul' ? .55 : heavy ? .78 : id === 'rapier' ? .72 : .62, width = id === 'rapier' ? .035 : heavy ? .17 : .1;
+      const heavy = !!weapon.heavy, length = id === 'maul' ? .55 : heavy ? .78 : id === 'rapier' ? .72 : id === 'leviathan' ? .8 : .62, width = id === 'rapier' ? .035 : heavy ? .17 : .1;
       const handle = new THREE.Mesh(new THREE.CylinderGeometry(.025, .025, .18, 6), grip); handle.rotation.z = Math.PI / 2; handle.position.x = .02;
       const guard = new THREE.Mesh(new THREE.BoxGeometry(.05, .04, .24), brass); guard.position.x = .12;
       if (id === 'maul') { const head = new THREE.Mesh(new THREE.BoxGeometry(.24, .24, .34), new THREE.MeshStandardMaterial({ color: '#7a7066', roughness: .5, metalness: .5 })); head.position.x = .12 + length; const shaft = new THREE.Mesh(new THREE.CylinderGeometry(.035, .035, length, 6), grip); shaft.rotation.z = Math.PI / 2; shaft.position.x = .12 + length / 2; group.add(handle, shaft, head); }
       else { const blade = new THREE.Mesh(new THREE.BoxGeometry(length, .03, width), metal); blade.position.x = .14 + length / 2; const tip = new THREE.Mesh(new THREE.ConeGeometry(width / 2, .1, 4), metal); tip.rotation.z = -Math.PI / 2; tip.position.x = .14 + length + .05; tip.scale.z = .3; group.add(handle, guard, blade, tip); }
     } else if (weapon.family === 'gun') {
-      const long = id === 'rifle' ? .6 : id === 'magnus' || id === 'grimcannon' ? .36 : .3;
+      const long = id === 'rifle' ? .6 : ['magnus', 'grimcannon', 'scatter'].includes(id) ? .36 : .3, wide = id === 'scatter' ? .07 : .045;
       const bodyMesh = new THREE.Mesh(new THREE.BoxGeometry(.24, .13, .12), brass); bodyMesh.position.x = .08;
-      const barrel = new THREE.Mesh(new THREE.CylinderGeometry(.045, .055, long, 10), new THREE.MeshStandardMaterial({ color: '#5a6070', roughness: .3, metalness: .8 })); barrel.rotation.z = Math.PI / 2; barrel.position.x = .18 + long / 2;
+      const barrel = new THREE.Mesh(new THREE.CylinderGeometry(wide, wide + .01, long, 10), new THREE.MeshStandardMaterial({ color: '#5a6070', roughness: .3, metalness: .8 })); barrel.rotation.z = Math.PI / 2; barrel.position.x = .18 + long / 2;
       const core = new THREE.Mesh(new THREE.SphereGeometry(.05, 10, 8), new THREE.MeshStandardMaterial({ color: glow || '#7fd0ff', emissive: glow || '#7fd0ff', emissiveIntensity: 2 })); core.position.set(.08, .07, 0);
       const handle = new THREE.Mesh(new THREE.BoxGeometry(.06, .14, .07), grip); handle.position.set(0, -.08, 0); handle.rotation.z = .3;
       group.add(bodyMesh, barrel, core, handle);
     } else if (weapon.family === 'bomb') {
-      const ball = new THREE.Mesh(new THREE.SphereGeometry(.13, 14, 10), new THREE.MeshStandardMaterial({ color: '#3a3e48', roughness: .4, metalness: .6 })); ball.position.x = .12;
-      const band = new THREE.Mesh(new THREE.TorusGeometry(.13, .02, 6, 18), new THREE.MeshStandardMaterial({ color: glow || '#ffb347', emissive: glow || '#ffb347', emissiveIntensity: 1.5 })); band.position.x = .12; band.rotation.y = Math.PI / 2;
+      const big = id === 'nitro' ? 1.4 : 1;
+      const ball = new THREE.Mesh(new THREE.SphereGeometry(.13 * big, 14, 10), new THREE.MeshStandardMaterial({ color: '#3a3e48', roughness: .4, metalness: .6 })); ball.position.x = .12;
+      const band = new THREE.Mesh(new THREE.TorusGeometry(.13 * big, .02, 6, 18), new THREE.MeshStandardMaterial({ color: glow || '#ffb347', emissive: glow || '#ffb347', emissiveIntensity: 1.5 })); band.position.x = .12; band.rotation.y = Math.PI / 2;
       group.add(ball, band);
     }
     group.traverse(node => { if (node.isMesh) node.castShadow = true; });
     return group;
   }
   updateKnight(view, player, map, now, viewer) {
-    const x = player.x * U, z = player.y * U, ground = levelAt(map, player.x, player.y) * STOREY;
+    const x = player.x * U, z = player.y * U, ground = levelAt(map, player.x, player.y) * STOREY, parts = view.parts;
     view.group.position.set(x, ground, z);
     // Weapon in hand follows the selected slot.
     const weaponId = player.weapons?.[player.slot] || null;
-    if (weaponId !== view.weaponId) { if (view.weapon) view.hand.remove(view.weapon); view.weaponId = weaponId; view.weapon = this.makeWeapon(weaponId); view.hand.add(view.weapon); }
+    if (weaponId !== view.weaponId) { if (view.weapon) view.hand.remove(view.weapon); view.weaponId = weaponId; view.weapon = this.makeWeapon(weaponId, view.temporary); view.hand.add(view.weapon); view.weapon.traverse(node => { if (node.material) view.materials.push(node.material); }); }
     const moved = Math.hypot(player.x - view.lastX, player.y - view.lastY); view.lastX = player.x; view.lastY = player.y;
     if (moved < 30) view.stride += moved * U * 7;
     const moving = Math.hypot(player.vx || 0, player.vy || 0) > 30, swing = Math.sin(view.stride) * (moving ? .7 : 0);
-    view.legL.rotation.z = swing; view.legR.rotation.z = -swing; view.armL.rotation.z = -swing * .8;
+    if (parts.leg_L) parts.leg_L.rotation.z = swing;
+    if (parts.leg_R) parts.leg_R.rotation.z = -swing;
+    if (parts.arm_L) parts.arm_L.rotation.z = -swing * .8;
     // Lean into a run; a boost leans harder.
-    view.body.rotation.z = moving ? (player.boosting ? -.28 : -.12) : 0; view.bootL.position.x = .03 + Math.sin(view.stride) * (moving ? .08 : 0); view.bootR.position.x = .03 - Math.sin(view.stride) * (moving ? .08 : 0);
-    view.body.position.y = moving ? Math.abs(Math.cos(view.stride)) * .04 : Math.sin(now / 400) * .01;
+    view.body.rotation.z = moving ? (player.boosting ? -.28 : -.12) : 0;
+    view.body.position.y = moving ? Math.abs(Math.cos(view.stride)) * .05 : Math.sin(now / 400) * .012;
     // Face the aim; a swing turns the weapon arm across its arc.
     const weapon = WEAPONS[weaponId];
     let facing = player.aim, armYaw = 0, armPitch = 0;
@@ -688,13 +773,13 @@ export class Lockdown3DRenderer {
     // A charge glows on the weapon and burns gold when it is ready; Boost leaves a streak.
     const chargeLevel = player.charging && weapon ? Math.min(1, player.chargeTicks / Math.max(1, weapon.chargeTicks || 120)) : 0;
     view.chargeGlow.material.opacity = chargeLevel * (chargeLevel >= 1 ? .9 + .1 * Math.sin(now / 50) : .5);
-    view.chargeGlow.scale.setScalar(.5 + chargeLevel * .8);
+    view.chargeGlow.scale.setScalar((.5 + chargeLevel * .8) * (view.temporary ? 1 : KNIGHT_SCALE));
     view.boostTrail.material.opacity = player.boosting ? .55 + .2 * Math.sin(now / 40) : 0;
     view.group.rotation.y = -facing;
-    view.pivot.rotation.y = -armYaw; view.pivot.rotation.z = armPitch;
+    if (parts.arm_R) { parts.arm_R.rotation.y = -armYaw; parts.arm_R.rotation.z = armPitch; }
     // Cloak, spawn shield and hit flash.
     const cloaked = player.cloakTicks > 0, alpha = cloaked ? .3 : 1;
-    for (const material of view.materials) { if (material.transparent !== (alpha < 1) && material.blending !== THREE.AdditiveBlending) { material.transparent = alpha < 1; material.needsUpdate = true; } if (material.blending !== THREE.AdditiveBlending) material.opacity = alpha; }
+    for (const material of view.materials) { if (material.blending === THREE.AdditiveBlending) continue; if (material.transparent !== (alpha < 1)) { material.transparent = alpha < 1; material.needsUpdate = true; } material.opacity = alpha; }
     const flash = this.flashes?.get(player.id), hit = flash && now - flash < 110;
     if (hit !== view.hit) { view.hit = hit; view.body.traverse(node => { if (node.isMesh && node.material.emissive) { if (hit) { node.material.userData.saved ??= [node.material.emissive.clone(), node.material.emissiveIntensity]; node.material.emissive.set('#ffffff'); node.material.emissiveIntensity = .9; } else if (node.material.userData.saved) { node.material.emissive.copy(node.material.userData.saved[0]); node.material.emissiveIntensity = node.material.userData.saved[1]; } } }); }
     view.ring.material.opacity = player.id === viewer ? 1 : .8;
@@ -807,7 +892,9 @@ export class Lockdown3DRenderer {
       const weapon = WEAPONS[bomb.weapon], tint = colour(ELEMENT[weapon?.element] || (weapon?.cloud ? STATUS_COLOR[weapon.cloud.status] : '#ffb347') || '#ffb347');
       if (!view) {
         view = new THREE.Group();
-        const ball = new THREE.Mesh(new THREE.SphereGeometry(.2, 16, 12), new THREE.MeshStandardMaterial({ color: '#3a3e48', roughness: .4, metalness: .6 })); ball.position.y = .2; ball.castShadow = true;
+        // A planted bomb: its model (sitting on the floor at the origin) or a temporary ball.
+        const ball = this.models.instance(`bombs/${bomb.weapon}.glb`) || new THREE.Mesh(new THREE.SphereGeometry(.2, 16, 12), new THREE.MeshStandardMaterial({ color: '#3a3e48', roughness: .4, metalness: .6 }));
+        if (ball.isMesh) ball.position.y = .2; ball.traverse(node => { if (node.isMesh) node.castShadow = true; });
         const light = new THREE.Mesh(new THREE.SphereGeometry(.06, 8, 6), new THREE.MeshBasicMaterial({ color: tint })); light.position.y = .42;
         const radius = (weapon?.cloud?.radius || weapon?.radius || 60) * U;
         const zone = new THREE.Mesh(arcGeometry(radius - .05, radius, 0, Math.PI * 2, 48), new THREE.MeshBasicMaterial({ color: tint, transparent: true, opacity: .6, depthWrite: false, blending: THREE.AdditiveBlending })); zone.position.y = .04;

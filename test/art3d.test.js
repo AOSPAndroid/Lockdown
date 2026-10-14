@@ -32,3 +32,24 @@ test('the 3D art tool lists clean textures and rejects seams, grids, bad sizes a
   assert.match(errorsFor('floor_normal.png').join(), /power of two/);
   assert.ok(JSON.parse(readFileSync(join(dir, 'index.json'), 'utf8')).files.includes('castle/floor.png'));
 });
+
+test('the 3D art tool checks models: rig parts, gear nodes, item ids and triangle budgets', async () => {
+  const { writeGlb } = await import('../tools/glb.mjs');
+  const dir = mkdtempSync(join(tmpdir(), 'models-')), models = join(dir, 'models');
+  for (const kind of ['knight', 'helmet', 'weapons', 'shoes']) mkdirSync(join(models, kind), { recursive: true });
+  const box = name => ({ size: [.2, .2, .2], material: { name, color: [.5, .5, .5] } });
+  const rig = readFileSync(new URL('../docs/reference/knight_rig.glb', import.meta.url));
+  writeFileSync(join(models, 'knight', 'body.glb'), rig);
+  writeFileSync(join(models, 'helmet', 'sallet.glb'), writeGlb({ nodes: [{ name: 'head', box: box('steel') }] }));
+  writeFileSync(join(models, 'helmet', 'crown.glb'), writeGlb({ nodes: [{ name: 'head', box: box('gold') }] }));
+  writeFileSync(join(models, 'shoes', 'sneakers.glb'), writeGlb({ nodes: [{ name: 'foot_L', box: box('rubber') }, { name: 'ankle', box: box('rubber') }] }));
+  writeFileSync(join(models, 'weapons', 'brand.glb'), writeGlb({ nodes: [{ name: 'brand', box: box('steel') }] }));
+  const run = spawnSync(process.execPath, [tool, dir], { encoding: 'utf8' });
+  const errorsFor = file => run.stdout.split('\n').filter(line => line.startsWith(`ERROR models/${file}`));
+  assert.deepEqual(errorsFor('knight/body.glb'), [], 'the reference rig is a valid body');
+  assert.deepEqual(errorsFor('helmet/sallet.glb'), []); assert.deepEqual(errorsFor('weapons/brand.glb'), []);
+  assert.match(errorsFor('helmet/crown.glb').join(), /no helmet item/);
+  assert.match(errorsFor('shoes/sneakers.glb').join(), /ankle/);
+  const index = JSON.parse(readFileSync(join(dir, 'index.json'), 'utf8'));
+  assert.ok(index.models.includes('knight/body.glb') && index.models.includes('helmet/sallet.glb'));
+});
