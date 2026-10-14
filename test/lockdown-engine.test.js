@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import * as L from '../public/lockdown-engine.js';
+import { levelCell } from '../public/lockdown-maps.js';
 import { MANIFEST, MANIFEST_BY_KEY } from '../public/lockdown-assets.js';
 
 const { TICK_RATE, RULES, ABILITIES, WEAPONS, CLASSES, MAPS, TILE, GUARD, STATUS, BLADE } = L;
@@ -739,4 +740,33 @@ test('later cuts in a combo hit harder but wind up slower, lunge further and ste
     assert.ok(combo.at(-1).damage > combo[0].damage, `${id} finisher hits harder than the opener`);
   }
   assert.ok(BLADE.moveLater < BLADE.moveFirst);
+});
+
+test('bases are safe: the other team cannot walk in, rounds stop at the edge, nobody fights across it', () => {
+  // A gate: a tile of Amber's base next to open floor on the same storey.
+  const mapId = 'temple', map = MAPS[mapId];
+  let gate = null;
+  for (let row = 0; row < map.rows && !gate; row++) for (let col = 0; col < map.cols && !gate; col++) {
+    if (map.grid[row][col] !== '1') continue;
+    for (const [dc, dr] of [[1, 0], [-1, 0]]) if ([1, 2, 3].every(k => map.grid[row][col + k * dc] === '.' && levelCell(map, col + k * dc, row) === levelCell(map, col, row))) { gate = { col, row, dc }; break; }
+  }
+  assert.ok(gate, `${mapId} has an open base edge`);
+  const inside = { x: (gate.col + .5) * TILE, y: (gate.row + .5) * TILE }, outside = { x: (gate.col + gate.dc + .5) * TILE, y: inside.y };
+  const toBase = gate.dc > 0 ? Math.PI : 0, tileOf = p => map.grid[Math.floor(p.y / TILE)][Math.floor(p.x / TILE)];
+  // Walking (and dashing) at the barrier never gets a Cyan knight into Amber's base.
+  const walk = duel({ mapId, a: { x: inside.x - gate.dc * TILE * 2, y: inside.y }, b: { ...outside, aim: toBase } });
+  run(walk.state, 240, t => ({ 4: { [gate.dc > 0 ? 'left' : 'right']: true, dash: t % 40 === 0 } }));
+  assert.notEqual(tileOf(walk.foe), '1', 'the barrier holds');
+  // A knight in their own base cannot be cut or shot from outside...
+  const cut = duel({ mapId, a: { ...inside, aim: toBase + Math.PI, weapons: ['brand', null, null, null] }, b: { ...outside, aim: toBase, weapons: ['brand', null, null, null] } });
+  run(cut.state, 120, t => ({ 4: { attack: t % 20 === 0 } }));
+  assert.equal(cut.me.hp, cut.me.maxHp, 'safe from a sword at the edge');
+  // ...and cannot shoot out of it either (a lunge that carries you out of the base is fair game both ways).
+  const out = duel({ mapId, a: { ...inside, aim: toBase + Math.PI, weapons: ['blaster', null, null, null] }, b: { x: outside.x + gate.dc * TILE, y: inside.y } });
+  run(out.state, 120, t => ({ 0: { attack: t % 30 === 0 } }));
+  assert.equal(out.foe.hp, out.foe.maxHp, 'no shooting out of the base');
+  const shot = duel({ mapId, a: { ...inside }, b: { x: outside.x + gate.dc * TILE * 2, y: inside.y, aim: toBase, weapons: ['blaster', null, null, null] } });
+  run(shot.state, 120, t => ({ 4: { attack: t % 30 === 0 } }));
+  assert.equal(shot.me.hp, shot.me.maxHp, 'rounds stop at the barrier');
+  assert.ok(events(shot.state, 'barrier').length > 0, 'and spark on it');
 });

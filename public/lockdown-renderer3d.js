@@ -573,6 +573,38 @@ export class Lockdown3DRenderer {
       }
       const light = new THREE.PointLight(TEAM_COLORS[team].main, 4, 7, 1.5); light.position.set(lerp(Math.min(...xs), Math.max(...xs), .5), 1.6, lerp(z0, z1, .5)); group.add(light);
     });
+    this.buildBarriers(map, group);
+  }
+  /** The base barrier: a shimmering team-coloured curtain on every open edge of a base, which the other team
+   * cannot cross and rounds cannot pass. */
+  buildBarriers(map, group) {
+    this.barriers = [];
+    const texture = canvasTexture(128, (ctx, size) => {
+      const fade = ctx.createLinearGradient(0, size, 0, 0); fade.addColorStop(0, 'rgba(255,255,255,1)'); fade.addColorStop(.4, 'rgba(255,255,255,.6)'); fade.addColorStop(1, 'rgba(255,255,255,.08)');
+      ctx.fillStyle = fade; ctx.fillRect(0, 0, size, size);
+      ctx.globalCompositeOperation = 'destination-out'; ctx.fillStyle = 'rgba(0,0,0,.4)';
+      for (let y = 0; y < size; y += 8) ctx.fillRect(0, y, size, 4);
+    });
+    texture.wrapT = THREE.RepeatWrapping;
+    for (const [team, cell] of [[0, '1'], [1, '2']]) {
+      const material = new THREE.MeshBasicMaterial({ map: texture.clone(), color: TEAM_COLORS[team].light, transparent: true, opacity: .8, depthWrite: false, side: THREE.DoubleSide, blending: THREE.AdditiveBlending });
+      material.map.needsUpdate = true; this.barriers.push(material);
+      const sill = new THREE.MeshBasicMaterial({ color: TEAM_COLORS[team].main, transparent: true, opacity: .95, depthWrite: false, blending: THREE.AdditiveBlending });
+      const geometry = new THREE.PlaneGeometry(1, 1.1), sillGeometry = new THREE.PlaneGeometry(1, .09);
+      for (let row = 0; row < map.rows; row++) for (let col = 0; col < map.cols; col++) {
+        if (map.grid[row][col] !== cell) continue;
+        for (const [dc, dr] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+          const c = col + dc, r = row + dr, other = map.grid[r]?.[c];
+          if (other === undefined || other === cell || isWall(map, c, r)) continue;
+          const here = levelCell(map, col, row), there = levelCell(map, c, r); if (here !== there && !Object.hasOwn(STAIRS, there)) continue; // a cliff edge is already a wall
+          const wall = new THREE.Mesh(geometry, material), y = levelCell(map, col, row) === '1' ? STOREY : 0;
+          wall.position.set(col + .5 + dc / 2, y + .55, row + .5 + dr / 2); wall.rotation.y = dc ? Math.PI / 2 : 0;
+          // A glowing sill on the floor marks the line from the top-down camera.
+          const line = new THREE.Mesh(sillGeometry, sill); line.position.set(col + .5 + dc / 2, y + .025, row + .5 + dr / 2); line.rotation.set(-Math.PI / 2, 0, dc ? Math.PI / 2 : 0);
+          group.add(wall, line);
+        }
+      }
+    }
   }
   heartGeometry() {
     const shape = new THREE.Shape(), s = .16;
@@ -963,6 +995,7 @@ export class Lockdown3DRenderer {
     this.sun.position.set(this.target.x - 7, this.target.y + 16, this.target.z - 4); this.sun.target.position.copy(this.target);
     if (this.liquid) { this.liquid.offset.x = (now / 9000) % 1; this.liquid.offset.y = (now / 13000) % 1; }
     for (const heart of this.pads || []) { heart.rotation.y = now / 700; heart.position.y += (Math.sin(now / 300) * .002); }
+    for (const barrier of this.barriers || []) { barrier.map.offset.y = -now / 2400; barrier.opacity = .7 + .15 * Math.sin(now / 420); }
     this.updatePoints(state, now);
     this.updateKnights(state, map, now, local);
     this.updateShots(state, map);
@@ -1164,6 +1197,7 @@ export class Lockdown3DRenderer {
       else if (event.type === 'heartUse' || event.type === 'heartPickup') this.texts.push({ x: event.x, y: event.y, lift: KNIGHT + .2, text: `+${event.amount}`, color: '#7dff9a', born: now, life: 800, size: 15, rise: 26 });
       else if (event.type === 'status') this.texts.push({ x: event.x, y: event.y, lift: KNIGHT + .35, text: event.status.toUpperCase(), color: STATUS_COLOR[event.status] || '#ffffff', born: now, life: 600, size: 12, rise: 18 });
       else if (event.type === 'chain') this.beam(at(event.fromX, event.fromY, .5), at(event.toX, event.toY, .5), STATUS_COLOR.shock, 220, now);
+      if (event.type === 'barrier') this.burst(at(event.x, event.y, KNIGHT * .45), TEAM_COLORS[event.team]?.light || '#ffffff', .35, 140, now);
       if (event.type === 'dodge') this.burst(at(event.x, event.y, .08), '#d8d2c4', .8, 260, now);
       if (event.type === 'cloak') this.burst(at(event.x, event.y, KNIGHT * .4), '#b48cff', .9, 260, now);
       if (event.type === 'chargeRelease') { this.ringEffect(at(event.x, event.y, .06), 1.4, '#ffd36b', 380, now); this.burst(at(event.x, event.y, KNIGHT * .5), '#ffe9a8', 1.3, 300, now, true); }

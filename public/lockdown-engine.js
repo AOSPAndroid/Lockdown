@@ -129,6 +129,12 @@ export function inBase(state, player) {
   const map = MAPS[state.mapId];
   return map.grid[Math.floor(player.y / TILE)]?.[Math.floor(player.x / TILE)] === (player.team === 0 ? '1' : '2');
 }
+// Bases are safe: a barrier keeps the other team out, rounds stop at its edge, and nobody fights across it
+// (a knight in their own base can neither be hurt by an enemy nor hurt one).
+const enemyBaseCell = team => team === 0 ? '2' : team === 1 ? '1' : null;
+const baseCell = (map, x, y) => { const cell = map.grid[Math.floor(y / TILE)]?.[Math.floor(x / TILE)]; return cell === '1' || cell === '2' ? cell : null; };
+/** True when this team may not walk onto the tile: the other team's base. */
+const barred = (map, col, row, team) => team != null && map.grid[row]?.[col] === enemyBaseCell(team);
 
 const isGun = id => WEAPONS[id]?.family === 'gun';
 /** A loadout is four slots of distinct weapons or empty (null); at least one weapon. A three-slot list
@@ -338,17 +344,20 @@ function spawn(state, player) {
 // ---------- physics ----------
 /** How close your centre may come to a cliff edge (the drop to, or face of, the other floor). */
 const CLIFF_RADIUS = 10;
-function collides(map, x, y, radius, walk = null, z = null, from = null) {
+function collides(map, x, y, radius, walk = null, z = null, from = null, team = null) {
   const minCol = Math.floor((x - radius) / TILE), maxCol = Math.floor((x + radius) / TILE), minRow = Math.floor((y - radius) / TILE), maxRow = Math.floor((y + radius) / TILE);
+  const away = (col, row) => { if (!from) return false; const fx = clamp(from.x, col * TILE, (col + 1) * TILE), fy = clamp(from.y, row * TILE, (row + 1) * TILE), nx = clamp(x, col * TILE, (col + 1) * TILE), ny = clamp(y, row * TILE, (row + 1) * TILE);
+    return (x - nx) ** 2 + (y - ny) ** 2 >= (from.x - fx) ** 2 + (from.y - fy) ** 2; };
   for (let row = minRow; row <= maxRow; row++) for (let col = minCol; col <= maxCol; col++) {
     let reach = radius;
-    if (!isBlocked(map, col, row, walk)) {
+    // The other team's base is a wall to you (stepping back out of it is always allowed).
+    if (barred(map, col, row, team)) { if (away(col, row)) continue; }
+    else if (!isBlocked(map, col, row, walk)) {
       // On two-floor maps the other floor is a cliff: up only by stairs, never off a ledge.
       if (z === null || levelOk(map, col, row, z)) continue;
       reach = CLIFF_RADIUS;
       // Stepping away from an edge is always allowed, so turning on a stair never pins you.
-      if (from) { const fx = clamp(from.x, col * TILE, (col + 1) * TILE), fy = clamp(from.y, row * TILE, (row + 1) * TILE), nx = clamp(x, col * TILE, (col + 1) * TILE), ny = clamp(y, row * TILE, (row + 1) * TILE);
-        if ((x - nx) ** 2 + (y - ny) ** 2 >= (from.x - fx) ** 2 + (from.y - fy) ** 2) continue; }
+      if (away(col, row)) continue;
     }
     const nx = clamp(x, col * TILE, (col + 1) * TILE), ny = clamp(y, row * TILE, (row + 1) * TILE);
     if ((x - nx) ** 2 + (y - ny) ** 2 < reach * reach) return true;
@@ -358,8 +367,8 @@ function collides(map, x, y, radius, walk = null, z = null, from = null) {
 function moveBody(map, body, dx, dy) {
   const steps = Math.max(1, Math.ceil(Math.hypot(dx, dy) / 6)), walk = outfitOf(body).walk;
   for (let step = 0; step < steps; step++) {
-    if (!collides(map, body.x + dx / steps, body.y, RULES.radius, walk, levelAt(map, body.x, body.y), body)) body.x += dx / steps; else body.vx = 0;
-    if (!collides(map, body.x, body.y + dy / steps, RULES.radius, walk, levelAt(map, body.x, body.y), body)) body.y += dy / steps; else body.vy = 0;
+    if (!collides(map, body.x + dx / steps, body.y, RULES.radius, walk, levelAt(map, body.x, body.y), body, body.team)) body.x += dx / steps; else body.vx = 0;
+    if (!collides(map, body.x, body.y + dy / steps, RULES.radius, walk, levelAt(map, body.x, body.y), body, body.team)) body.y += dy / steps; else body.vy = 0;
   }
   body.z = levelAt(map, body.x, body.y);
 }
@@ -482,6 +491,7 @@ function knockOut(state, attacker, target) {
 /** Every hit goes through here: spawn protection, domes, shields, poison, marks, statuses, knockback. */
 function damage(state, attacker, target, amount, { push = 0, angle = 0, stun = 10, kind = 'hit', damageFamily = null, source = null, status = null, chance = 1, hitStop = 0, weapon = null } = {}) {
   if (!target.alive || target.team === attacker?.team || target.shieldTicks > 0) return false;
+  if (inBase(state, target) || attacker && inBase(state, attacker)) return false; // nobody fights across a base barrier
   // A Striker mid-dodge is untouchable.
   if (target.evadeTicks > 0) {
     emit(state, 'evade', { playerId: target.id, x: target.x, y: target.y });
@@ -1006,6 +1016,8 @@ function tickProjectiles(state) {
         if (shot.kind === 'explosive') explodeShot(state, shot);
         alive = false; break;
       }
+      // Base barriers stop rounds going in or out.
+      if (baseCell(map, nx, ny) !== baseCell(map, shot.x, shot.y)) { emit(state, 'barrier', { x: nx, y: ny, team: (baseCell(map, nx, ny) || baseCell(map, shot.x, shot.y)) === '1' ? 0 : 1 }); if (shot.kind === 'explosive') explodeShot(state, shot); alive = false; break; }
       shot.x = nx; shot.y = ny;
       // Enemy domes stop rounds at their edge.
       const dome = state.players.find(guard => guard.team !== shot.team && domeUp(guard) && dist(guard, shot) <= GUARD.radius && dist(guard, { x: shot.x - shot.vx * DT, y: shot.y - shot.vy * DT }) > GUARD.radius - 2);
@@ -1156,8 +1168,8 @@ export function step(state, rawInputs = []) {
 // ---------- bots ----------
 const flowCache = new Map();
 /** Breadth-first distance field from a world point over walkable tiles. */
-function flowField(map, x, y) {
-  const key = `${map.id}:${Math.floor(x / TILE)}:${Math.floor(y / TILE)}`;
+function flowField(map, x, y, team = null) {
+  const key = `${map.id}:${team}:${Math.floor(x / TILE)}:${Math.floor(y / TILE)}`;
   if (flowCache.has(key)) return flowCache.get(key);
   const field = new Int32Array(map.cols * map.rows).fill(-1), queue = [];
   const start = Math.floor(y / TILE) * map.cols + Math.floor(x / TILE);
@@ -1166,7 +1178,7 @@ function flowField(map, x, y) {
     const index = queue[head], col = index % map.cols, row = (index - col) / map.cols;
     for (const [dc, dr] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
       const c = col + dc, r = row + dr, next = r * map.cols + c;
-      if (!canStep(map, col, row, c, r) || field[next] >= 0) continue;
+      if (!canStep(map, col, row, c, r) || barred(map, c, r, team) || field[next] >= 0) continue;
       field[next] = field[index] + 1; queue.push(next);
     }
   }
@@ -1174,11 +1186,12 @@ function flowField(map, x, y) {
 }
 function stepToward(map, player, goal) {
   if (lineOfSight(map, player, goal) && dist(player, goal) < TILE * 3 && levelCell(map, Math.floor(player.x / TILE), Math.floor(player.y / TILE)) === levelCell(map, Math.floor(goal.x / TILE), Math.floor(goal.y / TILE))) return Math.atan2(goal.y - player.y, goal.x - player.x);
-  const field = flowField(map, goal.x, goal.y), col = Math.floor(player.x / TILE), row = Math.floor(player.y / TILE);
+  const field = flowField(map, goal.x, goal.y, player.team), col = Math.floor(player.x / TILE), row = Math.floor(player.y / TILE);
+  const open = (c, r) => canStep(map, col, row, c, r) && !barred(map, c, r, player.team);
   let best = null, bestValue = Infinity;
   for (const [dc, dr] of [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [1, -1], [-1, 1], [-1, -1]]) {
-    const c = col + dc, r = row + dr; if (!canStep(map, col, row, c, r)) continue;
-    if (dc && dr && (!canStep(map, col, row, col + dc, row) || !canStep(map, col, row, col, row + dr))) continue;
+    const c = col + dc, r = row + dr; if (!open(c, r)) continue;
+    if (dc && dr && (!open(col + dc, row) || !open(col, row + dr))) continue;
     const value = field[r * map.cols + c]; if (value >= 0 && value < bestValue) { bestValue = value; best = { x: (c + .5) * TILE, y: (r + .5) * TILE }; }
   }
   return best ? Math.atan2(best.y - player.y, best.x - player.x) : Math.atan2(goal.y - player.y, goal.x - player.x);
@@ -1212,7 +1225,7 @@ function botInput(state, bot) {
   if (--brain.rethink <= 0 && !(brain.perchUntil > state.tick)) {
     brain.rethink = 90 + Math.floor(random(state) * 60);
     const ranked = state.points.map(point => {
-      const field = flowField(map, point.x, point.y), steps = field[Math.floor(bot.y / TILE) * map.cols + Math.floor(bot.x / TILE)];
+      const field = flowField(map, point.x, point.y, bot.team), steps = field[Math.floor(bot.y / TILE) * map.cols + Math.floor(bot.x / TILE)];
       const contested = point.counts ? point.counts[1 - bot.team] : 0;
       const want = point.owner === bot.team ? (contested ? 1.2 : 4) : point.owner === null ? 1 : 1.5;
       return { point, score: (steps < 0 ? 999 : steps) * want - contested * 4 };
@@ -1224,7 +1237,7 @@ function botInput(state, bot) {
     // A Dojo sparring partner goes looking for the people training.
     if (bot.dummy === 'spar') brain.goal = state.players.filter(other => other.alive && other.team !== bot.team).sort((a, b) => dist(a, bot) - dist(b, bot))[0] || brain.goal;
   }
-  const enemies = state.players.filter(other => other.alive && other.team !== bot.team && (other.cloakTicks === 0 || dist(other, bot) < ABILITIES.cloak.revealRange) && dist(other, bot) < 460 && lineOfSight(map, bot, other));
+  const enemies = state.players.filter(other => other.alive && other.team !== bot.team && !inBase(state, other) && (other.cloakTicks === 0 || dist(other, bot) < ABILITIES.cloak.revealRange) && dist(other, bot) < 460 && lineOfSight(map, bot, other));
   const target = enemies.sort((a, b) => dist(a, bot) - dist(b, bot))[0];
   // Badly hurt: fall back to base to heal, or grab a nearby heart, unless someone is right on top of us.
   const health = bot.hp / bot.maxHp, pressed = target && dist(target, bot) < 160;

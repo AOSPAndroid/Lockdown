@@ -22,9 +22,9 @@ const step = (damage, startup, active, recovery, reach, arc, push, stun, lunge) 
  * Balanced sits between. Thrusts keep the narrow line they are written with. Applied to every step's arc
  * and damage below. */
 export const CUTS = Object.freeze({
-  precise: Object.freeze({ arc: .55, damage: 1.3, label: 'Precise', note: 'narrow cut that hits hard: aim it' }),
+  precise: Object.freeze({ arc: .55, damage: 1.2, label: 'Precise', note: 'narrow cut that hits hard: aim it' }),
   balanced: Object.freeze({ arc: .75, damage: 1.1, label: 'Balanced', note: 'medium cut, medium damage' }),
-  sweeping: Object.freeze({ arc: 1, damage: .8, label: 'Sweeping', note: 'wide cut that catches crowds but hits lighter' }),
+  sweeping: Object.freeze({ arc: 1, damage: .9, label: 'Sweeping', note: 'wide cut that catches crowds but hits lighter' }),
   thrust: Object.freeze({ arc: 1, damage: 1, label: 'Thrust', note: 'a straight, narrow line with a sweet spot at the tip' }),
 });
 const cuts = (cut, ...steps) => Object.freeze(steps.map(move => Object.freeze({ ...move, arc: Math.round(move.arc * CUTS[cut].arc * 100) / 100, damage: Math.round(move.damage * CUTS[cut].damage) })));
