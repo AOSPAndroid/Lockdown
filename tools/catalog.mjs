@@ -81,7 +81,7 @@ colour is never baked in: trims meant to show the team use a material named \`te
 
 | Category | Items | Model files |
 |---|---|---|
-| Robot frame | 1 | \`models/knight/body.glb\` (the frame, its plain base plates and the bare head) |
+| Core skeleton | done | \`models/knight/body.glb\`, made in code |
 | Class pieces | 2 | \`models/class/guardian.glb\` (big shield), \`models/class/recon.glb\` (tiny cloaking shield); the Striker's neon line is drawn by the game |
 | Helmets | ${counts.helmets} | \`models/helmet/<id>.glb\` |
 | Armor | ${counts.armor} | \`models/armor/<id>.glb\` |
@@ -94,7 +94,7 @@ colour is never baked in: trims meant to show the team use a material named \`te
 ## The robot frame (knight body)
 
 - **Looks:** ${BODY_LOOK}
-- **Make:** \`models/knight/body.glb\`, built on the robot rig in [docs/reference/knight_rig.glb](reference/knight_rig.glb). Budget 4000 triangles.
+- **Make:** nothing: the core skeleton is made in code (\`node tools/make-core-skeleton.mjs\` writes \`models/knight/body.glb\`). Build every armour part on it ([ASSETS-BRIEF.md](ASSETS-BRIEF.md)).
 
 ## Classes (3)
 

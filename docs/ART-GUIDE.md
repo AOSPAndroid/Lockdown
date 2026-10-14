@@ -1,6 +1,7 @@
 # Lockdown art guide
 
-Everything an artist (or an art agent) needs to make Lockdown's art, in one place. **The knights are small
+Everything an artist (or an art agent) needs to make Lockdown's art. **Start with
+[ASSETS-BRIEF.md](ASSETS-BRIEF.md)**: what to make, the skeleton, the fit guide, the sizes and the order. **The knights are small
 battle robots in the style of the LBX anime and its model kits:** a robot frame with swappable armour parts,
 crisp hard-surface plates, glowing camera eyes, big weapons and shields. The designs, names and every pixel and
 vertex are **original**: never copy, trace or recolour an existing LBX robot (or any other), its logos or names.
@@ -74,7 +75,8 @@ Every knight is the same **robot frame** (1.3 units tall), wearing four armour p
 one weapon. Build it on the rig in [reference/knight_rig.glb](reference/knight_rig.glb): about five heads tall,
 broad shoulders, narrow waist, long legs, big feet.
 
-- **The bare frame** (the body, and what a knight with no gear looks like) is a **core skeleton**, like the
+- **The bare frame** (the body, and what a knight with no gear looks like) is a **core skeleton**, already
+  made in code ([reference/skeleton-sheet.png](reference/skeleton-sheet.png)), in the spirit of the
   ones in [reference/lbx/20-core-skeleton-drawing.jpg](reference/lbx/20-core-skeleton-drawing.jpg) and
   [21-core-skeleton-kit.jpg](reference/lbx/21-core-skeleton-kit.jpg): a dark gunmetal body with an X-patterned
   chest block (with a `team` stripe), round joint discs, pale blue-grey piston limbs, blocky hands, wedge feet
@@ -203,8 +205,8 @@ textures; anything that pokes through other gear when the knight moves; stretchi
    Scout armour with the Sallet head), each holding the Knight Brand, plus a Guardian with its big shield. One
    comparison sheet with a short name per direction, next to the reference, plus each one in the Dojo at game
    distance. Quick block-outs with painted textures; nothing final. Wait for a pick.
-1. **Style lock (stop for approval).** In the chosen direction only: the robot frame (`knight/body.glb`, which
-   includes the bare head), the Guardian's big shield and the Recon's tiny shield, the Cobalt set (head, chest,
+1. **Style lock (stop for approval).** In the chosen direction only (the body is the core skeleton, made in
+   code): the Guardian's big shield and the Recon's tiny shield, the Cobalt set (head, chest,
    legs), the Knight Brand, the Pulse Blaster and the Cannonball Bomb (in hand and planted). Run the checks,
    play the game and show screenshots next to the reference.
 2. **Gear:** all 14 helmets, 16 armours, 12 pants and 12 shoes.
@@ -229,7 +231,7 @@ Never change gameplay code to make art fit. If an item's description in the cata
 
 | What | Count | Where |
 |---|---|---|
-| Robot frame | 1 | `models/knight/body.glb` (with the bare head and base plates) |
+| Core skeleton | done | `models/knight/body.glb` is made in code: don't make it |
 | Class pieces | 2 | `models/class/guardian.glb` (big shield), `models/class/recon.glb` (tiny cloaking shield) |
 | Helmets | 13 | `models/helmet/<id>.glb` (not `none`: the bare head is part of the body) |
 | Armour | 15 | `models/armor/<id>.glb` (not `none`: the bare plates are part of the body) |

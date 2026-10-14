@@ -10,7 +10,7 @@ All models are binary glTF (`.glb`) under `public/art/3d/models/`:
 
 | Folder | Files | What |
 |---|---|---|
-| `knight/` | `body.glb` | the robot frame every knight is built on: the rig, the dark inner frame, the plain base plates and the bare head (visor and two glowing camera eyes) |
+| `knight/` | `body.glb` | **made in code** (`node tools/make-core-skeleton.mjs`): the core skeleton every knight is built on. Don't make it. |
 | `class/` | `guardian.glb`, `recon.glb` | class pieces: the Guardian's big shield, the Recon's tiny cloaking shield (the Striker's neon trail is drawn by the game) |
 | `helmet/` | `<id>.glb` | one per head unit (not `none`: the bare head is part of the body) |
 | `armor/` | `<id>.glb` | one per armour (not `none`) |
@@ -34,8 +34,10 @@ one at a time.
 ## The knight rig
 
 The game animates knights by turning named parts, so models need **no skinning and no animation clips**:
-every part is a rigid piece parented to the part above it, pivoting at its joint. Build on the mannequin
-in [reference/knight_rig.glb](reference/knight_rig.glb) (`node tools/make-reference-rig.mjs` writes it):
+every part is a rigid piece parented to the part above it, pivoting at its joint. Build on the core skeleton
+in [reference/knight_rig.glb](reference/knight_rig.glb) (`node tools/make-core-skeleton.mjs` writes it, with
+[reference/fit_guide.glb](reference/fit_guide.glb) and [reference/weapon_sizes.glb](reference/weapon_sizes.glb); the
+sheets are in [ASSETS-BRIEF.md](ASSETS-BRIEF.md)):
 same names, same hierarchy, same pivots. It is a **battle-robot frame about five heads tall**: a compact head,
 broad shoulders and chest, a narrow waist, long legs and big wedge feet (LBX-style, see
 [reference/lbx/](reference/lbx/README.md)). Rigid parts are natural for a robot: model visible joints (ball

@@ -43,9 +43,30 @@ export function writeGlb({ nodes }) {
     gltf.meshes.push({ primitives: [{ attributes: { POSITION: a - 3, NORMAL: a - 2 }, indices: a - 1, material: materialIndex.get(key) }] });
     return gltf.meshes.length - 1;
   }
+  /** A mesh from raw arrays, one primitive per material: [{ positions, normals, indices, material }]. Materials
+   * take { name, color, metal, rough, emissive, opacity }. */
+  function meshFrom(parts) {
+    const primitives = parts.map(({ positions, normals, indices, material }) => {
+      const p = new Float32Array(positions), min = [0, 1, 2].map(i => { let m = Infinity; for (let k = i; k < p.length; k += 3) m = Math.min(m, p[k]); return m; }), max = [0, 1, 2].map(i => { let m = -Infinity; for (let k = i; k < p.length; k += 3) m = Math.max(m, p[k]); return m; });
+      gltf.accessors.push({ bufferView: view(p, 34962), componentType: 5126, count: p.length / 3, type: 'VEC3', min, max });
+      gltf.accessors.push({ bufferView: view(new Float32Array(normals), 34962), componentType: 5126, count: normals.length / 3, type: 'VEC3' });
+      const big = p.length / 3 > 65535;
+      gltf.accessors.push({ bufferView: view(big ? new Uint32Array(indices) : new Uint16Array(indices), 34963), componentType: big ? 5125 : 5123, count: indices.length, type: 'SCALAR' });
+      if (!materialIndex.has(material.name)) {
+        const out = { name: material.name, pbrMetallicRoughness: { baseColorFactor: [...material.color, material.opacity ?? 1], metallicFactor: material.metal ?? .3, roughnessFactor: material.rough ?? .5 } };
+        if (material.emissive) out.emissiveFactor = material.emissive;
+        if ((material.opacity ?? 1) < 1) { out.alphaMode = 'BLEND'; out.doubleSided = true; }
+        gltf.materials.push(out); materialIndex.set(material.name, gltf.materials.length - 1);
+      }
+      const a = gltf.accessors.length;
+      return { attributes: { POSITION: a - 3, NORMAL: a - 2 }, indices: a - 1, material: materialIndex.get(material.name) };
+    });
+    gltf.meshes.push({ primitives }); return gltf.meshes.length - 1;
+  }
   function add(node) {
     const out = { name: node.name }; if (node.translation) out.translation = node.translation;
     if (node.box) out.mesh = box(node.box);
+    else if (node.parts?.length) out.mesh = meshFrom(node.parts);
     gltf.nodes.push(out); const index = gltf.nodes.length - 1;
     if (node.children?.length) out.children = node.children.map(add);
     return index;

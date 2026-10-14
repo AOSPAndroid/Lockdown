@@ -13,7 +13,7 @@ colour is never baked in: trims meant to show the team use a material named `tea
 
 | Category | Items | Model files |
 |---|---|---|
-| Robot frame | 1 | `models/knight/body.glb` (the frame, its plain base plates and the bare head) |
+| Core skeleton | done | `models/knight/body.glb`, made in code |
 | Class pieces | 2 | `models/class/guardian.glb` (big shield), `models/class/recon.glb` (tiny cloaking shield); the Striker's neon line is drawn by the game |
 | Helmets | 14 | `models/helmet/<id>.glb` |
 | Armor | 16 | `models/armor/<id>.glb` |
@@ -25,8 +25,8 @@ colour is never baked in: trims meant to show the team use a material named `tea
 
 ## The robot frame (knight body)
 
-- **Looks:** The bare robot frame every knight is built on, before any armour: a "core skeleton" in the LBX style (see docs/reference/lbx/20-core-skeleton-drawing.jpg), 1.3 units tall, about five heads tall, original design. A dark gunmetal body: a blocky chest unit with a raised X pattern and a `team` stripe, a jointed waist block, round joint discs at the shoulders, elbows, hips and knees, pale blue-grey piston limbs (forearms and shins with visible cylinders and ribbing), blocky dark hands and wedge-shaped feet. The head is a smooth dark helmet-shaped unit with two narrow glowing yellow slit eyes. No skin, hair or face. It must look finished and cool on its own: the bare frame is a real look in the game. Every part is a rigid piece so the game can swing it.
-- **Make:** `models/knight/body.glb`, built on the robot rig in [docs/reference/knight_rig.glb](reference/knight_rig.glb). Budget 4000 triangles.
+- **Looks:** The bare robot frame every knight is built on, before any armour: a "core skeleton" in the LBX style (see docs/reference/lbx/20-core-skeleton-drawing.jpg), 1.3 units tall, about five heads tall, original design, made in code by tools/make-core-skeleton.mjs. A dark gunmetal body: a blocky chest unit with a raised X pattern and a `team` stripe, a jointed waist block, round joint discs at the shoulders, elbows, hips and knees, pale blue-grey piston limbs (forearms and shins with visible cylinders and ribbing), blocky dark hands and wedge-shaped feet. The head is a smooth dark helmet-shaped unit with two narrow glowing yellow slit eyes. No skin, hair or face. It must look finished and cool on its own: the bare frame is a real look in the game. Every part is a rigid piece so the game can swing it.
+- **Make:** nothing: the core skeleton is made in code (`node tools/make-core-skeleton.mjs` writes `models/knight/body.glb`). Build every armour part on it ([ASSETS-BRIEF.md](ASSETS-BRIEF.md)).
 
 ## Classes (3)
 

@@ -5,6 +5,8 @@ guns and bombs, three classes, gear, bots and online rooms. **The work now is de
 
 ## Read first
 
+- **`docs/ASSETS-BRIEF.md`: the one page to work from: what to make, the skeleton (already made), the fit
+  guide, the sizes and the order.**
 - **`docs/ART-GUIDE.md`: all the art guidance in one place (the knights are LBX-style battle robots; characters,
   weapons, arenas, icons, technical rules, workflow and the delivery checklist). Start here.**
 - **`docs/reference/lbx/`: LBX robot reference images with notes. This is the look to match for knights,
@@ -41,5 +43,5 @@ guns and bombs, three classes, gear, bots and online rooms. **The work now is de
 - `npm test`: engine, server, renderer and art-tool tests.
 - `node tools/art3d-index.mjs`: check and list 3D textures and models.
 - `node tools/catalog.mjs`: regenerate `docs/CATALOG.md`.
-- `node tools/make-reference-rig.mjs`: rewrite the reference knight rig.
+- `node tools/make-core-skeleton.mjs`: rebuild the core skeleton body and the reference files (rig, fit guide, weapon sizes).
 - `node tools/lockdown-art-index.mjs`: check and list 2D sprites and icons.

@@ -1,4 +1,6 @@
 {
   "files": [],
-  "models": []
+  "models": [
+    "knight/body.glb"
+  ]
 }
