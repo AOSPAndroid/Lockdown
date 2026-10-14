@@ -797,15 +797,33 @@ export class Lockdown3DRenderer {
     T.head = [.03 * m * Math.sin(ph * 2), idle * .12 * Math.sin(now / 2300), -body.z * .5 + .02 * m * Math.sin(ph * 2)];
     T.arm_L = [.07, 0, -armSwing * Math.sin(ph) + .05 + idle * .02 * breath]; T.forearm_L = [0, 0, lerp(.25, 1.3, r) * m * (.75 + .25 * Math.sin(ph)) + .18]; T.hand_L = [0, 0, -.1];
     // ---- the weapon arm, by weapon ----
-    const recoil = Math.max(0, 1 - (now - (view.recoilAt || -1e9)) / 140);
-    const aiming = family === 'gun' && (player.fireCooldown > 0 || player.charging || now - (view.recoilAt || -1e9) < 600);
+    // Recoil: a sharp kick on each shot that springs back with a slight overshoot, scaled by how hard the gun hits.
+    const sinceShot = now - (view.recoilAt || -1e9), recoil = sinceShot < 400 ? (view.recoilPower || .6) * (Math.exp(-sinceShot / 70) - .18 * Math.sin(Math.min(Math.PI, sinceShot / 70)) * Math.exp(-sinceShot / 160)) : 0;
+    const reloading = family === 'gun' && player.reloadTicks?.[weapon.id] > 0;
+    const aiming = family === 'gun' && !reloading && (player.fireCooldown > 0 || player.charging || sinceShot < 900);
     let arm = [-.07, 0, .1 + armSwing * .5 * Math.sin(ph)], elbow = .45 + .5 * r * m, pitch = -.5 + .04 * Math.sin(now / 900) * idle;
+    let twist = 0, snap = false;
     if (family === 'gun') {
-      if (aiming) { arm = [-.05, 0, 1.45]; elbow = .12 + recoil * .25; pitch = recoil * .3; T.arm_L = [-.25, 0, 1.15]; T.forearm_L = [0, 0, .9]; }
-      else { arm = [-.05, 0, .55 + armSwing * .15 * Math.sin(ph)]; elbow = 1; pitch = -.12; }
+      // Pistols are held out one-handed; cannons and the scattergun two-handed and braced; the rifle is shouldered.
+      const grip = weapon.id === 'rifle' ? 'rifle' : ['magnus', 'grimcannon', 'scatter'].includes(weapon.id) ? 'cannon' : 'pistol';
+      if (reloading) {
+        // Tip the gun up, slap a fresh charge in with the off hand half way through, snap back.
+        const p = 1 - player.reloadTicks[weapon.id] / Math.max(1, weapon.reload), slap = Math.exp(-(((p - .55) / .08) ** 2));
+        arm = [-.05, .35, .75]; elbow = 1.15; pitch = .7 - .25 * slap;
+        T.arm_L = [-.45, 0, .85 + .25 * slap]; T.forearm_L = [0, 0, 1.05 - .3 * slap]; T.hand_L = [0, 0, -.3];
+        T.head[0] -= .1; T.head[2] -= .18; twist -= .15;
+      } else if (aiming) {
+        if (grip === 'rifle') { arm = [-.05, .3, .95]; elbow = 1.05; pitch = 0; T.arm_L = [-.5, 0, 1.35]; T.forearm_L = [0, 0, .35]; T.head[0] -= .12; T.head[2] -= .08; twist -= .18; }
+        else if (grip === 'cannon') { arm = [-.05, .1, 1.25]; elbow = .35; pitch = 0; T.arm_L = [-.45, 0, 1.2]; T.forearm_L = [0, 0, .7]; T.leg_L[2] += .2; T.leg_R[2] -= .15; T.shin_L[2] -= .15; T.shin_R[2] -= .2; }
+        else { arm = [-.05, 0, 1.5]; elbow = .06; pitch = 0; T.arm_L = [.18, 0, .25]; T.forearm_L = [0, 0, .7]; twist += .12; }
+        // The kick: the muzzle climbs, the elbow gives, the shoulder rocks back and the body leans away.
+        arm[2] += .4 * recoil; elbow += (grip === 'pistol' ? .7 : .4) * recoil; pitch += .55 * recoil;
+        twist -= (grip === 'rifle' ? .25 : .14) * recoil; body.z += (grip === 'pistol' ? .08 : .14) * recoil; T.head[0] += .08 * recoil;
+        if (grip !== 'pistol') { T.forearm_L[2] += .3 * recoil; T.arm_L[2] += .2 * recoil; }
+        if (Math.abs(recoil) > .03) snap = true; // a kick is instant; easing would swallow it
+      } else { arm = [-.05, 0, .55 + armSwing * .15 * Math.sin(ph)]; elbow = 1; pitch = -.12; }
     } else if (family === 'bomb') { arm = [-.06, 0, .35 + armSwing * .4 * Math.sin(ph)]; elbow = .75; pitch = -.2; }
     else if (family === 'none') { arm = [-.07, 0, armSwing * Math.sin(ph) + .05]; elbow = .2 + .9 * r * m; pitch = -1.2; }
-    let twist = 0, snap = false;
     const total = player.actionTotal || 1, elapsed = total - (player.actionTicks || 0);
     if (action === 'swing') {
       // Wind up across the body, cut through the arc with the elbow snapping straight, follow through, settle.
@@ -859,7 +877,7 @@ export class Lockdown3DRenderer {
     view.body.position.y = b.y; view.body.rotation.x = b.x; view.body.rotation.z = b.z;
     // Gun barrels kick back when they fire.
     const barrel = view.weapon?.getObjectByName?.('barrel');
-    if (barrel) { barrel.userData.x0 ??= barrel.position.x; barrel.position.x = barrel.userData.x0 - .06 * recoil; }
+    if (barrel) { barrel.userData.x0 ??= barrel.position.x; barrel.position.x = barrel.userData.x0 - .06 * Math.max(0, recoil); }
     const fuse = view.weapon?.getObjectByName?.('fuse');
     if (fuse) fuse.traverse(node => { if (node.material?.emissive) node.material.emissiveIntensity = player.charging ? 1.5 + Math.sin(now / 30) : .6; });
     return facing;
@@ -1111,7 +1129,7 @@ export class Lockdown3DRenderer {
       else if (event.type === 'shot') {
         // The flash comes out of the gun's muzzle node when the model has one; the shooter's arm and barrel kick.
         const shooter = this.knights?.get(event.playerId), muzzle = shooter?.weapon?.getObjectByName?.('muzzle');
-        if (shooter) shooter.recoilAt = now;
+        if (shooter) { const gun = WEAPONS[event.weapon]; shooter.recoilAt = now; shooter.recoilPower = Math.min(1.3, Math.max(.35, (gun?.damage || 8) * (gun?.pellets || 1) / 16 * .75)) * (event.charged ? 1.5 : 1); }
         const position = muzzle ? muzzle.getWorldPosition(new THREE.Vector3()) : at(event.x + Math.cos(event.angle) * 22, event.y + Math.sin(event.angle) * 22, KNIGHT * .45);
         this.burst(position, '#fff4c0', .45, 90, now);
       }
