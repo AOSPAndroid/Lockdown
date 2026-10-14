@@ -277,7 +277,7 @@ export const BLADE = Object.freeze({ comboCancel: .4, comboWindow: 36, hitStop: 
   // Spiral Knights cancel: a shield, dash, Boost or cloak press after a cut lands drops its recovery and sends
   // the combo back to the quick first cut, after a short lag. Later cuts hit harder but are slower, lunge
   // further and commit you to their direction (you steer less).
-  cancelLag: 8, moveFirst: .5, moveLater: .3,
+  cancelLag: 6, moveFirst: .5, moveLater: .3,
   // Swap cancel: once a cut has landed, switching weapons drops its recovery and readies the new weapon after
   // this short lag, so a sweep can lead straight into a heavier blade (see FIGHT.reel).
   swapLag: 4 });

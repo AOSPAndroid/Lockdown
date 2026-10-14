@@ -911,6 +911,9 @@ function tickAbilities(state, player, input, previous) {
   player.dashTicks = Math.max(0, player.dashTicks - 1); player.markTicks = Math.max(0, player.markTicks - 1);
   if (player.markReady > 0) player.markReady--;
   if (player.cloakTicks > 0 && --player.cloakTicks === 0) { player.markReady = ABILITIES.cloak.ambushTicks; emit(state, 'uncloak', { playerId: player.id }); }
+  // The off-hand cancel (as in Spiral Knights): pressing the class button cuts a landed cut short whatever it
+  // holds, even with Boost empty, the shield broken or the cloak cooling down, so you hit, cancel and move in one go.
+  if (input.ability && !previous.ability && canCancel(player)) cancelRecovery(state, player, 'ability');
   if (player.cls === 'striker') { tickBoost(state, player, input); return; }
   if (!(input.ability && !previous.ability) || player.abilityCooldown > 0 || player.cls === 'guardian') return;
   if (player.status.curse > 0) { emit(state, 'cursed', { playerId: player.id, x: player.x, y: player.y }); return; }

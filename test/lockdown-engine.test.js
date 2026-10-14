@@ -859,7 +859,7 @@ test('sweep, boost, sweep: a Striker Boost pressed as soon as a cut lands cancel
   const elapsed = me.actionTotal - me.actionTicks;
   assert.ok(elapsed < me.swingStartup + me.swingActive, 'still mid-sweep when Boost is pressed');
   run(state, 1, () => ({ 0: { ability: true, right: true } }));
-  assert.equal(me.action, 'idle'); assert.ok(events(state, 'cancel').some(event => event.by === 'dodge'), 'Boost cancels the landed cut');
+  assert.equal(me.action, 'idle'); assert.ok(events(state, 'cancel').some(event => event.by === 'ability' || event.by === 'dodge'), 'Boost cancels the landed cut');
   // Close in under Boost and sweep again: the target is still reeling.
   run(state, 30, () => ({ 0: { ability: true, right: foe.x - me.x > 45 } }));
   run(state, 1, () => ({ 0: { attack: true } }));
@@ -871,4 +871,21 @@ test('sweep, boost, sweep: a Striker Boost pressed as soon as a cut lands cancel
   run(air.state, 5);
   run(air.state, 1, () => ({ 0: { ability: true } }));
   assert.equal(air.me.action, 'swing', 'no cancel before a whiff has played out');
+});
+
+test('the off-hand cancel: the class button cancels a landed cut even when the ability itself cannot fire', () => {
+  for (const [cls, setup] of [['recon', { abilityCooldown: 999 }], ['striker', { boostMeter: 0 }], ['guardian', { guardBroken: true }]]) {
+    const { state, me } = duel({ gap: 50, a: { cls, weapons: ['brand', null, null, null] } });
+    run(state, 1, () => ({ 0: { attack: true } }));
+    let waited = 0; while (!me.hitIds.length && waited++ < 40) run(state, 1);
+    run(state, BLADE.hitStop + 1);
+    Object.assign(me, setup);
+    run(state, 1, () => ({ 0: { ability: true } }));
+    assert.equal(me.action, 'idle', `${cls}: the press cancels the cut`);
+    assert.ok(events(state, 'cancel').length === 1, `${cls}: one cancel`);
+    // and the next cut comes after the short cancel lag
+    run(state, BLADE.cancelLag, () => ({ 0: { attack: true } }));
+    run(state, 2);
+    assert.equal(me.action, 'swing', `${cls}: swinging again right away`);
+  }
 });
