@@ -18,22 +18,25 @@ blurry: read shapes, proportions and colour from them, not detail.
 | File | Look for |
 |---|---|
 | [closeup-shield-and-hammer.jpg](closeup-shield-and-hammer.jpg) | A gold dome helm with a dark visor, a huge heater shield with a bold gold emblem on the left arm, a heavy hammer much longer than the knight's arm, a purple gem on the gauntlet. |
-| [closeup-pauldrons-and-gun.jpg](closeup-pauldrons-and-gun.jpg) | **Pauldrons as big as the helmet** (magenta teardrop plates); a white and orange striped dome helm; a long ornate gun; one strong colour per set with white and gold trim. |
+| [closeup-pauldrons-and-gun.jpg](closeup-pauldrons-and-gun.jpg) | Big magenta teardrop pauldrons (a heavy set's look, not every knight's); a white and orange striped dome helm; a long ornate gun; one strong colour per set with white and gold trim. |
 | [closeup-melee-group.jpg](closeup-melee-group.jpg) | Four knights from above: what reads at game size is the helmet top, the shoulders, the shield and the weapon. A white helm with a long dark visor slot; green armour with big ridged shoulder plates; glowing green slashes. |
 | [closeup-halo-knight.jpg](closeup-halo-knight.jpg) | A tall blue and white helm with a gold halo, a gold plated skirt, blue trousers tucked into sabatons. |
 
 ## What to take from them
 
-1. **The helmet is the knight.** Big, wider than the shoulders, every one a different silhouette, with a dark
-   visor where glowing eyes show. A few Spiral Knights costume helms show stylised hair; Lockdown keeps the
-   visor look on every helmet.
-2. **Huge shoulders.** Pauldrons are often as big as the helmet, so from above a knight is a big helmet between
-   two big shoulder plates.
-3. **Bold colour per set.** One saturated main colour (magenta, green, blue, gold) with white, steel or gold
+1. **The helmet is the knight.** Big, wider than the shoulders, every one a different silhouette, often with
+   a dark visor where glowing eyes show. Some costume helms show stylised hair in big sculpted clumps (top left
+   of 03): that is how Lockdown's bare head and hair should look.
+2. **Big head, slim body.** The helmet is big, but the body under it is lean and heroic, with a defined waist
+   and slender limbs (see the halo knight and the blond knight). Never round or bulby.
+3. **Hand-painted, layered, saturated.** Every surface is painted (gradients, edge highlights, seams, rivets),
+   forms are layered plates and rims with chunky bevels, colours are bold with strong contrast. This is the
+   art style to match, on armour and on the bare starting knight alike.
+4. **Bold colour per set.** One saturated main colour (magenta, green, blue, gold) with white, steel or gold
    trim. Glossy painted metal with bright edge highlights.
-4. **Oversized gear.** Shields, hammers, swords and guns are big, chunky and readable from far away.
-5. **Glow means action.** Slashes, bolts, charge auras and halos glow in their element colour. Armour does not.
-6. **The arena:** chunky bevelled walls with trim and panels, riveted metal floor plates with swirl carvings,
+5. **Oversized gear.** Shields, hammers, swords and guns are big, chunky and readable from far away.
+6. **Glow means action.** Slashes, bolts, charge auras and halos glow in their element colour. Armour does not.
+7. **The arena:** chunky bevelled walls with trim and panels, riveted metal floor plates with swirl carvings,
    hazard stripes, round lamp studs, glass railings on brass-ball posts, a dark void around everything.
 
 Compare every model you make with these, side by side, before you show it.

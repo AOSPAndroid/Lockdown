@@ -7,14 +7,14 @@ Read [MODELS.md](MODELS.md) for how models are built (rig, units, materials, bud
 for the overall look. All model paths are under `public/art/3d/`; icons are 2D PNGs under
 `public/art/lockdown/` (drawn at 96×96, see `public/art/lockdown/ASSETS.md`).
 
-**House style:** Spiral Knights-style armoured knights (never a bare face, skin or hair: every head is a helmet with a dark visor and two glowing eyes); chunky, rounded, toy-like shapes; oversized weapons; soft painted materials; clean
+**House style:** the Spiral Knights art style (see [ART-GUIDE.md](ART-GUIDE.md) and [reference/spiral-knights/](reference/spiral-knights/README.md)): chunky, rounded, toy-like shapes with hand-painted textures; oversized weapons; soft painted materials; clean
 silhouettes that read from a camera ~48° above; light from the top-left. Original designs only. Team
 colour is never baked in: trims meant to show the team use a material named `team`.
 
 | Category | Items | Model files |
 |---|---|---|
-| Knight body | 1 | `models/knight/body.glb` (the dark under-suit and eye-lit head; the starter look is the Recruit set, the `none` piece of each gear slot) |
-| Class pieces | 3 | `models/class/<class>.glb` |
+| Knight body | 1 | `models/knight/body.glb` (with the T-shirt, shorts and shoes; the hair is `helmet/none.glb`) |
+| Class pieces | 2 | `models/class/guardian.glb` (big shield), `models/class/recon.glb` (tiny cloaking shield); the Striker's neon line is drawn by the game |
 | Helmets | 14 | `models/helmet/<id>.glb` |
 | Armor | 16 | `models/armor/<id>.glb` |
 | Pants | 12 | `models/pants/<id>.glb` |
@@ -25,40 +25,40 @@ colour is never baked in: trims meant to show the team use a material named `tea
 
 ## The knight body
 
-- **Looks:** A Spiral Knights-style knight, 1.3 units tall, always armoured: no skin, no hair, no human face ever shows. The body is the mannequin under the gear: a dark charcoal-navy padded under-suit (seen only in the gaps at the neck, elbows, waist and knees), big round armoured mitten gauntlets, and a head that is a dark void sphere with two small glowing pale eye-lights (soft white-blue, emissive). Every helmet is a shell over that head with a visor opening, so the same two glowing eyes look out of every helmet. Proportions: the helmet is about 45% of the height and wider than the shoulders; a short barrel torso; short stubby legs; chunky feet. Arms and legs are separate rigid parts so the game can swing them.
+- **Looks:** The starting knight, before any gear, in the Spiral Knights style: 1.3 units tall, about three heads tall. A big head (about a third of the height) on a **slim, heroic body**, not a round or bulby one: a narrow torso that tapers to a defined waist, slender arms and legs, hands and feet in proportion (gloved hands, neat boots), a confident upright stance. Underneath every outfit: a cream T-shirt with a `team` trim at the collar and hem, charcoal shorts, dark boots and a smooth bald scalp (hair is the "bare head" helmet piece, so helmets never fight with hair). The face is simple and stylised, not anime: two big glossy dark eyes with a bright catch-light, no blush, no mouth or a tiny one. Painted like Spiral Knights: soft hand-painted gradients on cloth, folds and seams painted in, a light rim on top of every form. Arms and legs are separate rigid parts so the game can swing them.
 - **Make:** `models/knight/body.glb`, built on the rig in [docs/reference/knight_rig.glb](reference/knight_rig.glb). Budget 4000 triangles.
 
 ## Classes (3)
 
-Class pieces attach like gear (to `head`, `chest` or `arm_L`). Budget 1500 triangles each.
+Class pieces attach like gear (both shields go on `arm_L`). Budget 1500 triangles each.
 
 ### Striker `striker`
 
 - **Does:** 100 HP, ability: Boost. Swords +25% damage and +20% speed · slow bomb charge. The sword specialist. Hold Boost to sprint while its nitro meter lasts, to close in or get out; pressing it also cancels a cut and slips a hit.
-- **Looks:** Lean and fast. A swept-back fin crest on the helmet in `team` colour, small gold go-faster chevrons on the shoulders. While Boost is held the game adds a gold speed streak behind the knight.
-- **Make:** `models/class/striker.glb`
+- **Looks:** No piece to model: the Striker is marked by a thin neon line in `team` colour that the game draws trailing behind the knight as it moves (longer and brighter while Boost is held).
+- **Make:** nothing (the game draws the neon line); icon only
 
 ### Guardian `guardian`
 
 - **Does:** 120 HP, ability: Shield. Most health · bombs charge 30% faster. The only knight with a shield. Hold it to raise a dome that covers teammates inside and slowly heals everyone in it. When the dome breaks you keep a small personal shield for a few hits; then it all recharges.
-- **Looks:** Broad and steady. A round crest knob on the helmet in `team` colour and a round riveted bronze shield on the left arm (part of the class, worn over any armour). The shield bubble and dome are drawn by the game.
+- **Looks:** A big shield on the left arm, worn over any armour: a tall rounded heater shield about as tall as the knight's body (≈ 0.7 high, 0.55 wide), bronze and steel with a thick riveted rim, a bold embossed emblem in the middle and a `team` band round the edge. The shield bubble and dome are drawn by the game.
 - **Make:** `models/class/guardian.glb`
 
 ### Recon `recon`
 
 - **Does:** 95 HP, ability: Cloak. Bombs +25% damage · bombs charge 15% faster · less health. The ambusher. Cloak turns you invisible; the first hit out of it (within a few seconds) deals double damage and marks the target to take 30% more from your team.
-- **Looks:** Slim and sly. A short pointed hood-tip crest in `team` colour and a dark scarf. Cloaked, the knight turns translucent (drawn by the game).
+- **Looks:** A tiny round shield on the left forearm (≈ 0.22 across): a small steel buckler with a glowing violet lens in the middle, the cloaking device. Give the lens an emissive material; the game makes it flare when the Recon cloaks and turns the knight translucent.
 - **Make:** `models/class/recon.glb`
 
 ## Helmets (14)
 
 Attach to `head`. Budget 2500 triangles.
 
-### Recruit Helm `none`
+### Bare head `none`
 
-- **Does:** The plain steel helm every knight starts in. (no stat changes)
-- **Looks:** Recruit Helm (everyone starts in it): a big round polished-steel dome helm, wider than the shoulders, with a wide dark T-shaped visor opening where the two glowing eyes show, a raised ridge from brow to nape, a `team` band round the brow and a few big rivets. The plain, friendly starter look of the game.
-- **Make:** `models/helmet/none.glb` (part of the starter Recruit set), icon `icon_helmet_none.png`
+- **Does:** Nothing on your head. (no stat changes)
+- **Looks:** Bare head: chunky sculpted hair in a few big glossy clumps (Spiral Knights costume-helm style, not strands), warm brown with painted highlights and a cowlick, sitting on the body's bald scalp, with a thin `team` hairband.
+- **Make:** `models/helmet/none.glb` (the hair), icon `icon_helmet_none.png`
 
 ### Sallet Helm `sallet`
 
@@ -69,7 +69,7 @@ Attach to `head`. Budget 2500 triangles.
 ### Marksman Visor `visor`
 
 - **Does:** A tinted visor: guns hit 10% harder and charge 10% faster, but it leaves your head bare to blades. (-5% vs swords, +10% gun damage, -10% gun charge time)
-- **Looks:** A slim dark tactical visor wrapping the eyes with a glowing cyan lens and a small brass earpiece; worn on a dark padded skullcap that covers the whole head.
+- **Looks:** A slim dark tactical visor wrapping the eyes with a glowing cyan lens and a small brass earpiece; the top of the head stays bare.
 - **Make:** `models/helmet/visor.glb`, icon `icon_helmet_visor.png`
 
 ### Horned Helm `horned`
@@ -105,7 +105,7 @@ Attach to `head`. Budget 2500 triangles.
 ### Mender Circlet `circlet`
 
 - **Does:** All healing you receive is 25% stronger. (+25% healing received)
-- **Looks:** A thin gold circlet with a small green gem on the forehead, over a dark padded coif that covers the head; the two glowing eyes look out from the shadow under it.
+- **Looks:** A thin gold circlet with a small green gem on the forehead, over the loose hair.
 - **Make:** `models/helmet/circlet.glb`, icon `icon_helmet_circlet.png`
 
 ### Cobalt Helm `cobalt`
@@ -135,18 +135,18 @@ Attach to `head`. Budget 2500 triangles.
 ### Clockwork Goggles `goggles`
 
 - **Does:** Your class ability recharges 15% faster; the lenses throw off your aim a little (guns −5%). (-5% gun damage, -15% ability cooldown)
-- **Looks:** Brass aviator goggles with round amber lenses pushed up on a padded leather aviator cap that covers the whole head; a tiny ticking cog at the temple.
+- **Looks:** Brass aviator goggles with round amber lenses pushed up on a leather strap over a bare head; a tiny ticking cog at the temple.
 - **Make:** `models/helmet/goggles.glb`, icon `icon_helmet_goggles.png`
 
 ## Armor (16)
 
 Attach to `chest` (plus optional `arm_L`, `arm_R` for sleeves and pauldrons, `hips` for coat tails or a skirt). Budget 3000 triangles.
 
-### Recruit Plate `none`
+### Unarmored `none`
 
-- **Does:** The plain steel plate every knight starts in. Normal speed, with no damage resistance. (no stat changes)
-- **Looks:** Recruit Plate (everyone starts in it): a plain polished-steel cuirass with a rounded barrel chest, two small round steel pauldrons, a `team` stripe down the middle of the chest and a dark leather belt with a brass buckle.
-- **Make:** `models/armor/none.glb` (part of the starter Recruit set), icon `icon_armor_none.png`
+- **Does:** T-shirt and shorts. Normal speed, with no damage resistance. (no stat changes)
+- **Looks:** No armour: the cream T-shirt.
+- **Make:** nothing (the body's T-shirt), icon `icon_armor_none.png`
 
 ### Scout Armor `scout`
 
@@ -187,7 +187,7 @@ Attach to `chest` (plus optional `arm_L`, `arm_R` for sleeves and pauldrons, `hi
 ### Windrunner Wraps `windrunner`
 
 - **Does:** Flowing silk wraps for runners: much faster, with quicker, longer dashes, but swords hit 8% softer and they barely protect you. (+5% vs guns, +18% speed, -8% sword damage, -35% dash cooldown, +20% dash distance)
-- **Looks:** Flowing pale-turquoise silk wraps and sashes that trail behind like ribbons over a dark under-suit, with wrapped steel-capped forearms.
+- **Looks:** Flowing pale-turquoise silk wraps and sashes that trail behind like ribbons; bare arms with wrapped forearms.
 - **Make:** `models/armor/windrunner.glb`, icon `icon_armor_windrunner.png`
 
 ### Juggernaut Plate `juggernaut`
@@ -199,13 +199,13 @@ Attach to `chest` (plus optional `arm_L`, `arm_R` for sleeves and pauldrons, `hi
 ### Bombardier Apron `bombardier`
 
 - **Does:** A scorched leather apron full of fuses: bombs charge 35% faster and hit 20% harder, and blasts barely scratch you, but guns lose their edge. (+5% vs guns, +5% vs swords, +40% vs bombs, -10% gun damage, +20% bomb damage, -35% bomb charge time)
-- **Looks:** A scorched brown leather apron over a soot-grey padded gambeson, a belt of fused bombs and a coil of fuse cord on the shoulder.
+- **Looks:** A scorched brown leather apron over a soot-grey shirt, a belt of fused bombs and a coil of fuse cord on the shoulder.
 - **Make:** `models/armor/bombardier.glb`, icon `icon_armor_bombardier.png`
 
 ### Berserker Hide `berserker`
 
 - **Does:** Bare arms and a wolf pelt: swords hit 25% harder and swing 10% faster, but bullets bite deeper. (-15% vs guns, +5% vs swords, +5% speed, +25% sword damage, +10% swing speed)
-- **Looks:** Dark iron bracers and a studded leather harness painted with red war stripes, a wolf pelt over the shoulders with the head on the back; a bone necklace.
+- **Looks:** Bare arms painted with red war stripes and a wolf pelt over the shoulders with the head on the back; a bone necklace.
 - **Make:** `models/armor/berserker.glb`, icon `icon_armor_berserker.png`
 
 ### Mirrorweave Cloak `mirrorweave`
@@ -235,18 +235,18 @@ Attach to `chest` (plus optional `arm_L`, `arm_R` for sleeves and pauldrons, `hi
 ### Clockwork Harness `clockwork`
 
 - **Does:** A ticking brass harness: your class ability and dash recharge much faster, but your guns and swords hit 5% softer. (+5% vs guns, +5% vs swords, +5% vs bombs, -5% gun damage, -5% sword damage, -20% dash cooldown, -35% ability cooldown)
-- **Looks:** A ticking brass harness over a dark padded gambeson: exposed gears on the chest that turn, a winding key on the back and copper pipes on the shoulders.
+- **Looks:** A ticking brass harness over a dark shirt: exposed gears on the chest that turn, a winding key on the back and copper pipes on the shoulders.
 - **Make:** `models/armor/clockwork.glb`, icon `icon_armor_clockwork.png`
 
 ## Pants (12)
 
 Attach to `hips`, `leg_L`, `leg_R`. Budget 2000 triangles.
 
-### Recruit Greaves `none`
+### Shorts `none`
 
-- **Does:** Plain steel tassets and shin plates. (no stat changes)
-- **Looks:** Recruit Greaves (everyone starts in them): a short skirt of three steel tassets over the hips and plain rounded steel shin plates over the dark under-suit.
-- **Make:** `models/pants/none.glb` (part of the starter Recruit set), icon `icon_pants_none.png`
+- **Does:** Plain shorts. (no stat changes)
+- **Looks:** No pants piece: the charcoal shorts.
+- **Make:** nothing (the body's shorts), icon `icon_pants_none.png`
 
 ### Plate Greaves `greaves`
 
@@ -318,16 +318,16 @@ Attach to `hips`, `leg_L`, `leg_R`. Budget 2000 triangles.
 
 Attach to `foot_L`, `foot_R`. Budget 1500 triangles.
 
-### Recruit Boots `none`
+### Plain shoes `none`
 
-- **Does:** Plain steel sabatons. (no stat changes)
-- **Looks:** Recruit Boots (everyone starts in them): plain rounded steel sabatons with a thick dark sole, chunky and toy-like.
-- **Make:** `models/shoes/none.glb` (part of the starter Recruit set), icon `icon_shoes_none.png`
+- **Does:** Simple shoes. (no stat changes)
+- **Looks:** Plain dark shoes.
+- **Make:** nothing (the body's shoes), icon `icon_shoes_none.png`
 
 ### Sprint Sneakers `sneakers`
 
 - **Does:** 8% faster, at the cost of 5 health. (+8% speed, -5 health)
-- **Looks:** Light padded runner boots in white canvas over steel toe caps, with a bright sole stripe.
+- **Looks:** White running sneakers with a bright sole stripe.
 - **Make:** `models/shoes/sneakers.glb`, icon `icon_shoes_sneakers.png`
 
 ### Iron Sabatons `sabatons`

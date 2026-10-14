@@ -29,7 +29,9 @@ const ICON = { helmet: 'icon_helmet_', armor: 'icon_armor_', pants: 'icon_pants_
 function gearSection(slot, table, title) {
   const rows = Object.values(table).map(piece => {
     const look = GEAR_LOOKS[slot][piece.id];
-    const files = `\`models/${slot}/${piece.id}.glb\`${piece.id === 'none' ? ' (part of the starter Recruit set)' : ''}, icon \`${ICON[slot]}${piece.id}.png\``;
+    const files = piece.id === 'none'
+      ? (slot === 'helmet' ? `\`models/helmet/none.glb\` (the hair), icon \`${ICON[slot]}none.png\`` : `nothing (the body's ${slot === 'armor' ? 'T-shirt' : slot === 'pants' ? 'shorts' : 'shoes'}), icon \`${ICON[slot]}none.png\``)
+      : `\`models/${slot}/${piece.id}.glb\`, icon \`${ICON[slot]}${piece.id}.png\``;
     return `### ${piece.name} \`${piece.id}\`\n\n- **Does:** ${piece.description} (${stats(piece)})\n- **Looks:** ${look}\n- **Make:** ${files}\n`;
   });
   return `## ${title} (${Object.keys(table).length})\n\nAttach to ${SLOT_PARTS[slot]}. Budget ${BUDGET[slot]} triangles.\n\n${rows.join('\n')}`;
@@ -73,14 +75,14 @@ Read [MODELS.md](MODELS.md) for how models are built (rig, units, materials, bud
 for the overall look. All model paths are under \`public/art/3d/\`; icons are 2D PNGs under
 \`public/art/lockdown/\` (drawn at 96×96, see \`public/art/lockdown/ASSETS.md\`).
 
-**House style:** Spiral Knights-style armoured knights (never a bare face, skin or hair: every head is a helmet with a dark visor and two glowing eyes); chunky, rounded, toy-like shapes; oversized weapons; soft painted materials; clean
+**House style:** the Spiral Knights art style (see [ART-GUIDE.md](ART-GUIDE.md) and [reference/spiral-knights/](reference/spiral-knights/README.md)): chunky, rounded, toy-like shapes with hand-painted textures; oversized weapons; soft painted materials; clean
 silhouettes that read from a camera ~48° above; light from the top-left. Original designs only. Team
 colour is never baked in: trims meant to show the team use a material named \`team\`.
 
 | Category | Items | Model files |
 |---|---|---|
-| Knight body | 1 | \`models/knight/body.glb\` (the dark under-suit and eye-lit head; the starter look is the Recruit set, the \`none\` piece of each gear slot) |
-| Class pieces | 3 | \`models/class/<class>.glb\` |
+| Knight body | 1 | \`models/knight/body.glb\` (with the T-shirt, shorts and shoes; the hair is \`helmet/none.glb\`) |
+| Class pieces | 2 | \`models/class/guardian.glb\` (big shield), \`models/class/recon.glb\` (tiny cloaking shield); the Striker's neon line is drawn by the game |
 | Helmets | ${counts.helmets} | \`models/helmet/<id>.glb\` |
 | Armor | ${counts.armor} | \`models/armor/<id>.glb\` |
 | Pants | ${counts.pants} | \`models/pants/<id>.glb\` |
@@ -96,9 +98,9 @@ colour is never baked in: trims meant to show the team use a material named \`te
 
 ## Classes (3)
 
-Class pieces attach like gear (to \`head\`, \`chest\` or \`arm_L\`). Budget 1500 triangles each.
+Class pieces attach like gear (both shields go on \`arm_L\`). Budget 1500 triangles each.
 
-${Object.entries(CLASSES).map(([id, cls]) => `### ${cls.name || id[0].toUpperCase() + id.slice(1)} \`${id}\`\n\n- **Does:** ${cls.hp} HP, ability: ${cls.ability}. ${cls.perks}. ${cls.description}\n- **Looks:** ${CLASS_LOOKS[id]}\n- **Make:** \`models/class/${id}.glb\`\n`).join('\n')}
+${Object.entries(CLASSES).map(([id, cls]) => `### ${cls.name || id[0].toUpperCase() + id.slice(1)} \`${id}\`\n\n- **Does:** ${cls.hp} HP, ability: ${cls.ability}. ${cls.perks}. ${cls.description}\n- **Looks:** ${CLASS_LOOKS[id]}\n- **Make:** ${id === 'striker' ? 'nothing (the game draws the neon line); icon only' : `\`models/class/${id}.glb\``}\n`).join('\n')}
 ${gearSection('helmet', HELMETS, 'Helmets')}
 ${gearSection('armor', ARMORS, 'Armor')}
 ${gearSection('pants', PANTS, 'Pants')}

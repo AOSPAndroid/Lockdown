@@ -10,12 +10,12 @@ All models are binary glTF (`.glb`) under `public/art/3d/models/`:
 
 | Folder | Files | What |
 |---|---|---|
-| `knight/` | `body.glb` | the knight body every class wears: the rig, the dark under-suit, the gauntlets and the dark head with two glowing eyes (no skin, hair or face) |
-| `class/` | `striker.glb`, `guardian.glb`, `recon.glb` | class pieces (crest, Guardian shield, scarf) |
-| `helmet/` | `<id>.glb` | one per helmet, including `none.glb` (the Recruit Helm) |
-| `armor/` | `<id>.glb` | one per armour, including `none.glb` (the Recruit Plate) |
-| `pants/` | `<id>.glb` | one per pants piece, including `none.glb` (the Recruit Greaves) |
-| `shoes/` | `<id>.glb` | one per pair of shoes, including `none.glb` (the Recruit Boots) |
+| `knight/` | `body.glb` | the knight body every class wears: the rig and the base outfit (T-shirt, shorts, shoes, face, bald scalp) |
+| `class/` | `guardian.glb`, `recon.glb` | class pieces: the Guardian's big shield, the Recon's tiny cloaking shield (the Striker's neon trail is drawn by the game) |
+| `helmet/` | `<id>.glb` | one per helmet, including `none.glb` (the hair) |
+| `armor/` | `<id>.glb` | one per armour (not `none`) |
+| `pants/` | `<id>.glb` | one per pants piece (not `none`) |
+| `shoes/` | `<id>.glb` | one per pair of shoes (not `none`) |
 | `weapons/` | `<id>.glb` | every sword, gun and bomb as held in the hand |
 | `bombs/` | `<id>.glb` | every bomb as planted on the floor |
 
@@ -36,20 +36,24 @@ one at a time.
 The game animates knights by turning named parts, so models need **no skinning and no animation clips**:
 every part is a rigid piece parented to the part above it, pivoting at its joint. Build on the mannequin
 in [reference/knight_rig.glb](reference/knight_rig.glb) (`node tools/make-reference-rig.mjs` writes it):
-same names, same hierarchy, same pivots.
+same names, same hierarchy, same pivots. It is about three heads tall: a big head on a **slim** body, with a
+tapered torso, a defined waist and slender limbs. Never make the body round or bulby.
+Two leaner options use the same parts and names: `reference/knight_rig_3.5_heads.glb` and
+`reference/knight_rig_4_heads.glb`; [reference/skeleton-options.jpg](reference/skeleton-options.jpg) shows
+all of them next to Spiral Knights close-ups. Use the one the art lead picked.
 
 ```
-hips                (0, 0.31, 0)          pelvis; the body bobs and leans from here
-├─ leg_L            (0, 0, −0.14)         hip joint; swings forward/back (about Z)
-│  └─ foot_L        (0, −0.25, 0)         ankle
-├─ leg_R            (0, 0, +0.14)
-│  └─ foot_R        (0, −0.25, 0)
-└─ chest            (0, 0.08, 0)          waist
-   ├─ head          (0, 0.50, 0)          neck; the head is big (≈ 0.6 across)
-   ├─ arm_L         (0.03, 0.28, −0.35)   shoulder; hangs down, swings when running
-   │  └─ hand_L     (0, −0.20, 0)
-   └─ arm_R         (0.07, 0.14, +0.34)   shoulder; points forward (+X) holding the weapon,
-      └─ hand_R     (0.25, 0, 0)          the weapon socket; turns across a sword's arc
+hips                (0, 0.46, 0)          pelvis; the body bobs and leans from here
+├─ leg_L            (0, −0.02, −0.075)    hip joint; swings forward/back (about Z)
+│  └─ foot_L        (0, −0.36, 0)         ankle
+├─ leg_R            (0, −0.02, +0.075)
+│  └─ foot_R        (0, −0.36, 0)
+└─ chest            (0, 0.06, 0)          waist
+   ├─ head          (0, 0.36, 0)          neck (at 0.88); the head is big, ≈ 0.42 tall and 0.46 across
+   ├─ arm_L         (0, 0.27, −0.19)      shoulder; hangs down, swings when running
+   │  └─ hand_L     (0, −0.30, 0)
+   └─ arm_R         (0.04, 0.20, +0.19)   shoulder; points forward (+X) holding the weapon,
+      └─ hand_R     (0.30, 0, 0)          the weapon socket; turns across a sword's arc
 ```
 
 Positions are each part's pivot relative to its parent. Keep each part's own mesh around its pivot (a leg
@@ -64,15 +68,14 @@ the part's pivot, sized to fit over the body.
 
 | Slot | Top-level nodes |
 |---|---|
-| helmet | `head` |
+| helmet (and the hair, `none`) | `head` |
 | armor | `chest`; optional `arm_L`, `arm_R` (sleeves, pauldrons), `hips` (coat tails, skirt plates) |
 | pants | `hips`, `leg_L`, `leg_R` |
 | shoes | `foot_L`, `foot_R` |
-| class pieces | `head` (crest), `chest` (scarf, chevrons), `arm_L` (the Guardian shield) |
+| class pieces | `arm_L` (the Guardian's big shield, the Recon's tiny shield) |
 
-Gear goes over the body's dark under-suit. A knight always wears one piece per slot (the Recruit set to
-start), so the under-suit only shows in the gaps. Every helmet is a shell over the body's dark head with a
-visor opening that lets its two glowing eyes show. Make pieces slightly larger than what they cover so nothing pokes through
+Gear goes over the body's base outfit: a helmet covers the bald scalp, armour covers the T-shirt, pants
+the shorts, shoes the base shoes. Make pieces slightly larger than what they cover so nothing pokes through
 in any pose (legs swing ±40°, arms ±35°, the right arm turns up to ±80° across a swing).
 
 ## Weapons and bombs
@@ -91,8 +94,10 @@ in any pose (legs swing ±40°, arms ±35°, the right arm turns up to ±80° ac
   to the knight's team: Amber `#e39a3b` or Cyan `#3bb8c4`. Use it only for trims, bands and crests.
 - **Glow:** give glowing parts (gems, cores, lenses, runes) an emissive colour; the game's bloom makes them
   glow. Keep glow to small accents.
-- One texture set per model at most (1024² or smaller), embedded in the `.glb`. Flat colours with soft
-  vertex shading are fine and often better at this camera distance.
+- **One hand-painted albedo texture per model** (512² to 1024², embedded in the `.glb`): painted gradients,
+  edge highlights, seams, panel lines and rivets, in the Spiral Knights style. Untextured flat colours are not
+  enough. A normal map is optional. Keep small glowing parts as separate emissive materials. If a part should
+  flare in game (the Recon's cloak lens), name its material with `lens` in it.
 - No baked lighting, no team colour in textures, no text.
 
 ## Budgets
