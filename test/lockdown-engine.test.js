@@ -534,7 +534,8 @@ test('animation cancels: the shield or a dodge cuts recovery short, and a queued
   run(combo.state, 1, () => ({ 0: { attack: true } }));
   run(combo.state, move.active + Math.ceil(move.recovery * BLADE.comboCancel) + 1 + BLADE.hitStop * 2);
   assert.deepEqual(events(combo.state, 'swing').map(event => event.step), [0, 1]);
-  assert.ok(events(combo.state, 'swing')[1].tick - events(combo.state, 'swing')[0].tick < swingTicks(move), 'the next cut came early');
+  // A cut that lands also freezes its swinger for the hit-stop, so compare with a full landed cut.
+  assert.ok(events(combo.state, 'swing')[1].tick - events(combo.state, 'swing')[0].tick < swingTicks(move) + BLADE.hitStop, 'the next cut came early');
   // A whiff cannot chain: the queued press is dropped, the recovery is longer and you barely move.
   const air = duel({ gap: 300, a: { cls: 'recon' } });
   run(air.state, move.startup + 1, t => ({ 0: { attack: t === 0 } }));
@@ -679,7 +680,9 @@ test('fighting: two cuts that meet clash; a heavy cut knocks a light one aside',
   assert.equal(events(even.state, 'damage').length, 0, 'neither knight is cut');
   assert.equal(events(even.state, 'clash')[0].winner, null);
   const heavy = duel({ gap: 50, a: { cls: 'recon', weapons: ['cleaver', null, null, null] }, b: { cls: 'recon', weapons: ['brand', null, null, null] } });
-  run(heavy.state, 60, t => ({ 0: { attack: t === 0 }, 4: { attack: t === 8 } }));
+  // The light cut starts later so the two blades sweep at the same moment.
+  const late = WEAPONS.cleaver.combo[0].startup - WEAPONS.brand.combo[0].startup;
+  run(heavy.state, 80, t => ({ 0: { attack: t === 0 }, 4: { attack: t === late } }));
   const clash = events(heavy.state, 'clash')[0];
   assert.ok(clash, 'the cuts meet'); assert.equal(clash.winner, heavy.me.id, 'the heavy cut wins');
   assert.equal(heavy.me.hp, heavy.me.maxHp, 'the light cut never landed');

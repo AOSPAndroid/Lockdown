@@ -494,6 +494,7 @@ function buildMenu() {
     const button = document.createElement('button');
     button.type = 'button'; button.className = 'ld-slot-button'; button.dataset.slot = slot;
     button.addEventListener('click', () => openArmory(slot));
+    button.addEventListener('pointerenter', () => { previewWeapon = (state?.players[localId ?? -1]?.weapons ?? setup.weapons)[slot] || previewWeapon; updatePreview(); });
     loadout.append(button);
   }
   $('ld-armory-open').addEventListener('click', () => openArmory(null));
@@ -535,14 +536,17 @@ function buildGearCards() {
   }
 }
 // ---------- armory: every weapon, what it does, and picking one for a slot ----------
-const armory = { open: false, slot: null, family: 'all', selected: null };
+// One click on a weapon puts it in the slot being filled (picked in the bar above the grid); the knight on
+// the right holds it and shows it off.
+const armory = { open: false, slot: 0, family: 'all', selected: null };
 function openArmory(slot) {
-  armory.open = true; armory.slot = slot;
-  armory.selected = slot !== null && setup.weapons[slot] ? setup.weapons[slot] : armory.selected || WEAPON_IDS[0];
-  if (slot !== null && setup.weapons[slot]) armory.family = WEAPONS[setup.weapons[slot]].family;
+  const weapons = setup.weapons;
+  armory.open = true; armory.slot = slot ?? Math.max(0, weapons.indexOf(null));
+  armory.selected = weapons[armory.slot] || armory.selected || WEAPON_IDS[0];
+  if (weapons[armory.slot]) armory.family = WEAPONS[weapons[armory.slot]].family;
   $('ld-armory').hidden = false; renderArmory();
 }
-function closeArmory() { armory.open = false; $('ld-armory').hidden = true; }
+function closeArmory() { armory.open = false; $('ld-armory').hidden = true; if (armory.selected) previewWeapon = armory.selected; updatePreview(); }
 const seconds = ticks => `${(ticks / TICK_RATE).toFixed(ticks < TICK_RATE ? 2 : 1)} s`;
 /** Plain numbers for the detail card, by family. */
 function weaponStats(weapon) {
@@ -559,9 +563,21 @@ function renderArmory() {
   const grid = $('ld-armory-grid'), carried = setup.weapons, editable = canChangeLoadout();
   // Only rebuild when something shown changed, so cards stay clickable between refreshes.
   const key = [armory.family, armory.selected, armory.slot, carried.join(), editable, assets.version].join('|');
-  if (grid.dataset.key === key) return;
+  if (grid.dataset.key === key) { updatePreview(); return; }
   grid.dataset.key = key;
   grid.textContent = '';
+  const bar = $('ld-armory-slots'); bar.textContent = '';
+  const label = document.createElement('span'); label.className = 'ld-armory-slots-label';
+  label.textContent = editable ? `Click a weapon to put it in slot ${armory.slot + 1}` : 'Return to your base to change weapons'; bar.append(label);
+  for (let slot = 0; slot < SLOT_COUNT; slot++) {
+    const id = carried[slot], button = document.createElement('button');
+    button.type = 'button'; button.setAttribute('aria-pressed', String(slot === armory.slot)); button.disabled = !editable;
+    button.innerHTML = `<kbd>${slot + 1}</kbd>${id ? iconMarkup(`icon_weapon_${id}`, FAMILY_GLYPH[WEAPONS[id].family]) : '<span class="ld-glyph" aria-hidden="true">+</span>'}<span><b></b><small></small></span>`;
+    button.querySelector('b').textContent = id ? WEAPONS[id].name : 'Empty';
+    button.querySelector('small').textContent = id ? WEAPONS[id].type : 'Room for hearts';
+    button.addEventListener('click', () => { armory.slot = slot; if (id) armory.selected = id; renderArmory(); });
+    bar.append(button);
+  }
   for (const id of WEAPON_IDS.filter(id => armory.family === 'all' || WEAPONS[id].family === armory.family)) {
     const weapon = WEAPONS[id], note = WEAPON_NOTES[id], card = document.createElement('button');
     card.type = 'button'; card.className = 'ld-armory-card'; card.dataset.weapon = id;
@@ -570,36 +586,53 @@ function renderArmory() {
     card.innerHTML = `${iconMarkup(`icon_weapon_${id}`, FAMILY_GLYPH[weapon.family])}<b></b><small></small><span class="ld-difficulty" title="Difficulty">${'●'.repeat(note.difficulty)}${'○'.repeat(3 - note.difficulty)}</span>${slot >= 0 ? `<kbd class="ld-carried">${slot + 1}</kbd>` : ''}`;
     card.querySelector('b').textContent = weapon.name;
     card.querySelector('small').textContent = `${weapon.type}${ELEMENT_TAGS[weapon.element] ? ` · ${ELEMENT_TAGS[weapon.element]}` : ''}`;
-    card.addEventListener('click', () => { armory.selected = id; renderArmory(); });
-    card.addEventListener('dblclick', () => { if (armory.slot !== null) { equipFromArmory(id, armory.slot); } });
+    card.title = canChangeLoadout() ? `Put ${weapon.name} in slot ${armory.slot + 1}` : weapon.name;
+    card.addEventListener('click', () => {
+      const again = armory.selected === id && setup.weapons[armory.slot] === id; armory.selected = id;
+      if (canChangeLoadout() && setup.weapons[armory.slot] !== id) equipFromArmory(id, armory.slot); else renderArmory();
+      if (again) preview?.replay();
+    });
     grid.append(card);
   }
   const id = armory.selected, weapon = WEAPONS[id], note = WEAPON_NOTES[id], detail = $('ld-armory-detail');
   if (!weapon) { detail.textContent = ''; return; }
   const list = (items, kind) => items.map(text => `<li class="${kind}">${kind === 'pro' ? '▲' : '▼'} ${text}</li>`).join('');
-  detail.innerHTML = `<div class="ld-armory-hero">${iconMarkup(`icon_weapon_${id}`, FAMILY_GLYPH[weapon.family])}<div><h3></h3><p class="ld-armory-type"></p></div></div>
+  detail.innerHTML = `<div class="ld-armory-stage" title="Drag to turn"></div><div class="ld-armory-hero">${iconMarkup(`icon_weapon_${id}`, FAMILY_GLYPH[weapon.family])}<div><h3></h3><p class="ld-armory-type"></p></div></div>
     <p class="ld-armory-desc"></p>
     <dl class="ld-armory-stats">${weaponStats(weapon).map(([label, value]) => `<dt>${label}</dt><dd>${value}</dd>`).join('')}<dt>Difficulty</dt><dd>${['', 'Easy', 'Medium', 'Hard'][note.difficulty]}</dd></dl>
     <ul class="ld-armory-notes">${list(note.pros, 'pro')}${list(note.cons, 'con')}</ul>
-    <div class="ld-armory-equip">${Array.from({ length: SLOT_COUNT }, (_, slot) => `<button type="button" data-equip="${slot}"${armory.slot === slot ? ' class="ld-primary"' : ''}${editable ? '' : ' disabled'}>Slot ${slot + 1}${carried[slot] ? `<small>${WEAPONS[carried[slot]].name}</small>` : '<small>Empty</small>'}</button>`).join('')}</div>
-    ${armory.slot !== null && carried[armory.slot] ? `<button type="button" class="ld-armory-clear" data-clear="${armory.slot}"${editable ? '' : ' disabled'}>Empty slot ${armory.slot + 1}</button>` : ''}
-    ${editable ? '' : '<p class="ld-hint">Return to your base to change weapons.</p>'}`;
+    ${carried[armory.slot] ? `<button type="button" class="ld-armory-clear" data-clear="${armory.slot}"${editable ? '' : ' disabled'}>Empty slot ${armory.slot + 1}</button>` : ''}`;
   detail.querySelector('h3').textContent = weapon.name;
   detail.querySelector('.ld-armory-type').textContent = `${weapon.type}${ELEMENT_TAGS[weapon.element] ? ` · ${ELEMENT_TAGS[weapon.element]}` : ''}`;
   detail.querySelector('.ld-armory-desc').textContent = weapon.description;
-  for (const button of detail.querySelectorAll('[data-equip]')) button.addEventListener('click', () => equipFromArmory(id, Number(button.dataset.equip)));
   detail.querySelector('[data-clear]')?.addEventListener('click', () => {
     const weapons = [...setup.weapons]; weapons[armory.slot] = null;
     if (!weapons.some(Boolean)) { setStatus('Carry at least one weapon.'); return; }
     chooseSetup({ weapons });
   });
+  updatePreview();
 }
 /** Put a weapon in a slot; if it is already carried elsewhere the two slots swap. */
 function equipFromArmory(id, slot) {
   const weapons = [...setup.weapons], other = weapons.indexOf(id);
   if (other >= 0 && other !== slot) weapons[other] = weapons[slot];
-  weapons[slot] = id; armory.slot = slot;
+  weapons[slot] = id; armory.slot = slot; previewWeapon = id;
   chooseSetup({ weapons }); showWeaponNote(id);
+}
+
+// ---------- the knight preview: your class and gear, holding the weapon you are looking at ----------
+let preview = null, previewWeapon = null;
+async function setupPreview() {
+  try { const { KnightPreview } = await import('./lockdown-renderer3d.js'); preview = new KnightPreview(); updatePreview(); }
+  catch (problem) { console.warn('The knight preview needs WebGL.', problem); $('ld-preview').hidden = true; }
+}
+function updatePreview() {
+  if (!preview) return;
+  const me = state?.players[localId ?? -1], weapons = me?.weapons ?? setup.weapons;
+  const weapon = armory.open ? armory.selected : weapons.includes(previewWeapon) ? previewWeapon : weapons.find(Boolean);
+  preview.show({ team: me?.team ?? setup.team, cls: me?.cls ?? setup.cls, ...gearOf(me ?? setup), weapon });
+  const home = armory.open ? $('ld-armory-detail').querySelector('.ld-armory-stage') : $('ld-preview');
+  if (home && preview.canvas.parentNode !== home) home.append(preview.canvas);
 }
 
 // ---------- inventory (I): drag and drop to reorder the four slots ----------
@@ -705,7 +738,7 @@ function renderMenu() {
     button.querySelector('small').textContent = weapon ? `${weapon.type}${ELEMENT_TAGS[weapon.element] ? ` · ${ELEMENT_TAGS[weapon.element]}` : ''}` : 'Room for hearts';
     button.setAttribute('aria-label', `Slot ${slot + 1}: ${weapon ? weapon.name : 'empty'}. Choose in the Armory.`);
   });
-  if (armory.open) renderArmory();
+  if (armory.open) renderArmory(); else updatePreview();
   const note = $('ld-base-note');
   note.hidden = lobby;
   if (!lobby) {
@@ -866,6 +899,7 @@ function overviewFocus(view, me) {
 }
 
 buildMenu();
+setupPreview();
 refreshIcons();
 if (solo) soloCreate(); else connect();
 if (dojo) setupDojoPanel();

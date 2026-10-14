@@ -11,7 +11,11 @@ export const TICKS = 120;
 // Equipment has one canonical table; armoury callers can import it here too.
 export { ARMORS, ARMOR_IDS, PERK_IDS } from './lockdown-equipment.js';
 
-const step = (damage, startup, active, recovery, reach, arc, push, stun, lunge) => Object.freeze({ damage, startup, active, recovery, reach, arc, push, stun, lunge });
+/** Sword tempo: every wind-up and cut is drawn out so a swing reads and lands with weight, and the
+ * recovery is a little shorter so a full combo only takes slightly longer than the raw numbers below. */
+export const BLADE_TEMPO = Object.freeze({ startup: 1.4, active: 1.6, recovery: .8 });
+const step = (damage, startup, active, recovery, reach, arc, push, stun, lunge) => Object.freeze({ damage, reach, arc, push, stun, lunge,
+  startup: Math.round(startup * BLADE_TEMPO.startup), active: Math.round(active * BLADE_TEMPO.active), recovery: Math.max(4, Math.round(recovery * BLADE_TEMPO.recovery)) });
 
 export const WEAPONS = Object.freeze({
   // ---------- blades ----------

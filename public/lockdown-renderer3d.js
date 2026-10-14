@@ -12,7 +12,7 @@ import { RenderPass } from './vendor/three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from './vendor/three/addons/postprocessing/UnrealBloomPass.js';
 import { OutputPass } from './vendor/three/addons/postprocessing/OutputPass.js';
 import { MAPS, TILE, isWall, levelCell, levelAt, STAIRS } from './lockdown-maps.js';
-import { WEAPONS, RULES, GUARD, ABILITIES, STATUS_IDS, chargeTicksFor } from './lockdown-engine.js';
+import { WEAPONS, RULES, GUARD, ABILITIES, STATUS_IDS, TICK_RATE, chargeTicksFor } from './lockdown-engine.js';
 import { TEAM_COLORS } from './lockdown-renderer.js';
 import { RIG, RIG_PARTS, GEAR_PARTS, GRIP, SHIELDS, skeletonParts } from './lockdown-skeleton.js';
 export { RIG_PARTS };
@@ -1255,4 +1255,109 @@ export class Lockdown3DRenderer {
     }
     if (pointer && this.overlay) this.overlay.drawCrosshair(ctx, pointer, local, now);
   }
+}
+
+/** The knight on the loadout screen: a small turntable stage of its own that wears the chosen class and
+ * gear, holds the chosen weapon and shows it off (a full combo, a few shots or a bomb wind-up) whenever
+ * the weapon changes. It borrows the arena renderer's knight code (makeKnight, updateKnight,
+ * animateKnight), so it moves exactly as in a match. Drag to turn it. */
+export class KnightPreview {
+  constructor() {
+    this.canvas = document.createElement('canvas'); this.canvas.className = 'ld-preview-canvas';
+    this.gl = new THREE.WebGLRenderer({ canvas: this.canvas, antialias: true, alpha: true });
+    this.gl.toneMapping = THREE.ACESFilmicToneMapping; this.gl.toneMappingExposure = 1.15;
+    this.gl.shadowMap.enabled = true; this.gl.shadowMap.type = THREE.PCFSoftShadowMap;
+    this.scene = new THREE.Scene();
+    this.camera3 = new THREE.PerspectiveCamera(30, 1, .1, 30);
+    this.scene.add(new THREE.HemisphereLight('#d8e2ff', '#2a2420', 1.7));
+    const key = new THREE.DirectionalLight('#fff3e0', 2.6); key.position.set(2, 4, 3); key.castShadow = true;
+    key.shadow.mapSize.set(1024, 1024); Object.assign(key.shadow.camera, { left: -2, right: 2, top: 2, bottom: -2, near: .5, far: 12 }); key.shadow.bias = -.0005;
+    const rim = new THREE.DirectionalLight('#9fc4ff', 1.4); rim.position.set(-3, 2.5, -2);
+    this.scene.add(key, rim);
+    const floor = new THREE.Mesh(new THREE.CircleGeometry(1.3, 48), new THREE.ShadowMaterial({ opacity: .35 })); floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true; this.scene.add(floor);
+    this.glow = glowTexture(); this.effects = [];
+    this.models = new ModelLibrary(() => this.rebuild = true);
+    this.map = MAPS[Object.keys(MAPS)[0]];
+    this.player = { id: -1, x: 0, y: 0, aim: 0, team: 0, cls: 'striker', alive: true, weapons: [null, null, null, null], slot: 0, action: 'idle', actionTicks: 0, actionTotal: 0, status: {}, helmet: 'none', armor: 'none', pants: 'none', shoes: 'none', reloadTicks: {}, fireCooldown: 0, charging: false, chargeTicks: 0 };
+    this.view = null; this.demo = null; this.turn = 0; this.lastDrag = -1e9;
+    let dragging = null;
+    this.canvas.addEventListener('pointerdown', event => { dragging = event.clientX; this.canvas.setPointerCapture(event.pointerId); });
+    this.canvas.addEventListener('pointermove', event => { if (dragging === null) return; this.turn += (event.clientX - dragging) * .012; dragging = event.clientX; this.lastDrag = performance.now(); });
+    this.canvas.addEventListener('pointerup', () => { dragging = null; });
+    const frame = now => { requestAnimationFrame(frame); this.frame(now); };
+    requestAnimationFrame(frame);
+  }
+  /** What to show: { team, cls, helmet, armor, pants, shoes, weapon }. A new weapon plays its demo. */
+  show(look) {
+    const p = this.player, weapon = look.weapon || null, changed = weapon !== p.weapons[0];
+    for (const field of ['team', 'cls', 'helmet', 'armor', 'pants', 'shoes']) if (look[field] !== undefined) p[field] = look[field];
+    p.weapons = [weapon, null, null, null];
+    if (changed) { this.demo = weapon ? { weapon: WEAPONS[weapon], start: performance.now() + 250 } : null; this.rest(); }
+  }
+  /** Play the current weapon's demo again. */
+  replay() { const weapon = this.player.weapons[0]; if (weapon) { this.demo = { weapon: WEAPONS[weapon], start: performance.now() + 100 }; this.rest(); } }
+  rest() { Object.assign(this.player, { action: 'idle', actionTicks: 0, actionTotal: 0, fireCooldown: 0, charging: false, chargeTicks: 0 }); }
+  /** Drive the demo for the weapon in hand: the whole combo, three shots, or a bomb charged up. */
+  play(now) {
+    const demo = this.demo, p = this.player; if (!demo) return;
+    const ms = now - demo.start, ticks = ms / 1000 * TICK_RATE, weapon = demo.weapon;
+    if (ms < 0) return;
+    if (weapon.family === 'blade') {
+      let t = ticks;
+      for (const [step, move] of weapon.combo.entries()) {
+        const total = move.startup + move.active + move.recovery;
+        if (t < total) { Object.assign(p, { action: 'swing', actionTotal: total, actionTicks: Math.max(1, Math.ceil(total - t)), swingStartup: move.startup, swingActive: move.active, swingDir: step % 2 ? -1 : 1, swingArc: move.arc, swingAim: 0 }); return; }
+        t -= total;
+      }
+    } else if (weapon.family === 'gun') {
+      const shots = [150, 650, 1150];
+      if (ms < 1900) {
+        p.fireCooldown = 1;
+        const due = shots.filter(at => ms >= at).length;
+        if (due > (demo.fired || 0)) {
+          demo.fired = due;
+          this.view.recoilAt = now; this.view.recoilPower = Math.min(1.3, Math.max(.35, (weapon.damage || 8) * (weapon.pellets || 1) / 16 * .75));
+          const muzzle = this.view.weapon?.getObjectByName?.('muzzle');
+          const position = muzzle ? muzzle.getWorldPosition(new THREE.Vector3()) : this.view.hand.localToWorld(new THREE.Vector3(.55, 0, 0));
+          this.burst(position, '#fff4c0', .45, 90, now);
+        }
+        return;
+      }
+    } else if (weapon.family === 'bomb') {
+      const need = chargeTicksFor(p, weapon);
+      if (ticks < need + 40) { p.charging = true; p.chargeTicks = Math.min(need, Math.floor(ticks)); return; }
+    }
+    this.demo = null; this.rest();
+  }
+  frame(now) {
+    if (!this.canvas.isConnected || !this.canvas.offsetParent) return; // off screen: nothing to draw
+    const width = Math.max(1, this.canvas.clientWidth), height = Math.max(1, this.canvas.clientHeight);
+    if (width !== this.width || height !== this.height) {
+      this.width = width; this.height = height;
+      this.gl.setPixelRatio(Math.min(2, globalThis.devicePixelRatio || 1)); this.gl.setSize(width, height, false);
+      this.camera3.aspect = width / height; this.camera3.updateProjectionMatrix();
+    }
+    const p = this.player;
+    if (!this.view || this.rebuild || this.view.key !== this.knightKey(p)) {
+      if (this.view) this.scene.remove(this.view.group);
+      this.view = this.makeKnight(p); this.rebuild = false;
+    }
+    this.play(now);
+    this.updateKnight(this.view, p, this.map, now, p.id);
+    // A slow sway around a three-quarter view (front-left), unless the player turned it lately.
+    const idle = Math.min(1, Math.max(0, (now - this.lastDrag - 2500) / 1500));
+    if (idle > 0) this.turn *= 1 - .02 * idle;
+    this.view.group.position.set(0, 0, 0);
+    this.view.group.rotation.y = -1.05 + .35 * Math.sin(now / 2600) * idle + this.turn;
+    // Frame the whole knight and a raised sword.
+    const fit = Math.max(1, .85 / Math.max(.4, this.camera3.aspect));
+    this.camera3.position.set(0, 1.05, 3.4 * fit); this.camera3.lookAt(0, .72, 0);
+    this.updateEffects(now);
+    this.gl.render(this.scene, this.camera3);
+  }
+}
+// The preview is a small stage of its own that reuses the arena renderer's knight, weapon and effect code.
+for (const name of ['makeKnight', 'knightKey', 'attachGear', 'knightRig', 'classMarks', 'makeWeapon', 'temporaryWeapon', 'animateKnight', 'updateKnight', 'ghost', 'addEffect', 'burst', 'updateEffects']) {
+  if (!Lockdown3DRenderer.prototype[name]) throw new Error(`KnightPreview needs Lockdown3DRenderer.${name}`);
+  KnightPreview.prototype[name] = Lockdown3DRenderer.prototype[name];
 }
