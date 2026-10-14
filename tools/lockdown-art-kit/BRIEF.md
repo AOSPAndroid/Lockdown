@@ -1,7 +1,7 @@
 # Lockdown art brief
 
 Lockdown is a top-down team brawl in the spirit of Spiral Knights' Lockdown: up to 4v4, three control points,
-swords, guns and bombs, on six themed arenas. This brief lists all 319 sprites the game draws. Read AGENTS.md first:
+swords, guns and bombs, on six themed arenas. This brief lists all 337 sprites the game draws. Read AGENTS.md first:
 it says how to work and what quality bar the art must reach.
 
 Knight sheets: 10 columns of 64×64 frames (at 1x): columns 1–2 idle, 3–6 walk, 7–10 run.
@@ -229,8 +229,8 @@ Knight sheets: 10 columns of 64×64 frames (at 1x): columns 1–2 idle, 3–6 wa
 | `gear_shoes_treads.png` | 640×320 | 10 × 5 rows | 32, 58 | Mud Treads overlay: ONLY heavy black rubber-soled work boots with thick treads, nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the feet of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour). |
 | `gear_shoes_clogs.png` | 640×320 | 10 × 5 rows | 32, 58 | Rocket Clogs overlay: ONLY springy wooden clogs on coiled steel springs, nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the feet of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour). |
 | `gear_shoes_sandals.png` | 640×320 | 10 × 5 rows | 32, 58 | Healer Sandals overlay: ONLY simple leather sandals with straps and a little herb sprig tucked in, nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the feet of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour). |
-| `gear_shoes_striders.png` | 640×320 | 10 × 5 rows | 32, 58 | Water Striders overlay: ONLY light reed-and-cork sandals with wide flat paddles under the soles, beaded with water drops, nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the feet of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour). |
-| `gear_shoes_magma.png` | 640×320 | 10 × 5 rows | 32, 58 | Magma Walkers overlay: ONLY thick black obsidian-soled boots with glowing orange cracks, nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the feet of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour). |
+| `gear_shoes_striders.png` | 640×320 | 10 × 5 rows | 32, 58 | Stride Boots overlay: ONLY light reed-and-cork sandals with wide flat paddles under the soles, beaded with water drops, nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the feet of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour). |
+| `gear_shoes_magma.png` | 640×320 | 10 × 5 rows | 32, 58 | Magma Treads overlay: ONLY thick black obsidian-soled boots with glowing orange cracks, nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the feet of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour). |
 | `gear_shoes_hover.png` | 640×320 | 10 × 5 rows | 32, 58 | Hover Boots overlay: ONLY chunky silver boots with small glowing cyan thrusters under the soles (a soft glow below the feet), nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the feet of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour). |
 | `gear_shoes_quicksilver.png` | 640×320 | 10 × 5 rows | 32, 58 | Quicksilver Slippers overlay: ONLY thin liquid-silver slippers with a mirror sheen and little speed streaks, nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the feet of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour). |
 
@@ -261,8 +261,8 @@ Knight sheets: 10 columns of 64×64 frames (at 1x): columns 1–2 idle, 3–6 wa
 | `icon_shoes_treads.png` | 48×48 | 1 | 24, 24 | Mud Treads equipment icon: heavy black rubber-soled work boots with thick treads. Clear silhouette on a transparent background. |
 | `icon_shoes_clogs.png` | 48×48 | 1 | 24, 24 | Rocket Clogs equipment icon: springy wooden clogs on coiled steel springs. Clear silhouette on a transparent background. |
 | `icon_shoes_sandals.png` | 48×48 | 1 | 24, 24 | Healer Sandals equipment icon: simple leather sandals with straps and a little herb sprig tucked in. Clear silhouette on a transparent background. |
-| `icon_shoes_striders.png` | 48×48 | 1 | 24, 24 | Water Striders equipment icon: light reed-and-cork sandals with wide flat paddles under the soles, beaded with water drops. Clear silhouette on a transparent background. |
-| `icon_shoes_magma.png` | 48×48 | 1 | 24, 24 | Magma Walkers equipment icon: thick black obsidian-soled boots with glowing orange cracks. Clear silhouette on a transparent background. |
+| `icon_shoes_striders.png` | 48×48 | 1 | 24, 24 | Stride Boots equipment icon: light reed-and-cork sandals with wide flat paddles under the soles, beaded with water drops. Clear silhouette on a transparent background. |
+| `icon_shoes_magma.png` | 48×48 | 1 | 24, 24 | Magma Treads equipment icon: thick black obsidian-soled boots with glowing orange cracks. Clear silhouette on a transparent background. |
 | `icon_shoes_hover.png` | 48×48 | 1 | 24, 24 | Hover Boots equipment icon: chunky silver boots with small glowing cyan thrusters under the soles (a soft glow below the feet). Clear silhouette on a transparent background. |
 | `icon_shoes_quicksilver.png` | 48×48 | 1 | 24, 24 | Quicksilver Slippers equipment icon: thin liquid-silver slippers with a mirror sheen and little speed streaks. Clear silhouette on a transparent background. |
 | `icon_weapon_brand.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Knight Brand. Clear silhouette on a transparent background. |
@@ -277,6 +277,9 @@ Knight sheets: 10 columns of 64×64 frames (at 1x): columns 1–2 idle, 3–6 wa
 | `icon_weapon_sickle.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Sanguine Sickle. Clear silhouette on a transparent background. |
 | `icon_weapon_hexblade.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Hexblade. Clear silhouette on a transparent background. |
 | `icon_weapon_maul.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Earthbreaker Maul. Clear silhouette on a transparent background. |
+| `icon_weapon_avenger.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Radiant Avenger. Clear silhouette on a transparent background. |
+| `icon_weapon_leviathan.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Leviathan Edge. Clear silhouette on a transparent background. |
+| `icon_weapon_troika.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Iron Troika. Clear silhouette on a transparent background. |
 | `icon_weapon_blaster.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Pulse Blaster. Clear silhouette on a transparent background. |
 | `icon_weapon_pulsar.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Ripple Caster. Clear silhouette on a transparent background. |
 | `icon_weapon_alchemer.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Ricochet Coil. Clear silhouette on a transparent background. |
@@ -289,6 +292,9 @@ Knight sheets: 10 columns of 64×64 frames (at 1x): columns 1–2 idle, 3–6 wa
 | `icon_weapon_voltneedle.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Volt Needle. Clear silhouette on a transparent background. |
 | `icon_weapon_viper.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Viper Spitter. Clear silhouette on a transparent background. |
 | `icon_weapon_grimcannon.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Grim Hand-cannon. Clear silhouette on a transparent background. |
+| `icon_weapon_scatter.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Iron Scattergun. Clear silhouette on a transparent background. |
+| `icon_weapon_polaris.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Polaris. Clear silhouette on a transparent background. |
+| `icon_weapon_riftlocker.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Rift Repeater. Clear silhouette on a transparent background. |
 | `icon_weapon_blast.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Blast Bomb. Clear silhouette on a transparent background. |
 | `icon_weapon_haze.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Ember Haze. Clear silhouette on a transparent background. |
 | `icon_weapon_frost.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Frost Haze. Clear silhouette on a transparent background. |
@@ -297,6 +303,8 @@ Knight sheets: 10 columns of 64×64 frames (at 1x): columns 1–2 idle, 3–6 wa
 | `icon_weapon_hex.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Hex Haze. Clear silhouette on a transparent background. |
 | `icon_weapon_shard.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Splinter Bomb. Clear silhouette on a transparent background. |
 | `icon_weapon_vortex.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Vortex Bomb. Clear silhouette on a transparent background. |
+| `icon_weapon_nitro.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Nitro Colossus. Clear silhouette on a transparent background. |
+| `icon_weapon_spark.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Static Flash. Clear silhouette on a transparent background. |
 | `icon_armor_none.png` | 48×48 | 1 | 24, 24 | Unarmored equipment icon. Neutral clothing or armor silhouette on a transparent background. |
 | `icon_armor_scout.png` | 48×48 | 1 | 24, 24 | Scout Armor equipment icon. Neutral clothing or armor silhouette on a transparent background. |
 | `icon_armor_ballistic.png` | 48×48 | 1 | 24, 24 | Ballistic Armor equipment icon. Neutral clothing or armor silhouette on a transparent background. |
@@ -337,6 +345,9 @@ Knight sheets: 10 columns of 64×64 frames (at 1x): columns 1–2 idle, 3–6 wa
 | `weapon_sickle.png` | 64×32 | 1 | 12, 16 | Sanguine Sickle (blade) held in the hand, pointing right; the grip sits at the anchor. Heals you for 30% of the damage it deals. Charge: a long draining lunge. |
 | `weapon_hexblade.png` | 64×32 | 1 | 12, 16 | Hexblade (blade) held in the hand, pointing right; the grip sits at the anchor. Heavy cuts that may curse (35%): no dash and no class ability for a while. Charge: a cursing slam. |
 | `weapon_maul.png` | 64×32 | 1 | 12, 16 | Earthbreaker Maul (blade) held in the hand, pointing right; the grip sits at the anchor. The heaviest weapon: two huge, slow blows that are not interrupted when you are hit; the second shakes the ground around it. Charge: a crater-making slam. |
+| `weapon_avenger.png` | 64×32 | 1 | 12, 16 | Radiant Avenger (blade) held in the hand, pointing right; the grip sits at the anchor. A blessed sword. Charge: a beam of light that pierces every knight down the lane. |
+| `weapon_leviathan.png` | 64×32 | 1 | 12, 16 | Leviathan Edge (blade) held in the hand, pointing right; the grip sits at the anchor. The longest reach of any sword, a little slower. Charge: a long lunge that ends in a crashing burst. |
+| `weapon_troika.png` | 64×32 | 1 | 12, 16 | Iron Troika (blade) held in the hand, pointing right; the grip sits at the anchor. A three-blow heavy chain that is never interrupted when you are hit. Charge: a ground slam. |
 | `weapon_blaster.png` | 64×32 | 1 | 12, 16 | Pulse Blaster (gun) held in the hand, pointing right; the grip sits at the anchor. Reliable three-shot gun. Charge: a big bolt that pierces every knight in its path. |
 | `weapon_pulsar.png` | 64×32 | 1 | 12, 16 | Ripple Caster (gun) held in the hand, pointing right; the grip sits at the anchor. Slow waves that widen as they travel and pass through knights. Charge: one huge wave. |
 | `weapon_alchemer.png` | 64×32 | 1 | 12, 16 | Ricochet Coil (gun) held in the hand, pointing right; the grip sits at the anchor. Bolts that bounce off walls. Charge: four shocking bolts that bounce twice. |
@@ -349,6 +360,9 @@ Knight sheets: 10 columns of 64×64 frames (at 1x): columns 1–2 idle, 3–6 wa
 | `weapon_voltneedle.png` | 64×32 | 1 | 12, 16 | Volt Needle (gun) held in the hand, pointing right; the grip sits at the anchor. Six fast needles that may shock (8%) and arc to a nearby enemy. Charge: a shocking ten-needle stream. |
 | `weapon_viper.png` | 64×32 | 1 | 12, 16 | Viper Spitter (gun) held in the hand, pointing right; the grip sits at the anchor. Rounds that may poison (30%): poisoned knights hit softer and cannot heal. Charge: a fan of five venom bolts. |
 | `weapon_grimcannon.png` | 64×32 | 1 | 12, 16 | Grim Hand-cannon (gun) held in the hand, pointing right; the grip sits at the anchor. Heavy rounds that may curse (30%). Charge: a blast that curses everyone it catches. |
+| `weapon_scatter.png` | 64×32 | 1 | 12, 16 | Iron Scattergun (gun) held in the hand, pointing right; the grip sits at the anchor. Six pellets in a wide fan: brutal up close, useless far away. Charge: a single heavy slug that knocks knights flying. |
+| `weapon_polaris.png` | 64×32 | 1 | 12, 16 | Polaris (gun) held in the hand, pointing right; the grip sits at the anchor. Widening waves that pass through knights and bounce once off walls. Charge: a huge wave that bounces twice. |
+| `weapon_riftlocker.png` | 64×32 | 1 | 12, 16 | Rift Repeater (gun) held in the hand, pointing right; the grip sits at the anchor. Slow violet bolts that pierce every knight in line. Charge: a stream of six piercing bolts. |
 | `weapon_blast.png` | 64×32 | 1 | 12, 16 | Blast Bomb (bomb) held in the hand, pointing right; the grip sits at the anchor. Charges fast. A big knockback blast after a short fuse. |
 | `weapon_haze.png` | 64×32 | 1 | 12, 16 | Ember Haze (bomb) held in the hand, pointing right; the grip sits at the anchor. Leaves a cloud that sets enemies on fire. |
 | `weapon_frost.png` | 64×32 | 1 | 12, 16 | Frost Haze (bomb) held in the hand, pointing right; the grip sits at the anchor. Leaves a cloud that freezes enemies solid. |
@@ -357,6 +371,8 @@ Knight sheets: 10 columns of 64×64 frames (at 1x): columns 1–2 idle, 3–6 wa
 | `weapon_hex.png` | 64×32 | 1 | 12, 16 | Hex Haze (bomb) held in the hand, pointing right; the grip sits at the anchor. Leaves a cloud that curses enemies: no dash and no class ability. |
 | `weapon_shard.png` | 64×32 | 1 | 12, 16 | Splinter Bomb (bomb) held in the hand, pointing right; the grip sits at the anchor. Bursts into eight shards that cut across the point. |
 | `weapon_vortex.png` | 64×32 | 1 | 12, 16 | Vortex Bomb (bomb) held in the hand, pointing right; the grip sits at the anchor. Pulls every enemy in range to its centre and holds them, then blasts them apart. |
+| `weapon_nitro.png` | 64×32 | 1 | 12, 16 | Nitro Colossus (bomb) held in the hand, pointing right; the grip sits at the anchor. A huge bomb: the slowest charge and fuse, the biggest blast in the game. |
+| `weapon_spark.png` | 64×32 | 1 | 12, 16 | Static Flash (bomb) held in the hand, pointing right; the grip sits at the anchor. Charges fast and flashes almost at once: little damage, but a long stun and a shock. |
 
 ## Projectiles
 
@@ -385,6 +401,8 @@ Knight sheets: 10 columns of 64×64 frames (at 1x): columns 1–2 idle, 3–6 wa
 | `bomb_hex.png` | 32×32 | 1 | 16, 24 | Hex Haze planted on the floor, seen from the ¾ camera (the fuse ring is drawn by the game). |
 | `bomb_shard.png` | 32×32 | 1 | 16, 24 | Splinter Bomb planted on the floor, seen from the ¾ camera (the fuse ring is drawn by the game). |
 | `bomb_vortex.png` | 32×32 | 1 | 16, 24 | Vortex Bomb planted on the floor, seen from the ¾ camera (the fuse ring is drawn by the game). |
+| `bomb_nitro.png` | 32×32 | 1 | 16, 24 | Nitro Colossus planted on the floor, seen from the ¾ camera (the fuse ring is drawn by the game). |
+| `bomb_spark.png` | 32×32 | 1 | 16, 24 | Static Flash planted on the floor, seen from the ¾ camera (the fuse ring is drawn by the game). |
 
 ## Effects
 

@@ -649,7 +649,7 @@ function explode(state, bomb) {
   const weapon = WEAPONS[bomb.weapon], owner = state.players[bomb.ownerId];
   emit(state, 'explosion', { playerId: bomb.ownerId, weapon: bomb.weapon, x: bomb.x, y: bomb.y, radius: weapon.cloud ? weapon.cloud.radius : weapon.radius });
   if (weapon.cloud) { state.clouds.push({ id: state.nextId++, ownerId: bomb.ownerId, team: bomb.team, weapon: weapon.id, x: bomb.x, y: bomb.y, radius: weapon.cloud.radius, ticks: weapon.cloud.ticks, total: weapon.cloud.ticks, status: weapon.cloud.status }); return; }
-  if (weapon.radius) radialHit(state, owner, bomb.team, bomb, weapon.radius, weapon.damage * bombPower(owner), { push: weapon.push, stun: weapon.stun ?? 20, kind: 'bomb', damageFamily: 'bomb' });
+  if (weapon.radius) radialHit(state, owner, bomb.team, bomb, weapon.radius, weapon.damage * bombPower(owner), { push: weapon.push, stun: weapon.stun ?? 20, kind: 'bomb', damageFamily: 'bomb', status: weapon.status, chance: weapon.chance });
   if (weapon.shards) {
     const shards = weapon.shards;
     for (let i = 0; i < shards.count; i++) {
@@ -684,7 +684,7 @@ function startCharge(state, player, weapon) {
   }
   const kind = charge.kind;
   if (kind === 'thorns') { fireVolley(state, player, weapon, { ...charge, kind: 'thorn', damage: charge.damage * bladePower(player) }, charge.count, charge.spread, true); Object.assign(player, { action: 'cast', actionTicks: charge.recovery, actionTotal: charge.recovery }); return; }
-  if (kind === 'wave') { spawnShot(state, player, weapon, { ...charge, damage: charge.damage * bladePower(player) }, player.aim); emit(state, 'shot', { playerId: player.id, weapon: weapon.id, charged: true, x: player.x, y: player.y, angle: player.aim }); Object.assign(player, { action: 'cast', actionTicks: charge.recovery, actionTotal: charge.recovery }); return; }
+  if (kind === 'wave' || kind === 'beam') { spawnShot(state, player, weapon, { ...charge, damage: charge.damage * bladePower(player) }, player.aim); emit(state, 'shot', { playerId: player.id, weapon: weapon.id, charged: true, x: player.x, y: player.y, angle: player.aim }); Object.assign(player, { action: 'cast', actionTicks: charge.recovery, actionTotal: charge.recovery }); return; }
   const ticks = kind === 'spin' ? charge.turns * charge.ticksPerTurn : charge.ticks;
   Object.assign(player, { action: kind, actionTicks: ticks + charge.recovery, actionTotal: ticks + charge.recovery, chargeMoveTicks: ticks });
 }
@@ -800,7 +800,8 @@ function tickWeapon(state, player, input, previous) {
   breakCloak(state, player);
   player.clips[weapon.id]--; player.fireCooldown = weapon.interval; player.reloadTicks[weapon.id] = 0; player.sinceShot[weapon.id] = 0;
   // Bloom: shots fired back to back spread wider; a short pause settles the aim again.
-  fireVolley(state, player, weapon, weapon, 1, (weapon.spread || 0) + (player.bloom || 0));
+  // A shotgun fires a fan of pellets; everything else one round.
+  fireVolley(state, player, weapon, weapon, weapon.pellets || 1, (weapon.spread || 0) + (player.bloom || 0));
   player.bloom = Math.min(BLOOM.max, (player.bloom || 0) + (weapon.bloom ?? BLOOM.perShot));
 }
 

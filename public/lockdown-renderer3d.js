@@ -32,7 +32,7 @@ const THEMES = Object.freeze({
   graveyard: { bg: '#0a0a12', sky: '#9a9ab8', ground: '#16141e', floor: ['#4a4e58', '#52566a', '#444852'], grout: '#33363f', wall: '#5c5a6c', wallDark: '#38364a', wallTop: '#7c7a90', trim: '#9a98b0', cliff: '#2c2a38', pit: 'chasm', pitColor: '#1a1428', lamp: '#b8a8ff', style: 'slate' },
   skyway: { exposure: .72, bloom: .98, bg: '#5f8fcc', sky: '#e8f0ff', ground: '#6a84a8', floor: ['#cfc8b6', '#d8d1c0', '#c5bead'], grout: '#b8ae96', wall: '#e8e2d2', wallDark: '#b0a68e', wallTop: '#f6f1e4', trim: '#d8b45a', cliff: '#9a8c74', pit: 'sky', pitColor: '#8ab8ec', lamp: '#fff2c0', style: 'marble' },
 });
-const ELEMENT = Object.freeze({ burn: '#ff7a2a', chill: '#7cc8ff', freeze: '#bfeaff', shock: '#8fe0ff', poison: '#6ee05a', curse: '#b26bff', drain: '#ff4d6d' });
+const ELEMENT = Object.freeze({ holy: '#fff2a0', burn: '#ff7a2a', chill: '#7cc8ff', freeze: '#bfeaff', shock: '#8fe0ff', poison: '#6ee05a', curse: '#b26bff', drain: '#ff4d6d' });
 const STATUS_COLOR = Object.freeze({ burn: '#ff8a3d', poison: '#7bd65a', shock: '#7fc8ff', freeze: '#bfeaff', chill: '#6fb6ff', curse: '#b26bff' });
 const CALLOUTS = Object.freeze({
   counter: ['COUNTER', '#ffb347', 'target'], riposte: ['RIPOSTE', '#ffe680', 'target'], perfectDodge: ['PERFECT', '#9ff0ff', 'player'],

@@ -5178,7 +5178,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Water Striders overlay: ONLY light reed-and-cork sandals with wide flat paddles under the soles, beaded with water drops, nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the feet of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
+  "description": "Stride Boots overlay: ONLY light reed-and-cork sandals with wide flat paddles under the soles, beaded with water drops, nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the feet of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
  },
  {
   "key": "icon_shoes_striders",
@@ -5193,7 +5193,7 @@
    24
   ],
   "frames": 1,
-  "description": "Water Striders equipment icon: light reed-and-cork sandals with wide flat paddles under the soles, beaded with water drops. Clear silhouette on a transparent background."
+  "description": "Stride Boots equipment icon: light reed-and-cork sandals with wide flat paddles under the soles, beaded with water drops. Clear silhouette on a transparent background."
  },
  {
   "key": "gear_shoes_magma",
@@ -5256,7 +5256,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Magma Walkers overlay: ONLY thick black obsidian-soled boots with glowing orange cracks, nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the feet of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
+  "description": "Magma Treads overlay: ONLY thick black obsidian-soled boots with glowing orange cracks, nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the feet of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
  },
  {
   "key": "icon_shoes_magma",
@@ -5271,7 +5271,7 @@
    24
   ],
   "frames": 1,
-  "description": "Magma Walkers equipment icon: thick black obsidian-soled boots with glowing orange cracks. Clear silhouette on a transparent background."
+  "description": "Magma Treads equipment icon: thick black obsidian-soled boots with glowing orange cracks. Clear silhouette on a transparent background."
  },
  {
   "key": "gear_shoes_hover",
@@ -5790,6 +5790,96 @@
   "description": "HUD/lobby icon for the Earthbreaker Maul. Clear silhouette on a transparent background."
  },
  {
+  "key": "weapon_avenger",
+  "file": "weapon_avenger.png",
+  "group": "weapons",
+  "size": [
+   64,
+   32
+  ],
+  "anchor": [
+   12,
+   16
+  ],
+  "frames": 1,
+  "description": "Radiant Avenger (blade) held in the hand, pointing right; the grip sits at the anchor. A blessed sword. Charge: a beam of light that pierces every knight down the lane."
+ },
+ {
+  "key": "icon_weapon_avenger",
+  "file": "icon_weapon_avenger.png",
+  "group": "icons",
+  "size": [
+   48,
+   48
+  ],
+  "anchor": [
+   24,
+   24
+  ],
+  "frames": 1,
+  "description": "HUD/lobby icon for the Radiant Avenger. Clear silhouette on a transparent background."
+ },
+ {
+  "key": "weapon_leviathan",
+  "file": "weapon_leviathan.png",
+  "group": "weapons",
+  "size": [
+   64,
+   32
+  ],
+  "anchor": [
+   12,
+   16
+  ],
+  "frames": 1,
+  "description": "Leviathan Edge (blade) held in the hand, pointing right; the grip sits at the anchor. The longest reach of any sword, a little slower. Charge: a long lunge that ends in a crashing burst."
+ },
+ {
+  "key": "icon_weapon_leviathan",
+  "file": "icon_weapon_leviathan.png",
+  "group": "icons",
+  "size": [
+   48,
+   48
+  ],
+  "anchor": [
+   24,
+   24
+  ],
+  "frames": 1,
+  "description": "HUD/lobby icon for the Leviathan Edge. Clear silhouette on a transparent background."
+ },
+ {
+  "key": "weapon_troika",
+  "file": "weapon_troika.png",
+  "group": "weapons",
+  "size": [
+   64,
+   32
+  ],
+  "anchor": [
+   12,
+   16
+  ],
+  "frames": 1,
+  "description": "Iron Troika (blade) held in the hand, pointing right; the grip sits at the anchor. A three-blow heavy chain that is never interrupted when you are hit. Charge: a ground slam."
+ },
+ {
+  "key": "icon_weapon_troika",
+  "file": "icon_weapon_troika.png",
+  "group": "icons",
+  "size": [
+   48,
+   48
+  ],
+  "anchor": [
+   24,
+   24
+  ],
+  "frames": 1,
+  "description": "HUD/lobby icon for the Iron Troika. Clear silhouette on a transparent background."
+ },
+ {
   "key": "weapon_blaster",
   "file": "weapon_blaster.png",
   "group": "weapons",
@@ -6150,6 +6240,96 @@
   "description": "HUD/lobby icon for the Grim Hand-cannon. Clear silhouette on a transparent background."
  },
  {
+  "key": "weapon_scatter",
+  "file": "weapon_scatter.png",
+  "group": "weapons",
+  "size": [
+   64,
+   32
+  ],
+  "anchor": [
+   12,
+   16
+  ],
+  "frames": 1,
+  "description": "Iron Scattergun (gun) held in the hand, pointing right; the grip sits at the anchor. Six pellets in a wide fan: brutal up close, useless far away. Charge: a single heavy slug that knocks knights flying."
+ },
+ {
+  "key": "icon_weapon_scatter",
+  "file": "icon_weapon_scatter.png",
+  "group": "icons",
+  "size": [
+   48,
+   48
+  ],
+  "anchor": [
+   24,
+   24
+  ],
+  "frames": 1,
+  "description": "HUD/lobby icon for the Iron Scattergun. Clear silhouette on a transparent background."
+ },
+ {
+  "key": "weapon_polaris",
+  "file": "weapon_polaris.png",
+  "group": "weapons",
+  "size": [
+   64,
+   32
+  ],
+  "anchor": [
+   12,
+   16
+  ],
+  "frames": 1,
+  "description": "Polaris (gun) held in the hand, pointing right; the grip sits at the anchor. Widening waves that pass through knights and bounce once off walls. Charge: a huge wave that bounces twice."
+ },
+ {
+  "key": "icon_weapon_polaris",
+  "file": "icon_weapon_polaris.png",
+  "group": "icons",
+  "size": [
+   48,
+   48
+  ],
+  "anchor": [
+   24,
+   24
+  ],
+  "frames": 1,
+  "description": "HUD/lobby icon for the Polaris. Clear silhouette on a transparent background."
+ },
+ {
+  "key": "weapon_riftlocker",
+  "file": "weapon_riftlocker.png",
+  "group": "weapons",
+  "size": [
+   64,
+   32
+  ],
+  "anchor": [
+   12,
+   16
+  ],
+  "frames": 1,
+  "description": "Rift Repeater (gun) held in the hand, pointing right; the grip sits at the anchor. Slow violet bolts that pierce every knight in line. Charge: a stream of six piercing bolts."
+ },
+ {
+  "key": "icon_weapon_riftlocker",
+  "file": "icon_weapon_riftlocker.png",
+  "group": "icons",
+  "size": [
+   48,
+   48
+  ],
+  "anchor": [
+   24,
+   24
+  ],
+  "frames": 1,
+  "description": "HUD/lobby icon for the Rift Repeater. Clear silhouette on a transparent background."
+ },
+ {
   "key": "weapon_blast",
   "file": "weapon_blast.png",
   "group": "weapons",
@@ -6388,6 +6568,66 @@
   ],
   "frames": 1,
   "description": "HUD/lobby icon for the Vortex Bomb. Clear silhouette on a transparent background."
+ },
+ {
+  "key": "weapon_nitro",
+  "file": "weapon_nitro.png",
+  "group": "weapons",
+  "size": [
+   64,
+   32
+  ],
+  "anchor": [
+   12,
+   16
+  ],
+  "frames": 1,
+  "description": "Nitro Colossus (bomb) held in the hand, pointing right; the grip sits at the anchor. A huge bomb: the slowest charge and fuse, the biggest blast in the game."
+ },
+ {
+  "key": "icon_weapon_nitro",
+  "file": "icon_weapon_nitro.png",
+  "group": "icons",
+  "size": [
+   48,
+   48
+  ],
+  "anchor": [
+   24,
+   24
+  ],
+  "frames": 1,
+  "description": "HUD/lobby icon for the Nitro Colossus. Clear silhouette on a transparent background."
+ },
+ {
+  "key": "weapon_spark",
+  "file": "weapon_spark.png",
+  "group": "weapons",
+  "size": [
+   64,
+   32
+  ],
+  "anchor": [
+   12,
+   16
+  ],
+  "frames": 1,
+  "description": "Static Flash (bomb) held in the hand, pointing right; the grip sits at the anchor. Charges fast and flashes almost at once: little damage, but a long stun and a shock."
+ },
+ {
+  "key": "icon_weapon_spark",
+  "file": "icon_weapon_spark.png",
+  "group": "icons",
+  "size": [
+   48,
+   48
+  ],
+  "anchor": [
+   24,
+   24
+  ],
+  "frames": 1,
+  "description": "HUD/lobby icon for the Static Flash. Clear silhouette on a transparent background."
  },
  {
   "key": "proj_bullet",
@@ -6658,6 +6898,36 @@
   ],
   "frames": 1,
   "description": "Vortex Bomb planted on the floor, seen from the ¾ camera (the fuse ring is drawn by the game)."
+ },
+ {
+  "key": "bomb_nitro",
+  "file": "bomb_nitro.png",
+  "group": "bombs",
+  "size": [
+   32,
+   32
+  ],
+  "anchor": [
+   16,
+   24
+  ],
+  "frames": 1,
+  "description": "Nitro Colossus planted on the floor, seen from the ¾ camera (the fuse ring is drawn by the game)."
+ },
+ {
+  "key": "bomb_spark",
+  "file": "bomb_spark.png",
+  "group": "bombs",
+  "size": [
+   32,
+   32
+  ],
+  "anchor": [
+   16,
+   24
+  ],
+  "frames": 1,
+  "description": "Static Flash planted on the floor, seen from the ¾ camera (the fuse ring is drawn by the game)."
  },
  {
   "key": "fx_slash",

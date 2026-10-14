@@ -71,6 +71,21 @@ export const WEAPONS = Object.freeze({
     charge: Object.freeze({ kind: 'slam', distance: 40, ticks: 36, radius: 130, offset: 30, damage: 58, push: 480, stun: 56, recovery: 34 }),
     description: 'The heaviest weapon: two huge, slow blows that are not interrupted when you are hit; the second shakes the ground around it. Charge: a crater-making slam.' }),
 
+  // More Spiral Knights lines. A holy sword that fires light, a long blade and a three-blow heavy.
+  avenger: Object.freeze({ id: 'avenger', family: 'blade', type: 'Holy sword', name: 'Radiant Avenger', chargeTicks: 120, element: 'holy',
+    combo: [step(13, 5, 5, 11, 72, 1.8, 110, 12, 10), step(17, 7, 6, 14, 76, 2.0, 160, 15, 18), step(24, 9, 7, 20, 80, 2.3, 240, 18, 28)],
+    charge: Object.freeze({ kind: 'beam', damage: 26, speed: 820, range: 640, size: 12, push: 140, pierce: true, recovery: 22 }),
+    description: 'A blessed sword. Charge: a beam of light that pierces every knight down the lane.' }),
+  leviathan: Object.freeze({ id: 'leviathan', family: 'blade', type: 'Long sword', name: 'Leviathan Edge', chargeTicks: 120,
+    combo: [step(15, 6, 5, 12, 84, 1.7, 130, 12, 10), step(20, 8, 6, 16, 88, 1.9, 180, 15, 18), step(28, 10, 7, 22, 92, 2.2, 260, 18, 26)],
+    charge: Object.freeze({ kind: 'lungeBurst', distance: 150, ticks: 16, damage: 24, reach: 56, arc: 1.4, push: 200, stun: 16, recovery: 18,
+      burst: Object.freeze({ radius: 84, damage: 22, push: 300 }) }),
+    description: 'The longest reach of any sword, a little slower. Charge: a long lunge that ends in a crashing burst.' }),
+  troika: Object.freeze({ id: 'troika', family: 'blade', type: 'Heavy sword', name: 'Iron Troika', chargeTicks: 144, heavy: true,
+    combo: [step(24, 12, 8, 18, 76, 1.9, 240, 20, 10), step(28, 14, 8, 22, 80, 2.1, 300, 24, 12), step(36, 18, 9, 30, 84, 2.4, 420, 32, 16)],
+    charge: Object.freeze({ kind: 'slam', distance: 60, ticks: 30, radius: 96, offset: 34, damage: 36, push: 360, stun: 36, recovery: 24 }),
+    description: 'A three-blow heavy chain that is never interrupted when you are hit. Charge: a ground slam.' }),
+
   // ---------- guns ----------
   blaster: Object.freeze({ id: 'blaster', family: 'gun', type: 'Blaster', name: 'Pulse Blaster', chargeTicks: 120,
     clip: 3, interval: 16, reload: 54, reloadDelay: 60, damage: 9, speed: 760, range: 620, push: 80, spread: .02, size: 5, kind: 'bullet',
@@ -126,6 +141,20 @@ export const WEAPONS = Object.freeze({
     charge: Object.freeze({ kind: 'explosive', damage: 22, speed: 620, range: 620, push: 260, size: 9, radius: 76, status: 'curse', chance: 1 }),
     description: 'Heavy rounds that may curse (30%). Charge: a blast that curses everyone it catches.' }),
 
+  // A shotgun, a pulsar whose waves bounce, and piercing bolts.
+  scatter: Object.freeze({ id: 'scatter', bloom: .1, family: 'gun', type: 'Shotgun', name: 'Iron Scattergun', chargeTicks: 132,
+    clip: 2, interval: 36, reload: 72, reloadDelay: 70, damage: 5, pellets: 6, speed: 700, range: 300, push: 60, spread: .5, size: 4, kind: 'bullet',
+    charge: Object.freeze({ kind: 'pierce', damage: 30, speed: 760, range: 420, push: 360, size: 10, pierce: false }),
+    description: 'Six pellets in a wide fan: brutal up close, useless far away. Charge: a single heavy slug that knocks knights flying.' }),
+  polaris: Object.freeze({ id: 'polaris', family: 'gun', type: 'Pulsar', name: 'Polaris', chargeTicks: 120,
+    clip: 3, interval: 22, reload: 60, reloadDelay: 60, damage: 8, speed: 380, range: 420, push: 60, spread: 0, size: 8, grow: 12, kind: 'pulse', pierce: true, bounces: 1,
+    charge: Object.freeze({ kind: 'bigPulse', damage: 20, speed: 280, range: 460, push: 140, size: 16, grow: 28, pierce: true, bounces: 2 }),
+    description: 'Widening waves that pass through knights and bounce once off walls. Charge: a huge wave that bounces twice.' }),
+  riftlocker: Object.freeze({ id: 'riftlocker', bloom: .06, family: 'gun', type: 'Rift gun', name: 'Rift Repeater', chargeTicks: 132,
+    clip: 3, interval: 20, reload: 66, reloadDelay: 60, damage: 10, speed: 560, range: 600, push: 40, spread: .015, size: 6, kind: 'bolt', pierce: true,
+    charge: Object.freeze({ kind: 'stream', count: 6, every: 6, damage: 9, speed: 600, range: 620, push: 40, size: 6, spread: .02, pierce: true }),
+    description: 'Slow violet bolts that pierce every knight in line. Charge: a stream of six piercing bolts.' }),
+
   // ---------- bombs ----------
   blast: Object.freeze({ id: 'blast', family: 'bomb', type: 'Blast bomb', name: 'Blast Bomb', chargeTicks: 60, fuse: 72, radius: 100, damage: 30, push: 340, stun: 20,
     description: 'Charges fast. A big knockback blast after a short fuse.' }),
@@ -143,6 +172,10 @@ export const WEAPONS = Object.freeze({
     shards: Object.freeze({ count: 8, damage: 12, speed: 520, range: 230, size: 5, push: 120 }), description: 'Bursts into eight shards that cut across the point.' }),
   vortex: Object.freeze({ id: 'vortex', family: 'bomb', type: 'Vortex bomb', name: 'Vortex Bomb', chargeTicks: 150, fuse: 60, radius: 110, damage: 22, push: 320, stun: 20,
     pull: Object.freeze({ ticks: 180, radius: 150, speed: 260 }), description: 'Pulls every enemy in range to its centre and holds them, then blasts them apart.' }),
+  nitro: Object.freeze({ id: 'nitro', family: 'bomb', type: 'Blast bomb', name: 'Nitro Colossus', chargeTicks: 180, fuse: 96, radius: 150, damage: 46, push: 460, stun: 30,
+    description: 'A huge bomb: the slowest charge and fuse, the biggest blast in the game.' }),
+  spark: Object.freeze({ id: 'spark', family: 'bomb', type: 'Flash bomb', name: 'Static Flash', chargeTicks: 70, element: 'shock', fuse: 36, radius: 90, damage: 12, push: 120, stun: 48, status: 'shock', chance: 1,
+    description: 'Charges fast and flashes almost at once: little damage, but a long stun and a shock.' }),
 });
 export const WEAPON_IDS = Object.freeze(Object.keys(WEAPONS));
 
@@ -181,6 +214,14 @@ export const WEAPON_NOTES = Object.freeze({
   hex: note(1, ['Curse cloud: no dash or class ability'], ['No direct damage']),
   shard: note(2, ['Eight shards cut across a point'], ['Shards spread out at range']),
   vortex: note(2, ['Pulls enemies in and holds them, then blasts', 'Sets up big combos'], ['Slow charge']),
+  avenger: note(2, ['Steady three-cut combo', 'Charge: a piercing beam of light down a whole lane'], ['Beam recovery leaves you open']),
+  leviathan: note(2, ['Longest sword reach', 'Charge: long lunge into a crashing burst'], ['Slightly slower cuts']),
+  troika: note(3, ['Three huge blows, never interrupted when hit', 'Charge: ground slam'], ['Very slow wind-ups', 'A whiff leaves you wide open']),
+  scatter: note(2, ['Six pellets: huge damage point blank', 'Charge: a slug that knocks knights flying'], ['Almost no damage at range', 'Two-shell clip']),
+  polaris: note(2, ['Waves pierce knights and bounce off walls'], ['Low damage per wave', 'Bank shots take practice']),
+  riftlocker: note(2, ['Bolts pierce every knight in line', 'Charge: six piercing bolts'], ['Slow bolts are easy to dodge']),
+  nitro: note(2, ['The biggest blast and knockback in the game'], ['Slowest charge and fuse: easy to see and avoid']),
+  spark: note(1, ['Fast charge, near-instant flash', 'Long stun and a shock'], ['Little damage']),
 });
 
 /** Status effects. Shields block them; a hit breaks freeze early. Chill stacks: each chilling
