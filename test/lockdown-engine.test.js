@@ -825,3 +825,28 @@ test('sweep, close in, swap, follow up: a sweeping cut leaves the target reeling
   run(shake.state, 1, () => ({ 4: { dash: true, left: true } }));
   assert.equal(shake.foe.reelTicks, 0);
 });
+
+test('sweep them out of reach, switch to the gun, shoot: every shot lands harder while they reel, and they are slowed', () => {
+  const { state, me, foe } = duel({ gap: 50, a: { cls: 'recon', weapons: ['thorn', 'blaster', null, null] } });
+  run(state, 1, () => ({ 0: { attack: true } }));
+  let waited = 0; while (!foe.reelTicks && waited++ < 60) run(state, 1);
+  run(state, BLADE.hitStop + 1);
+  run(state, 1, () => ({ 0: { slot2: true } }));
+  assert.equal(me.slot, 1, 'the swap cancels the sweep');
+  // Reeling slows them down.
+  const before = foe.x;
+  run(state, 12, () => ({ 4: { left: true } }));
+  const reelingStep = before - foe.x;
+  // Shoot twice while they reel.
+  run(state, BLADE.swapLag + 1);
+  run(state, 40, t => ({ 0: { attack: t === 0 || t === 30, aim: Math.atan2(foe.y - me.y, foe.x - me.x) } }));
+  const shots = events(state, 'damage').filter(event => event.targetId === 4 && event.kind !== 'blade');
+  assert.ok(shots.length >= 2, 'both shots land');
+  assert.equal(events(state, 'followUp').filter(event => event.gun).length, 1, 'one follow-up callout');
+  assert.ok(foe.reelTicks > 0, 'shooting does not use the reel up');
+  for (const shot of shots) assert.ok(Math.abs(shot.amount - Math.round(WEAPONS.blaster.damage * L.FIGHT.reel.gun)) <= 1, 'each shot lands harder');
+  // Once the reel wears off they walk at full speed again.
+  run(state, L.FIGHT.reel.ticks);
+  const free = foe.x; run(state, 12, () => ({ 4: { left: true } }));
+  assert.ok(reelingStep < (free - foe.x) * .75, 'reeling knights are slowed');
+});

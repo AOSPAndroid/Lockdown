@@ -24,7 +24,7 @@ const step = (damage, startup, active, recovery, reach, arc, push, stun, lunge) 
 export const CUTS = Object.freeze({
   precise: Object.freeze({ arc: .55, damage: 1.2, push: .8, label: 'Precise', note: 'narrow cut that hits hard: aim it' }),
   balanced: Object.freeze({ arc: .75, damage: 1.1, push: 1, label: 'Balanced', note: 'medium cut, medium damage' }),
-  sweeping: Object.freeze({ arc: 1, damage: .9, push: 3, reel: true, label: 'Sweeping', note: 'wide cut that hits lighter but knocks the enemy back reeling: close in and follow up with another weapon' }),
+  sweeping: Object.freeze({ arc: 1, damage: .9, push: 3, reel: true, label: 'Sweeping', note: 'wide cut that hits lighter but knocks the enemy back reeling: follow up with a heavy sword, or switch to a gun and shoot them out of reach' }),
   thrust: Object.freeze({ arc: 1, damage: 1, push: 1, label: 'Thrust', note: 'a straight, narrow line with a sweet spot at the tip' }),
 });
 const cuts = (cut, ...steps) => Object.freeze(steps.map(move => Object.freeze({ ...move, arc: Math.round(move.arc * CUTS[cut].arc * 100) / 100, damage: Math.round(move.damage * CUTS[cut].damage), push: Math.round(move.push * CUTS[cut].push) })));
@@ -288,8 +288,9 @@ export const BLADE = Object.freeze({ comboCancel: .4, comboWindow: 36, hitStop: 
  * - counter: hitting a knight while they wind up, recover from a charge move or hold a half-full charge
  *   lands harder and stuns longer.
  * - punish: hitting a knight still recovering from a whiffed cut lands harder still.
- * - reel: a sweeping cut knocks the target back reeling; a different weapon catching them meanwhile (boost in,
- *   swap to a heavy sword) is a follow-up that hits harder. A dash shakes the reel off.
+ * - reel: a sweeping cut knocks the target back reeling and slows them; a different weapon catching them
+ *   meanwhile is a follow-up that hits harder: boost in and swap to a heavy sword, or swap to a gun and shoot
+ *   them while they are out of reach. A dash shakes the reel off.
  * - perfect: dodging an attack at the right moment (dash or Boost press) refunds part of the dash cooldown and
  *   makes your next hit within the window a riposte that lands harder.
  * - stagger: stun builds a stagger load that drains over time; past the limit the knight turns steady for a
@@ -298,9 +299,10 @@ export const BLADE = Object.freeze({ comboCancel: .4, comboWindow: 36, hitStop: 
 export const FIGHT = Object.freeze({
   counter: Object.freeze({ damage: 1.25, stun: 1.5 }),
   punish: Object.freeze({ damage: 1.5, stun: 2 }),
-  // Reel: a sweeping cut knocks the target back reeling. The first hit on them with a different weapon before
-  // it wears off is a follow-up that lands harder (harder still with a heavy weapon). Dashing shakes it off.
-  reel: Object.freeze({ ticks: 90, followUp: 1.3, heavy: 1.5 }),
+  // Reel: a sweeping cut knocks the target back reeling and slows them. The first hit on them with a different
+  // sword before it wears off is a follow-up that lands harder (harder still with a heavy one); a gun's shots
+  // all land harder while it lasts (knock them out of reach, switch to the gun, shoot). A dash shakes it off.
+  reel: Object.freeze({ ticks: 90, followUp: 1.3, heavy: 1.5, gun: 1.25, slow: .6 }),
   perfect: Object.freeze({ window: 90, damage: 1.3, dashRefund: .6 }),
   stagger: Object.freeze({ limit: 54, drainPerTick: .4, steadyTicks: 72 }),
   clash: Object.freeze({ push: 240, stun: 12, hitStop: 6 }),

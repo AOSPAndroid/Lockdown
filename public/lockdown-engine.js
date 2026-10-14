@@ -536,10 +536,13 @@ function damage(state, attacker, target, amount, { push = 0, angle = 0, stun = 1
     emit(state, 'riposte', { playerId: attacker.id, targetId: target.id, x: target.x, y: target.y });
   }
   // Follow-up: a different weapon catching a knight that a sweeping cut left reeling.
+  // A sword follow-up uses the reel up; a gun's shots all land harder while it lasts.
   if (direct && target.reelTicks > 0 && weapon && weapon !== target.reelWeapon) {
-    const heavy = !!WEAPONS[weapon]?.heavy;
-    total *= heavy ? FIGHT.reel.heavy : FIGHT.reel.followUp; target.reelTicks = 0;
-    emit(state, 'followUp', { playerId: attacker.id, targetId: target.id, weapon, heavy, x: target.x, y: target.y });
+    const gun = WEAPONS[weapon]?.family === 'gun', heavy = !!WEAPONS[weapon]?.heavy;
+    total *= gun ? FIGHT.reel.gun : heavy ? FIGHT.reel.heavy : FIGHT.reel.followUp;
+    if (!gun) target.reelTicks = 0;
+    if (!gun || !target.reelShot) emit(state, 'followUp', { playerId: attacker.id, targetId: target.id, weapon, heavy, gun, x: target.x, y: target.y });
+    if (gun) target.reelShot = true;
   }
   total = Math.max(1, Math.round(total));
   // Heavy weapons are unflinching mid-swing, and so is every charge move: a hit hurts but neither
@@ -553,7 +556,7 @@ function damage(state, attacker, target, amount, { push = 0, angle = 0, stun = 1
     if (target.stagger >= FIGHT.stagger.limit) { target.stagger = 0; target.steadyTicks = stun + FIGHT.stagger.steadyTicks; emit(state, 'steady', { playerId: target.id, x: target.x, y: target.y }); }
   }
   target.hp -= total; target.stunTicks = Math.max(target.stunTicks, stun);
-  if (reel && !unflinching && target.hp > 0) { target.reelTicks = FIGHT.reel.ticks; target.reelWeapon = weapon; emit(state, 'reel', { playerId: attacker?.id ?? null, targetId: target.id, x: target.x, y: target.y }); }
+  if (reel && !unflinching && target.hp > 0) { target.reelTicks = FIGHT.reel.ticks; target.reelWeapon = weapon; target.reelShot = false; emit(state, 'reel', { playerId: attacker?.id ?? null, targetId: target.id, x: target.x, y: target.y }); }
   if (stun > 0) interrupt(state, target, 'hit');
   const shove = push * outfitOf(target).knockback;
   target.pushX = Math.cos(angle) * shove; target.pushY = Math.sin(angle) * shove; target.lastHurtTick = state.tick;
@@ -952,9 +955,10 @@ function moveScale(player, weapon) {
   if (player.action === 'spin') return weapon.charge.speed;
   if (player.guarding) return GUARD.speed;
   if (player.charging) return weapon.family === 'bomb' ? .55 : .7;
-  if (player.fireCooldown > 0 && weapon.family === 'gun') return .45;
-  return 1;
+  if (player.fireCooldown > 0 && weapon.family === 'gun') return .45 * reelSlow(player);
+  return reelSlow(player);
 }
+const reelSlow = player => player.reelTicks > 0 ? FIGHT.reel.slow : 1;
 
 function tickPlayer(state, player, input) {
   if (player.alive && state.phase === 'fight' && player.hp < player.maxHp && inBase(state, player)) heal(player, RULES.baseHealPerSecond / TICK_RATE);
@@ -1302,8 +1306,11 @@ function botInput(state, bot) {
       // Swords: cut only when the target is in reach (whiffs are punished), and jump on a committed enemy.
       const reach = weapon.combo[bot.comboStep]?.reach ?? weapon.combo[0].reach, inReach = d <= reach + RULES.radius + 6;
       brain.pulse = (brain.pulse + 1) % 14;
-      // A target left reeling: switch to another sword (a heavy one first) for the follow-up.
-      const followWith = target.reelTicks > 0 && target.reelWeapon === weapon.id ? [...bot.weapons.keys()].filter(i => i !== bot.slot && WEAPONS[bot.weapons[i]]?.family === 'blade').sort((a, b) => !!WEAPONS[bot.weapons[b]].heavy - !!WEAPONS[bot.weapons[a]].heavy)[0] : undefined;
+      // A target left reeling: follow up with another weapon. Knocked out of reach, the gun; still close, the
+      // heaviest other sword.
+      const others = family => [...bot.weapons.keys()].filter(i => i !== bot.slot && WEAPONS[bot.weapons[i]]?.family === family);
+      const followWith = target.reelTicks > 0 && target.reelWeapon === weapon.id
+        ? (d > reach + RULES.radius + 20 ? others('gun')[0] : undefined) ?? others('blade').sort((a, b) => !!WEAPONS[bot.weapons[b]].heavy - !!WEAPONS[bot.weapons[a]].heavy)[0] : undefined;
       if (followWith !== undefined && random(state) < brain.skill) input[`slot${followWith + 1}`] = !bot.previousInput[`slot${followWith + 1}`];
       // Press to start a cut, then again only once it lands (mashing would break the combo).
       if (bot.action === 'swing') input.attack = bot.hitIds.length > 0 && !bot.whiffed && !bot.previousInput.attack;
