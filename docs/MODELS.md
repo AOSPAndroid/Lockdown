@@ -10,12 +10,12 @@ All models are binary glTF (`.glb`) under `public/art/3d/models/`:
 
 | Folder | Files | What |
 |---|---|---|
-| `knight/` | `body.glb` | the knight body every class wears: the rig, the dark under-suit, the gauntlets and the dark head with two glowing eyes (no skin, hair or face) |
-| `class/` | `striker.glb`, `guardian.glb`, `recon.glb` | class pieces (crest, Guardian shield, scarf) |
-| `helmet/` | `<id>.glb` | one per helmet, including `none.glb` (the Recruit Helm) |
-| `armor/` | `<id>.glb` | one per armour, including `none.glb` (the Recruit Plate) |
-| `pants/` | `<id>.glb` | one per pants piece, including `none.glb` (the Recruit Greaves) |
-| `shoes/` | `<id>.glb` | one per pair of shoes, including `none.glb` (the Recruit Boots) |
+| `knight/` | `body.glb` | the knight body every class wears: the rig and the base outfit (T-shirt, shorts, shoes, face, bald scalp) |
+| `class/` | `guardian.glb`, `recon.glb` | class pieces: the Guardian's big shield, the Recon's tiny cloaking shield (the Striker's neon trail is drawn by the game) |
+| `helmet/` | `<id>.glb` | one per helmet, including `none.glb` (the hair) |
+| `armor/` | `<id>.glb` | one per armour (not `none`) |
+| `pants/` | `<id>.glb` | one per pants piece (not `none`) |
+| `shoes/` | `<id>.glb` | one per pair of shoes (not `none`) |
 | `weapons/` | `<id>.glb` | every sword, gun and bomb as held in the hand |
 | `bombs/` | `<id>.glb` | every bomb as planted on the floor |
 
@@ -64,15 +64,14 @@ the part's pivot, sized to fit over the body.
 
 | Slot | Top-level nodes |
 |---|---|
-| helmet | `head` |
+| helmet (and the hair, `none`) | `head` |
 | armor | `chest`; optional `arm_L`, `arm_R` (sleeves, pauldrons), `hips` (coat tails, skirt plates) |
 | pants | `hips`, `leg_L`, `leg_R` |
 | shoes | `foot_L`, `foot_R` |
-| class pieces | `head` (crest), `chest` (scarf, chevrons), `arm_L` and `arm_R` (the Guardian's big pauldrons; its shield on `arm_L`) |
+| class pieces | `arm_L` (the Guardian's big shield, the Recon's tiny shield) |
 
-Gear goes over the body's dark under-suit. A knight always wears one piece per slot (the Recruit set to
-start), so the under-suit only shows in the gaps. Every helmet is a shell over the body's dark head with a
-visor opening that lets its two glowing eyes show. Make pieces slightly larger than what they cover so nothing pokes through
+Gear goes over the body's base outfit: a helmet covers the bald scalp, armour covers the T-shirt, pants
+the shorts, shoes the base shoes. Make pieces slightly larger than what they cover so nothing pokes through
 in any pose (legs swing ±40°, arms ±35°, the right arm turns up to ±80° across a swing).
 
 ## Weapons and bombs
@@ -91,8 +90,10 @@ in any pose (legs swing ±40°, arms ±35°, the right arm turns up to ±80° ac
   to the knight's team: Amber `#e39a3b` or Cyan `#3bb8c4`. Use it only for trims, bands and crests.
 - **Glow:** give glowing parts (gems, cores, lenses, runes) an emissive colour; the game's bloom makes them
   glow. Keep glow to small accents.
-- One texture set per model at most (1024² or smaller), embedded in the `.glb`. Flat colours with soft
-  vertex shading are fine and often better at this camera distance.
+- **One hand-painted albedo texture per model** (512² to 1024², embedded in the `.glb`): painted gradients,
+  edge highlights, seams, panel lines and rivets, in the Spiral Knights style. Untextured flat colours are not
+  enough. A normal map is optional. Keep small glowing parts as separate emissive materials. If a part should
+  flare in game (the Recon's cloak lens), name its material with `lens` in it.
 - No baked lighting, no team colour in textures, no text.
 
 ## Budgets

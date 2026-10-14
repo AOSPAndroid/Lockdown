@@ -227,7 +227,7 @@ test('helmet, armor, pants and shoes stack: resistances and health add, speed an
   assert.ok(Math.abs(build.gunResistance - (HELMETS.sallet.gunResistance + ARMORS.heavy.gunResistance + PANTS.greaves.gunResistance + SHOES.sabatons.gunResistance)) < 1e-9);
   assert.ok(Math.abs(build.speedMultiplier - Math.max(GEAR_LIMITS.speed[0], HELMETS.sallet.speedMultiplier * ARMORS.heavy.speedMultiplier * PANTS.greaves.speedMultiplier * SHOES.sabatons.speedMultiplier)) < 1e-3);
   assert.equal(build.name, `${HELMETS.sallet.name} + ${ARMORS.heavy.name} + ${PANTS.greaves.name} + ${SHOES.sabatons.name}`);
-  assert.equal(combineGear({}).name, 'Recruit set');
+  assert.equal(combineGear({}).name, 'Unarmored');
   assert.equal(combineGear({ helmet: 'bucket', armor: 'juggernaut' }).maxHp, HELMETS.bucket.maxHp + ARMORS.juggernaut.maxHp);
   // Every one of the thousands of builds stays inside the limits.
   for (const helmet of Object.keys(HELMETS)) for (const armor of ARMOR_IDS) for (const pants of Object.keys(PANTS)) for (const shoes of Object.keys(SHOES)) {

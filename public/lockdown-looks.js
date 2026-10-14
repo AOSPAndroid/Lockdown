@@ -6,25 +6,25 @@
  * designs only. Team colour is never part of an item: where an item has a "team" trim, that trim is
  * made with a material named `team` and the game paints it Amber or Cyan. */
 
-export const BODY_LOOK = 'A Spiral Knights-style knight, 1.3 units tall, always armoured: no skin, no hair, no human face ever shows. The body is the mannequin under the gear: a dark charcoal-navy padded under-suit (seen only in the gaps at the neck, elbows, waist and knees), big round armoured mitten gauntlets, and a head that is a dark void sphere with two small glowing pale eye-lights (soft white-blue, emissive). Every helmet is a shell over that head with a visor opening, so the same two glowing eyes look out of every helmet. Proportions: the helmet is about 45% of the height and wider than the shoulders; a short barrel torso; short stubby legs; chunky feet. Arms and legs are separate rigid parts so the game can swing them.';
+export const BODY_LOOK = 'The starting knight, before any gear: a chibi figure 1.3 units tall in the Spiral Knights style. A very big round head (about 45% of the height) on a small body with short, thick limbs, big round mitten hands and big chunky feet. Underneath every outfit: a cream T-shirt with a `team` trim at the collar and hem, charcoal shorts, chunky dark shoes and a smooth bald scalp (hair is the "bare head" helmet piece, so helmets never fight with hair). The face is simple and stylised, not anime: two big glossy dark eyes with a bright catch-light, no blush, no mouth or a tiny one. Painted like Spiral Knights: soft hand-painted gradients on cloth, folds and seams painted in, a light rim on top of every form. Arms and legs are separate rigid parts so the game can swing them.';
 
 export const CLASS_LOOKS = Object.freeze({
-  striker: 'Lean and fast. A swept-back fin crest on the helmet in `team` colour, small gold go-faster chevrons on the shoulders. While Boost is held the game adds a gold speed streak behind the knight.',
-  guardian: 'Broad and steady. Huge rounded bronze pauldrons, nearly as big as the helmet, with a `team` rim (on `arm_L` and `arm_R`, worn over any armour: the Guardian\'s mark), a round crest knob on the helmet in `team` colour and a round riveted bronze shield on the left arm. The shield bubble and dome are drawn by the game.',
-  recon: 'Slim and sly. A short pointed hood-tip crest in `team` colour and a dark scarf. Cloaked, the knight turns translucent (drawn by the game).',
+  striker: 'No piece to model: the Striker is marked by a thin neon line in `team` colour that the game draws trailing behind the knight as it moves (longer and brighter while Boost is held).',
+  guardian: 'A big shield on the left arm, worn over any armour: a tall rounded heater shield about as tall as the knight\'s body (≈ 0.7 high, 0.55 wide), bronze and steel with a thick riveted rim, a bold embossed emblem in the middle and a `team` band round the edge. The shield bubble and dome are drawn by the game.',
+  recon: 'A tiny round shield on the left forearm (≈ 0.22 across): a small steel buckler with a glowing violet lens in the middle, the cloaking device. Give the lens an emissive material; the game makes it flare when the Recon cloaks and turns the knight translucent.',
 });
 
 export const HELMET_LOOKS = Object.freeze({
-  none: 'Recruit Helm (everyone starts in it): a big round polished-steel dome helm, wider than the shoulders, with a wide dark T-shaped visor opening where the two glowing eyes show, a raised ridge from brow to nape, a `team` band round the brow and a few big rivets. The plain, friendly starter look of the game.',
+  none: 'Bare head: chunky sculpted hair in a few big glossy clumps (Spiral Knights costume-helm style, not strands), warm brown with painted highlights and a cowlick, sitting on the body\'s bald scalp, with a thin `team` hairband.',
   sallet: 'A rounded steel sallet with a narrow eye slit and a short swept tail at the back; polished, a little battered, a thin `team` band round the brow.',
-  visor: 'A slim dark tactical visor wrapping the eyes with a glowing cyan lens and a small brass earpiece; worn on a dark padded skullcap that covers the whole head.',
+  visor: 'A slim dark tactical visor wrapping the eyes with a glowing cyan lens and a small brass earpiece; the top of the head stays bare.',
   horned: 'A dented iron cap with two big curved bone horns sweeping forward and up; leather chin strap.',
   hood: 'A deep charcoal-violet cloth hood that shadows the face; two eyes glow faintly violet inside; little rune stitches on the hem.',
   lampcap: 'A sooty leather miner\'s cap with a big brass lamp on the front (warm yellow glow) and a fuse cord wrapped round it.',
   feather: 'A jaunty green felt cap tipped to one side with a long red feather sweeping back.',
   bucket: 'A dented metal bucket worn upside down as a helm, two eye holes punched in it and the handle hanging at the side.',
-  circlet: 'A thin gold circlet with a small green gem on the forehead, over a dark padded coif that covers the head; the two glowing eyes look out from the shadow under it.',
-  goggles: 'Brass aviator goggles with round amber lenses pushed up on a padded leather aviator cap that covers the whole head; a tiny ticking cog at the temple.',
+  circlet: 'A thin gold circlet with a small green gem on the forehead, over the loose hair.',
+  goggles: 'Brass aviator goggles with round amber lenses pushed up on a leather strap over a bare head; a tiny ticking cog at the temple.',
   cobalt: 'A deep-blue cobalt great helm, rounded and heavy, with a T-shaped visor slit, silver rivets and a short blue plume.',
   wolver: 'A grey wolf-pelt cowl: the wolf\'s head sits on top with its ears up and its fangs over the brow; fur falls to the shoulders.',
   demo: 'A blast-scarred black demolition helm with an orange-glowing visor grille, soot streaks and a little smoking chimney on top.',
@@ -32,26 +32,26 @@ export const HELMET_LOOKS = Object.freeze({
 });
 
 export const ARMOR_LOOKS = Object.freeze({
-  none: 'Recruit Plate (everyone starts in it): a plain polished-steel cuirass with a rounded barrel chest, two small round steel pauldrons, a `team` stripe down the middle of the chest and a dark leather belt with a brass buckle.',
+  none: 'No armour: the cream T-shirt.',
   scout: 'Light tan leather jerkin with a brown belt, small shoulder guards and a canteen at the hip; quick and practical.',
   ballistic: 'Chunky grey-green padded plates over the chest and shoulders with a high collar, like a bomb-disposal vest; bullet scuffs.',
   duelist: 'A fitted burgundy brigandine with diagonal steel bands, one large left pauldron and a high collar; elegant and sharp.',
   heavy: 'Thick steel plate: a domed breastplate, big rounded pauldrons and a skirt of plates; dents and rivets everywhere.',
   gunslinger: 'A long brown riding duster with a bandolier of brass cartridges across the chest and a wide collar; the coat tails flap behind.',
   fencer: 'A white padded fencing jacket buttoned on one side with a red heart patch on the chest; a slim, light silhouette.',
-  windrunner: 'Flowing pale-turquoise silk wraps and sashes that trail behind like ribbons over a dark under-suit, with wrapped steel-capped forearms.',
+  windrunner: 'Flowing pale-turquoise silk wraps and sashes that trail behind like ribbons; bare arms with wrapped forearms.',
   juggernaut: 'A huge riveted dark-iron siege plate: a barrel chest, enormous shoulder plates with spikes and a grille on the chest; the knight looks twice as wide.',
-  bombardier: 'A scorched brown leather apron over a soot-grey padded gambeson, a belt of fused bombs and a coil of fuse cord on the shoulder.',
-  berserker: 'Dark iron bracers and a studded leather harness painted with red war stripes, a wolf pelt over the shoulders with the head on the back; a bone necklace.',
+  bombardier: 'A scorched brown leather apron over a soot-grey shirt, a belt of fused bombs and a coil of fuse cord on the shoulder.',
+  berserker: 'Bare arms painted with red war stripes and a wolf pelt over the shoulders with the head on the back; a bone necklace.',
   mirrorweave: 'A shimmering cloak of mirror scales that catches the light (pearly blue-violet sheen) over a dark tunic.',
   medic: 'A white field coat with a red cross armband, a satchel of salves across the body and green glass vials at the belt.',
-  clockwork: 'A ticking brass harness over a dark padded gambeson: exposed gears on the chest that turn, a winding key on the back and copper pipes on the shoulders.',
+  clockwork: 'A ticking brass harness over a dark shirt: exposed gears on the chest that turn, a winding key on the back and copper pipes on the shoulders.',
   cobalt: 'Deep-blue cobalt mail: a smooth blue breastplate with silver trim and a star emblem, rounded blue pauldrons and a short blue tabard.',
   vog: 'A shaggy orange-and-black fur coat made from a volcanic bear cub: ember-glowing tips on the fur, small horns on the shoulders and a fur hood down the back.',
 });
 
 export const PANTS_LOOKS = Object.freeze({
-  none: 'Recruit Greaves (everyone starts in them): a short skirt of three steel tassets over the hips and plain rounded steel shin plates over the dark under-suit.',
+  none: 'No pants piece: the charcoal shorts.',
   greaves: 'Steel knee greaves and shin plates over dark trousers.',
   leggings: 'Tight dark-blue running leggings with a light stripe down the side.',
   chausses: 'Grey chainmail chausses (a clear ring texture) to the ankle.',
@@ -66,8 +66,8 @@ export const PANTS_LOOKS = Object.freeze({
 });
 
 export const SHOE_LOOKS = Object.freeze({
-  none: 'Recruit Boots (everyone starts in them): plain rounded steel sabatons with a thick dark sole, chunky and toy-like.',
-  sneakers: 'Light padded runner boots in white canvas over steel toe caps, with a bright sole stripe.',
+  none: 'Plain dark shoes.',
+  sneakers: 'White running sneakers with a bright sole stripe.',
   sabatons: 'Chunky segmented iron sabatons with pointed toes.',
   dashboots: 'Sleek blue boots with small silver wings at the ankles.',
   spurs: 'Brown riding boots with gold rowel spurs at the heel.',
