@@ -9,12 +9,19 @@ fortresses floating in the void, grand stairs to a second floor, glowing lamps a
 
 ## Play
 
+**On Windows:** install [Node.js](https://nodejs.org) 20 or newer once. Download this repository (on GitHub:
+**Code → Download ZIP**, then extract it, or `git clone`), and double-click **`start-windows.bat`**. The
+first run installs the one dependency, then the game opens in your browser at <http://localhost:3000>.
+Close the window to stop it. To get the latest version later, download it again or run `git pull`.
+
+**Anywhere else:**
+
 ```
 npm install
 npm start
 ```
 
-Open <http://localhost:3000>. **Play solo** starts a practice match against seven bots. **Dojo** opens a
+Then open <http://localhost:3000>. **Play solo** starts a practice match against seven bots. **Dojo** opens a
 training hall with dummies and a damage meter, where **B** changes class, gear and weapons anywhere: the
 place to try every weapon and charge attack. **Create room**
 opens an online room (up to eight people, Amber vs Cyan); share the link or the six-letter code with
