@@ -232,6 +232,8 @@ function arcGeometry(inner, outer, from, to, segments = 24) {
   return geometry;
 }
 const SIDES = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+/** The rig parts each gear slot covers (see docs/MODELS.md). */
+const GEAR_PARTS = Object.freeze({ helmet: ['head'], armor: ['chest', 'arm_L', 'arm_R'], pants: ['hips', 'leg_L', 'leg_R'], shoes: ['foot_L', 'foot_R'] });
 
 export class Lockdown3DRenderer {
   constructor(overlayCanvas, assets, overlay2d) {
@@ -615,12 +617,14 @@ export class Lockdown3DRenderer {
     else ({ rig, parts } = this.temporaryBody(player, team));
     body.add(rig);
     const temporary = !bodyModel;
-    // Gear: a model per piece adds its meshes to the parts it names; without one the temporary
-    // knight shows the piece as colour and simple shapes.
+    // Gear: a model per piece adds its meshes to the parts it names (the starter Recruit set is the
+    // `none` piece of each slot). Without one, the piece shows as colour and simple shapes: on the
+    // temporary knight, or as a tinted shell over the body model's own parts.
     for (const slot of ['helmet', 'armor', 'pants', 'shoes']) {
-      const id = player[slot] || 'none', model = id !== 'none' || slot === 'helmet' ? this.models.instance(`${slot}/${id}.glb`, team) : null;
+      const id = player[slot] || 'none', model = this.models.instance(`${slot}/${id}.glb`, team);
       if (model) this.attachGear(model, parts, temporary);
       else if (temporary) this.temporaryGear(slot, id, player, team, parts);
+      else this.shellGear(slot, id, parts);
     }
     // Class pieces (Striker fin, Guardian shield, Recon hood tip) attach like gear.
     const classModel = this.models.instance(`class/${player.cls}.glb`, team);
@@ -654,10 +658,26 @@ export class Lockdown3DRenderer {
       const part = parts[child.name.replace(/\.\d+$/, '')];
       // Models are made at final size; the temporary rig is scaled up as a whole, so undo that.
       if (temporary) { child.position.divideScalar(KNIGHT_SCALE); child.scale.divideScalar(KNIGHT_SCALE); }
+      child.userData.gear = true;
       if (part) part.add(child); else console.warn(`gear node "${child.name}" names no rig part`);
     }
   }
-  /** The temporary knight: chunky chibi proportions from simple shapes, built on the same named rig. */
+  /** Gear with no model yet, on a body model: a tinted, slightly larger copy of the body's own shapes on
+   * the parts that piece covers, so every choice still shows while models arrive one by one. */
+  shellGear(slot, id, parts) {
+    const material = new THREE.MeshStandardMaterial({ color: this.armorColour(id), roughness: .35, metalness: .6 });
+    for (const name of GEAR_PARTS[slot]) {
+      const part = parts[name]; if (!part) continue;
+      for (const child of [...part.children]) {
+        if (RIG_PARTS.includes(child.name.replace(/\.\d+$/, '')) || child.userData.gear) continue;
+        const shell = child.clone(); shell.userData.gear = true;
+        shell.traverse(node => { if (node.isMesh) node.material = material; });
+        shell.scale.multiplyScalar(slot === 'helmet' ? 1.14 : 1.1); part.add(shell);
+      }
+    }
+  }
+  /** The temporary knight: Spiral Knights proportions from simple shapes, built on the same named rig.
+   * A dark under-suit and a dark head with two glowing eyes; gear (the Recruit set to start) goes on top. */
   temporaryBody(player, team) {
     const std = (c, extra = {}) => new THREE.MeshStandardMaterial({ color: c, roughness: .55, metalness: .1, ...extra });
     const rig = new THREE.Group(); rig.scale.setScalar(KNIGHT_SCALE);
@@ -666,15 +686,15 @@ export class Lockdown3DRenderer {
     const legL = node('leg_L', hips, 0, 0, -.1), legR = node('leg_R', hips, 0, 0, .1), footL = node('foot_L', legL, 0, -.18, 0), footR = node('foot_R', legR, 0, -.18, 0);
     const armL = node('arm_L', chest, .02, .2, -.25), armR = node('arm_R', chest, .05, .1, .24), handL = node('hand_L', armL, 0, -.14, 0), handR = node('hand_R', armR, .18, 0, 0);
     const parts = { hips, chest, head, leg_L: legL, leg_R: legR, foot_L: footL, foot_R: footR, arm_L: armL, arm_R: armR, hand_L: handL, hand_R: handR };
-    const skin = std('#f3cfae', { roughness: .75 }), shirt = std('#efe6d2', { roughness: .8 }), shorts = std('#3a3a42', { roughness: .8 });
+    const suit = std('#2b2f3a', { roughness: .8 }), skin = suit, shirt = suit, shorts = suit;
     const mesh = (geometry, material, parent, x = 0, y = 0, z = 0) => { const m = new THREE.Mesh(geometry, material); m.position.set(x, y, z); parent.add(m); return m; };
-    // T-shirt and shorts underneath everything.
+    // The dark under-suit: covered by the gear, seen only in the gaps.
     const torso = mesh(new THREE.CapsuleGeometry(.2, .1, 6, 12), shirt, chest, 0, .1, 0); torso.scale.set(.95, 1, 1.1); torso.userData.slot = 'armor';
     mesh(new THREE.TorusGeometry(.2, .035, 6, 20), std(team, { emissive: team, emissiveIntensity: .35 }), hips, 0, .02, 0).rotation.x = Math.PI / 2;
     for (const leg of [legL, legR]) mesh(new THREE.CapsuleGeometry(.075, .12, 4, 8), shorts, leg, 0, -.08, 0).userData.slot = 'pants';
     for (const foot of [footL, footR]) mesh(new THREE.BoxGeometry(.2, .08, .13), std('#2a2a30'), foot, .03, -.02, 0).userData.slot = 'shoes';
-    mesh(new THREE.SphereGeometry(.2, 16, 12), skin, head, .12, 0, 0).scale.set(.75, .78, .95);
-    const eye = new THREE.CapsuleGeometry(.025, .04, 3, 6), eyeMat = std('#1a1c22', { roughness: .3 });
+    mesh(new THREE.SphereGeometry(.2, 16, 12), std('#12141a', { roughness: .9 }), head, .12, 0, 0).scale.set(.75, .78, .95);
+    const eye = new THREE.CapsuleGeometry(.025, .04, 3, 6), eyeMat = std('#d8ecff', { emissive: '#bfe0ff', emissiveIntensity: 1.6 });
     mesh(eye, eyeMat, head, .27, .01, -.07); mesh(eye, eyeMat, head, .27, .01, .07);
     const armGeo = new THREE.CapsuleGeometry(.06, .12, 4, 8); armGeo.translate(0, -.07, 0);
     const left = mesh(armGeo, skin, armL); left.rotation.x = .3; left.userData.slot = 'armor';
@@ -686,13 +706,12 @@ export class Lockdown3DRenderer {
   temporaryGear(slot, id, player, team, parts) {
     const tint = colour(this.armorColour(id)), std = (c, extra = {}) => new THREE.MeshStandardMaterial({ color: c, roughness: .4, metalness: .5, ...extra });
     if (slot === 'helmet') {
-      const bare = id === 'none', shell = std(bare ? '#5a3a28' : tint, bare ? { roughness: .9, metalness: 0 } : {});
+      const shell = std(tint);
       const helmet = new THREE.Mesh(new THREE.SphereGeometry(.26, 18, 14), shell); helmet.position.set(-.03, 0, 0); helmet.scale.set(.95, .95, 1); parts.head.add(helmet);
       const brim = new THREE.Mesh(new THREE.TorusGeometry(.21, .045, 8, 20, Math.PI), shell); brim.rotation.set(0, Math.PI / 2, Math.PI / 2); brim.position.set(.1, .04, 0); parts.head.add(brim);
       const band = new THREE.Mesh(new THREE.TorusGeometry(.255, .03, 6, 24), std(team, { emissive: team, emissiveIntensity: .5 })); band.rotation.x = Math.PI / 2; band.position.y = -.08; parts.head.add(band);
       return;
     }
-    if (id === 'none') return;
     // Recolour the body shapes that belong to this slot, metal for armour.
     for (const part of Object.values(parts)) for (const child of part.children) if (child.isMesh && child.userData.slot === slot) child.material = std(tint);
     if (slot === 'armor') {
@@ -705,7 +724,7 @@ export class Lockdown3DRenderer {
     if (player.cls === 'guardian') { const shield = new THREE.Mesh(new THREE.CylinderGeometry(.2, .2, .05, 18), new THREE.MeshStandardMaterial({ color: '#8a6a3a', metalness: .6, roughness: .4 })); shield.rotation.x = Math.PI / 2; shield.position.set(.08, -.08, -.05); parts.arm_L.add(shield); }
   }
   armorColour(id) {
-    if (!id || id === 'none') return '#d8d2c4';
+    if (!id || id === 'none') return '#b8c2d0'; // the Recruit set: plain polished steel
     const palette = ['#9aa4b2', '#c08a4a', '#5a6270', '#a8483e', '#4e7a52', '#e4dcc8', '#6e5a8e', '#3e6e8a', '#b49a5a', '#7a3e5a'];
     let h = 0; for (const ch of id) h = (h * 31 + ch.charCodeAt(0)) | 0;
     return palette[Math.abs(h) % palette.length];
