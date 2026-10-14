@@ -1,0 +1,23 @@
+{
+  "captures": 21,
+  "pairs_checked": 288,
+  "surface_intersections": [
+    {
+      "file": "09-sword-combo-3.jpg",
+      "a": "armor/cobalt:chest",
+      "b": "armor/cobalt:forearm_R",
+      "surface_intersections": 146
+    }
+  ],
+  "core_animation_contacts": [
+    {
+      "file": "09-sword-combo-3.jpg",
+      "parts": [
+        "chest",
+        "forearm_R"
+      ],
+      "surface_intersections": 88,
+      "source": "unchanged origin/main knight/body.glb"
+    }
+  ]
+}

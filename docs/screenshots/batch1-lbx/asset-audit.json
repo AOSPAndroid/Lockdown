@@ -1,0 +1,268 @@
+{
+  "main_commit": "4e3bcd37594abb4866ad53965b4253816ef21d9b",
+  "core_skeleton_unchanged": true,
+  "core_skeleton_sha256": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3",
+  "original_designs": true,
+  "total_bytes": 1516432,
+  "assets": [
+    {
+      "file": "helmet/cobalt.glb",
+      "bytes": 79872,
+      "triangles": 564,
+      "texture": [
+        512,
+        512
+      ],
+      "nodes": [
+        "head"
+      ],
+      "gltf_validation": {
+        "errors": 0,
+        "warnings": 0
+      }
+    },
+    {
+      "file": "helmet/sallet.glb",
+      "bytes": 79928,
+      "triangles": 564,
+      "texture": [
+        512,
+        512
+      ],
+      "nodes": [
+        "head"
+      ],
+      "gltf_validation": {
+        "errors": 0,
+        "warnings": 0
+      }
+    },
+    {
+      "file": "armor/cobalt.glb",
+      "bytes": 250072,
+      "triangles": 1740,
+      "texture": [
+        1024,
+        1024
+      ],
+      "nodes": [
+        "chest",
+        "arm_L",
+        "forearm_L",
+        "arm_R",
+        "forearm_R"
+      ],
+      "gltf_validation": {
+        "errors": 0,
+        "warnings": 0
+      }
+    },
+    {
+      "file": "armor/scout.glb",
+      "bytes": 263952,
+      "triangles": 1868,
+      "texture": [
+        1024,
+        1024
+      ],
+      "nodes": [
+        "chest",
+        "arm_L",
+        "forearm_L",
+        "arm_R",
+        "forearm_R",
+        "hips"
+      ],
+      "gltf_validation": {
+        "errors": 0,
+        "warnings": 0
+      }
+    },
+    {
+      "file": "pants/cobalt.glb",
+      "bytes": 140924,
+      "triangles": 1120,
+      "texture": [
+        512,
+        512
+      ],
+      "nodes": [
+        "hips",
+        "leg_L",
+        "shin_L",
+        "leg_R",
+        "shin_R"
+      ],
+      "gltf_validation": {
+        "errors": 0,
+        "warnings": 0
+      }
+    },
+    {
+      "file": "shoes/sabatons.glb",
+      "bytes": 86692,
+      "triangles": 672,
+      "texture": [
+        512,
+        512
+      ],
+      "nodes": [
+        "foot_L",
+        "foot_R"
+      ],
+      "gltf_validation": {
+        "errors": 0,
+        "warnings": 0
+      }
+    },
+    {
+      "file": "class/guardian.glb",
+      "bytes": 146024,
+      "triangles": 1236,
+      "texture": [
+        512,
+        512
+      ],
+      "nodes": [
+        "forearm_L",
+        "mount",
+        "plate"
+      ],
+      "gltf_validation": {
+        "errors": 0,
+        "warnings": 0
+      }
+    },
+    {
+      "file": "class/recon.glb",
+      "bytes": 84368,
+      "triangles": 608,
+      "texture": [
+        512,
+        512
+      ],
+      "nodes": [
+        "forearm_L",
+        "buckler",
+        "lens"
+      ],
+      "gltf_validation": {
+        "errors": 0,
+        "warnings": 0
+      }
+    },
+    {
+      "file": "weapons/brand.glb",
+      "bytes": 63848,
+      "triangles": 448,
+      "texture": [
+        512,
+        512
+      ],
+      "nodes": [
+        "sword",
+        "grip",
+        "guard",
+        "blade",
+        "tip"
+      ],
+      "gltf_validation": {
+        "errors": 0,
+        "warnings": 0
+      }
+    },
+    {
+      "file": "weapons/blaster.glb",
+      "bytes": 148620,
+      "triangles": 1296,
+      "texture": [
+        512,
+        512
+      ],
+      "nodes": [
+        "gun",
+        "body",
+        "barrel",
+        "muzzle",
+        "core"
+      ],
+      "gltf_validation": {
+        "errors": 0,
+        "warnings": 0
+      }
+    },
+    {
+      "file": "weapons/blast.glb",
+      "bytes": 86084,
+      "triangles": 680,
+      "texture": [
+        512,
+        512
+      ],
+      "nodes": [
+        "bomb",
+        "body",
+        "fuse"
+      ],
+      "gltf_validation": {
+        "errors": 0,
+        "warnings": 0
+      }
+    },
+    {
+      "file": "bombs/blast.glb",
+      "bytes": 86048,
+      "triangles": 680,
+      "texture": [
+        512,
+        512
+      ],
+      "nodes": [
+        "bomb",
+        "body",
+        "fuse"
+      ],
+      "gltf_validation": {
+        "errors": 0,
+        "warnings": 0
+      }
+    }
+  ],
+  "structural_joint_sweep": {
+    "samples": 254,
+    "surface_intersections": 0,
+    "shoulder_pitch_degrees": [
+      -45,
+      180
+    ],
+    "shoulder_abduction_degrees": [
+      0,
+      30
+    ],
+    "elbow_degrees": [
+      0,
+      100
+    ],
+    "hip_pitch_degrees": [
+      -35,
+      60
+    ],
+    "knee_degrees": [
+      0,
+      110
+    ],
+    "ankle_degrees": [
+      -40,
+      40
+    ]
+  },
+  "checks": {
+    "art_index_errors": 0,
+    "tests_passed": 84,
+    "tests_failed": 0,
+    "browser_errors": 0,
+    "browser_warnings": 0,
+    "captured_action_frames": 21
+  },
+  "known_issue": "Third sword cut: the unchanged core forearm crosses the core chest; see dojo-clearance.json."
+}
