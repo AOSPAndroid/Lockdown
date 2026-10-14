@@ -37,7 +37,40 @@ const mirrorRow = row => row + [...row].reverse().map(cell => cell === '1' ? '2'
  * against the far left or far right wall; A sits on the left half, B in the middle and
  * C mirrors A on the right. Authored as the left half and mirrored, so neither side
  * has an edge. */
+/** The Dojo: a small training hall to try every weapon on dummies. Raised galleries north and south
+ * (with grand stairs) let you practise high-ground shots. Not in the match rotation. */
+const DOJO_LEFT = [
+  '###############',
+  '#..............',
+  '#..............',
+  '#..............',
+  '#..............',
+  '#.....#........',
+  '#..............',
+  '#111...........',
+  '#111...........',
+  '#111...........',
+  '#111...........',
+  '#111...........',
+  '#..............',
+  '#.....#........',
+  '#..............',
+  '#..............',
+  '#..............',
+  '#..............',
+  '###############',
+];
+
 const MAP_DEFS = {
+  dojo: {
+    name: 'Dojo',
+    theme: 'castle',
+    training: true,
+    description: 'A training hall: try any weapon on dummies. Change class, gear and weapons anywhere with B. Dummies heal when left alone and come back when knocked out. The ring in the middle is for sparring.',
+    left: DOJO_LEFT,
+    levels: heights(DOJO_LEFT, { raised: [[8, 1, 14, 3]], stairs: [[11, 4, '^']] }),
+    points: [{ id: 'A', col: 15, row: 9.5 }],
+  },
   keep: {
     name: 'Old Keep',
     theme: 'castle',
@@ -548,7 +581,7 @@ function build(id, def) {
     if (cell === '1' || cell === '2') spawns[cell === '1' ? 0 : 1].push({ x: (col + .5) * TILE, y: (row + .5) * TILE });
   }
   return Object.freeze({
-    id, name: def.name, theme: def.theme, pit: PIT_KINDS[def.theme] || 'chasm', description: def.description,
+    id, name: def.name, theme: def.theme, training: !!def.training, pit: PIT_KINDS[def.theme] || 'chasm', description: def.description,
     grid: Object.freeze(grid), levels: Object.freeze(levels), twoFloors: !!def.levels, cols, rows, width: cols * TILE, height: rows * TILE,
     spawns: Object.freeze(spawns.map(list => Object.freeze(list))),
     points: Object.freeze(def.points.map(point => Object.freeze({ id: point.id, x: point.col * TILE, y: point.row * TILE }))),
@@ -556,7 +589,8 @@ function build(id, def) {
 }
 
 export const MAPS = Object.freeze(Object.fromEntries(Object.entries(MAP_DEFS).map(([id, def]) => [id, build(id, def)])));
-export const MAP_IDS = Object.freeze(Object.keys(MAPS));
+/** The arenas in the match rotation (the Dojo is training only). */
+export const MAP_IDS = Object.freeze(Object.keys(MAPS).filter(id => !MAPS[id].training));
 
 export const isWall = (map, col, row) => row < 0 || col < 0 || row >= map.rows || col >= map.cols || map.grid[row][col] === '#';
 export const wallAt = (map, x, y) => isWall(map, Math.floor(x / TILE), Math.floor(y / TILE));

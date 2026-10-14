@@ -403,7 +403,7 @@ Attach to `foot_L`, `foot_R`. Budget 1500 triangles.
 ### Troll Cleaver `cleaver`
 
 - **Does:** Slow, brutal overhead chain that stuns. Charge: leap and slam the ground around you.
-- **Stats:** Heavy sword · heavy (unflinching) · 2-cut combo (31 / 38 damage) · difficulty ★★ · good: Huge two-cut damage and long stuns; Not interrupted when hit mid-swing; Charge: leaping ground slam · bad: Very slow wind-up; Easy to see coming
+- **Stats:** Heavy sword · heavy (unflinching) · 2-cut combo (27 / 33 damage) · difficulty ★★ · good: Huge two-cut damage and long stuns; Not interrupted when hit mid-swing; Charge: leaping ground slam · bad: Very slow wind-up; Easy to see coming
 - **Looks:** A huge troll-sized cleaver: a slab of notched dark iron as wide as the knight's head, a short wrapped handle and a ring through the spine. Looks too heavy to swing.
 - **Size:** heavy: ≈ 1.3 from grip to tip, blade ≈ 0.25 wide
 - **Make:** `models/weapons/cleaver.glb`, icon `icon_weapon_cleaver.png`
@@ -427,7 +427,7 @@ Attach to `foot_L`, `foot_R`. Budget 1500 triangles.
 ### Umbral Greatblade `greatblade`
 
 - **Does:** Heavy two-hit chain. Charge: a slow wave of shadow that carries knights along with it.
-- **Stats:** Dark sword · heavy (unflinching) · 2-cut combo (29 / 34 damage) · difficulty ★★ · good: Heavy two-cut combo, not interrupted when hit; Charge: a long shadow wave that drags knights · bad: Slow swings
+- **Stats:** Dark sword · heavy (unflinching) · 2-cut combo (26 / 31 damage) · difficulty ★★ · good: Heavy two-cut combo, not interrupted when hit; Charge: a long shadow wave that drags knights · bad: Slow swings
 - **Looks:** A two-handed umbral greatblade: a long jagged black blade with purple veins of light running down it and a winged guard.
 - **Size:** heavy: ≈ 1.3 from grip to tip, blade ≈ 0.25 wide
 - **Make:** `models/weapons/greatblade.glb`, icon `icon_weapon_greatblade.png`
@@ -435,7 +435,7 @@ Attach to `foot_L`, `foot_R`. Budget 1500 triangles.
 ### Gyre Spur `spur`
 
 - **Does:** Fast light four-cut chain. Charge: spin three times, hitting everything around you each turn.
-- **Stats:** Spin sword · 4-cut combo (7 / 8 / 9 / 13 damage) · difficulty ★★ · good: Very fast four-cut chain; Charge: three full spins · bad: Short reach, light hits
+- **Stats:** Spin sword · 4-cut combo (8 / 9 / 10 / 15 damage) · difficulty ★★ · good: Very fast four-cut chain; Charge: three full spins · bad: Light hits: easily out-traded by heavies
 - **Looks:** A short spinning sword: a curved blade with three small hooked spurs along the back and a round gear-like guard.
 - **Size:** short: ≈ 0.8 from grip to tip
 - **Make:** `models/weapons/spur.glb`, icon `icon_weapon_spur.png`
@@ -456,10 +456,10 @@ Attach to `foot_L`, `foot_R`. Budget 1500 triangles.
 - **Size:** ≈ 1.0 from grip to tip, blade ≈ 0.14 wide
 - **Make:** `models/weapons/blazebrand.glb`, icon `icon_weapon_blazebrand.png`
 
-### Voltedge `voltedge`
+### Volt Fang `voltedge`
 
 - **Does:** Fast cuts that may shock (15%); a hit can arc lightning to two more enemies nearby. Charge: an electric spin.
-- **Stats:** Shock sword · element: shock · 4-cut combo (7 / 8 / 8 / 12 damage) · difficulty ★★ · good: Fast cuts that may shock; Lightning jumps to nearby enemies · bad: Light damage per cut
+- **Stats:** Shock sword · element: shock · 4-cut combo (8 / 9 / 10 / 15 damage) · difficulty ★★ · good: Fast cuts that may shock; Lightning jumps to two nearby enemies (40%) · bad: Light damage per cut
 - **Looks:** A crackling sword: a short silver blade with a zigzag edge and a glowing cyan lightning core, copper coils on the guard.
 - **Size:** short: ≈ 0.8 from grip to tip
 - **Make:** `models/weapons/voltedge.glb`, icon `icon_weapon_voltedge.png`
@@ -467,7 +467,7 @@ Attach to `foot_L`, `foot_R`. Budget 1500 triangles.
 ### Sanguine Sickle `sickle`
 
 - **Does:** Heals you for 30% of the damage it deals. Charge: a long draining lunge.
-- **Stats:** Vampire sword · element: drain · 3-cut combo (11 / 14 / 20 damage) · difficulty ★★ · good: Heals you for 30% of its damage; Charge: a long draining lunge · bad: Lower damage than a plain sword
+- **Stats:** Vampire sword · element: drain · 3-cut combo (12 / 15 / 21 damage) · difficulty ★★ · good: Heals you for 30% of its damage; Charge: a long draining lunge · bad: Lower damage than a plain sword
 - **Looks:** A blood-red curved sickle-sword with a hooked tip, a bone handle and a dark red gem that pulses softly.
 - **Size:** ≈ 1.0 from grip to tip, blade ≈ 0.14 wide
 - **Make:** `models/weapons/sickle.glb`, icon `icon_weapon_sickle.png`
@@ -475,7 +475,7 @@ Attach to `foot_L`, `foot_R`. Budget 1500 triangles.
 ### Hexblade `hexblade`
 
 - **Does:** Heavy cuts that may curse (35%): no dash and no class ability for a while. Charge: a cursing slam.
-- **Stats:** Curse sword · element: curse · heavy (unflinching) · 2-cut combo (26 / 31 damage) · difficulty ★★ · good: Heavy cuts that may curse (no dash, no ability); Not interrupted when hit mid-swing · bad: Slow two-cut combo
+- **Stats:** Curse sword · element: curse · heavy (unflinching) · 2-cut combo (25 / 29 damage) · difficulty ★★ · good: Heavy cuts that may curse (no dash, no ability); Not interrupted when hit mid-swing · bad: Slow two-cut combo
 - **Looks:** A heavy cursed blade of dark violet steel etched with glowing purple runes, a skull on the guard and a chain on the pommel.
 - **Size:** heavy: ≈ 1.3 from grip to tip, blade ≈ 0.25 wide
 - **Make:** `models/weapons/hexblade.glb`, icon `icon_weapon_hexblade.png`
@@ -483,28 +483,28 @@ Attach to `foot_L`, `foot_R`. Budget 1500 triangles.
 ### Earthbreaker Maul `maul`
 
 - **Does:** The heaviest weapon: two huge, slow blows that are not interrupted when you are hit; the second shakes the ground around it. Charge: a crater-making slam.
-- **Stats:** Heavy hammer · heavy (unflinching) · 2-cut combo (40 / 52 damage) · difficulty ★★★ · good: Biggest single hits in the game; Second blow sends a shockwave; Never interrupted when hit mid-swing · bad: Extremely slow: whiffs are punished; Slowest charge
+- **Stats:** Heavy hammer · heavy (unflinching) · 2-cut combo (35 / 46 damage) · difficulty ★★★ · good: Biggest single hits in the game; Second blow sends a shockwave; Never interrupted when hit mid-swing · bad: Extremely slow: whiffs are punished; Slowest charge
 - **Looks:** An enormous earthbreaker sledgehammer: a stone-and-iron block head bound with bronze bands, cracks of earth on the faces, a long thick haft.
 - **Size:** haft ≈ 1.0, head ≈ 0.4 × 0.4 × 0.5
 - **Make:** `models/weapons/maul.glb`, icon `icon_weapon_maul.png`
 
-### Radiant Avenger `avenger`
+### Dawnbringer `avenger`
 
 - **Does:** A blessed sword. Charge: a beam of light that pierces every knight down the lane.
-- **Stats:** Holy sword · element: holy · 3-cut combo (13 / 17 / 24 damage) · difficulty ★★ · good: Steady three-cut combo; Charge: a piercing beam of light down a whole lane · bad: Beam recovery leaves you open
+- **Stats:** Holy sword · element: holy · 3-cut combo (14 / 18 / 26 damage) · difficulty ★★ · good: Steady three-cut combo; Charge: a piercing beam of light down a whole lane · bad: Beam recovery leaves you open
 - **Looks:** A holy sword: a white-gold blade with a sun-shaped guard, two small feathered wings at the hilt and a soft golden glow along the edge.
 - **Size:** ≈ 1.0 from grip to tip, blade ≈ 0.14 wide
 - **Make:** `models/weapons/avenger.glb`, icon `icon_weapon_avenger.png`
 
-### Leviathan Edge `leviathan`
+### Tidebreaker `leviathan`
 
 - **Does:** The longest reach of any sword, a little slower. Charge: a long lunge that ends in a crashing burst.
-- **Stats:** Long sword · 3-cut combo (15 / 20 / 28 damage) · difficulty ★★ · good: Longest sword reach; Charge: long lunge into a crashing burst · bad: Slightly slower cuts
+- **Stats:** Long sword · 3-cut combo (16 / 21 / 30 damage) · difficulty ★★ · good: Longest sword reach; Charge: long lunge into a crashing burst · bad: Slightly slower cuts
 - **Looks:** A very long sea-steel blade with a wave-curled tip, scale-patterned flat and a teal-green guard shaped like fins.
 - **Size:** long: ≈ 1.2 from grip to tip, slim
 - **Make:** `models/weapons/leviathan.glb`, icon `icon_weapon_leviathan.png`
 
-### Iron Troika `troika`
+### Tri-Fang Blade `troika`
 
 - **Does:** A three-blow heavy chain that is never interrupted when you are hit. Charge: a ground slam.
 - **Stats:** Heavy sword · heavy (unflinching) · 3-cut combo (24 / 28 / 36 damage) · difficulty ★★★ · good: Three huge blows, never interrupted when hit; Charge: ground slam · bad: Very slow wind-ups; A whiff leaves you wide open
@@ -525,7 +525,7 @@ Attach to `foot_L`, `foot_R`. Budget 1500 triangles.
 ### Ripple Caster `pulsar`
 
 - **Does:** Slow waves that widen as they travel and pass through knights. Charge: one huge wave.
-- **Stats:** Pulsar · 3-round clip, 7 damage · difficulty ★ · good: Wide waves are easy to land and pass through knights · bad: Low damage; Slow and short ranged
+- **Stats:** Pulsar · 3-round clip, 11 damage · difficulty ★ · good: Wide waves are easy to land and pass through knights · bad: Low damage; Slow and short ranged
 - **Looks:** A wide-mouthed pulsar with a ringed barrel that flares like a trumpet and a glowing blue coil in the middle.
 - **Size:** ≈ 0.5 from grip to muzzle
 - **Make:** `models/weapons/pulsar.glb`, icon `icon_weapon_pulsar.png`
@@ -533,7 +533,7 @@ Attach to `foot_L`, `foot_R`. Budget 1500 triangles.
 ### Ricochet Coil `alchemer`
 
 - **Does:** Bolts that bounce off walls. Charge: four shocking bolts that bounce twice.
-- **Stats:** Ricochet · 3-round clip, 8 damage · difficulty ★★★ · good: Bolts bounce off walls: hit around corners; Charge: four shocking bolts · bad: Bank shots take practice
+- **Stats:** Ricochet · 3-round clip, 9 damage · difficulty ★★★ · good: Bolts bounce off walls: hit around corners; Charge: four shocking bolts · bad: Bank shots take practice
 - **Looks:** A ricochet coil gun: copper coils wound round the barrel, a glass bulb of green liquid on top and a bent spout muzzle.
 - **Size:** ≈ 0.5 from grip to muzzle
 - **Make:** `models/weapons/alchemer.glb`, icon `icon_weapon_alchemer.png`
@@ -541,7 +541,7 @@ Attach to `foot_L`, `foot_R`. Budget 1500 triangles.
 ### Rattle Autogun `autogun`
 
 - **Does:** Six fast, light rounds. Charge: a focused ten-round stream.
-- **Stats:** Autogun · 6-round clip, 5 damage · difficulty ★ · good: Six fast rounds, easy to keep on target · bad: Wide spread, light hits
+- **Stats:** Autogun · 6-round clip, 4 damage · difficulty ★ · good: Six fast rounds, easy to keep on target · bad: Wide spread, light hits
 - **Looks:** A rattling autogun with a short drum magazine, a perforated barrel shroud and a crank on the side.
 - **Size:** ≈ 0.5 from grip to muzzle
 - **Make:** `models/weapons/autogun.glb`, icon `icon_weapon_autogun.png`
@@ -549,7 +549,7 @@ Attach to `foot_L`, `foot_R`. Budget 1500 triangles.
 ### Tether Catalyst `catalyzer`
 
 - **Does:** Shots stick up to three charges on a knight. Charge: a detonator that blows them all at once.
-- **Stats:** Catalyzer · 3-round clip, 6 damage · difficulty ★★★ · good: Stack charges, then detonate them for a huge hit · bad: Weak until you detonate; Needs a follow-up shot
+- **Stats:** Catalyzer · 3-round clip, 8 damage · difficulty ★★★ · good: Stack charges, then detonate them for a huge hit · bad: Weak until you detonate; Needs a follow-up shot
 - **Looks:** A tether catalyst: a stubby launcher with a red glass chamber of fizzing charges and a three-pronged claw muzzle.
 - **Size:** ≈ 0.5 from grip to muzzle
 - **Make:** `models/weapons/catalyzer.glb`, icon `icon_weapon_catalyzer.png`
@@ -564,8 +564,8 @@ Attach to `foot_L`, `foot_R`. Budget 1500 triangles.
 
 ### Longshot Rifle `rifle`
 
-- **Does:** A single tiny, very fast round with a long reload: up to 80% more damage at long range. Hard to land, punishing when it does. Charge: a piercing rail shot.
-- **Stats:** Long rifle · 1-round clip, 20 damage · difficulty ★★★ · good: Up to +80% damage at long range; Very fast, accurate round; Charge: piercing rail shot · bad: One round, long reload; Tiny bullet: hard to hit
+- **Does:** A single tiny, very fast round with a long reload: up to 60% more damage at long range. Hard to land, punishing when it does. Charge: a piercing rail shot.
+- **Stats:** Long rifle · 1-round clip, 18 damage · difficulty ★★★ · good: Up to +60% damage at long range; Very fast, accurate round; Charge: piercing rail shot · bad: One round, long reload; Tiny bullet: hard to hit
 - **Looks:** A long precision rifle: a slim long barrel, a brass scope, a wooden stock and a small bipod folded under the barrel.
 - **Size:** long: ≈ 1.0 from grip to muzzle
 - **Make:** `models/weapons/rifle.glb`, icon `icon_weapon_rifle.png`
@@ -581,7 +581,7 @@ Attach to `foot_L`, `foot_R`. Budget 1500 triangles.
 ### Ember Caster `embercaster`
 
 - **Does:** Fire waves that may ignite (25%) every knight they pass. Charge: a huge wave that sets all of them alight.
-- **Stats:** Fire pulsar · element: burn · 3-round clip, 6 damage · difficulty ★ · good: Fire waves are easy to land; Charge always burns everyone it passes · bad: Short range, low damage
+- **Stats:** Fire pulsar · element: burn · 3-round clip, 8 damage · difficulty ★ · good: Fire waves are easy to land; Charge always burns everyone it passes · bad: Short range, low damage
 - **Looks:** A fire pulsar: a black iron flared barrel with glowing orange vents and a small furnace chamber.
 - **Size:** ≈ 0.5 from grip to muzzle
 - **Make:** `models/weapons/embercaster.glb`, icon `icon_weapon_embercaster.png`
@@ -596,8 +596,8 @@ Attach to `foot_L`, `foot_R`. Budget 1500 triangles.
 
 ### Viper Spitter `viper`
 
-- **Does:** Rounds that may poison (30%): poisoned knights hit softer and cannot heal. Charge: a fan of five venom bolts.
-- **Stats:** Toxic blaster · element: poison · 3-round clip, 7 damage · difficulty ★★ · good: Poison stops healing and weakens hits; Charge: a fan of venom bolts · bad: Poison is random on normal shots
+- **Does:** Rounds that may poison (40%): poisoned knights hit softer and cannot heal. Charge: a fan of five venom bolts.
+- **Stats:** Toxic blaster · element: poison · 3-round clip, 10 damage · difficulty ★★ · good: Poison stops healing and weakens hits; Charge: a fan of venom bolts · bad: Poison is random on normal shots
 - **Looks:** A toxic blaster shaped like a snake head: green scales, two fang prongs at the muzzle and a glowing green venom vial.
 - **Size:** ≈ 0.5 from grip to muzzle
 - **Make:** `models/weapons/viper.glb`, icon `icon_weapon_viper.png`
@@ -613,15 +613,15 @@ Attach to `foot_L`, `foot_R`. Budget 1500 triangles.
 ### Iron Scattergun `scatter`
 
 - **Does:** Six pellets in a wide fan: brutal up close, useless far away. Charge: a single heavy slug that knocks knights flying.
-- **Stats:** Shotgun · 2-round clip, 6 pellets × 5 damage · difficulty ★★ · good: Six pellets: huge damage point blank; Charge: a slug that knocks knights flying · bad: Almost no damage at range; Two-shell clip
+- **Stats:** Shotgun · 2-round clip, 6 pellets × 6 damage · difficulty ★★ · good: Six pellets: huge damage point blank; Charge: a slug that knocks knights flying · bad: Almost no damage at range; Two-shell clip
 - **Looks:** An iron scattergun: a short, very wide double barrel, a pump grip and a riveted iron body; built for close quarters.
 - **Size:** big: ≈ 0.65 from grip to muzzle
 - **Make:** `models/weapons/scatter.glb`, icon `icon_weapon_scatter.png`
 
-### Polaris `polaris`
+### Northstar `polaris`
 
 - **Does:** Widening waves that pass through knights and bounce once off walls. Charge: a huge wave that bounces twice.
-- **Stats:** Pulsar · 3-round clip, 8 damage · difficulty ★★ · good: Waves pierce knights and bounce off walls · bad: Low damage per wave; Bank shots take practice
+- **Stats:** Pulsar · 3-round clip, 11 damage · difficulty ★★ · good: Waves pierce knights and bounce off walls · bad: Low damage per wave; Bank shots take practice
 - **Looks:** A star pulsar: a ringed barrel ending in a star-shaped emitter with a pale yellow glowing core and blue fins.
 - **Size:** ≈ 0.5 from grip to muzzle
 - **Make:** `models/weapons/polaris.glb`, icon `icon_weapon_polaris.png`
@@ -629,14 +629,14 @@ Attach to `foot_L`, `foot_R`. Budget 1500 triangles.
 ### Rift Repeater `riftlocker`
 
 - **Does:** Slow violet bolts that pierce every knight in line. Charge: a stream of six piercing bolts.
-- **Stats:** Rift gun · 3-round clip, 10 damage · difficulty ★★ · good: Bolts pierce every knight in line; Charge: six piercing bolts · bad: Slow bolts are easy to dodge
+- **Stats:** Rift gun · 3-round clip, 8 damage · difficulty ★★ · good: Bolts pierce every knight in line; Charge: six piercing bolts · bad: Slow bolts are easy to dodge
 - **Looks:** A rift repeater: an angular black-and-violet gun with a floating purple crystal in an open frame where the barrel should be.
 - **Size:** ≈ 0.5 from grip to muzzle
 - **Make:** `models/weapons/riftlocker.glb`, icon `icon_weapon_riftlocker.png`
 
 ## Bombs (10)
 
-### Blast Bomb `blast`
+### Cannonball Bomb `blast`
 
 - **Does:** Charges fast. A big knockback blast after a short fuse.
 - **Stats:** Blast bomb · 30 damage blast · difficulty ★ · good: Fast charge, big blast and knockback · bad: Short fuse: easy to dodge if seen
@@ -684,7 +684,7 @@ Attach to `foot_L`, `foot_R`. Budget 1500 triangles.
 - **Size:** held ≈ 0.28 across; planted ≈ 0.4 tall
 - **Make:** `models/weapons/hex.glb` (in hand while charging), `models/bombs/hex.glb` (planted, standing on the floor), icon `icon_weapon_hex.png`
 
-### Splinter Bomb `shard`
+### Shard Burst `shard`
 
 - **Does:** Bursts into eight shards that cut across the point.
 - **Stats:** Shard bomb · 10 damage blast · difficulty ★★ · good: Eight shards cut across a point · bad: Shards spread out at range
@@ -708,7 +708,7 @@ Attach to `foot_L`, `foot_R`. Budget 1500 triangles.
 - **Size:** held ≈ 0.45 across; planted ≈ 0.6 tall
 - **Make:** `models/weapons/nitro.glb` (in hand while charging), `models/bombs/nitro.glb` (planted, standing on the floor), icon `icon_weapon_nitro.png`
 
-### Static Flash `spark`
+### Storm Flash `spark`
 
 - **Does:** Charges fast and flashes almost at once: little damage, but a long stun and a shock.
 - **Stats:** Flash bomb · element: shock · 12 damage blast · difficulty ★ · good: Fast charge, near-instant flash; Long stun and a shock · bad: Little damage

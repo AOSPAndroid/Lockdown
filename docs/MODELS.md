@@ -111,6 +111,7 @@ Eight knights are on screen at once, so chunky shapes with few, well-placed beve
 
 1. `node tools/art3d-index.mjs` reports no errors.
 2. `npm test` passes.
-3. `npm start`, open <http://localhost:3000/lockdown.html?solo=1>, and look at your item on a knight: in
-   base (idle), running, swinging, charging, from every side. Change gear in base with **B**.
+3. `npm start`, open the Dojo (<http://localhost:3000/lockdown.html?solo=1&dojo=1>), put your item on with
+   **B** (it works anywhere there) and look at it on a knight: idle, running, swinging, charging (hold
+   attack), hitting a dummy, from every side.
 4. Check it next to other pieces: every helmet with every armour must still read as one knight.

@@ -136,7 +136,7 @@ const projectiles = [
   asset('proj_detonator', 18, 18, [9, 9], 'Red-orange detonator orb that sets off stuck catalysts.', { group: 'projectiles' }),
   asset('proj_thorn', 14, 6, [7, 3], 'Briar Blade thorn, green and sharp, pointing right.', { group: 'projectiles' }),
   asset('proj_wave', 48, 64, [24, 32], 'Umbral Greatblade shadow wave: a dark violet crescent, convex side facing right. The game scales it to its size.', { group: 'projectiles' }),
-  asset('proj_shard', 14, 6, [7, 3], 'Splinter Bomb fragment, pointing right.', { group: 'projectiles' }),
+  asset('proj_shard', 14, 6, [7, 3], 'Shard Burst fragment, pointing right.', { group: 'projectiles' }),
 ];
 const bombs = Object.values(WEAPONS).filter(weapon => weapon.family === 'bomb').map(weapon => asset(`bomb_${weapon.id}`, 32, 32, [16, 24], `${weapon.name} planted on the floor, seen from the ¾ camera (the fuse ring is drawn by the game).`, { group: 'bombs' }));
 

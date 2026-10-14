@@ -39,6 +39,7 @@
     <section>
       <h2>Practice</h2>
       <div class="row"><p class="empty" style="margin:0">Play right away against seven bots, in your browser.</p><button class="primary" id="solo" type="button">Play solo</button></div>
+      <div class="row" style="margin-top:12px"><p class="empty" style="margin:0">Try every weapon, charge attack and piece of gear on training dummies.</p><button id="dojo" type="button">Dojo</button></div>
     </section>
     <section>
       <h2>Play online</h2>
@@ -64,6 +65,7 @@
     for (const id of MAP_IDS) $('map').append(new Option(MAPS[id].name, id));
     const play = room => { saveName($('name').value); location.href = `/lockdown.html?room=${encodeURIComponent(room)}`; };
     $('solo').addEventListener('click', () => { saveName($('name').value); location.href = '/lockdown.html?solo=1'; });
+    $('dojo').addEventListener('click', () => { saveName($('name').value); location.href = '/lockdown.html?solo=1&dojo=1'; });
     $('join').addEventListener('click', () => { const code = $('code').value.trim().toUpperCase(); if (/^[A-Z0-9]{6}$/.test(code)) play(code); else $('error').textContent = 'A room code has six letters or digits.'; });
     $('create').addEventListener('click', async () => {
       $('error').textContent = '';

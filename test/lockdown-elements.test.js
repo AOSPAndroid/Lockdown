@@ -83,7 +83,7 @@ test('Sanguine Sickle heals the wielder for part of the damage dealt', () => {
   assert.ok(events(state, 'drain').length > 0);
 });
 
-test('Voltedge arcs lightning to another enemy near the one it hits', () => {
+test('Volt Fang arcs lightning to another enemy near the one it hits', () => {
   const { state, foe } = duel({ a: { weapons: ['voltedge', 'blaster', 'blast'] }, third: {} });
   const bystander = state.players[5];
   let chained = false;
@@ -169,7 +169,7 @@ test('weapon traits: heavy swings are unflinching, the rapier tip hits harder, l
   // Longshot Rifle: more damage the farther it flies.
   const shoot = gap => { const { state, foe } = duel({ mapId: 'temple', a: { cls: 'guardian', weapons: ['rifle', 'brand', 'blast', null] }, gap }); run(state, 50, t => ({ 0: { attack: t === 0 } })); return 400 - foe.hp; };
   const near = shoot(120), longer = shoot(600);
-  assert.equal(near, WEAPONS.rifle.damage); assert.ok(longer > near * 1.3, `${longer} vs ${near}`);
+  assert.equal(near, WEAPONS.rifle.damage); assert.ok(longer >= near * 1.25, `${longer} vs ${near}`);
   // Maul: the second blow shakes the ground and hits a second knight beside the target.
   const { state, me, foe } = duel({ a: { cls: 'guardian', weapons: ['maul', 'blaster', 'blast', null] }, gap: 60, third: {} });
   state.players[5].x = foe.x; state.players[5].y = foe.y + 60;

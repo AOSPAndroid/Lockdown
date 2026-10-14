@@ -91,7 +91,7 @@ test('high ground: shots from above land, shots from below hit the cliff unless 
 });
 
 test('bots use both floors and still capture points on two-floor maps', () => {
-  for (const map of twoFloor) {
+  for (const map of twoFloor.filter(map => !map.training)) {
     const state = L.createState({ mapId: map.id, seed: 3 }); L.startMatch(state, []);
     let high = 0, captures = 0;
     for (let t = 0; t < 120 * 150; t++) {

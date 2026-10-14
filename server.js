@@ -98,7 +98,7 @@ export function createServer(options = {}) {
   function createRoom(name, settings = {}) {
     if (name !== undefined && typeof name !== 'string') throw fail('Room name must be text.');
     const mapId = Object.hasOwn(settings, 'mapId') ? settings.mapId : Lockdown.MAP_IDS[0];
-    if (typeof mapId !== 'string' || !Object.hasOwn(Lockdown.MAPS, mapId)) throw fail('Choose an available Lockdown map.');
+    if (typeof mapId !== 'string' || !Lockdown.MAP_IDS.includes(mapId)) throw fail('Choose an available Lockdown map.');
     reapRooms();
     if (rooms.size >= maxRooms) throw fail('The server has reached its room limit. Try again after an empty room closes.', 503);
     let id;

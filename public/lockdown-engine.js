@@ -104,13 +104,25 @@ export function createState({ mapId = MAP_IDS[0], seed = 1 } = {}) {
   if (!Object.hasOwn(MAPS, mapId)) throw new RangeError('Unknown Lockdown map.');
   const map = MAPS[mapId];
   return {
-    gameId: 'lockdown', mapId, mapName: map.name, tick: 0, phase: 'lobby', phaseTicks: 0, seed: seed >>> 0 || 1,
+    gameId: 'lockdown', mapId, mapName: map.name, mode: map.training ? 'dojo' : 'match', tick: 0, phase: 'lobby', phaseTicks: 0, seed: seed >>> 0 || 1,
     scores: [0, 0], winner: null, timeLeftTicks: RULES.timeLimitTicks, scoreTimer: RULES.scoreIntervalTicks,
     points: map.points.map(point => ({ id: point.id, x: point.x, y: point.y, progress: 0, owner: null })),
     players: Array.from({ length: CAPACITY }, (_, id) => newPlayer(id)),
     projectiles: [], bombs: [], clouds: [], pickups: [], events: [], eventId: 0, nextId: 1,
   };
 }
+
+/** The Dojo: free training on dummies. No countdown, no score, no end; loadouts change anywhere. */
+export const isDojo = state => state.mode === 'dojo';
+/** The dummies on the enemy team, in seat order. Positions are tiles on the Dojo map. 'still' stands,
+ * 'strafe' walks back and forth, 'high' stands on a gallery, 'spar' is a normal bot that fights back. */
+export const DOJO_DUMMIES = Object.freeze([
+  Object.freeze({ kind: 'still', cls: 'striker', col: 10.5, row: 7.5, name: 'Dummy' }),
+  Object.freeze({ kind: 'still', cls: 'guardian', col: 10.5, row: 11.5, name: 'Heavy dummy' }),
+  Object.freeze({ kind: 'strafe', cls: 'recon', col: 16.5, row: 9.5, name: 'Moving dummy' }),
+  Object.freeze({ kind: 'high', cls: 'recon', col: 15.5, row: 2.5, name: 'Gallery dummy' }),
+]);
+const DOJO = Object.freeze({ dummyRespawnTicks: 2 * TICK_RATE, respawnTicks: Math.round(1.5 * TICK_RATE), refillTicks: 2 * TICK_RATE, strafeTiles: 3 });
 
 /** True while a knight stands on their own team's base (spawn) tiles. */
 export function inBase(state, player) {
@@ -157,7 +169,7 @@ export function setPlayerSetup(state, id, { team, cls, armor, helmet, pants, sho
   if (!player) return { ok: false, error: 'Unknown player.' };
   const inMatch = state.phase === 'countdown' || state.phase === 'fight';
   if (inMatch && team !== undefined && team !== player.team) return { ok: false, error: 'Change teams in the lobby.' };
-  if (inMatch && (cls !== undefined || gearChange || weapons !== undefined) && player.alive && !inBase(state, player)) return { ok: false, error: 'Return to your base to change class, armor or weapons.' };
+  if (inMatch && !isDojo(state) && (cls !== undefined || gearChange || weapons !== undefined) && player.alive && !inBase(state, player)) return { ok: false, error: 'Return to your base to change class, armor or weapons.' };
   if (cls !== undefined && !Object.hasOwn(CLASSES, cls)) return { ok: false, error: 'Choose Striker, Guardian or Recon.' };
   for (const slot of GEAR_SLOTS) if (gear[slot] !== undefined && (typeof gear[slot] !== 'string' || !Object.hasOwn(GEAR[slot], gear[slot]))) return { ok: false, error: slot === 'armor' ? 'Choose an available armor.' : `Choose an available ${slot === 'helmet' ? 'helmet' : slot === 'pants' ? 'pair of pants' : 'pair of shoes'}.` };
   if (weapons !== undefined) {
@@ -239,8 +251,38 @@ export function startMatch(state, participantIds = []) {
     Object.assign(player, { kills: 0, deaths: 0, captures: 0, damage: 0, score: 0 });
     spawn(state, player);
   }
+  if (isDojo(state)) setupDojo(state);
   emit(state, 'matchStart', { mapId: state.mapId });
   return state;
+}
+
+/** The Dojo has no countdown. People train on the left; their team's bots sit out, and the enemy seats
+ * become dummies standing at their marks. */
+function setupDojo(state) {
+  const humans = state.players.filter(player => player.human);
+  for (const player of humans) if (player.team !== 0) { player.team = 0; spawn(state, player); }
+  const dummies = state.players.filter(player => player.bot && player.team === 1);
+  for (const player of state.players.filter(player => player.bot && player.team === 0)) {
+    // A bot on the people's side becomes a dummy if there are seats to fill, otherwise it sits out.
+    if (dummies.length < DOJO_DUMMIES.length) { player.team = 1; dummies.push(player); continue; }
+    Object.assign(player, { alive: false, benched: true, respawnTicks: 0 });
+  }
+  dummies.forEach((player, index) => {
+    const spec = DOJO_DUMMIES[index];
+    if (!spec) { Object.assign(player, { alive: false, benched: true }); return; }
+    Object.assign(player, { dummy: spec.kind, home: { x: spec.col * TILE, y: spec.row * TILE }, name: spec.name, cls: spec.cls, brain: null });
+    for (const slot of GEAR_SLOTS) player[slot] = 'none';
+    spawn(state, player);
+  });
+  Object.assign(state, { phase: 'fight', phaseTicks: 0 });
+}
+/** Dojo: turn the moving dummy into a sparring partner that fights back, or back again. */
+export function setDojoSpar(state, on) {
+  if (!isDojo(state)) return { ok: false, error: 'Sparring is for the Dojo.' };
+  const partner = state.players.find(player => player.dummy === 'strafe' || player.dummy === 'spar');
+  if (!partner) return { ok: false, error: 'No dummy to spar with.' };
+  partner.dummy = on ? 'spar' : 'strafe'; partner.name = on ? 'Sparring partner' : 'Moving dummy'; partner.brain = null;
+  return { ok: true };
 }
 
 export function resetLobby(state) {
@@ -253,6 +295,7 @@ export function resetLobby(state) {
 
 export function selectMap(state, mapId) {
   if (!Object.hasOwn(MAPS, mapId)) return { ok: false, error: 'Unknown Lockdown map.' };
+  if (MAPS[mapId].training || isDojo(state)) return { ok: false, error: 'The Dojo is for solo training.' };
   if (state.phase !== 'lobby') return { ok: false, error: 'Change the map in the lobby.' };
   const map = MAPS[mapId];
   Object.assign(state, { mapId, mapName: map.name, points: map.points.map(point => ({ id: point.id, x: point.x, y: point.y, progress: 0, owner: null })) });
@@ -265,14 +308,15 @@ const BOT_OUTFITS = Object.freeze({
   guardian: ['heavy', 'juggernaut', 'bombardier', 'medic', 'clockwork'],
   recon: ['scout', 'gunslinger', 'ballistic', 'mirrorweave', 'clockwork'],
 });
-function respawnDelay(state) {
+function respawnDelay(state, player) {
+  if (isDojo(state)) return player?.dummy ? DOJO.dummyRespawnTicks : DOJO.respawnTicks;
   const minutes = Math.floor((RULES.timeLimitTicks - state.timeLeftTicks) / (60 * TICK_RATE));
   return Math.min(RULES.respawnMaxTicks, RULES.respawnBaseTicks + minutes * RULES.respawnPerMinuteTicks);
 }
 function spawn(state, player) {
   const map = MAPS[state.mapId], tiles = map.spawns[player.team];
-  let spot = tiles[0];
-  for (let tries = 0; tries < 12; tries++) {
+  let spot = player.home || tiles[0];
+  for (let tries = 0; tries < 12 && !player.home; tries++) {
     const candidate = tiles[Math.floor(random(state) * tiles.length)];
     if (!state.players.some(other => other !== player && other.alive && dist(other, candidate) < RULES.radius * 2.2)) { spot = candidate; break; }
   }
@@ -288,6 +332,7 @@ function spawn(state, player) {
   player.clips = Object.fromEntries(player.weapons.filter(isGun).map(id => [id, WEAPONS[id].clip]));
   player.slot = Math.max(0, player.weapons.findIndex(Boolean)); player.heartUse = 0;
   player.reloadTicks = {}; player.sinceShot = {};
+  if (player.dummy) player.shieldTicks = 0;
 }
 
 // ---------- physics ----------
@@ -418,7 +463,7 @@ function applyStatus(state, target, id, ownerId, chance = 1) {
   return true;
 }
 function knockOut(state, attacker, target) {
-  target.alive = false; target.hp = 0; target.deaths++; target.respawnTicks = respawnDelay(state);
+  target.alive = false; target.hp = 0; target.deaths++; target.respawnTicks = respawnDelay(state, target);
   target.cloakTicks = target.dashTicks = 0; target.boosting = false; target.guarding = false; target.catalysts = 0;
   for (const id of STATUS_IDS) target.status[id] = 0;
   target.chillStacks = 0;
@@ -879,7 +924,10 @@ function tickPlayer(state, player, input) {
   if (player.alive && state.phase === 'fight' && player.hp < player.maxHp && inBase(state, player)) heal(player, RULES.baseHealPerSecond / TICK_RATE);
   // Some outfits mend slowly after four seconds without taking damage.
   if (player.alive && state.phase === 'fight' && outfitOf(player).regen > 0 && player.hp < player.maxHp && state.tick - player.lastHurtTick > 4 * TICK_RATE) heal(player, outfitOf(player).regen / TICK_RATE);
+  // Dojo dummies are back to full health after two seconds left alone.
+  if (player.dummy && player.alive && player.hp < player.maxHp && state.tick - player.lastHurtTick > DOJO.refillTicks) player.hp = player.maxHp;
   const previous = player.previousInput || emptyInput(), map = MAPS[state.mapId];
+  if (player.benched) { player.previousInput = input; return; }
   if (!player.alive) {
     if (state.phase === 'fight' && --player.respawnTicks <= 0) { spawn(state, player); emit(state, 'respawn', { playerId: player.id, x: player.x, y: player.y }); }
     player.previousInput = input; return;
@@ -934,6 +982,8 @@ function tickPlayer(state, player, input) {
   player.previousInput = input;
 }
 
+/** Flinch follows the round's weight: light rapid-fire rounds barely flinch, heavy rounds stagger. */
+const shotStun = shot => Math.round(Math.min(8, 3 + shot.damage * .3));
 function tickProjectiles(state) {
   const map = MAPS[state.mapId], survivors = [];
   for (const shot of state.projectiles) {
@@ -972,7 +1022,7 @@ function tickProjectiles(state) {
         // Precision rounds hit harder the farther they have flown.
         const flown = Math.hypot(shot.x - shot.ox, shot.y - shot.oy), long = shot.longShot ? 1 + shot.longShot.bonus * clamp((flown - shot.longShot.from) / Math.max(1, shot.range - shot.longShot.from), 0, 1) : 1;
         if (long > 1.15) emit(state, 'longShot', { playerId: shot.ownerId, targetId: target.id, x: target.x, y: target.y, bonus: long });
-        const landed = damage(state, owner, target, shot.damage * long, { push: shot.push, angle: Math.atan2(shot.vy, shot.vx), stun: 8, kind: shot.kind, damageFamily, source: shot, status: shot.status, chance: shot.chance, weapon: shot.weapon });
+        const landed = damage(state, owner, target, shot.damage * long, { push: shot.push, angle: Math.atan2(shot.vy, shot.vx), stun: shotStun(shot), kind: shot.kind, damageFamily, source: shot, status: shot.status, chance: shot.chance, weapon: shot.weapon });
         if (landed && shot.kind === 'catalyst') { target.catalysts = Math.min(3, (target.catalysts || 0) + 1); target.catalystTicks = 6 * TICK_RATE; emit(state, 'catalyst', { playerId: target.id, count: target.catalysts }); }
         if (shot.kind === 'detonator' && target.alive && target.catalysts > 0) {
           const count = target.catalysts; target.catalysts = 0;
@@ -1091,7 +1141,9 @@ export function step(state, rawInputs = []) {
     return state;
   }
   for (const player of state.players) tickPlayer(state, player, inputs[player.id]);
-  tickProjectiles(state); tickBombs(state); tickClouds(state); tickPickups(state); tickPoints(state);
+  tickProjectiles(state); tickBombs(state); tickClouds(state); tickPickups(state);
+  if (isDojo(state)) return state;
+  tickPoints(state);
   state.timeLeftTicks = Math.max(0, state.timeLeftTicks - 1);
   const won = state.scores.findIndex(score => score >= RULES.scoreToWin);
   if (won >= 0 || state.timeLeftTicks === 0) {
@@ -1153,7 +1205,8 @@ function nearestBaseTile(map, bot) {
 }
 function botInput(state, bot) {
   const input = emptyInput(bot.aim);
-  if (!bot.alive || state.phase !== 'fight' && state.phase !== 'countdown') return input;
+  if (!bot.alive || bot.benched || state.phase !== 'fight' && state.phase !== 'countdown') return input;
+  if (bot.dummy && bot.dummy !== 'spar') return dummyInput(state, bot, input);
   const map = MAPS[state.mapId], brain = bot.brain ||= { goal: null, rethink: 0, strafe: 1, strafeTicks: 0, pulse: 0 };
   // Objective: take a point we don't hold (nearest by path), otherwise guard a contested one.
   if (--brain.rethink <= 0 && !(brain.perchUntil > state.tick)) {
@@ -1168,6 +1221,8 @@ function botInput(state, bot) {
     // On two-floor maps gunners sometimes take the high ground over their point and shoot down.
     const perches = perchesFor(map, brain.goal), weapon = currentWeapon(bot);
     if (perches.length && (bot.cls === 'recon' || weapon.family === 'gun') && random(state) < .35) { brain.goal = perches[Math.floor(random(state) * perches.length)]; brain.perchUntil = state.tick + 12 * TICK_RATE; }
+    // A Dojo sparring partner goes looking for the people training.
+    if (bot.dummy === 'spar') brain.goal = state.players.filter(other => other.alive && other.team !== bot.team).sort((a, b) => dist(a, bot) - dist(b, bot))[0] || brain.goal;
   }
   const enemies = state.players.filter(other => other.alive && other.team !== bot.team && (other.cloakTicks === 0 || dist(other, bot) < ABILITIES.cloak.revealRange) && dist(other, bot) < 460 && lineOfSight(map, bot, other));
   const target = enemies.sort((a, b) => dist(a, bot) - dist(b, bot))[0];
@@ -1269,6 +1324,19 @@ function botInput(state, bot) {
     const sx = input.right ? 1 : input.left ? -1 : 0, sy = input.down ? 1 : input.up ? -1 : 0;
     if (sx && !sy && collides(map, bot.x + sx * 4, bot.y, RULES.radius)) { const centre = (Math.floor(bot.y / TILE) + .5) * TILE - bot.y; input.down = centre > 2; input.up = centre < -2; }
     if (sy && !sx && collides(map, bot.x, bot.y + sy * 4, RULES.radius)) { const centre = (Math.floor(bot.x / TILE) + .5) * TILE - bot.x; input.right = centre > 2; input.left = centre < -2; }
+  }
+  return input;
+}
+
+/** Dojo dummies: stand still facing the nearest person, or walk back and forth across their mark. */
+function dummyInput(state, bot, input) {
+  const near = state.players.filter(other => other.alive && other.team !== bot.team).sort((a, b) => dist(a, bot) - dist(b, bot))[0];
+  if (near) { bot.aim = Math.atan2(near.y - bot.y, near.x - bot.x); input.aim = bot.aim; }
+  if (bot.dummy === 'strafe') {
+    const brain = bot.brain ||= { dir: 1 }, map = MAPS[state.mapId], offset = bot.y - bot.home.y;
+    if (offset > DOJO.strafeTiles * TILE) brain.dir = -1; else if (offset < -DOJO.strafeTiles * TILE) brain.dir = 1;
+    else if (collides(map, bot.x, bot.y + brain.dir * (RULES.radius + 4), RULES.radius)) brain.dir = -brain.dir;
+    input[brain.dir > 0 ? 'down' : 'up'] = true;
   }
   return input;
 }

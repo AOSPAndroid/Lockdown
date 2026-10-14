@@ -5,6 +5,8 @@ guns and bombs, three classes, gear, bots and online rooms. **The work now is de
 
 ## Read first
 
+- **`docs/ART-GUIDE.md`: all the art guidance in one place (the Spiral Knights-style direction, characters,
+  weapons, arenas, icons, technical rules, workflow and the delivery checklist). Start here.**
 - `docs/LOOK.md`: the target look, the design rules, every number, the texture slots and their rules.
 - `docs/MODELS.md`: the model contract (rig, units, materials, budgets).
 - `docs/CATALOG.md`: every item to make (body, classes, helmets, armour, pants, shoes, swords, guns, bombs),
@@ -23,9 +25,11 @@ guns and bombs, three classes, gear, bots and online rooms. **The work now is de
 3. Arenas are walls and two floors only, with grand stairs. Never add pits, lava, water or gaps.
 4. Work one theme at a time and stop for approval after the first theme.
 5. Never fix art by stretching, smearing or resizing it unevenly; redraw it.
-6. Before reporting work: run `node tools/art3d-index.mjs` (no errors), `npm test` (all pass), then play
-   the arena (`npm start`, http://localhost:3000/lockdown.html?solo=1) and take screenshots in base, on a
-   capture point, on the raised floor and mid-fight. Show those screenshots.
+6. Before reporting work: run `node tools/art3d-index.mjs` (no errors), `npm test` (all pass), then look at
+   it in the game (`npm start`). Models: the Dojo (http://localhost:3000/lockdown.html?solo=1&dojo=1), where
+   **B** changes gear and weapons anywhere and dummies stand still to be looked at. Arenas: a solo match
+   (http://localhost:3000/lockdown.html?solo=1), in base, on a capture point, on the raised floor and
+   mid-fight. Show those screenshots.
 
 ## Commands
 

@@ -14,7 +14,9 @@ npm install
 npm start
 ```
 
-Open <http://localhost:3000>. **Play solo** starts a practice match against seven bots. **Create room**
+Open <http://localhost:3000>. **Play solo** starts a practice match against seven bots. **Dojo** opens a
+training hall with dummies and a damage meter, where **B** changes class, gear and weapons anywhere: the
+place to try every weapon and charge attack. **Create room**
 opens an online room (up to eight people, Amber vs Cyan); share the link or the six-letter code with
 friends on your network, who open the same address. The host picks the arena and starts the match.
 
@@ -27,13 +29,13 @@ Views: the 3D view is the default; `?quality=low` turns off shadows and glow for
 
 ## How it plays
 
-See [docs/GAMEPLAY.md](docs/GAMEPLAY.md): classes, gear, weapons and their traits, the fighting rules
+See [docs/GAMEPLAY.md](docs/GAMEPLAY.md) and the [weapons audit](docs/WEAPONS-AUDIT.md): classes, gear, weapons and their traits, the fighting rules
 (interrupts, counters, perfect dodges, clashes, Spiral Knights-style cancels), statuses, hearts and the
 eight arenas.
 
 ## Look and art
 
-See [docs/LOOK.md](docs/LOOK.md) for the design rules, every number behind the look, and how to add
+Start with [docs/ART-GUIDE.md](docs/ART-GUIDE.md): all the art guidance in one place. See also [docs/LOOK.md](docs/LOOK.md) for the design rules, every number behind the look, and how to add
 textures (`public/art/3d/<theme>/`, checked by `node tools/art3d-index.mjs`). Every item to model is in
 [docs/CATALOG.md](docs/CATALOG.md) and the model contract in [docs/MODELS.md](docs/MODELS.md). Agents start
 with [AGENTS.md](AGENTS.md).

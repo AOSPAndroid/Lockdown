@@ -12,6 +12,8 @@ const $ = id => document.getElementById(id);
 const params = new URLSearchParams(location.search);
 const roomId = params.get('room');
 const solo = !roomId;
+// ?solo=1&dojo=1: the Dojo, a training hall with dummies where loadouts change anywhere.
+const dojo = solo && params.get('dojo') === '1';
 const FAMILY_GLYPH = { blade: '⚔', gun: '✦', bomb: '●' };
 const CLASS_GLYPH = { striker: '➶', guardian: '⛨', recon: '◐' };
 const ELEMENT_TAGS = { chill: 'Frost', freeze: 'Frost', burn: 'Fire', shock: 'Shock', poison: 'Poison', curse: 'Curse', drain: 'Drain', holy: 'Holy' };
@@ -50,7 +52,7 @@ function loadSetup() {
 function storeSetup() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(setup)); } catch {} }
 const setup = loadSetup();
 const gearOf = source => Object.fromEntries(GEAR_SLOTS.map(slot => [slot, Object.hasOwn(GEAR[slot], source?.[slot]) ? source[slot] : 'none']));
-let soloMapId = MAP_IDS[0];
+let soloMapId = dojo ? 'dojo' : MAP_IDS[0];
 
 // ---------- session state ----------
 let state = null;          // latest authoritative (or local) state
@@ -73,6 +75,8 @@ function soloCreate() {
   state = Engine.createState({ mapId: soloMapId, seed: (Math.random() * 2 ** 32) >>> 0 });
   Engine.setConnected(state, 0, true, getName());
   applySetupLocally();
+  // The Dojo opens straight away (the menu stays up, paused, until you step in).
+  if (dojo) Engine.startMatch(state, [0]);
 }
 function applySetupLocally() {
   if (!state || state.phase !== 'lobby' && state.phase !== 'matchEnd') return;
@@ -666,6 +670,7 @@ function refreshIcons() {
 const inMatch = () => state?.phase === 'countdown' || state?.phase === 'fight';
 function canChangeLoadout() {
   const me = state?.players[localId ?? -1];
+  if (state && Engine.isDojo(state)) return true;
   return !inMatch() || !!me && (!me.alive || Engine.inBase(state, me));
 }
 let baseHintFlash = 0;
@@ -705,7 +710,7 @@ function renderMenu() {
   note.hidden = lobby;
   if (!lobby) {
     note.classList.toggle('away', !editable);
-    note.textContent = !me?.alive ? 'Waiting to respawn: class and equipment changes apply when you return.' : editable ? 'You are in your base: class and equipment changes apply right away. Teams stay fixed until the next lobby.' : 'Return to your base to change class or equipment. Your base also heals you.';
+    note.textContent = Engine.isDojo(state) ? 'Dojo: change class, gear and weapons any time with B. Changes apply right away.' : !me?.alive ? 'Waiting to respawn: class and equipment changes apply when you return.' : editable ? 'You are in your base: class and equipment changes apply right away. Teams stay fixed until the next lobby.' : 'Return to your base to change class or equipment. Your base also heals you.';
   }
   $('ld-class-note').textContent = `${CLASSES[cls].perks}. ${CLASSES[cls].description}`;
   if (!$('ld-weapon-note').textContent) showWeaponNote(weapons[0]);
@@ -719,6 +724,7 @@ function renderMenu() {
   start.disabled = !isHost || !state || (!solo && !connected);
   if (!isHost && (phase === 'lobby' || phase === 'matchEnd')) setStatus('Waiting for the host to start…', true);
   $('ld-resume').hidden = !(phase === 'countdown' || phase === 'fight');
+  $('ld-resume').textContent = dojo ? 'Train' : 'Back to the fight';
   // Roster: everyone in seat order, bots greyed.
   const roster = $('ld-roster'); roster.textContent = '';
   for (const player of state?.players ?? []) {
@@ -792,6 +798,8 @@ function frame(now) {
     scene.render(shown, { localId, now, focus, pointer: reticle ? mouse : null });
     playEvents(view);
     if (view.phase !== 'lobby') updateHud(view);
+    if (dojo) updateDojo(view, now);
+    chargeCue(view);
     if (view.phase !== lastPhase) {
       if (view.phase === 'countdown' && lastPhase !== null) toggleMenu(false);
       if (view.phase === 'matchEnd') toggleMenu(true);
@@ -801,6 +809,56 @@ function frame(now) {
   }
   requestAnimationFrame(frame);
 }
+/** A bright chime the moment your charge is full, so you can release it without watching the bar. */
+let chargeWasReady = false;
+function chargeCue(current) {
+  const me = current.players[localId ?? -1], weapon = me && WEAPONS[me.weapons?.[me.slot]];
+  const ready = !!(me?.alive && me.charging && weapon && me.chargeTicks >= Engine.chargeTicksFor(me, weapon));
+  if (ready && !chargeWasReady) audio.tone(990, .12, { end: 1320, type: 'triangle', gain: .14 });
+  chargeWasReady = ready;
+}
+
+// ---------- Dojo: damage meter ----------
+const meter = { seen: new Set(), last: null, lastCharged: false, combo: 0, streak: 0, streakStart: 0, lastHitAt: 0, bestCharge: 0, total: 0, chargeAt: -Infinity };
+const COMBO_GAP_MS = 1500;
+function updateDojo(current, now) {
+  for (const event of current.events || []) {
+    if (meter.seen.has(event.id)) continue;
+    meter.seen.add(event.id);
+    if (event.playerId !== localId) continue;
+    if (event.type === 'chargeRelease') meter.chargeAt = event.tick;
+    if (event.type !== 'damage' || current.players[event.targetId]?.team === current.players[localId]?.team) continue;
+    // Hits within a second of releasing a charge count as the charge attack.
+    const charged = event.tick - meter.chargeAt < TICK_RATE;
+    if (now - meter.lastHitAt > COMBO_GAP_MS) { meter.combo = 0; meter.streak = 0; meter.streakStart = now; }
+    meter.combo++; meter.streak += event.amount; meter.total += event.amount; meter.lastHitAt = now;
+    meter.last = event.amount; meter.lastCharged = charged;
+    if (charged) meter.bestCharge = Math.max(meter.bestCharge, event.amount);
+  }
+  if (meter.seen.size > 2000) meter.seen.clear();
+  const seconds = Math.max(1, (meter.lastHitAt - meter.streakStart) / 1000);
+  $('ld-dojo-last').textContent = meter.last === null ? '—' : `${meter.last}${meter.lastCharged ? ' ★' : ''}`;
+  $('ld-dojo-combo').textContent = now - meter.lastHitAt > COMBO_GAP_MS ? '0' : String(meter.combo);
+  $('ld-dojo-streak').textContent = String(Math.round(meter.streak));
+  $('ld-dojo-dps').textContent = meter.combo > 1 ? (meter.streak / seconds).toFixed(1) : '—';
+  $('ld-dojo-charge').textContent = meter.bestCharge ? String(meter.bestCharge) : '—';
+  $('ld-dojo-total').textContent = String(Math.round(meter.total));
+}
+function setupDojoPanel() {
+  app.dataset.mode = 'dojo';
+  $('ld-dojo').hidden = false;
+  $('ld-mode').textContent = 'TRAINING · DUMMIES';
+  $('ld-menu-title').textContent = 'Dojo';
+  $('ld-start').closest('.ld-panel').querySelector('h2').textContent = 'Training';
+  $('ld-lede').textContent = 'Try any weapon, charge attack and piece of gear on training dummies. Hold attack to charge: a gold ring fills at your feet and turns white when the charge is ready; let go to unleash it. Press B any time to change class, equipment or weapons. Dummies heal when left alone and come back after a knockout; turn on sparring to make one fight back.';
+  $('ld-dojo-reset').addEventListener('click', () => { Object.assign(meter, { last: null, combo: 0, streak: 0, bestCharge: 0, total: 0, lastHitAt: 0 }); canvas.focus(); });
+  $('ld-dojo-spar').addEventListener('click', event => {
+    const on = event.currentTarget.getAttribute('aria-pressed') !== 'true', result = Engine.setDojoSpar(state, on);
+    if (!result.ok) { setStatus(result.error); return; }
+    event.currentTarget.setAttribute('aria-pressed', String(on)); event.currentTarget.textContent = `Sparring: ${on ? 'on' : 'off'}`; canvas.focus();
+  });
+}
+
 /** While you wait to respawn the camera drifts toward the most contested point. */
 function overviewFocus(view, me) {
   const hot = [...view.points].sort((a, b) => ((b.counts?.[0] || 0) + (b.counts?.[1] || 0)) - ((a.counts?.[0] || 0) + (a.counts?.[1] || 0)))[0];
@@ -810,6 +868,7 @@ function overviewFocus(view, me) {
 buildMenu();
 refreshIcons();
 if (solo) soloCreate(); else connect();
+if (dojo) setupDojoPanel();
 app.dataset.menu = 'open';
 renderMenu();
 requestAnimationFrame(frame);

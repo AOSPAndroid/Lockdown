@@ -20,6 +20,18 @@
         </div>
         <div class="ld-score ld-team1"><i><em id="ld-bar1"></em></i><b id="ld-score1">0</b><span class="ld-team-name">CYAN</span></div>
       </div>
+      <section class="ld-dojo" id="ld-dojo" hidden aria-label="Dojo damage meter">
+        <header><b>DOJO</b><span>Hold attack to charge</span></header>
+        <dl>
+          <div><dt>Last hit</dt><dd id="ld-dojo-last">—</dd></div>
+          <div><dt>Combo</dt><dd id="ld-dojo-combo">0</dd></div>
+          <div><dt>Combo damage</dt><dd id="ld-dojo-streak">0</dd></div>
+          <div><dt>DPS</dt><dd id="ld-dojo-dps">0</dd></div>
+          <div><dt>Best charge</dt><dd id="ld-dojo-charge">—</dd></div>
+          <div><dt>Total</dt><dd id="ld-dojo-total">0</dd></div>
+        </dl>
+        <div class="ld-dojo-actions"><button type="button" id="ld-dojo-spar" aria-pressed="false">Sparring: off</button><button type="button" id="ld-dojo-reset">Reset</button></div>
+      </section>
       <canvas class="ld-minimap" id="ld-minimap" width="216" height="132" aria-hidden="true"></canvas>
       <ol class="ld-feed" id="ld-feed"></ol>
       <div class="ld-bottom">
@@ -98,6 +110,7 @@
           <h2>Match</h2>
           <label class="ld-field">Map<select id="ld-map"></select></label>
           <p class="ld-hint" id="ld-map-note"></p>
+          <p class="ld-hint" id="ld-dojo-link"><a href="/lockdown.html?solo=1&amp;dojo=1">Try any weapon in the Dojo →</a></p>
           <ol class="ld-roster" id="ld-roster"></ol>
           <div class="ld-actions">
             <button type="button" class="ld-primary" id="ld-start">Start match</button>

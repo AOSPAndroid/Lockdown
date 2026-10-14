@@ -521,7 +521,7 @@ export class LockdownRenderer {
     for (const player of players) upright(player.y, lift(player.x, player.y), () => {
       if (player.guarding) this.drawGuard(ctx, player, now);
       // Health is only shown for your own team (and, later, monsters); enemies keep theirs hidden.
-      const showHealth = viewerTeam === null || player.team === undefined || player.team === viewerTeam;
+      const showHealth = viewerTeam === null || player.team === undefined || player.team === viewerTeam || !!player.dummy;
       this.drawKnightOverlay(ctx, player, now, player.id === localId, showHealth);
       if (showHealth && state.phase === 'fight' && player.hp < player.maxHp && inBase(state, player)) this.drawRegen(ctx, player, now);
     })();
