@@ -55,8 +55,27 @@
     "shoes/spurs.glb",
     "shoes/striders.glb",
     "shoes/treads.glb",
+    "weapons/avenger.glb",
     "weapons/blast.glb",
     "weapons/blaster.glb",
-    "weapons/brand.glb"
+    "weapons/blazebrand.glb",
+    "weapons/brand.glb",
+    "weapons/cleaver.glb",
+    "weapons/flamesabre.glb",
+    "weapons/frostbite.glb",
+    "weapons/frostsabre.glb",
+    "weapons/greatblade.glb",
+    "weapons/hexblade.glb",
+    "weapons/katana.glb",
+    "weapons/leviathan.glb",
+    "weapons/maul.glb",
+    "weapons/rapier.glb",
+    "weapons/sabre.glb",
+    "weapons/sickle.glb",
+    "weapons/spur.glb",
+    "weapons/stormsabre.glb",
+    "weapons/thorn.glb",
+    "weapons/troika.glb",
+    "weapons/voltedge.glb"
   ]
 }
