@@ -23,6 +23,7 @@
  * - Sheets are horizontal strips of `frames` equal frames.
  */
 import { WEAPONS, CLASSES, MAPS, ARMORS, HELMETS, PANTS, SHOES } from './lockdown-engine.js';
+import { GEAR_LOOKS as LOOKS, WEAPON_LOOKS } from './lockdown-looks.js';
 
 export const ASSET_BASE = '/art/lockdown/';
 
@@ -104,47 +105,14 @@ const characters = [0, 1].map(team => asset(
 ));
 const armors = Object.values(ARMORS).filter(armor => armor.id !== 'none').flatMap(armor => [0, 1].map(team => asset(
   `armor_${armor.id}_team${team}`, 640, 320, [32, 58],
-  `${armor.name} torso garment-only overlay: ${armor.description} Smooth rounded materials, softly painted shading. Team ${team === 0 ? 'Amber' : 'Cyan'} on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. ${facingList}.`,
+  `${armor.name} torso garment-only overlay: ${LOOKS.armor[armor.id] || armor.description} Smooth rounded materials, softly painted shading. Team ${team === 0 ? 'Amber' : 'Cyan'} on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. ${facingList}.`,
   { group: 'armors', frames: KNIGHT_ANIMATION.columns, rows: KNIGHT_FACINGS.length, facings: KNIGHT_FACINGS },
 )));
 
 // Helmets, pants and shoes are separate overlay sheets drawn on top of the body outfit, in the same
 // 10×5 grid with the same feet point, so any helmet + armor + pants + shoes combination lines up.
-const GEAR_LOOKS = Object.freeze({
-  helmet: {
-    sallet: 'a rounded steel sallet with a narrow eye slit and a short tail at the back',
-    visor: 'a slim dark tactical visor wrapping the eyes with a cyan glowing lens and a small earpiece',
-    horned: 'a dented iron cap with two big curved bone horns',
-    hood: 'a deep charcoal-violet cloth hood that shadows the face (eyes faintly glow)',
-    lampcap: 'a sooty leather miner cap with a brass lamp on the front throwing a small yellow glow',
-    feather: 'a jaunty green felt cap with a long red feather sweeping back',
-    bucket: 'a literal dented metal bucket worn as a helm, with eye holes punched in it',
-    circlet: 'a thin gold circlet with a small green gem on the forehead over loose hair',
-    goggles: 'brass aviator goggles pushed up on a leather strap over a bare head',
-  },
-  pants: {
-    greaves: 'steel knee greaves and shin plates over dark trousers',
-    leggings: 'tight dark-blue running leggings with a light stripe down the side',
-    chausses: 'grey chainmail chausses (ring texture) to the ankle',
-    breeches: 'cream fencing breeches buckled below the knee with long white socks',
-    sapper: 'olive canvas trousers with knee pads and a fuse-cord pouch on the thigh',
-    cargo: 'khaki cargo trousers with big side pockets and a holster strap on the thigh',
-    kilt: 'a red-and-green tartan kilt with a leather sporran',
-  },
-  shoes: {
-    sneakers: 'white running sneakers with a bright sole stripe',
-    sabatons: 'chunky segmented iron sabatons',
-    dashboots: 'sleek blue boots with small silver wings at the ankles',
-    spurs: 'brown riding boots with gold rowel spurs at the heel',
-    treads: 'heavy black rubber-soled work boots with thick treads',
-    clogs: 'springy wooden clogs on coiled steel springs',
-    sandals: 'simple leather sandals with straps and a little herb sprig tucked in',
-    striders: 'light reed-and-cork sandals with wide flat paddles under the soles, beaded with water drops',
-    magma: 'thick black obsidian-soled boots with glowing orange cracks',
-    hover: 'chunky silver boots with small glowing cyan thrusters under the soles (a soft glow below the feet)',
-    quicksilver: 'thin liquid-silver slippers with a mirror sheen and little speed streaks',
-  },
-});
+// The looks come from public/lockdown-looks.js, the one description of every item.
+const GEAR_LOOKS = Object.freeze(Object.fromEntries(['helmet', 'pants', 'shoes'].map(slot => [slot, Object.fromEntries(Object.entries(LOOKS[slot]).filter(([id]) => id !== 'none'))])));
 const GEAR_PIECES = Object.freeze({ helmet: HELMETS, pants: PANTS, shoes: SHOES });
 const gear = Object.entries(GEAR_LOOKS).flatMap(([slot, looks]) => Object.entries(looks).flatMap(([id, look]) => [
   asset(`gear_${slot}_${id}`, 640, 320, [32, 58],
@@ -154,7 +122,7 @@ const gear = Object.entries(GEAR_LOOKS).flatMap(([slot, looks]) => Object.entrie
 ]));
 
 const weapons = Object.values(WEAPONS).flatMap(weapon => [
-  asset(`weapon_${weapon.id}`, 64, 32, [12, 16], `${weapon.name} (${weapon.family}) held in the hand, pointing right; the grip sits at the anchor. ${weapon.description}`, { group: 'weapons' }),
+  asset(`weapon_${weapon.id}`, 64, 32, [12, 16], `${weapon.name} (${weapon.family}) held in the hand, pointing right; the grip sits at the anchor. ${WEAPON_LOOKS[weapon.id] || weapon.description}`, { group: 'weapons' }),
   asset(`icon_weapon_${weapon.id}`, 48, 48, [24, 24], `HUD/lobby icon for the ${weapon.name}. Clear silhouette on a transparent background.`, { group: 'icons' }),
 ]);
 

@@ -115,17 +115,8 @@ The menus (armory, inventory, loadout) use 2D icons from `public/art/lockdown/` 
 `ui_*`). Those follow `public/art/lockdown/ASSETS.md` and `tools/lockdown-art-kit/` (with its own
 checker). Restyle them to match the 3D look: chunky, rounded, painted, lit from the top-left.
 
-## 6. Later: models
+## 6. Models
 
-Knights, weapons and props are built from simple shapes in code today (helmet, visor, team band, class
-crest, pauldrons, weapon meshes). If proper models are made later, they plug in as glTF (`.glb`):
-
-- Scale: 1 unit = 1 tile; knights 1.3 units tall; origin at the feet; facing **+X**; Y up.
-- Knights: one rigged body plus separate armour/helmet/pants/shoe meshes on the same skeleton;
-  animations `idle`, `walk`, `run`, `swing_1`…`swing_4`, `charge`, `lunge`, `slam`, `spin`, `guard`,
-  `hit`, `ko`. The right hand bone is named `hand_R` (weapons attach there).
-- Weapons: origin at the grip, blade or barrel along **+X**.
-- Under 3,000 triangles per knight, 800 per weapon; one 1024² texture each; no team colour baked in
-  (the game tints a marked `team` material).
-
-The renderer does not load models yet; it will as soon as the first approved model exists.
+Knights, gear, weapons and bombs are built from simple shapes in code today and are replaced by real
+models as they arrive. [MODELS.md](MODELS.md) is the contract (rig, units, materials, budgets) and
+[CATALOG.md](CATALOG.md) lists every item to make, with what it does and how it should look.

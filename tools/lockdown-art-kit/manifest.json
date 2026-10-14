@@ -1746,7 +1746,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Scout Armor torso garment-only overlay: Light armor for faster movement and longer dashes, with modest protection. Smooth rounded materials, softly painted shading. Team Amber on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
+  "description": "Scout Armor torso garment-only overlay: Light tan leather jerkin with a brown belt, small shoulder guards and a canteen at the hip; quick and practical. Smooth rounded materials, softly painted shading. Team Amber on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
  },
  {
   "key": "armor_scout_team1",
@@ -1809,7 +1809,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Scout Armor torso garment-only overlay: Light armor for faster movement and longer dashes, with modest protection. Smooth rounded materials, softly painted shading. Team Cyan on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
+  "description": "Scout Armor torso garment-only overlay: Light tan leather jerkin with a brown belt, small shoulder guards and a canteen at the hip; quick and practical. Smooth rounded materials, softly painted shading. Team Cyan on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
  },
  {
   "key": "armor_ballistic_team0",
@@ -1872,7 +1872,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Ballistic Armor torso garment-only overlay: Specialized protection against guns, with a small speed cost. Smooth rounded materials, softly painted shading. Team Amber on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
+  "description": "Ballistic Armor torso garment-only overlay: Chunky grey-green padded plates over the chest and shoulders with a high collar, like a bomb-disposal vest; bullet scuffs. Smooth rounded materials, softly painted shading. Team Amber on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
  },
  {
   "key": "armor_ballistic_team1",
@@ -1935,7 +1935,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Ballistic Armor torso garment-only overlay: Specialized protection against guns, with a small speed cost. Smooth rounded materials, softly painted shading. Team Cyan on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
+  "description": "Ballistic Armor torso garment-only overlay: Chunky grey-green padded plates over the chest and shoulders with a high collar, like a bomb-disposal vest; bullet scuffs. Smooth rounded materials, softly painted shading. Team Cyan on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
  },
  {
   "key": "armor_duelist_team0",
@@ -1998,7 +1998,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Duelist Armor torso garment-only overlay: Specialized protection against swords, with a small speed cost. Smooth rounded materials, softly painted shading. Team Amber on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
+  "description": "Duelist Armor torso garment-only overlay: A fitted burgundy brigandine with diagonal steel bands, one large left pauldron and a high collar; elegant and sharp. Smooth rounded materials, softly painted shading. Team Amber on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
  },
  {
   "key": "armor_duelist_team1",
@@ -2061,7 +2061,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Duelist Armor torso garment-only overlay: Specialized protection against swords, with a small speed cost. Smooth rounded materials, softly painted shading. Team Cyan on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
+  "description": "Duelist Armor torso garment-only overlay: A fitted burgundy brigandine with diagonal steel bands, one large left pauldron and a high collar; elegant and sharp. Smooth rounded materials, softly painted shading. Team Cyan on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
  },
  {
   "key": "armor_heavy_team0",
@@ -2124,7 +2124,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Heavy Armor torso garment-only overlay: Strong protection against direct attacks, with slower movement and shorter dashes. Smooth rounded materials, softly painted shading. Team Amber on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
+  "description": "Heavy Armor torso garment-only overlay: Thick steel plate: a domed breastplate, big rounded pauldrons and a skirt of plates; dents and rivets everywhere. Smooth rounded materials, softly painted shading. Team Amber on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
  },
  {
   "key": "armor_heavy_team1",
@@ -2187,7 +2187,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Heavy Armor torso garment-only overlay: Strong protection against direct attacks, with slower movement and shorter dashes. Smooth rounded materials, softly painted shading. Team Cyan on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
+  "description": "Heavy Armor torso garment-only overlay: Thick steel plate: a domed breastplate, big rounded pauldrons and a skirt of plates; dents and rivets everywhere. Smooth rounded materials, softly painted shading. Team Cyan on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
  },
  {
   "key": "armor_gunslinger_team0",
@@ -2250,7 +2250,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Gunslinger Duster torso garment-only overlay: A long riding coat for marksmen: guns hit 15% harder and charge 15% faster, with little protection. Smooth rounded materials, softly painted shading. Team Amber on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
+  "description": "Gunslinger Duster torso garment-only overlay: A long brown riding duster with a bandolier of brass cartridges across the chest and a wide collar; the coat tails flap behind. Smooth rounded materials, softly painted shading. Team Amber on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
  },
  {
   "key": "armor_gunslinger_team1",
@@ -2313,7 +2313,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Gunslinger Duster torso garment-only overlay: A long riding coat for marksmen: guns hit 15% harder and charge 15% faster, with little protection. Smooth rounded materials, softly painted shading. Team Cyan on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
+  "description": "Gunslinger Duster torso garment-only overlay: A long brown riding duster with a bandolier of brass cartridges across the chest and a wide collar; the coat tails flap behind. Smooth rounded materials, softly painted shading. Team Cyan on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
  },
  {
   "key": "armor_fencer_team0",
@@ -2376,7 +2376,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Fencing Garb torso garment-only overlay: A light padded fencing jacket: swords hit 15% harder and swing 10% faster, with little protection. Smooth rounded materials, softly painted shading. Team Amber on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
+  "description": "Fencing Garb torso garment-only overlay: A white padded fencing jacket buttoned on one side with a red heart patch on the chest; a slim, light silhouette. Smooth rounded materials, softly painted shading. Team Amber on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
  },
  {
   "key": "armor_fencer_team1",
@@ -2439,7 +2439,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Fencing Garb torso garment-only overlay: A light padded fencing jacket: swords hit 15% harder and swing 10% faster, with little protection. Smooth rounded materials, softly painted shading. Team Cyan on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
+  "description": "Fencing Garb torso garment-only overlay: A white padded fencing jacket buttoned on one side with a red heart patch on the chest; a slim, light silhouette. Smooth rounded materials, softly painted shading. Team Cyan on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
  },
  {
   "key": "armor_windrunner_team0",
@@ -2502,7 +2502,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Windrunner Wraps torso garment-only overlay: Flowing silk wraps for runners: much faster, with quicker, longer dashes, but swords hit 8% softer and they barely protect you. Smooth rounded materials, softly painted shading. Team Amber on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
+  "description": "Windrunner Wraps torso garment-only overlay: Flowing pale-turquoise silk wraps and sashes that trail behind like ribbons; bare arms with wrapped forearms. Smooth rounded materials, softly painted shading. Team Amber on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
  },
  {
   "key": "armor_windrunner_team1",
@@ -2565,7 +2565,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Windrunner Wraps torso garment-only overlay: Flowing silk wraps for runners: much faster, with quicker, longer dashes, but swords hit 8% softer and they barely protect you. Smooth rounded materials, softly painted shading. Team Cyan on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
+  "description": "Windrunner Wraps torso garment-only overlay: Flowing pale-turquoise silk wraps and sashes that trail behind like ribbons; bare arms with wrapped forearms. Smooth rounded materials, softly painted shading. Team Cyan on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
  },
  {
   "key": "armor_juggernaut_team0",
@@ -2628,7 +2628,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Juggernaut Plate torso garment-only overlay: Riveted siege plate: +30 health and hard to knock back, but very slow, with short dashes and heavier swings. Smooth rounded materials, softly painted shading. Team Amber on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
+  "description": "Juggernaut Plate torso garment-only overlay: A huge riveted dark-iron siege plate: a barrel chest, enormous shoulder plates with spikes and a grille on the chest; the knight looks twice as wide. Smooth rounded materials, softly painted shading. Team Amber on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
  },
  {
   "key": "armor_juggernaut_team1",
@@ -2691,7 +2691,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Juggernaut Plate torso garment-only overlay: Riveted siege plate: +30 health and hard to knock back, but very slow, with short dashes and heavier swings. Smooth rounded materials, softly painted shading. Team Cyan on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
+  "description": "Juggernaut Plate torso garment-only overlay: A huge riveted dark-iron siege plate: a barrel chest, enormous shoulder plates with spikes and a grille on the chest; the knight looks twice as wide. Smooth rounded materials, softly painted shading. Team Cyan on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
  },
  {
   "key": "armor_bombardier_team0",
@@ -2754,7 +2754,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Bombardier Apron torso garment-only overlay: A scorched leather apron full of fuses: bombs charge 35% faster and hit 20% harder, and blasts barely scratch you, but guns lose their edge. Smooth rounded materials, softly painted shading. Team Amber on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
+  "description": "Bombardier Apron torso garment-only overlay: A scorched brown leather apron over a soot-grey shirt, a belt of fused bombs and a coil of fuse cord on the shoulder. Smooth rounded materials, softly painted shading. Team Amber on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
  },
  {
   "key": "armor_bombardier_team1",
@@ -2817,7 +2817,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Bombardier Apron torso garment-only overlay: A scorched leather apron full of fuses: bombs charge 35% faster and hit 20% harder, and blasts barely scratch you, but guns lose their edge. Smooth rounded materials, softly painted shading. Team Cyan on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
+  "description": "Bombardier Apron torso garment-only overlay: A scorched brown leather apron over a soot-grey shirt, a belt of fused bombs and a coil of fuse cord on the shoulder. Smooth rounded materials, softly painted shading. Team Cyan on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
  },
  {
   "key": "armor_berserker_team0",
@@ -2880,7 +2880,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Berserker Hide torso garment-only overlay: Bare arms and a wolf pelt: swords hit 25% harder and swing 10% faster, but bullets bite deeper. Smooth rounded materials, softly painted shading. Team Amber on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
+  "description": "Berserker Hide torso garment-only overlay: Bare arms painted with red war stripes and a wolf pelt over the shoulders with the head on the back; a bone necklace. Smooth rounded materials, softly painted shading. Team Amber on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
  },
  {
   "key": "armor_berserker_team1",
@@ -2943,7 +2943,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Berserker Hide torso garment-only overlay: Bare arms and a wolf pelt: swords hit 25% harder and swing 10% faster, but bullets bite deeper. Smooth rounded materials, softly painted shading. Team Cyan on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
+  "description": "Berserker Hide torso garment-only overlay: Bare arms painted with red war stripes and a wolf pelt over the shoulders with the head on the back; a bone necklace. Smooth rounded materials, softly painted shading. Team Cyan on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
  },
  {
   "key": "armor_mirrorweave_team0",
@@ -3006,7 +3006,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Mirrorweave Cloak torso garment-only overlay: A shimmering cloak that sheds fire, poison, shock and frost (60% shorter) and turns some bullets, at the cost of 10 health. Smooth rounded materials, softly painted shading. Team Amber on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
+  "description": "Mirrorweave Cloak torso garment-only overlay: A shimmering cloak of mirror scales that catches the light (pearly blue-violet sheen) over a dark tunic. Smooth rounded materials, softly painted shading. Team Amber on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
  },
  {
   "key": "armor_mirrorweave_team1",
@@ -3069,7 +3069,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Mirrorweave Cloak torso garment-only overlay: A shimmering cloak that sheds fire, poison, shock and frost (60% shorter) and turns some bullets, at the cost of 10 health. Smooth rounded materials, softly painted shading. Team Cyan on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
+  "description": "Mirrorweave Cloak torso garment-only overlay: A shimmering cloak of mirror scales that catches the light (pearly blue-violet sheen) over a dark tunic. Smooth rounded materials, softly painted shading. Team Cyan on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
  },
  {
   "key": "armor_medic_team0",
@@ -3132,7 +3132,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Field Medic Coat torso garment-only overlay: A white coat with a satchel of salves: hearts, base and dome heal you 50% more and you mend 3 HP a second out of combat, but every weapon hits 5% softer. Smooth rounded materials, softly painted shading. Team Amber on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
+  "description": "Field Medic Coat torso garment-only overlay: A white field coat with a red cross armband, a satchel of salves across the body and green glass vials at the belt. Smooth rounded materials, softly painted shading. Team Amber on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
  },
  {
   "key": "armor_medic_team1",
@@ -3195,7 +3195,259 @@
     "weaponBehind": true
    }
   ],
-  "description": "Field Medic Coat torso garment-only overlay: A white coat with a satchel of salves: hearts, base and dome heal you 50% more and you mend 3 HP a second out of combat, but every weapon hits 5% softer. Smooth rounded materials, softly painted shading. Team Cyan on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
+  "description": "Field Medic Coat torso garment-only overlay: A white field coat with a red cross armband, a satchel of salves across the body and green glass vials at the belt. Smooth rounded materials, softly painted shading. Team Cyan on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
+ },
+ {
+  "key": "armor_cobalt_team0",
+  "file": "armor_cobalt_team0.png",
+  "group": "armors",
+  "size": [
+   640,
+   320
+  ],
+  "anchor": [
+   32,
+   58
+  ],
+  "frames": 10,
+  "rows": 5,
+  "facings": [
+   {
+    "id": "down",
+    "label": "facing the camera",
+    "hand": [
+     22,
+     44
+    ],
+    "weaponBehind": false
+   },
+   {
+    "id": "down_right",
+    "label": "three-quarter front, turned right",
+    "hand": [
+     40,
+     44
+    ],
+    "weaponBehind": false
+   },
+   {
+    "id": "right",
+    "label": "side view facing right",
+    "hand": [
+     42,
+     42
+    ],
+    "weaponBehind": false
+   },
+   {
+    "id": "up_right",
+    "label": "three-quarter back, turned right",
+    "hand": [
+     42,
+     38
+    ],
+    "weaponBehind": true
+   },
+   {
+    "id": "up",
+    "label": "back to the camera",
+    "hand": [
+     44,
+     38
+    ],
+    "weaponBehind": true
+   }
+  ],
+  "description": "Cobalt Mail torso garment-only overlay: Deep-blue cobalt mail: a smooth blue breastplate with silver trim and a star emblem, rounded blue pauldrons and a short blue tabard. Smooth rounded materials, softly painted shading. Team Amber on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
+ },
+ {
+  "key": "armor_cobalt_team1",
+  "file": "armor_cobalt_team1.png",
+  "group": "armors",
+  "size": [
+   640,
+   320
+  ],
+  "anchor": [
+   32,
+   58
+  ],
+  "frames": 10,
+  "rows": 5,
+  "facings": [
+   {
+    "id": "down",
+    "label": "facing the camera",
+    "hand": [
+     22,
+     44
+    ],
+    "weaponBehind": false
+   },
+   {
+    "id": "down_right",
+    "label": "three-quarter front, turned right",
+    "hand": [
+     40,
+     44
+    ],
+    "weaponBehind": false
+   },
+   {
+    "id": "right",
+    "label": "side view facing right",
+    "hand": [
+     42,
+     42
+    ],
+    "weaponBehind": false
+   },
+   {
+    "id": "up_right",
+    "label": "three-quarter back, turned right",
+    "hand": [
+     42,
+     38
+    ],
+    "weaponBehind": true
+   },
+   {
+    "id": "up",
+    "label": "back to the camera",
+    "hand": [
+     44,
+     38
+    ],
+    "weaponBehind": true
+   }
+  ],
+  "description": "Cobalt Mail torso garment-only overlay: Deep-blue cobalt mail: a smooth blue breastplate with silver trim and a star emblem, rounded blue pauldrons and a short blue tabard. Smooth rounded materials, softly painted shading. Team Cyan on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
+ },
+ {
+  "key": "armor_vog_team0",
+  "file": "armor_vog_team0.png",
+  "group": "armors",
+  "size": [
+   640,
+   320
+  ],
+  "anchor": [
+   32,
+   58
+  ],
+  "frames": 10,
+  "rows": 5,
+  "facings": [
+   {
+    "id": "down",
+    "label": "facing the camera",
+    "hand": [
+     22,
+     44
+    ],
+    "weaponBehind": false
+   },
+   {
+    "id": "down_right",
+    "label": "three-quarter front, turned right",
+    "hand": [
+     40,
+     44
+    ],
+    "weaponBehind": false
+   },
+   {
+    "id": "right",
+    "label": "side view facing right",
+    "hand": [
+     42,
+     42
+    ],
+    "weaponBehind": false
+   },
+   {
+    "id": "up_right",
+    "label": "three-quarter back, turned right",
+    "hand": [
+     42,
+     38
+    ],
+    "weaponBehind": true
+   },
+   {
+    "id": "up",
+    "label": "back to the camera",
+    "hand": [
+     44,
+     38
+    ],
+    "weaponBehind": true
+   }
+  ],
+  "description": "Vog Cub Coat torso garment-only overlay: A shaggy orange-and-black fur coat made from a volcanic bear cub: ember-glowing tips on the fur, small horns on the shoulders and a fur hood down the back. Smooth rounded materials, softly painted shading. Team Amber on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
+ },
+ {
+  "key": "armor_vog_team1",
+  "file": "armor_vog_team1.png",
+  "group": "armors",
+  "size": [
+   640,
+   320
+  ],
+  "anchor": [
+   32,
+   58
+  ],
+  "frames": 10,
+  "rows": 5,
+  "facings": [
+   {
+    "id": "down",
+    "label": "facing the camera",
+    "hand": [
+     22,
+     44
+    ],
+    "weaponBehind": false
+   },
+   {
+    "id": "down_right",
+    "label": "three-quarter front, turned right",
+    "hand": [
+     40,
+     44
+    ],
+    "weaponBehind": false
+   },
+   {
+    "id": "right",
+    "label": "side view facing right",
+    "hand": [
+     42,
+     42
+    ],
+    "weaponBehind": false
+   },
+   {
+    "id": "up_right",
+    "label": "three-quarter back, turned right",
+    "hand": [
+     42,
+     38
+    ],
+    "weaponBehind": true
+   },
+   {
+    "id": "up",
+    "label": "back to the camera",
+    "hand": [
+     44,
+     38
+    ],
+    "weaponBehind": true
+   }
+  ],
+  "description": "Vog Cub Coat torso garment-only overlay: A shaggy orange-and-black fur coat made from a volcanic bear cub: ember-glowing tips on the fur, small horns on the shoulders and a fur hood down the back. Smooth rounded materials, softly painted shading. Team Cyan on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
  },
  {
   "key": "armor_clockwork_team0",
@@ -3258,7 +3510,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Clockwork Harness torso garment-only overlay: A ticking brass harness: your class ability and dash recharge much faster, but your guns and swords hit 5% softer. Smooth rounded materials, softly painted shading. Team Amber on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
+  "description": "Clockwork Harness torso garment-only overlay: A ticking brass harness over a dark shirt: exposed gears on the chest that turn, a winding key on the back and copper pipes on the shoulders. Smooth rounded materials, softly painted shading. Team Amber on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
  },
  {
   "key": "armor_clockwork_team1",
@@ -3321,7 +3573,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Clockwork Harness torso garment-only overlay: A ticking brass harness: your class ability and dash recharge much faster, but your guns and swords hit 5% softer. Smooth rounded materials, softly painted shading. Team Cyan on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
+  "description": "Clockwork Harness torso garment-only overlay: A ticking brass harness over a dark shirt: exposed gears on the chest that turn, a winding key on the back and copper pipes on the shoulders. Smooth rounded materials, softly painted shading. Team Cyan on narrow trim only. Match the common body's exact ten-column, five-row grid: 1–2 idle, 3–6 walk, 7–10 run. Draw over the body with the same row, frame and mirroring. No headgear, pants, shoes or weapons; uncovered skin, hands, hair and clothing remain transparent. row 1 down (facing the camera, hand at 22, 44); row 2 down_right (three-quarter front, turned right, hand at 40, 44); row 3 right (side view facing right, hand at 42, 42); row 4 up_right (three-quarter back, turned right, hand at 42, 38); row 5 up (back to the camera, hand at 44, 38)."
  },
  {
   "key": "gear_helmet_sallet",
@@ -3384,7 +3636,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Sallet Helm overlay: ONLY a rounded steel sallet with a narrow eye slit and a short tail at the back, nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the head of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
+  "description": "Sallet Helm overlay: ONLY A rounded steel sallet with a narrow eye slit and a short swept tail at the back; polished, a little battered, a thin `team` band round the brow., nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the head of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
  },
  {
   "key": "icon_helmet_sallet",
@@ -3399,7 +3651,7 @@
    24
   ],
   "frames": 1,
-  "description": "Sallet Helm equipment icon: a rounded steel sallet with a narrow eye slit and a short tail at the back. Clear silhouette on a transparent background."
+  "description": "Sallet Helm equipment icon: A rounded steel sallet with a narrow eye slit and a short swept tail at the back; polished, a little battered, a thin `team` band round the brow.. Clear silhouette on a transparent background."
  },
  {
   "key": "gear_helmet_visor",
@@ -3462,7 +3714,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Marksman Visor overlay: ONLY a slim dark tactical visor wrapping the eyes with a cyan glowing lens and a small earpiece, nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the head of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
+  "description": "Marksman Visor overlay: ONLY A slim dark tactical visor wrapping the eyes with a glowing cyan lens and a small brass earpiece; the top of the head stays bare., nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the head of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
  },
  {
   "key": "icon_helmet_visor",
@@ -3477,7 +3729,7 @@
    24
   ],
   "frames": 1,
-  "description": "Marksman Visor equipment icon: a slim dark tactical visor wrapping the eyes with a cyan glowing lens and a small earpiece. Clear silhouette on a transparent background."
+  "description": "Marksman Visor equipment icon: A slim dark tactical visor wrapping the eyes with a glowing cyan lens and a small brass earpiece; the top of the head stays bare.. Clear silhouette on a transparent background."
  },
  {
   "key": "gear_helmet_horned",
@@ -3540,7 +3792,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Horned Helm overlay: ONLY a dented iron cap with two big curved bone horns, nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the head of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
+  "description": "Horned Helm overlay: ONLY A dented iron cap with two big curved bone horns sweeping forward and up; leather chin strap., nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the head of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
  },
  {
   "key": "icon_helmet_horned",
@@ -3555,7 +3807,7 @@
    24
   ],
   "frames": 1,
-  "description": "Horned Helm equipment icon: a dented iron cap with two big curved bone horns. Clear silhouette on a transparent background."
+  "description": "Horned Helm equipment icon: A dented iron cap with two big curved bone horns sweeping forward and up; leather chin strap.. Clear silhouette on a transparent background."
  },
  {
   "key": "gear_helmet_hood",
@@ -3618,7 +3870,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Hexweave Hood overlay: ONLY a deep charcoal-violet cloth hood that shadows the face (eyes faintly glow), nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the head of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
+  "description": "Hexweave Hood overlay: ONLY A deep charcoal-violet cloth hood that shadows the face; two eyes glow faintly violet inside; little rune stitches on the hem., nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the head of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
  },
  {
   "key": "icon_helmet_hood",
@@ -3633,7 +3885,7 @@
    24
   ],
   "frames": 1,
-  "description": "Hexweave Hood equipment icon: a deep charcoal-violet cloth hood that shadows the face (eyes faintly glow). Clear silhouette on a transparent background."
+  "description": "Hexweave Hood equipment icon: A deep charcoal-violet cloth hood that shadows the face; two eyes glow faintly violet inside; little rune stitches on the hem.. Clear silhouette on a transparent background."
  },
  {
   "key": "gear_helmet_lampcap",
@@ -3696,7 +3948,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Sapper Lamp Cap overlay: ONLY a sooty leather miner cap with a brass lamp on the front throwing a small yellow glow, nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the head of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
+  "description": "Sapper Lamp Cap overlay: ONLY A sooty leather miner's cap with a big brass lamp on the front (warm yellow glow) and a fuse cord wrapped round it., nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the head of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
  },
  {
   "key": "icon_helmet_lampcap",
@@ -3711,7 +3963,7 @@
    24
   ],
   "frames": 1,
-  "description": "Sapper Lamp Cap equipment icon: a sooty leather miner cap with a brass lamp on the front throwing a small yellow glow. Clear silhouette on a transparent background."
+  "description": "Sapper Lamp Cap equipment icon: A sooty leather miner's cap with a big brass lamp on the front (warm yellow glow) and a fuse cord wrapped round it.. Clear silhouette on a transparent background."
  },
  {
   "key": "gear_helmet_feather",
@@ -3774,7 +4026,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Feathered Cap overlay: ONLY a jaunty green felt cap with a long red feather sweeping back, nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the head of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
+  "description": "Feathered Cap overlay: ONLY A jaunty green felt cap tipped to one side with a long red feather sweeping back., nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the head of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
  },
  {
   "key": "icon_helmet_feather",
@@ -3789,7 +4041,7 @@
    24
   ],
   "frames": 1,
-  "description": "Feathered Cap equipment icon: a jaunty green felt cap with a long red feather sweeping back. Clear silhouette on a transparent background."
+  "description": "Feathered Cap equipment icon: A jaunty green felt cap tipped to one side with a long red feather sweeping back.. Clear silhouette on a transparent background."
  },
  {
   "key": "gear_helmet_bucket",
@@ -3852,7 +4104,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Bucket Helm overlay: ONLY a literal dented metal bucket worn as a helm, with eye holes punched in it, nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the head of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
+  "description": "Bucket Helm overlay: ONLY A dented metal bucket worn upside down as a helm, two eye holes punched in it and the handle hanging at the side., nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the head of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
  },
  {
   "key": "icon_helmet_bucket",
@@ -3867,7 +4119,7 @@
    24
   ],
   "frames": 1,
-  "description": "Bucket Helm equipment icon: a literal dented metal bucket worn as a helm, with eye holes punched in it. Clear silhouette on a transparent background."
+  "description": "Bucket Helm equipment icon: A dented metal bucket worn upside down as a helm, two eye holes punched in it and the handle hanging at the side.. Clear silhouette on a transparent background."
  },
  {
   "key": "gear_helmet_circlet",
@@ -3930,7 +4182,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Mender Circlet overlay: ONLY a thin gold circlet with a small green gem on the forehead over loose hair, nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the head of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
+  "description": "Mender Circlet overlay: ONLY A thin gold circlet with a small green gem on the forehead, over the loose hair., nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the head of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
  },
  {
   "key": "icon_helmet_circlet",
@@ -3945,7 +4197,7 @@
    24
   ],
   "frames": 1,
-  "description": "Mender Circlet equipment icon: a thin gold circlet with a small green gem on the forehead over loose hair. Clear silhouette on a transparent background."
+  "description": "Mender Circlet equipment icon: A thin gold circlet with a small green gem on the forehead, over the loose hair.. Clear silhouette on a transparent background."
  },
  {
   "key": "gear_helmet_goggles",
@@ -4008,7 +4260,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Clockwork Goggles overlay: ONLY brass aviator goggles pushed up on a leather strap over a bare head, nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the head of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
+  "description": "Clockwork Goggles overlay: ONLY Brass aviator goggles with round amber lenses pushed up on a leather strap over a bare head; a tiny ticking cog at the temple., nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the head of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
  },
  {
   "key": "icon_helmet_goggles",
@@ -4023,7 +4275,319 @@
    24
   ],
   "frames": 1,
-  "description": "Clockwork Goggles equipment icon: brass aviator goggles pushed up on a leather strap over a bare head. Clear silhouette on a transparent background."
+  "description": "Clockwork Goggles equipment icon: Brass aviator goggles with round amber lenses pushed up on a leather strap over a bare head; a tiny ticking cog at the temple.. Clear silhouette on a transparent background."
+ },
+ {
+  "key": "gear_helmet_cobalt",
+  "file": "gear_helmet_cobalt.png",
+  "group": "gear",
+  "size": [
+   640,
+   320
+  ],
+  "anchor": [
+   32,
+   58
+  ],
+  "frames": 10,
+  "rows": 5,
+  "facings": [
+   {
+    "id": "down",
+    "label": "facing the camera",
+    "hand": [
+     22,
+     44
+    ],
+    "weaponBehind": false
+   },
+   {
+    "id": "down_right",
+    "label": "three-quarter front, turned right",
+    "hand": [
+     40,
+     44
+    ],
+    "weaponBehind": false
+   },
+   {
+    "id": "right",
+    "label": "side view facing right",
+    "hand": [
+     42,
+     42
+    ],
+    "weaponBehind": false
+   },
+   {
+    "id": "up_right",
+    "label": "three-quarter back, turned right",
+    "hand": [
+     42,
+     38
+    ],
+    "weaponBehind": true
+   },
+   {
+    "id": "up",
+    "label": "back to the camera",
+    "hand": [
+     44,
+     38
+    ],
+    "weaponBehind": true
+   }
+  ],
+  "description": "Cobalt Helm overlay: ONLY A deep-blue cobalt great helm, rounded and heavy, with a T-shaped visor slit, silver rivets and a short blue plume., nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the head of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
+ },
+ {
+  "key": "icon_helmet_cobalt",
+  "file": "icon_helmet_cobalt.png",
+  "group": "icons",
+  "size": [
+   48,
+   48
+  ],
+  "anchor": [
+   24,
+   24
+  ],
+  "frames": 1,
+  "description": "Cobalt Helm equipment icon: A deep-blue cobalt great helm, rounded and heavy, with a T-shaped visor slit, silver rivets and a short blue plume.. Clear silhouette on a transparent background."
+ },
+ {
+  "key": "gear_helmet_wolver",
+  "file": "gear_helmet_wolver.png",
+  "group": "gear",
+  "size": [
+   640,
+   320
+  ],
+  "anchor": [
+   32,
+   58
+  ],
+  "frames": 10,
+  "rows": 5,
+  "facings": [
+   {
+    "id": "down",
+    "label": "facing the camera",
+    "hand": [
+     22,
+     44
+    ],
+    "weaponBehind": false
+   },
+   {
+    "id": "down_right",
+    "label": "three-quarter front, turned right",
+    "hand": [
+     40,
+     44
+    ],
+    "weaponBehind": false
+   },
+   {
+    "id": "right",
+    "label": "side view facing right",
+    "hand": [
+     42,
+     42
+    ],
+    "weaponBehind": false
+   },
+   {
+    "id": "up_right",
+    "label": "three-quarter back, turned right",
+    "hand": [
+     42,
+     38
+    ],
+    "weaponBehind": true
+   },
+   {
+    "id": "up",
+    "label": "back to the camera",
+    "hand": [
+     44,
+     38
+    ],
+    "weaponBehind": true
+   }
+  ],
+  "description": "Wolver Cowl overlay: ONLY A grey wolf-pelt cowl: the wolf's head sits on top with its ears up and its fangs over the brow; fur falls to the shoulders., nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the head of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
+ },
+ {
+  "key": "icon_helmet_wolver",
+  "file": "icon_helmet_wolver.png",
+  "group": "icons",
+  "size": [
+   48,
+   48
+  ],
+  "anchor": [
+   24,
+   24
+  ],
+  "frames": 1,
+  "description": "Wolver Cowl equipment icon: A grey wolf-pelt cowl: the wolf's head sits on top with its ears up and its fangs over the brow; fur falls to the shoulders.. Clear silhouette on a transparent background."
+ },
+ {
+  "key": "gear_helmet_demo",
+  "file": "gear_helmet_demo.png",
+  "group": "gear",
+  "size": [
+   640,
+   320
+  ],
+  "anchor": [
+   32,
+   58
+  ],
+  "frames": 10,
+  "rows": 5,
+  "facings": [
+   {
+    "id": "down",
+    "label": "facing the camera",
+    "hand": [
+     22,
+     44
+    ],
+    "weaponBehind": false
+   },
+   {
+    "id": "down_right",
+    "label": "three-quarter front, turned right",
+    "hand": [
+     40,
+     44
+    ],
+    "weaponBehind": false
+   },
+   {
+    "id": "right",
+    "label": "side view facing right",
+    "hand": [
+     42,
+     42
+    ],
+    "weaponBehind": false
+   },
+   {
+    "id": "up_right",
+    "label": "three-quarter back, turned right",
+    "hand": [
+     42,
+     38
+    ],
+    "weaponBehind": true
+   },
+   {
+    "id": "up",
+    "label": "back to the camera",
+    "hand": [
+     44,
+     38
+    ],
+    "weaponBehind": true
+   }
+  ],
+  "description": "Volcanic Demo Helm overlay: ONLY A blast-scarred black demolition helm with an orange-glowing visor grille, soot streaks and a little smoking chimney on top., nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the head of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
+ },
+ {
+  "key": "icon_helmet_demo",
+  "file": "icon_helmet_demo.png",
+  "group": "icons",
+  "size": [
+   48,
+   48
+  ],
+  "anchor": [
+   24,
+   24
+  ],
+  "frames": 1,
+  "description": "Volcanic Demo Helm equipment icon: A blast-scarred black demolition helm with an orange-glowing visor grille, soot streaks and a little smoking chimney on top.. Clear silhouette on a transparent background."
+ },
+ {
+  "key": "gear_helmet_seraph",
+  "file": "gear_helmet_seraph.png",
+  "group": "gear",
+  "size": [
+   640,
+   320
+  ],
+  "anchor": [
+   32,
+   58
+  ],
+  "frames": 10,
+  "rows": 5,
+  "facings": [
+   {
+    "id": "down",
+    "label": "facing the camera",
+    "hand": [
+     22,
+     44
+    ],
+    "weaponBehind": false
+   },
+   {
+    "id": "down_right",
+    "label": "three-quarter front, turned right",
+    "hand": [
+     40,
+     44
+    ],
+    "weaponBehind": false
+   },
+   {
+    "id": "right",
+    "label": "side view facing right",
+    "hand": [
+     42,
+     42
+    ],
+    "weaponBehind": false
+   },
+   {
+    "id": "up_right",
+    "label": "three-quarter back, turned right",
+    "hand": [
+     42,
+     38
+    ],
+    "weaponBehind": true
+   },
+   {
+    "id": "up",
+    "label": "back to the camera",
+    "hand": [
+     44,
+     38
+    ],
+    "weaponBehind": true
+   }
+  ],
+  "description": "Seraph Veil overlay: ONLY A white silk veil falling from the crown, a floating golden halo above the head (soft warm glow) and two small white feather wings at the temples., nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the head of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
+ },
+ {
+  "key": "icon_helmet_seraph",
+  "file": "icon_helmet_seraph.png",
+  "group": "icons",
+  "size": [
+   48,
+   48
+  ],
+  "anchor": [
+   24,
+   24
+  ],
+  "frames": 1,
+  "description": "Seraph Veil equipment icon: A white silk veil falling from the crown, a floating golden halo above the head (soft warm glow) and two small white feather wings at the temples.. Clear silhouette on a transparent background."
  },
  {
   "key": "gear_pants_greaves",
@@ -4086,7 +4650,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Plate Greaves overlay: ONLY steel knee greaves and shin plates over dark trousers, nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the hips and legs of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
+  "description": "Plate Greaves overlay: ONLY Steel knee greaves and shin plates over dark trousers., nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the hips and legs of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
  },
  {
   "key": "icon_pants_greaves",
@@ -4101,7 +4665,7 @@
    24
   ],
   "frames": 1,
-  "description": "Plate Greaves equipment icon: steel knee greaves and shin plates over dark trousers. Clear silhouette on a transparent background."
+  "description": "Plate Greaves equipment icon: Steel knee greaves and shin plates over dark trousers.. Clear silhouette on a transparent background."
  },
  {
   "key": "gear_pants_leggings",
@@ -4164,7 +4728,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Runner Leggings overlay: ONLY tight dark-blue running leggings with a light stripe down the side, nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the hips and legs of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
+  "description": "Runner Leggings overlay: ONLY Tight dark-blue running leggings with a light stripe down the side., nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the hips and legs of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
  },
  {
   "key": "icon_pants_leggings",
@@ -4179,7 +4743,7 @@
    24
   ],
   "frames": 1,
-  "description": "Runner Leggings equipment icon: tight dark-blue running leggings with a light stripe down the side. Clear silhouette on a transparent background."
+  "description": "Runner Leggings equipment icon: Tight dark-blue running leggings with a light stripe down the side.. Clear silhouette on a transparent background."
  },
  {
   "key": "gear_pants_chausses",
@@ -4242,7 +4806,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Chainmail Chausses overlay: ONLY grey chainmail chausses (ring texture) to the ankle, nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the hips and legs of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
+  "description": "Chainmail Chausses overlay: ONLY Grey chainmail chausses (a clear ring texture) to the ankle., nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the hips and legs of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
  },
  {
   "key": "icon_pants_chausses",
@@ -4257,7 +4821,7 @@
    24
   ],
   "frames": 1,
-  "description": "Chainmail Chausses equipment icon: grey chainmail chausses (ring texture) to the ankle. Clear silhouette on a transparent background."
+  "description": "Chainmail Chausses equipment icon: Grey chainmail chausses (a clear ring texture) to the ankle.. Clear silhouette on a transparent background."
  },
  {
   "key": "gear_pants_breeches",
@@ -4320,7 +4884,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Duelist Breeches overlay: ONLY cream fencing breeches buckled below the knee with long white socks, nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the hips and legs of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
+  "description": "Duelist Breeches overlay: ONLY Cream fencing breeches buckled below the knee with long white socks., nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the hips and legs of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
  },
  {
   "key": "icon_pants_breeches",
@@ -4335,7 +4899,7 @@
    24
   ],
   "frames": 1,
-  "description": "Duelist Breeches equipment icon: cream fencing breeches buckled below the knee with long white socks. Clear silhouette on a transparent background."
+  "description": "Duelist Breeches equipment icon: Cream fencing breeches buckled below the knee with long white socks.. Clear silhouette on a transparent background."
  },
  {
   "key": "gear_pants_sapper",
@@ -4398,7 +4962,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Sapper Trousers overlay: ONLY olive canvas trousers with knee pads and a fuse-cord pouch on the thigh, nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the hips and legs of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
+  "description": "Sapper Trousers overlay: ONLY Olive canvas trousers with knee pads and a fuse-cord pouch on the thigh., nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the hips and legs of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
  },
  {
   "key": "icon_pants_sapper",
@@ -4413,7 +4977,7 @@
    24
   ],
   "frames": 1,
-  "description": "Sapper Trousers equipment icon: olive canvas trousers with knee pads and a fuse-cord pouch on the thigh. Clear silhouette on a transparent background."
+  "description": "Sapper Trousers equipment icon: Olive canvas trousers with knee pads and a fuse-cord pouch on the thigh.. Clear silhouette on a transparent background."
  },
  {
   "key": "gear_pants_cargo",
@@ -4476,7 +5040,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Cargo Trousers overlay: ONLY khaki cargo trousers with big side pockets and a holster strap on the thigh, nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the hips and legs of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
+  "description": "Cargo Trousers overlay: ONLY Khaki cargo trousers with big side pockets and a holster strap on the thigh., nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the hips and legs of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
  },
  {
   "key": "icon_pants_cargo",
@@ -4491,7 +5055,7 @@
    24
   ],
   "frames": 1,
-  "description": "Cargo Trousers equipment icon: khaki cargo trousers with big side pockets and a holster strap on the thigh. Clear silhouette on a transparent background."
+  "description": "Cargo Trousers equipment icon: Khaki cargo trousers with big side pockets and a holster strap on the thigh.. Clear silhouette on a transparent background."
  },
  {
   "key": "gear_pants_kilt",
@@ -4554,7 +5118,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Kilt of Fury overlay: ONLY a red-and-green tartan kilt with a leather sporran, nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the hips and legs of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
+  "description": "Kilt of Fury overlay: ONLY A red-and-green tartan kilt with a leather sporran., nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the hips and legs of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
  },
  {
   "key": "icon_pants_kilt",
@@ -4569,7 +5133,319 @@
    24
   ],
   "frames": 1,
-  "description": "Kilt of Fury equipment icon: a red-and-green tartan kilt with a leather sporran. Clear silhouette on a transparent background."
+  "description": "Kilt of Fury equipment icon: A red-and-green tartan kilt with a leather sporran.. Clear silhouette on a transparent background."
+ },
+ {
+  "key": "gear_pants_cobalt",
+  "file": "gear_pants_cobalt.png",
+  "group": "gear",
+  "size": [
+   640,
+   320
+  ],
+  "anchor": [
+   32,
+   58
+  ],
+  "frames": 10,
+  "rows": 5,
+  "facings": [
+   {
+    "id": "down",
+    "label": "facing the camera",
+    "hand": [
+     22,
+     44
+    ],
+    "weaponBehind": false
+   },
+   {
+    "id": "down_right",
+    "label": "three-quarter front, turned right",
+    "hand": [
+     40,
+     44
+    ],
+    "weaponBehind": false
+   },
+   {
+    "id": "right",
+    "label": "side view facing right",
+    "hand": [
+     42,
+     42
+    ],
+    "weaponBehind": false
+   },
+   {
+    "id": "up_right",
+    "label": "three-quarter back, turned right",
+    "hand": [
+     42,
+     38
+    ],
+    "weaponBehind": true
+   },
+   {
+    "id": "up",
+    "label": "back to the camera",
+    "hand": [
+     44,
+     38
+    ],
+    "weaponBehind": true
+   }
+  ],
+  "description": "Cobalt Cuisses overlay: ONLY Deep-blue cobalt cuisses: blue steel thigh plates with silver rivets over dark trousers., nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the hips and legs of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
+ },
+ {
+  "key": "icon_pants_cobalt",
+  "file": "icon_pants_cobalt.png",
+  "group": "icons",
+  "size": [
+   48,
+   48
+  ],
+  "anchor": [
+   24,
+   24
+  ],
+  "frames": 1,
+  "description": "Cobalt Cuisses equipment icon: Deep-blue cobalt cuisses: blue steel thigh plates with silver rivets over dark trousers.. Clear silhouette on a transparent background."
+ },
+ {
+  "key": "gear_pants_wolver",
+  "file": "gear_pants_wolver.png",
+  "group": "gear",
+  "size": [
+   640,
+   320
+  ],
+  "anchor": [
+   32,
+   58
+  ],
+  "frames": 10,
+  "rows": 5,
+  "facings": [
+   {
+    "id": "down",
+    "label": "facing the camera",
+    "hand": [
+     22,
+     44
+    ],
+    "weaponBehind": false
+   },
+   {
+    "id": "down_right",
+    "label": "three-quarter front, turned right",
+    "hand": [
+     40,
+     44
+    ],
+    "weaponBehind": false
+   },
+   {
+    "id": "right",
+    "label": "side view facing right",
+    "hand": [
+     42,
+     42
+    ],
+    "weaponBehind": false
+   },
+   {
+    "id": "up_right",
+    "label": "three-quarter back, turned right",
+    "hand": [
+     42,
+     38
+    ],
+    "weaponBehind": true
+   },
+   {
+    "id": "up",
+    "label": "back to the camera",
+    "hand": [
+     44,
+     38
+    ],
+    "weaponBehind": true
+   }
+  ],
+  "description": "Wolver Leggings overlay: ONLY Grey fur-lined running leggings with wolf-claw marks stitched on the thighs., nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the hips and legs of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
+ },
+ {
+  "key": "icon_pants_wolver",
+  "file": "icon_pants_wolver.png",
+  "group": "icons",
+  "size": [
+   48,
+   48
+  ],
+  "anchor": [
+   24,
+   24
+  ],
+  "frames": 1,
+  "description": "Wolver Leggings equipment icon: Grey fur-lined running leggings with wolf-claw marks stitched on the thighs.. Clear silhouette on a transparent background."
+ },
+ {
+  "key": "gear_pants_demo",
+  "file": "gear_pants_demo.png",
+  "group": "gear",
+  "size": [
+   640,
+   320
+  ],
+  "anchor": [
+   32,
+   58
+  ],
+  "frames": 10,
+  "rows": 5,
+  "facings": [
+   {
+    "id": "down",
+    "label": "facing the camera",
+    "hand": [
+     22,
+     44
+    ],
+    "weaponBehind": false
+   },
+   {
+    "id": "down_right",
+    "label": "three-quarter front, turned right",
+    "hand": [
+     40,
+     44
+    ],
+    "weaponBehind": false
+   },
+   {
+    "id": "right",
+    "label": "side view facing right",
+    "hand": [
+     42,
+     42
+    ],
+    "weaponBehind": false
+   },
+   {
+    "id": "up_right",
+    "label": "three-quarter back, turned right",
+    "hand": [
+     42,
+     38
+    ],
+    "weaponBehind": true
+   },
+   {
+    "id": "up",
+    "label": "back to the camera",
+    "hand": [
+     44,
+     38
+    ],
+    "weaponBehind": true
+   }
+  ],
+  "description": "Demo Pantaloons overlay: ONLY Baggy black pantaloons stuffed with charges, orange powder stains and a stick of dynamite tucked in the belt., nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the hips and legs of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
+ },
+ {
+  "key": "icon_pants_demo",
+  "file": "icon_pants_demo.png",
+  "group": "icons",
+  "size": [
+   48,
+   48
+  ],
+  "anchor": [
+   24,
+   24
+  ],
+  "frames": 1,
+  "description": "Demo Pantaloons equipment icon: Baggy black pantaloons stuffed with charges, orange powder stains and a stick of dynamite tucked in the belt.. Clear silhouette on a transparent background."
+ },
+ {
+  "key": "gear_pants_seraph",
+  "file": "gear_pants_seraph.png",
+  "group": "gear",
+  "size": [
+   640,
+   320
+  ],
+  "anchor": [
+   32,
+   58
+  ],
+  "frames": 10,
+  "rows": 5,
+  "facings": [
+   {
+    "id": "down",
+    "label": "facing the camera",
+    "hand": [
+     22,
+     44
+    ],
+    "weaponBehind": false
+   },
+   {
+    "id": "down_right",
+    "label": "three-quarter front, turned right",
+    "hand": [
+     40,
+     44
+    ],
+    "weaponBehind": false
+   },
+   {
+    "id": "right",
+    "label": "side view facing right",
+    "hand": [
+     42,
+     42
+    ],
+    "weaponBehind": false
+   },
+   {
+    "id": "up_right",
+    "label": "three-quarter back, turned right",
+    "hand": [
+     42,
+     38
+    ],
+    "weaponBehind": true
+   },
+   {
+    "id": "up",
+    "label": "back to the camera",
+    "hand": [
+     44,
+     38
+    ],
+    "weaponBehind": true
+   }
+  ],
+  "description": "Seraph Tassets overlay: ONLY White and gold tassets: layered white cloth panels edged in gold over light trousers., nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the hips and legs of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
+ },
+ {
+  "key": "icon_pants_seraph",
+  "file": "icon_pants_seraph.png",
+  "group": "icons",
+  "size": [
+   48,
+   48
+  ],
+  "anchor": [
+   24,
+   24
+  ],
+  "frames": 1,
+  "description": "Seraph Tassets equipment icon: White and gold tassets: layered white cloth panels edged in gold over light trousers.. Clear silhouette on a transparent background."
  },
  {
   "key": "gear_shoes_sneakers",
@@ -4632,7 +5508,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Sprint Sneakers overlay: ONLY white running sneakers with a bright sole stripe, nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the feet of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
+  "description": "Sprint Sneakers overlay: ONLY White running sneakers with a bright sole stripe., nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the feet of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
  },
  {
   "key": "icon_shoes_sneakers",
@@ -4647,7 +5523,7 @@
    24
   ],
   "frames": 1,
-  "description": "Sprint Sneakers equipment icon: white running sneakers with a bright sole stripe. Clear silhouette on a transparent background."
+  "description": "Sprint Sneakers equipment icon: White running sneakers with a bright sole stripe.. Clear silhouette on a transparent background."
  },
  {
   "key": "gear_shoes_sabatons",
@@ -4710,7 +5586,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Iron Sabatons overlay: ONLY chunky segmented iron sabatons, nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the feet of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
+  "description": "Iron Sabatons overlay: ONLY Chunky segmented iron sabatons with pointed toes., nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the feet of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
  },
  {
   "key": "icon_shoes_sabatons",
@@ -4725,7 +5601,7 @@
    24
   ],
   "frames": 1,
-  "description": "Iron Sabatons equipment icon: chunky segmented iron sabatons. Clear silhouette on a transparent background."
+  "description": "Iron Sabatons equipment icon: Chunky segmented iron sabatons with pointed toes.. Clear silhouette on a transparent background."
  },
  {
   "key": "gear_shoes_dashboots",
@@ -4788,7 +5664,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Dash Boots overlay: ONLY sleek blue boots with small silver wings at the ankles, nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the feet of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
+  "description": "Dash Boots overlay: ONLY Sleek blue boots with small silver wings at the ankles., nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the feet of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
  },
  {
   "key": "icon_shoes_dashboots",
@@ -4803,7 +5679,7 @@
    24
   ],
   "frames": 1,
-  "description": "Dash Boots equipment icon: sleek blue boots with small silver wings at the ankles. Clear silhouette on a transparent background."
+  "description": "Dash Boots equipment icon: Sleek blue boots with small silver wings at the ankles.. Clear silhouette on a transparent background."
  },
  {
   "key": "gear_shoes_spurs",
@@ -4866,7 +5742,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Spurred Boots overlay: ONLY brown riding boots with gold rowel spurs at the heel, nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the feet of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
+  "description": "Spurred Boots overlay: ONLY Brown riding boots with gold rowel spurs at the heel., nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the feet of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
  },
  {
   "key": "icon_shoes_spurs",
@@ -4881,7 +5757,7 @@
    24
   ],
   "frames": 1,
-  "description": "Spurred Boots equipment icon: brown riding boots with gold rowel spurs at the heel. Clear silhouette on a transparent background."
+  "description": "Spurred Boots equipment icon: Brown riding boots with gold rowel spurs at the heel.. Clear silhouette on a transparent background."
  },
  {
   "key": "gear_shoes_treads",
@@ -4944,7 +5820,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Mud Treads overlay: ONLY heavy black rubber-soled work boots with thick treads, nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the feet of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
+  "description": "Mud Treads overlay: ONLY Heavy black rubber-soled work boots with thick treads., nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the feet of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
  },
  {
   "key": "icon_shoes_treads",
@@ -4959,7 +5835,7 @@
    24
   ],
   "frames": 1,
-  "description": "Mud Treads equipment icon: heavy black rubber-soled work boots with thick treads. Clear silhouette on a transparent background."
+  "description": "Mud Treads equipment icon: Heavy black rubber-soled work boots with thick treads.. Clear silhouette on a transparent background."
  },
  {
   "key": "gear_shoes_clogs",
@@ -5022,7 +5898,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Rocket Clogs overlay: ONLY springy wooden clogs on coiled steel springs, nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the feet of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
+  "description": "Rocket Clogs overlay: ONLY Springy wooden clogs on coiled steel springs., nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the feet of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
  },
  {
   "key": "icon_shoes_clogs",
@@ -5037,7 +5913,7 @@
    24
   ],
   "frames": 1,
-  "description": "Rocket Clogs equipment icon: springy wooden clogs on coiled steel springs. Clear silhouette on a transparent background."
+  "description": "Rocket Clogs equipment icon: Springy wooden clogs on coiled steel springs.. Clear silhouette on a transparent background."
  },
  {
   "key": "gear_shoes_sandals",
@@ -5100,7 +5976,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Healer Sandals overlay: ONLY simple leather sandals with straps and a little herb sprig tucked in, nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the feet of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
+  "description": "Healer Sandals overlay: ONLY Simple leather sandals with straps and a little herb sprig tucked in., nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the feet of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
  },
  {
   "key": "icon_shoes_sandals",
@@ -5115,7 +5991,7 @@
    24
   ],
   "frames": 1,
-  "description": "Healer Sandals equipment icon: simple leather sandals with straps and a little herb sprig tucked in. Clear silhouette on a transparent background."
+  "description": "Healer Sandals equipment icon: Simple leather sandals with straps and a little herb sprig tucked in.. Clear silhouette on a transparent background."
  },
  {
   "key": "gear_shoes_striders",
@@ -5178,7 +6054,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Stride Boots overlay: ONLY light reed-and-cork sandals with wide flat paddles under the soles, beaded with water drops, nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the feet of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
+  "description": "Stride Boots overlay: ONLY Long, light leather boots with a slim stride and a tiny green leaf on each cuff., nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the feet of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
  },
  {
   "key": "icon_shoes_striders",
@@ -5193,7 +6069,7 @@
    24
   ],
   "frames": 1,
-  "description": "Stride Boots equipment icon: light reed-and-cork sandals with wide flat paddles under the soles, beaded with water drops. Clear silhouette on a transparent background."
+  "description": "Stride Boots equipment icon: Long, light leather boots with a slim stride and a tiny green leaf on each cuff.. Clear silhouette on a transparent background."
  },
  {
   "key": "gear_shoes_magma",
@@ -5256,7 +6132,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Magma Treads overlay: ONLY thick black obsidian-soled boots with glowing orange cracks, nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the feet of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
+  "description": "Magma Treads overlay: ONLY Thick black obsidian-soled boots with glowing orange cracks., nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the feet of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
  },
  {
   "key": "icon_shoes_magma",
@@ -5271,7 +6147,7 @@
    24
   ],
   "frames": 1,
-  "description": "Magma Treads equipment icon: thick black obsidian-soled boots with glowing orange cracks. Clear silhouette on a transparent background."
+  "description": "Magma Treads equipment icon: Thick black obsidian-soled boots with glowing orange cracks.. Clear silhouette on a transparent background."
  },
  {
   "key": "gear_shoes_hover",
@@ -5334,7 +6210,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Hover Boots overlay: ONLY chunky silver boots with small glowing cyan thrusters under the soles (a soft glow below the feet), nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the feet of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
+  "description": "Hover Boots overlay: ONLY Chunky silver boots with small glowing cyan thrusters under the soles (a soft glow below the feet)., nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the feet of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
  },
  {
   "key": "icon_shoes_hover",
@@ -5349,7 +6225,7 @@
    24
   ],
   "frames": 1,
-  "description": "Hover Boots equipment icon: chunky silver boots with small glowing cyan thrusters under the soles (a soft glow below the feet). Clear silhouette on a transparent background."
+  "description": "Hover Boots equipment icon: Chunky silver boots with small glowing cyan thrusters under the soles (a soft glow below the feet).. Clear silhouette on a transparent background."
  },
  {
   "key": "gear_shoes_quicksilver",
@@ -5412,7 +6288,7 @@
     "weaponBehind": true
    }
   ],
-  "description": "Quicksilver Slippers overlay: ONLY thin liquid-silver slippers with a mirror sheen and little speed streaks, nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the feet of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
+  "description": "Quicksilver Slippers overlay: ONLY Thin liquid-silver slippers with a mirror sheen and little speed streaks., nothing else (transparent everywhere else). It is drawn on top of every body outfit, so it must sit exactly where the feet of character_base are in each frame: same 10 columns × 5 facing rows of 64x64 frames; 1–2 idle, 3–6 walk, 7–10 run; feet at 32, 58. Neutral colours (no team colour)."
  },
  {
   "key": "icon_shoes_quicksilver",
@@ -5427,7 +6303,7 @@
    24
   ],
   "frames": 1,
-  "description": "Quicksilver Slippers equipment icon: thin liquid-silver slippers with a mirror sheen and little speed streaks. Clear silhouette on a transparent background."
+  "description": "Quicksilver Slippers equipment icon: Thin liquid-silver slippers with a mirror sheen and little speed streaks.. Clear silhouette on a transparent background."
  },
  {
   "key": "weapon_brand",
@@ -5442,7 +6318,7 @@
    16
   ],
   "frames": 1,
-  "description": "Knight Brand (blade) held in the hand, pointing right; the grip sits at the anchor. Balanced three-cut combo. Charge: lunge forward and end in a burning burst."
+  "description": "Knight Brand (blade) held in the hand, pointing right; the grip sits at the anchor. A classic knight's broadsword: a straight polished blade with a fuller, a gold cross-guard with round ends and a red gem in the pommel. The reliable starter."
  },
  {
   "key": "icon_weapon_brand",
@@ -5472,7 +6348,7 @@
    16
   ],
   "frames": 1,
-  "description": "Troll Cleaver (blade) held in the hand, pointing right; the grip sits at the anchor. Slow, brutal overhead chain that stuns. Charge: leap and slam the ground around you."
+  "description": "Troll Cleaver (blade) held in the hand, pointing right; the grip sits at the anchor. A huge troll-sized cleaver: a slab of notched dark iron as wide as the knight's head, a short wrapped handle and a ring through the spine. Looks too heavy to swing."
  },
  {
   "key": "icon_weapon_cleaver",
@@ -5502,7 +6378,7 @@
    16
   ],
   "frames": 1,
-  "description": "Needle Rapier (blade) held in the hand, pointing right; the grip sits at the anchor. Quick narrow thrusts that step you forward. Charge: a long lunge straight through the target."
+  "description": "Needle Rapier (blade) held in the hand, pointing right; the grip sits at the anchor. A needle-thin rapier with a swept gold basket hilt and a long, fine point; elegant and fragile next to the others."
  },
  {
   "key": "icon_weapon_rapier",
@@ -5532,7 +6408,7 @@
    16
   ],
   "frames": 1,
-  "description": "Briar Blade (blade) held in the hand, pointing right; the grip sits at the anchor. Balanced combo. Charge: spray a short, wide shower of poison thorns."
+  "description": "Briar Blade (blade) held in the hand, pointing right; the grip sits at the anchor. A sword grown from a briar: a green-wood blade wrapped in thorny vines with little purple poison buds, a root-knot guard."
  },
  {
   "key": "icon_weapon_thorn",
@@ -5562,7 +6438,7 @@
    16
   ],
   "frames": 1,
-  "description": "Umbral Greatblade (blade) held in the hand, pointing right; the grip sits at the anchor. Heavy two-hit chain. Charge: a slow wave of shadow that carries knights along with it."
+  "description": "Umbral Greatblade (blade) held in the hand, pointing right; the grip sits at the anchor. A two-handed umbral greatblade: a long jagged black blade with purple veins of light running down it and a winged guard."
  },
  {
   "key": "icon_weapon_greatblade",
@@ -5592,7 +6468,7 @@
    16
   ],
   "frames": 1,
-  "description": "Gyre Spur (blade) held in the hand, pointing right; the grip sits at the anchor. Fast light four-cut chain. Charge: spin three times, hitting everything around you each turn."
+  "description": "Gyre Spur (blade) held in the hand, pointing right; the grip sits at the anchor. A short spinning sword: a curved blade with three small hooked spurs along the back and a round gear-like guard."
  },
  {
   "key": "icon_weapon_spur",
@@ -5622,7 +6498,7 @@
    16
   ],
   "frames": 1,
-  "description": "Frostbite Edge (blade) held in the hand, pointing right; the grip sits at the anchor. Every cut chills: three chills freeze a knight solid. Charge: lunge into a freezing burst."
+  "description": "Frostbite Edge (blade) held in the hand, pointing right; the grip sits at the anchor. A blade of blue ice with frost crystals on the edge, a silver guard rimed with frost and a pale blue glowing core."
  },
  {
   "key": "icon_weapon_frostbite",
@@ -5652,7 +6528,7 @@
    16
   ],
   "frames": 1,
-  "description": "Blazebrand (blade) held in the hand, pointing right; the grip sits at the anchor. Cuts may set knights on fire (30%). Charge: a rolling wall of flame that always burns."
+  "description": "Blazebrand (blade) held in the hand, pointing right; the grip sits at the anchor. A sword of living flame: a red-hot orange blade with flickering fire along the edge, a blackened iron guard."
  },
  {
   "key": "icon_weapon_blazebrand",
@@ -5682,7 +6558,7 @@
    16
   ],
   "frames": 1,
-  "description": "Voltedge (blade) held in the hand, pointing right; the grip sits at the anchor. Fast cuts that may shock (15%); a hit can arc lightning to two more enemies nearby. Charge: an electric spin."
+  "description": "Voltedge (blade) held in the hand, pointing right; the grip sits at the anchor. A crackling sword: a short silver blade with a zigzag edge and a glowing cyan lightning core, copper coils on the guard."
  },
  {
   "key": "icon_weapon_voltedge",
@@ -5712,7 +6588,7 @@
    16
   ],
   "frames": 1,
-  "description": "Sanguine Sickle (blade) held in the hand, pointing right; the grip sits at the anchor. Heals you for 30% of the damage it deals. Charge: a long draining lunge."
+  "description": "Sanguine Sickle (blade) held in the hand, pointing right; the grip sits at the anchor. A blood-red curved sickle-sword with a hooked tip, a bone handle and a dark red gem that pulses softly."
  },
  {
   "key": "icon_weapon_sickle",
@@ -5742,7 +6618,7 @@
    16
   ],
   "frames": 1,
-  "description": "Hexblade (blade) held in the hand, pointing right; the grip sits at the anchor. Heavy cuts that may curse (35%): no dash and no class ability for a while. Charge: a cursing slam."
+  "description": "Hexblade (blade) held in the hand, pointing right; the grip sits at the anchor. A heavy cursed blade of dark violet steel etched with glowing purple runes, a skull on the guard and a chain on the pommel."
  },
  {
   "key": "icon_weapon_hexblade",
@@ -5772,7 +6648,7 @@
    16
   ],
   "frames": 1,
-  "description": "Earthbreaker Maul (blade) held in the hand, pointing right; the grip sits at the anchor. The heaviest weapon: two huge, slow blows that are not interrupted when you are hit; the second shakes the ground around it. Charge: a crater-making slam."
+  "description": "Earthbreaker Maul (blade) held in the hand, pointing right; the grip sits at the anchor. An enormous earthbreaker sledgehammer: a stone-and-iron block head bound with bronze bands, cracks of earth on the faces, a long thick haft."
  },
  {
   "key": "icon_weapon_maul",
@@ -5802,7 +6678,7 @@
    16
   ],
   "frames": 1,
-  "description": "Radiant Avenger (blade) held in the hand, pointing right; the grip sits at the anchor. A blessed sword. Charge: a beam of light that pierces every knight down the lane."
+  "description": "Radiant Avenger (blade) held in the hand, pointing right; the grip sits at the anchor. A holy sword: a white-gold blade with a sun-shaped guard, two small feathered wings at the hilt and a soft golden glow along the edge."
  },
  {
   "key": "icon_weapon_avenger",
@@ -5832,7 +6708,7 @@
    16
   ],
   "frames": 1,
-  "description": "Leviathan Edge (blade) held in the hand, pointing right; the grip sits at the anchor. The longest reach of any sword, a little slower. Charge: a long lunge that ends in a crashing burst."
+  "description": "Leviathan Edge (blade) held in the hand, pointing right; the grip sits at the anchor. A very long sea-steel blade with a wave-curled tip, scale-patterned flat and a teal-green guard shaped like fins."
  },
  {
   "key": "icon_weapon_leviathan",
@@ -5862,7 +6738,7 @@
    16
   ],
   "frames": 1,
-  "description": "Iron Troika (blade) held in the hand, pointing right; the grip sits at the anchor. A three-blow heavy chain that is never interrupted when you are hit. Charge: a ground slam."
+  "description": "Iron Troika (blade) held in the hand, pointing right; the grip sits at the anchor. A three-pronged heavy iron sword: one thick blade splitting into three at the tip, rough forged iron with a heavy round pommel."
  },
  {
   "key": "icon_weapon_troika",
@@ -5892,7 +6768,7 @@
    16
   ],
   "frames": 1,
-  "description": "Pulse Blaster (gun) held in the hand, pointing right; the grip sits at the anchor. Reliable three-shot gun. Charge: a big bolt that pierces every knight in its path."
+  "description": "Pulse Blaster (gun) held in the hand, pointing right; the grip sits at the anchor. A chunky brass pistol with a stubby barrel, a blue energy cell on top and a rounded grip; the friendly standard sidearm."
  },
  {
   "key": "icon_weapon_blaster",
@@ -5922,7 +6798,7 @@
    16
   ],
   "frames": 1,
-  "description": "Ripple Caster (gun) held in the hand, pointing right; the grip sits at the anchor. Slow waves that widen as they travel and pass through knights. Charge: one huge wave."
+  "description": "Ripple Caster (gun) held in the hand, pointing right; the grip sits at the anchor. A wide-mouthed pulsar with a ringed barrel that flares like a trumpet and a glowing blue coil in the middle."
  },
  {
   "key": "icon_weapon_pulsar",
@@ -5952,7 +6828,7 @@
    16
   ],
   "frames": 1,
-  "description": "Ricochet Coil (gun) held in the hand, pointing right; the grip sits at the anchor. Bolts that bounce off walls. Charge: four shocking bolts that bounce twice."
+  "description": "Ricochet Coil (gun) held in the hand, pointing right; the grip sits at the anchor. A ricochet coil gun: copper coils wound round the barrel, a glass bulb of green liquid on top and a bent spout muzzle."
  },
  {
   "key": "icon_weapon_alchemer",
@@ -5982,7 +6858,7 @@
    16
   ],
   "frames": 1,
-  "description": "Rattle Autogun (gun) held in the hand, pointing right; the grip sits at the anchor. Six fast, light rounds. Charge: a focused ten-round stream."
+  "description": "Rattle Autogun (gun) held in the hand, pointing right; the grip sits at the anchor. A rattling autogun with a short drum magazine, a perforated barrel shroud and a crank on the side."
  },
  {
   "key": "icon_weapon_autogun",
@@ -6012,7 +6888,7 @@
    16
   ],
   "frames": 1,
-  "description": "Tether Catalyst (gun) held in the hand, pointing right; the grip sits at the anchor. Shots stick up to three charges on a knight. Charge: a detonator that blows them all at once."
+  "description": "Tether Catalyst (gun) held in the hand, pointing right; the grip sits at the anchor. A tether catalyst: a stubby launcher with a red glass chamber of fizzing charges and a three-pronged claw muzzle."
  },
  {
   "key": "icon_weapon_catalyzer",
@@ -6042,7 +6918,7 @@
    16
   ],
   "frames": 1,
-  "description": "Thunder Hand-cannon (gun) held in the hand, pointing right; the grip sits at the anchor. Two heavy rounds with big knockback. Charge: a round that explodes on impact."
+  "description": "Thunder Hand-cannon (gun) held in the hand, pointing right; the grip sits at the anchor. A thunder hand-cannon: a huge revolver with a thick barrel, a big cylinder and a gold lightning emblem; heavy and loud."
  },
  {
   "key": "icon_weapon_magnus",
@@ -6072,7 +6948,7 @@
    16
   ],
   "frames": 1,
-  "description": "Longshot Rifle (gun) held in the hand, pointing right; the grip sits at the anchor. A single tiny, very fast round with a long reload: up to 80% more damage at long range. Hard to land, punishing when it does. Charge: a piercing rail shot."
+  "description": "Longshot Rifle (gun) held in the hand, pointing right; the grip sits at the anchor. A long precision rifle: a slim long barrel, a brass scope, a wooden stock and a small bipod folded under the barrel."
  },
  {
   "key": "icon_weapon_rifle",
@@ -6102,7 +6978,7 @@
    16
   ],
   "frames": 1,
-  "description": "Winter Repeater (gun) held in the hand, pointing right; the grip sits at the anchor. Every round chills; three chills freeze. Charge: a piercing bolt that freezes on the spot."
+  "description": "Winter Repeater (gun) held in the hand, pointing right; the grip sits at the anchor. A winter repeater: a white-and-blue pistol with an ice crystal chamber, frost on the barrel and a snowflake emblem."
  },
  {
   "key": "icon_weapon_frostgun",
@@ -6132,7 +7008,7 @@
    16
   ],
   "frames": 1,
-  "description": "Ember Caster (gun) held in the hand, pointing right; the grip sits at the anchor. Fire waves that may ignite (25%) every knight they pass. Charge: a huge wave that sets all of them alight."
+  "description": "Ember Caster (gun) held in the hand, pointing right; the grip sits at the anchor. A fire pulsar: a black iron flared barrel with glowing orange vents and a small furnace chamber."
  },
  {
   "key": "icon_weapon_embercaster",
@@ -6162,7 +7038,7 @@
    16
   ],
   "frames": 1,
-  "description": "Volt Needle (gun) held in the hand, pointing right; the grip sits at the anchor. Six fast needles that may shock (8%) and arc to a nearby enemy. Charge: a shocking ten-needle stream."
+  "description": "Volt Needle (gun) held in the hand, pointing right; the grip sits at the anchor. A shock autogun: a slim gun with a row of glowing cyan needles in the magazine and lightning coils along the barrel."
  },
  {
   "key": "icon_weapon_voltneedle",
@@ -6192,7 +7068,7 @@
    16
   ],
   "frames": 1,
-  "description": "Viper Spitter (gun) held in the hand, pointing right; the grip sits at the anchor. Rounds that may poison (30%): poisoned knights hit softer and cannot heal. Charge: a fan of five venom bolts."
+  "description": "Viper Spitter (gun) held in the hand, pointing right; the grip sits at the anchor. A toxic blaster shaped like a snake head: green scales, two fang prongs at the muzzle and a glowing green venom vial."
  },
  {
   "key": "icon_weapon_viper",
@@ -6222,7 +7098,7 @@
    16
   ],
   "frames": 1,
-  "description": "Grim Hand-cannon (gun) held in the hand, pointing right; the grip sits at the anchor. Heavy rounds that may curse (30%). Charge: a blast that curses everyone it catches."
+  "description": "Grim Hand-cannon (gun) held in the hand, pointing right; the grip sits at the anchor. A cursed hand-cannon: a dark iron barrel shaped like a gaping skull, violet runes and purple smoke curling from the muzzle."
  },
  {
   "key": "icon_weapon_grimcannon",
@@ -6252,7 +7128,7 @@
    16
   ],
   "frames": 1,
-  "description": "Iron Scattergun (gun) held in the hand, pointing right; the grip sits at the anchor. Six pellets in a wide fan: brutal up close, useless far away. Charge: a single heavy slug that knocks knights flying."
+  "description": "Iron Scattergun (gun) held in the hand, pointing right; the grip sits at the anchor. An iron scattergun: a short, very wide double barrel, a pump grip and a riveted iron body; built for close quarters."
  },
  {
   "key": "icon_weapon_scatter",
@@ -6282,7 +7158,7 @@
    16
   ],
   "frames": 1,
-  "description": "Polaris (gun) held in the hand, pointing right; the grip sits at the anchor. Widening waves that pass through knights and bounce once off walls. Charge: a huge wave that bounces twice."
+  "description": "Polaris (gun) held in the hand, pointing right; the grip sits at the anchor. A star pulsar: a ringed barrel ending in a star-shaped emitter with a pale yellow glowing core and blue fins."
  },
  {
   "key": "icon_weapon_polaris",
@@ -6312,7 +7188,7 @@
    16
   ],
   "frames": 1,
-  "description": "Rift Repeater (gun) held in the hand, pointing right; the grip sits at the anchor. Slow violet bolts that pierce every knight in line. Charge: a stream of six piercing bolts."
+  "description": "Rift Repeater (gun) held in the hand, pointing right; the grip sits at the anchor. A rift repeater: an angular black-and-violet gun with a floating purple crystal in an open frame where the barrel should be."
  },
  {
   "key": "icon_weapon_riftlocker",
@@ -6342,7 +7218,7 @@
    16
   ],
   "frames": 1,
-  "description": "Blast Bomb (bomb) held in the hand, pointing right; the grip sits at the anchor. Charges fast. A big knockback blast after a short fuse."
+  "description": "Blast Bomb (bomb) held in the hand, pointing right; the grip sits at the anchor. A round black iron bomb with a brass band, a short fuse and a lit spark; the classic."
  },
  {
   "key": "icon_weapon_blast",
@@ -6372,7 +7248,7 @@
    16
   ],
   "frames": 1,
-  "description": "Ember Haze (bomb) held in the hand, pointing right; the grip sits at the anchor. Leaves a cloud that sets enemies on fire."
+  "description": "Ember Haze (bomb) held in the hand, pointing right; the grip sits at the anchor. A round clay pot bomb with a cork stopper leaking orange smoke, painted with flame symbols."
  },
  {
   "key": "icon_weapon_haze",
@@ -6402,7 +7278,7 @@
    16
   ],
   "frames": 1,
-  "description": "Frost Haze (bomb) held in the hand, pointing right; the grip sits at the anchor. Leaves a cloud that freezes enemies solid."
+  "description": "Frost Haze (bomb) held in the hand, pointing right; the grip sits at the anchor. A round glass bomb full of swirling blue frost with a silver cap and snowflake etching."
  },
  {
   "key": "icon_weapon_frost",
@@ -6432,7 +7308,7 @@
    16
   ],
   "frames": 1,
-  "description": "Venom Veil (bomb) held in the hand, pointing right; the grip sits at the anchor. Leaves a cloud that poisons enemies: they hit softer and cannot heal."
+  "description": "Venom Veil (bomb) held in the hand, pointing right; the grip sits at the anchor. A green glass flask bomb with bubbling toxic liquid, a skull-and-crossbones tag and a wax seal."
  },
  {
   "key": "icon_weapon_venom",
@@ -6462,7 +7338,7 @@
    16
   ],
   "frames": 1,
-  "description": "Storm Haze (bomb) held in the hand, pointing right; the grip sits at the anchor. Leaves a crackling cloud that shocks enemies over and over."
+  "description": "Storm Haze (bomb) held in the hand, pointing right; the grip sits at the anchor. A brass sphere with copper coils and a lightning rod on top, crackling with cyan sparks."
  },
  {
   "key": "icon_weapon_storm",
@@ -6492,7 +7368,7 @@
    16
   ],
   "frames": 1,
-  "description": "Hex Haze (bomb) held in the hand, pointing right; the grip sits at the anchor. Leaves a cloud that curses enemies: no dash and no class ability."
+  "description": "Hex Haze (bomb) held in the hand, pointing right; the grip sits at the anchor. A dark violet orb bound in chains with a glowing rune on the front and a purple wisp rising from it."
  },
  {
   "key": "icon_weapon_hex",
@@ -6522,7 +7398,7 @@
    16
   ],
   "frames": 1,
-  "description": "Splinter Bomb (bomb) held in the hand, pointing right; the grip sits at the anchor. Bursts into eight shards that cut across the point."
+  "description": "Splinter Bomb (bomb) held in the hand, pointing right; the grip sits at the anchor. A spiky ball of sharp crystal shards held together by an iron band, like a sea urchin."
  },
  {
   "key": "icon_weapon_shard",
@@ -6552,7 +7428,7 @@
    16
   ],
   "frames": 1,
-  "description": "Vortex Bomb (bomb) held in the hand, pointing right; the grip sits at the anchor. Pulls every enemy in range to its centre and holds them, then blasts them apart."
+  "description": "Vortex Bomb (bomb) held in the hand, pointing right; the grip sits at the anchor. A black sphere with a swirling purple vortex window in the middle and four small antenna fins."
  },
  {
   "key": "icon_weapon_vortex",
@@ -6582,7 +7458,7 @@
    16
   ],
   "frames": 1,
-  "description": "Nitro Colossus (bomb) held in the hand, pointing right; the grip sits at the anchor. A huge bomb: the slowest charge and fuse, the biggest blast in the game."
+  "description": "Nitro Colossus (bomb) held in the hand, pointing right; the grip sits at the anchor. A huge barrel-sized bomb: riveted red iron with hazard stripes, a thick fuse and NITRO stencilled on it (as shapes, no readable text needed)."
  },
  {
   "key": "icon_weapon_nitro",
@@ -6612,7 +7488,7 @@
    16
   ],
   "frames": 1,
-  "description": "Static Flash (bomb) held in the hand, pointing right; the grip sits at the anchor. Charges fast and flashes almost at once: little damage, but a long stun and a shock."
+  "description": "Static Flash (bomb) held in the hand, pointing right; the grip sits at the anchor. A small white flash-bulb grenade with a glass dome full of crackling light and a pull ring."
  },
  {
   "key": "icon_weapon_spark",
@@ -7543,6 +8419,36 @@
   ],
   "frames": 1,
   "description": "Field Medic Coat equipment icon. Neutral clothing or armor silhouette on a transparent background."
+ },
+ {
+  "key": "icon_armor_cobalt",
+  "file": "icon_armor_cobalt.png",
+  "group": "icons",
+  "size": [
+   48,
+   48
+  ],
+  "anchor": [
+   24,
+   24
+  ],
+  "frames": 1,
+  "description": "Cobalt Mail equipment icon. Neutral clothing or armor silhouette on a transparent background."
+ },
+ {
+  "key": "icon_armor_vog",
+  "file": "icon_armor_vog.png",
+  "group": "icons",
+  "size": [
+   48,
+   48
+  ],
+  "anchor": [
+   24,
+   24
+  ],
+  "frames": 1,
+  "description": "Vog Cub Coat equipment icon. Neutral clothing or armor silhouette on a transparent background."
  },
  {
   "key": "icon_armor_clockwork",

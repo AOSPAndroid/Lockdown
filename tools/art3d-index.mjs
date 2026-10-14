@@ -20,6 +20,7 @@ const MODEL_KINDS = {
   armor: { ids: Object.keys(ARMORS), budget: 3000, gear: true },
   pants: { ids: Object.keys(PANTS), budget: 2000, gear: true },
   shoes: { ids: Object.keys(SHOES), budget: 1500, gear: true },
+  class: { ids: ['striker', 'guardian', 'recon'], budget: 1500, gear: true },
   weapons: { ids: Object.keys(WEAPONS), budget: 1500 },
   bombs: { ids: Object.keys(WEAPONS).filter(id => WEAPONS[id].family === 'bomb'), budget: 1200 },
 };

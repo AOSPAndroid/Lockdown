@@ -33,6 +33,8 @@ export const ARMORS = Object.freeze({
   berserker: armor('berserker', 'Berserker Hide', 'Bare arms and a wolf pelt: swords hit 25% harder and swing 10% faster, but bullets bite deeper.', -.15, .05, 0, 1.05, 'berserker', { bladeDamage: 1.25, bladeSpeed: 1.1 }),
   mirrorweave: armor('mirrorweave', 'Mirrorweave Cloak', 'A shimmering cloak that sheds fire, poison, shock and frost (60% shorter) and turns some bullets, at the cost of 10 health.', .20, 0, .05, 1, 'mirrorweave', { statusDuration: .4, maxHp: -10 }),
   medic: armor('medic', 'Field Medic Coat', 'A white coat with a satchel of salves: hearts, base and dome heal you 50% more and you mend 3 HP a second out of combat, but every weapon hits 5% softer.', .05, .05, .05, 1, 'medic', { healing: 1.5, regen: 2, gunDamage: .95, bladeDamage: .95, bombDamage: .95 }),
+  cobalt: armor('cobalt', 'Cobalt Mail', 'Deep-blue knight\'s mail: balanced protection against everything, a little slower.', .15, .15, .15, .94, 'cobalt'),
+  vog: armor('vog', 'Vog Cub Coat', 'A shaggy coat of fireproof fur: burn, poison, shock and frost last 40% less and blasts hurt 20% less, but it is warm and slow.', .05, .05, .20, .93, 'vog', { statusDuration: .6 }),
   clockwork: armor('clockwork', 'Clockwork Harness', 'A ticking brass harness: your class ability and dash recharge much faster, but your guns and swords hit 5% softer.', .05, .05, .05, 1, 'clockwork', { abilityCooldown: .65, dashCooldown: .8, gunDamage: .95, bladeDamage: .95 }),
 });
 export const ARMOR_IDS = Object.freeze(Object.keys(ARMORS));
@@ -49,6 +51,10 @@ export const HELMETS = Object.freeze({
   feather: piece('feather', 'Feathered Cap', 'A dashing cap: 5% faster and the dash recharges 10% sooner, at the cost of 5 health.', 0, 0, 0, 1.05, { dashCooldown: .9, maxHp: -5 }),
   bucket: piece('bucket', 'Bucket Helm', '+15 health and hard to shove, but you can barely see where you are going.', .05, .05, .05, .95, { maxHp: 15, knockback: .8 }),
   circlet: piece('circlet', 'Mender Circlet', 'All healing you receive is 25% stronger.', 0, 0, 0, 1, { healing: 1.25 }),
+  cobalt: piece('cobalt', 'Cobalt Helm', 'A deep-blue knight\'s helm: steady all-round protection, a touch heavy.', .06, .06, .06, .98),
+  wolver: piece('wolver', 'Wolver Cowl', 'A wolf-pelt cowl, ears and all: 4% faster and swords hit 5% harder, but 5% weaker to guns.', -.05, 0, 0, 1.04, { bladeDamage: 1.05 }),
+  demo: piece('demo', 'Volcanic Demo Helm', 'A blast-scarred demolition helm: bombs hit 15% harder and blasts hurt you 10% less, but it is heavy (3% slower).', 0, 0, .1, .97, { bombDamage: 1.15 }),
+  seraph: piece('seraph', 'Seraph Veil', 'A white veil under a golden halo: healing is 20% stronger and status effects 15% shorter, at the cost of 5 health.', 0, 0, 0, 1, { healing: 1.2, statusDuration: .85, maxHp: -5 }),
   goggles: piece('goggles', 'Clockwork Goggles', 'Your class ability recharges 15% faster; the lenses throw off your aim a little (guns −5%).', 0, 0, 0, 1, { abilityCooldown: .85, gunDamage: .95 }),
 });
 export const PANTS = Object.freeze({
@@ -59,6 +65,10 @@ export const PANTS = Object.freeze({
   breeches: piece('breeches', 'Duelist Breeches', 'Swings 8% faster with light sword protection.', 0, .05, 0, 1, { bladeSpeed: 1.08 }),
   sapper: piece('sapper', 'Sapper Trousers', 'Pockets full of fuses: bombs charge 15% faster.', 0, 0, .05, 1, { bombCharge: .85 }),
   cargo: piece('cargo', 'Cargo Trousers', 'Spare magazines: gun charges 10% faster and guns hit 5% harder, slightly slower.', 0, 0, 0, .97, { gunCharge: .9, gunDamage: 1.05 }),
+  cobalt: piece('cobalt', 'Cobalt Cuisses', 'Blue steel thigh plates: steady all-round protection, a little slower.', .06, .06, .06, .96),
+  wolver: piece('wolver', 'Wolver Leggings', 'Fur-lined running leggings: 5% faster and swords swing 5% faster, with no protection.', 0, 0, 0, 1.05, { bladeSpeed: 1.05 }),
+  demo: piece('demo', 'Demo Pantaloons', 'Baggy pantaloons stuffed with charges: bombs charge 10% faster and hit 5% harder, but blasts hurt you 5% more.', 0, 0, -.05, 1, { bombCharge: .9, bombDamage: 1.05 }),
+  seraph: piece('seraph', 'Seraph Tassets', 'White and gold tassets: you mend 1 HP a second out of combat; light, so swords hurt 5% more.', 0, -.05, 0, 1, { regen: 1 }),
   kilt: piece('kilt', 'Kilt of Fury', 'Swords hit 10% harder, but bullets find bare knees (guns hit you 10% harder).', -.10, 0, 0, 1.03, { bladeDamage: 1.1 }),
 });
 export const SHOES = Object.freeze({

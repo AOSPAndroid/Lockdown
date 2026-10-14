@@ -53,3 +53,15 @@ test('the 3D art tool checks models: rig parts, gear nodes, item ids and triangl
   const index = JSON.parse(readFileSync(join(dir, 'index.json'), 'utf8'));
   assert.ok(index.models.includes('knight/body.glb') && index.models.includes('helmet/sallet.glb'));
 });
+
+test('every item has a look and the catalogue is up to date (node tools/catalog.mjs)', async () => {
+  const { WEAPONS, CLASSES } = await import('../public/lockdown-engine.js');
+  const { HELMETS, ARMORS, PANTS, SHOES } = await import('../public/lockdown-equipment.js');
+  const { GEAR_LOOKS, WEAPON_LOOKS, CLASS_LOOKS } = await import('../public/lockdown-looks.js');
+  for (const [slot, table] of [['helmet', HELMETS], ['armor', ARMORS], ['pants', PANTS], ['shoes', SHOES]]) for (const id of Object.keys(table)) assert.ok(GEAR_LOOKS[slot][id], `${slot} ${id} has a look`);
+  for (const id of Object.keys(WEAPONS)) assert.ok(WEAPON_LOOKS[id], `${id} has a look`);
+  for (const id of Object.keys(CLASSES)) assert.ok(CLASS_LOOKS[id], `${id} has a look`);
+  const before = readFileSync(new URL('../docs/CATALOG.md', import.meta.url), 'utf8');
+  spawnSync(process.execPath, [new URL('../tools/catalog.mjs', import.meta.url).pathname]);
+  assert.equal(readFileSync(new URL('../docs/CATALOG.md', import.meta.url), 'utf8'), before, 'docs/CATALOG.md matches the game data');
+});

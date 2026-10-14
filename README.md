@@ -34,8 +34,9 @@ eight arenas.
 ## Look and art
 
 See [docs/LOOK.md](docs/LOOK.md) for the design rules, every number behind the look, and how to add
-textures (`public/art/3d/<theme>/`, checked by `node tools/art3d-index.mjs`). Agents start with
-[AGENTS.md](AGENTS.md).
+textures (`public/art/3d/<theme>/`, checked by `node tools/art3d-index.mjs`). Every item to model is in
+[docs/CATALOG.md](docs/CATALOG.md) and the model contract in [docs/MODELS.md](docs/MODELS.md). Agents start
+with [AGENTS.md](AGENTS.md).
 
 ## Project layout
 

@@ -621,7 +621,10 @@ export class Lockdown3DRenderer {
       if (model) this.attachGear(model, parts, temporary);
       else if (temporary) this.temporaryGear(slot, id, player, team, parts);
     }
-    if (temporary) this.temporaryClassMarks(player, team, parts);
+    // Class pieces (Striker fin, Guardian shield, Recon hood tip) attach like gear.
+    const classModel = this.models.instance(`class/${player.cls}.glb`, team);
+    if (classModel) this.attachGear(classModel, parts, temporary);
+    else if (temporary) this.temporaryClassMarks(player, team, parts);
     // Team ring at the feet: bright, so allies and enemies read at a glance.
     const ringRadius = FEET_RING * KNIGHT_SCALE;
     const ring = new THREE.Mesh(arcGeometry(ringRadius - .07, ringRadius, 0, Math.PI * 2, 40), new THREE.MeshBasicMaterial({ color: team, transparent: true, opacity: .95, depthWrite: false, blending: THREE.AdditiveBlending }));
