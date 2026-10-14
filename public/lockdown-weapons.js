@@ -22,10 +22,10 @@ const step = (damage, startup, active, recovery, reach, arc, push, stun, lunge) 
  * Balanced sits between. Thrusts keep the narrow line they are written with. Applied to every step's arc
  * and damage below. */
 export const CUTS = Object.freeze({
-  precise: Object.freeze({ arc: .55, damage: 1.2, push: .8, label: 'Precise', note: 'narrow cut that hits hard: aim it' }),
+  precise: Object.freeze({ arc: .55, damage: 1.2, push: .4, label: 'Precise', note: 'narrow cut that hits hard but barely pushes: aim it, and stay on them' }),
   balanced: Object.freeze({ arc: .75, damage: 1.1, push: 1, label: 'Balanced', note: 'medium cut, medium damage' }),
   sweeping: Object.freeze({ arc: 1, damage: .9, push: 3, reel: true, label: 'Sweeping', note: 'wide cut that hits lighter but knocks the enemy back reeling: follow up with a heavy sword, or switch to a gun and shoot them out of reach' }),
-  thrust: Object.freeze({ arc: 1, damage: 1, push: 1, label: 'Thrust', note: 'a straight, narrow line with a sweet spot at the tip' }),
+  thrust: Object.freeze({ arc: 1, damage: 1, push: .5, label: 'Thrust', note: 'a straight, narrow line with a sweet spot at the tip, little knockback' }),
 });
 /** A heavy sword's second blow: after a normal first cut, it carries the momentum through a half turn (back to
  * the target, then round with the blade), so it winds up fast and lands far harder, but a miss leaves you spun round and wide open (see BLADE.momentumWhiff). */
