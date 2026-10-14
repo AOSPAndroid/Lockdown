@@ -1,7 +1,7 @@
 import{mkdirSync,writeFileSync,readFileSync}from'node:fs';
 import{fileURLToPath}from'node:url';
 import{T,node,add,loft,plate,box,oval,ring,geometry,material,referenceRig,writeGlb}from'./kit.mjs';
-const output=new URL('../../public/art/3d/models/',import.meta.url),atlas=new URL('./painted-atlas.png',import.meta.url);
+const output=new URL('../../public/art/3d/models/',import.meta.url),atlas=new URL('./painted-atlas.png',import.meta.url),jobs=[];
 const styles=[{id:'stack',name:'Stack',row:2,n:12,exp:.75,bevel:.009}];
 import{buildExtras}from'./extras.mjs';
 function star(r,inner,num=5){return Array.from({length:num*2},(_,i)=>{const a=Math.PI/2+i*Math.PI/num,d=i%2?inner:r;return[Math.cos(a)*d,Math.sin(a)*d]})}
@@ -11,9 +11,13 @@ for(const style of styles){
  const{roots,parts}=referenceRig(new URL('../../docs/reference/knight_rig_4_heads.glb',import.meta.url));
  const H=1.3-(parts.hips.translation[1]+parts.chest.translation[1]+parts.head.translation[1]),W=H*1.08,depth=W*.93,tall=parts.head.translation[1]-.06,leg=-parts.foot_L.translation[1],arm=-parts.hand_L.translation[1],rArm=parts.hand_R.translation[0];
  const files={'body':'knight/body','hair':'helmet/none','cobalt-helmet':'helmet/cobalt','cobalt-armor':'armor/cobalt','cobalt-pants':'pants/cobalt','guardian':'class/guardian','recon':'class/recon','brand':'weapons/brand','blaster':'weapons/blaster','blast-held':'weapons/blast','blast-planted':'bombs/blast'};const desc='Stack: approved four-head D skeleton, hand-painted layered plates';
- const mat={skin:material('painted_skin',15,{rough:.7}),shirt:material('painted_cream_shirt',style.row*4+3,{rough:.82}),hair:material('painted_sculpted_hair',14,{rough:style.row===0?.3:.6}),dark:material('painted_charcoal_fabric',13,{rough:.85}),leather:material('painted_scout_leather',style.row*4+2,{rough:.7}),blue:material('painted_cobalt_steel',style.row*4,{metal:style.row===0?.30:.04,rough:[.30,.67,.83][style.row]}),silver:material('painted_silver_rims',style.row*4+1,{metal:style.row===0?.3:.04,rough:[.30,.65,.80][style.row]}),gold:material('painted_brass',12,{metal:.16,rough:.5}),team:material('team_trim',style.row*4+3,{rough:.6}),eye:material('glossy_dark_eyes',13,{rough:.10,color:[.012,.017,.025]}),white:material('eye_catchlights',1,{rough:.25,emissive:[.4,.4,.4]}),void:material('visor_shadow',13,{rough:.96,color:[.016,.023,.035]}),glow:material('blue_eye_lights',1,{rough:.35,color:[.3,.72,1],emissive:[.3,.72,1]}),red:material('pommel_glowing_red_gem',12,{rough:.30,color:[1,.1,.08],emissive:[.85,.035,.02]})};
+ const mat={skin:material('painted_skin',15,{rough:.7}),shirt:material('painted_cream_shirt',style.row*4+3,{rough:.82}),hair:material('painted_sculpted_hair',14,{rough:style.row===0?.3:.6}),dark:material('painted_charcoal_fabric',13,{rough:.85}),leather:material('painted_scout_leather',style.row*4+2,{rough:.7}),blue:material('painted_cobalt_steel',style.row*4,{metal:style.row===0?.30:.04,rough:[.30,.67,.83][style.row]}),silver:material('painted_silver_rims',style.row*4+1,{metal:style.row===0?.3:.04,rough:[.30,.65,.80][style.row]}),gold:material('painted_brass',12,{metal:.16,rough:.5}),team:material('team_trim',style.row*4+3,{rough:.6}),eye:material('glossy_dark_eyes',13,{rough:.10,color:[.012,.017,.025]}),white:material('eye_catchlights',9,{rough:.25,emissive:[.4,.4,.4]}),void:material('visor_shadow',13,{rough:.96,color:[.016,.023,.035]}),glow:material('blue_eye_lights',9,{rough:.35,color:[.3,.72,1],emissive:[.3,.72,1]}),red:material('pommel_glowing_red_gem',12,{rough:.30,color:[1,.1,.08],emissive:[.85,.035,.02]})};
  const b=style.bevel,n=style.n,e=style.exp,i=style.row;
- function save(name,rs){const target=new URL(files[name]+'.glb',output);mkdirSync(new URL('./',target),{recursive:true});writeGlb(fileURLToPath(target),rs,atlas,desc+' / '+name)}
+ function save(name,rs){
+  // Catalogue grip-to-tip length. Scale the complete sword uniformly around its grip.
+  if(name==='brand'){let tip=0;for(const q of rs)for(const s of q.surfaces){s.geo.computeBoundingBox();tip=Math.max(tip,s.geo.boundingBox.max.x)}const scale=.75/tip;for(const q of rs)for(const s of q.surfaces)s.geo.scale(scale,scale,scale);}
+  const target=new URL(files[name]+'.glb',output);mkdirSync(new URL('./',target),{recursive:true});jobs.push(writeGlb(fileURLToPath(target),rs,atlas,desc+' / '+name,files[name]));
+ }
  function fp(p,poly,d,m,pos=[0,0,0],bevel=b){add(p,plate(poly,d,bevel),m,pos,[0,Math.PI/2,0],'xy')}
  function rim(p,rx,rz,y,m=mat.silver,t=.01){add(p,ring(rx,rz,t,n),m,[0,y,0])}
  function stud(p,pos,r=.013,m=mat.silver){add(p,oval([r*.65,r,r],8,5),m,pos)}
@@ -101,8 +105,12 @@ for(const style of styles){
  // Straight polished broadsword, round-ended gold crossguard, fuller, red pommel gem.
  const sword=node('Knight_Brand');add(sword,loft([[-.10,.031,.032],[.105,.031,.032]],8,.7),mat.dark,[0,0,0],[0,0,-Math.PI/2]);for(const x of[-.065,0,.065])add(sword,ring(.032,.034,.006,12),mat.gold,[x,0,0],[0,0,Math.PI/2]);
  add(sword,box(.055,.065,.068,.011),mat.gold,[-.135,0,0]);add(sword,oval([.019,.030,.029],10,6),mat.red,[-.172,0,0]);
- const guard=i===0?[[-.04,-.15],[.015,-.18],[.06,-.12],[.025,0],[.06,.12],[.015,.18],[-.04,.15],[-.015,0]]:i===1?[[-.04,-.17],[.035,-.17],[.065,-.11],[.025,0],[.065,.11],[.035,.17],[-.04,.17],[-.005,0]]:[[-.035,-.17],[.035,-.17],[.035,.17],[-.035,.17]];
- add(sword,plate(guard,.065,.012),mat.gold,[.12,0,0],[Math.PI/2,0,0]);for(const z of[-.17,.17])add(sword,oval([.038,.038,.033],i===1?8:14,6),mat.gold,[.13,0,z]);
- add(sword,plate([[.175,-.105],[.79,-.105],[1.05,0],[.79,.105],[.175,.105]],.028,.011),mat.silver,[0,0,0],[Math.PI/2,0,0]);add(sword,plate([[.20,-.035],[.81,-.035],[.94,0],[.81,.035],[.20,.035]],.010,.003),mat.dark,[0,.029,0],[Math.PI/2,0,0]);add(sword,plate([[.25,-.010],[.80,-.010],[.89,0],[.80,.010],[.25,.010]],.005,.002),mat.silver,[0,.036,0],[Math.PI/2,0,0]);add(sword,oval([.024,.012,.025],10,6),mat.red,[-.135,.043,0]);save('brand',[sword]);
- buildExtras({mat,arm,save});console.log('Stack / D: 11 production models written');
+ const guard=[[-.035,-.14],[.035,-.14],[.035,.14],[-.035,.14]];
+ add(sword,plate(guard,.065,.012),mat.gold,[.12,0,0],[Math.PI/2,0,0]);for(const z of[-.14,.14])add(sword,oval([.038,.038,.033],14,6),mat.gold,[.13,0,z]);
+ add(sword,plate([[.175,-.075],[.79,-.075],[1.05,0],[.79,.075],[.175,.075]],.028,.011),mat.silver,[0,0,0],[Math.PI/2,0,0]);add(sword,plate([[.20,-.035],[.81,-.035],[.94,0],[.81,.035],[.20,.035]],.010,.003),mat.dark,[0,.029,0],[Math.PI/2,0,0]);add(sword,plate([[.25,-.010],[.80,-.010],[.89,0],[.80,.010],[.25,.010]],.005,.002),mat.silver,[0,.036,0],[Math.PI/2,0,0]);add(sword,oval([.024,.012,.025],10,6),mat.red,[-.135,.043,0]);save('brand',[sword]);
+ buildExtras({mat,arm,save});
 }
+const report=(await Promise.all(jobs)).sort((a,b)=>a.model.localeCompare(b.model));
+writeFileSync(new URL('./texture-manifest.json',import.meta.url),JSON.stringify(report,null,2)+'\n');
+for(const row of report)console.log(`${row.model}: ${(row.bytes/1024).toFixed(1)} KiB, ${row.textureSize}² JPEG, ${row.regions.length} used swatches`);
+console.log(`Stack / D: ${report.length} models; ${(report.reduce((n,r)=>n+r.bytes,0)/1024).toFixed(1)} KiB total`);

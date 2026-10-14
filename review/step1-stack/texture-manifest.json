@@ -1,0 +1,413 @@
+[
+  {
+    "model": "armor/cobalt",
+    "bytes": 214584,
+    "textureBytes": 138941,
+    "textureSize": 1024,
+    "mimeType": "image/jpeg",
+    "regions": [
+      {
+        "tile": 8,
+        "name": "Stack cobalt paint",
+        "left": 0,
+        "top": 0,
+        "width": 512,
+        "height": 512
+      },
+      {
+        "tile": 9,
+        "name": "Stack silver paint",
+        "left": 512,
+        "top": 0,
+        "width": 512,
+        "height": 512
+      },
+      {
+        "tile": 11,
+        "name": "Stack cream cloth",
+        "left": 0,
+        "top": 512,
+        "width": 512,
+        "height": 512
+      }
+    ]
+  },
+  {
+    "model": "bombs/blast",
+    "bytes": 79576,
+    "textureBytes": 51232,
+    "textureSize": 512,
+    "mimeType": "image/jpeg",
+    "regions": [
+      {
+        "tile": 9,
+        "name": "Stack silver paint",
+        "left": 0,
+        "top": 0,
+        "width": 256,
+        "height": 256
+      },
+      {
+        "tile": 10,
+        "name": "Stack leather",
+        "left": 256,
+        "top": 0,
+        "width": 256,
+        "height": 256
+      },
+      {
+        "tile": 12,
+        "name": "shared brass",
+        "left": 0,
+        "top": 256,
+        "width": 256,
+        "height": 256
+      }
+    ]
+  },
+  {
+    "model": "class/guardian",
+    "bytes": 100896,
+    "textureBytes": 53378,
+    "textureSize": 512,
+    "mimeType": "image/jpeg",
+    "regions": [
+      {
+        "tile": 9,
+        "name": "Stack silver paint",
+        "left": 0,
+        "top": 0,
+        "width": 256,
+        "height": 256
+      },
+      {
+        "tile": 11,
+        "name": "Stack cream cloth",
+        "left": 256,
+        "top": 0,
+        "width": 256,
+        "height": 256
+      },
+      {
+        "tile": 12,
+        "name": "shared brass",
+        "left": 0,
+        "top": 256,
+        "width": 256,
+        "height": 256
+      },
+      {
+        "tile": 13,
+        "name": "shared charcoal cloth",
+        "left": 256,
+        "top": 256,
+        "width": 256,
+        "height": 256
+      }
+    ]
+  },
+  {
+    "model": "class/recon",
+    "bytes": 37752,
+    "textureBytes": 13582,
+    "textureSize": 256,
+    "mimeType": "image/jpeg",
+    "regions": [
+      {
+        "tile": 9,
+        "name": "Stack silver paint",
+        "left": 0,
+        "top": 0,
+        "width": 128,
+        "height": 128
+      },
+      {
+        "tile": 12,
+        "name": "shared brass",
+        "left": 128,
+        "top": 0,
+        "width": 128,
+        "height": 128
+      },
+      {
+        "tile": 13,
+        "name": "shared charcoal cloth",
+        "left": 0,
+        "top": 128,
+        "width": 128,
+        "height": 128
+      }
+    ]
+  },
+  {
+    "model": "helmet/cobalt",
+    "bytes": 101616,
+    "textureBytes": 54579,
+    "textureSize": 512,
+    "mimeType": "image/jpeg",
+    "regions": [
+      {
+        "tile": 8,
+        "name": "Stack cobalt paint",
+        "left": 0,
+        "top": 0,
+        "width": 256,
+        "height": 256
+      },
+      {
+        "tile": 9,
+        "name": "Stack silver paint",
+        "left": 256,
+        "top": 0,
+        "width": 256,
+        "height": 256
+      },
+      {
+        "tile": 13,
+        "name": "shared charcoal cloth",
+        "left": 0,
+        "top": 256,
+        "width": 256,
+        "height": 256
+      }
+    ]
+  },
+  {
+    "model": "helmet/none",
+    "bytes": 56412,
+    "textureBytes": 29069,
+    "textureSize": 512,
+    "mimeType": "image/jpeg",
+    "regions": [
+      {
+        "tile": 11,
+        "name": "Stack cream cloth",
+        "left": 0,
+        "top": 0,
+        "width": 256,
+        "height": 256
+      },
+      {
+        "tile": 14,
+        "name": "shared chestnut hair",
+        "left": 256,
+        "top": 0,
+        "width": 256,
+        "height": 256
+      }
+    ]
+  },
+  {
+    "model": "knight/body",
+    "bytes": 270316,
+    "textureBytes": 152388,
+    "textureSize": 1024,
+    "mimeType": "image/jpeg",
+    "regions": [
+      {
+        "tile": 9,
+        "name": "Stack silver paint",
+        "left": 0,
+        "top": 0,
+        "width": 341,
+        "height": 341
+      },
+      {
+        "tile": 10,
+        "name": "Stack leather",
+        "left": 341,
+        "top": 0,
+        "width": 341,
+        "height": 341
+      },
+      {
+        "tile": 11,
+        "name": "Stack cream cloth",
+        "left": 682,
+        "top": 0,
+        "width": 341,
+        "height": 341
+      },
+      {
+        "tile": 12,
+        "name": "shared brass",
+        "left": 0,
+        "top": 341,
+        "width": 341,
+        "height": 341
+      },
+      {
+        "tile": 13,
+        "name": "shared charcoal cloth",
+        "left": 341,
+        "top": 341,
+        "width": 341,
+        "height": 341
+      },
+      {
+        "tile": 14,
+        "name": "shared chestnut hair",
+        "left": 682,
+        "top": 341,
+        "width": 341,
+        "height": 341
+      },
+      {
+        "tile": 15,
+        "name": "shared skin gradient",
+        "left": 0,
+        "top": 682,
+        "width": 341,
+        "height": 341
+      }
+    ]
+  },
+  {
+    "model": "pants/cobalt",
+    "bytes": 101868,
+    "textureBytes": 54579,
+    "textureSize": 512,
+    "mimeType": "image/jpeg",
+    "regions": [
+      {
+        "tile": 8,
+        "name": "Stack cobalt paint",
+        "left": 0,
+        "top": 0,
+        "width": 256,
+        "height": 256
+      },
+      {
+        "tile": 9,
+        "name": "Stack silver paint",
+        "left": 256,
+        "top": 0,
+        "width": 256,
+        "height": 256
+      },
+      {
+        "tile": 13,
+        "name": "shared charcoal cloth",
+        "left": 0,
+        "top": 256,
+        "width": 256,
+        "height": 256
+      }
+    ]
+  },
+  {
+    "model": "weapons/blast",
+    "bytes": 79556,
+    "textureBytes": 51232,
+    "textureSize": 512,
+    "mimeType": "image/jpeg",
+    "regions": [
+      {
+        "tile": 9,
+        "name": "Stack silver paint",
+        "left": 0,
+        "top": 0,
+        "width": 256,
+        "height": 256
+      },
+      {
+        "tile": 10,
+        "name": "Stack leather",
+        "left": 256,
+        "top": 0,
+        "width": 256,
+        "height": 256
+      },
+      {
+        "tile": 12,
+        "name": "shared brass",
+        "left": 0,
+        "top": 256,
+        "width": 256,
+        "height": 256
+      }
+    ]
+  },
+  {
+    "model": "weapons/blaster",
+    "bytes": 90832,
+    "textureBytes": 46137,
+    "textureSize": 512,
+    "mimeType": "image/jpeg",
+    "regions": [
+      {
+        "tile": 8,
+        "name": "Stack cobalt paint",
+        "left": 0,
+        "top": 0,
+        "width": 170,
+        "height": 170
+      },
+      {
+        "tile": 9,
+        "name": "Stack silver paint",
+        "left": 170,
+        "top": 0,
+        "width": 170,
+        "height": 170
+      },
+      {
+        "tile": 10,
+        "name": "Stack leather",
+        "left": 340,
+        "top": 0,
+        "width": 170,
+        "height": 170
+      },
+      {
+        "tile": 12,
+        "name": "shared brass",
+        "left": 0,
+        "top": 170,
+        "width": 170,
+        "height": 170
+      },
+      {
+        "tile": 13,
+        "name": "shared charcoal cloth",
+        "left": 170,
+        "top": 170,
+        "width": 170,
+        "height": 170
+      }
+    ]
+  },
+  {
+    "model": "weapons/brand",
+    "bytes": 83304,
+    "textureBytes": 42894,
+    "textureSize": 512,
+    "mimeType": "image/jpeg",
+    "regions": [
+      {
+        "tile": 9,
+        "name": "Stack silver paint",
+        "left": 0,
+        "top": 0,
+        "width": 256,
+        "height": 256
+      },
+      {
+        "tile": 12,
+        "name": "shared brass",
+        "left": 256,
+        "top": 0,
+        "width": 256,
+        "height": 256
+      },
+      {
+        "tile": 13,
+        "name": "shared charcoal cloth",
+        "left": 0,
+        "top": 256,
+        "width": 256,
+        "height": 256
+      }
+    ]
+  }
+]

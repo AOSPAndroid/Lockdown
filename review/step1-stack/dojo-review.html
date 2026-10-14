@@ -1,20 +1,4 @@
 <!doctype html>
-<html lang="en"><meta charset="utf-8"><title>Stack D — Dojo approval</title>
-<style>
-*{box-sizing:border-box}body{margin:0;background:#e8eeed;color:#233845;font:13px Segoe UI,Arial,sans-serif}header{padding:24px 28px 18px;border-bottom:1px solid #b5c6c9}small{font-size:10px;letter-spacing:2px;font-weight:700;color:#617d87}h1{font-size:28px;margin:8px 0}p{margin:0;color:#54707c;line-height:1.6}h2{font-size:13px;letter-spacing:1px;margin:0;padding:20px 28px 10px}.grid{display:grid;grid-template-columns:repeat(3,1fr);margin:0 24px;gap:12px}.grid.four{grid-template-columns:repeat(4,1fr)}figure{margin:0;background:#d9e2e1;border:1px solid #c0cfd0;min-width:0}.crop{display:block;position:relative;height:190px;overflow:hidden;background:#26323b}.crop img{position:absolute;max-width:none;width:1280px;height:720px;left:calc(50% - 640px);top:-230px}figcaption{padding:10px 12px;font-size:11px;line-height:1.5}figcaption b{display:block;font-size:12px}a{color:#2f6378}footer{padding:20px 28px;color:#617d87;font-size:11px}
-</style>
-<header><small>LOCKDOWN / STACK · FOUR-HEAD D</small><h1>Stack in the actual Dojo</h1><p>Native-size crops from the unchanged game camera. Click any panel for the complete 1280 × 720 screenshot.<br>Production captures use <b>npm start</b> at port 3000; approved mockups are retained from the design review.</p></header>
-<h2>APPROVED MOCKUP → PRODUCTION</h2><section class="grid four" id="comparison"></section>
-<h2>ANIMATION AND CONTACT</h2><section class="grid" id="motion"></section>
-<h2>CLASS DEVICE AND WEAPONS</h2><section class="grid" id="devices"></section>
-<h2>MIXED EQUIPMENT · EACH PIECE FITS THE STARTER</h2><section class="grid" id="mixes"></section>
-<footer>All 11 models use the approved painted atlas and D pivots. <a href="/">Close-up model comparison</a> · <a href="http://localhost:3000/lockdown.html?solo=1&dojo=1">Open the Dojo</a><br>Full frames also include side/rear views, the Blaster charge and a charged shot hitting a dummy.</footer>
-<script>
-const groups={
-comparison:[['/mockup/screenshots/dojo-stack-bare.jpg','Approved Stack · bare','Original design-review capture'],['/screenshots/dojo-bare-idle.jpg','Production · bare','T-shirt, shorts, gloves, hair and shoes'],['/mockup/screenshots/dojo-stack-cobalt.jpg','Approved Stack · Cobalt','Original design-review capture'],['/screenshots/dojo-cobalt-idle.jpg','Production · Cobalt','Helm, mail, cuisses and Guardian shield']],
-motion:[['/screenshots/dojo-running.jpg','Running','Rigid limbs follow the game animation'],['/screenshots/dojo-swing-hit.jpg','Swinging + dummy hit','Knight Brand · 14 damage shown in full frame'],['/screenshots/dojo-charging.jpg','Holding a full charge','White ring and painted sword remain readable']],
-devices:[['/screenshots/dojo-recon-blaster.jpg','Recon + Pulse Blaster','Tiny buckler, violet lens and blue power cell'],['/screenshots/dojo-recon-cloak.jpg','Recon cloak','The small lens remains visible'],['/screenshots/dojo-bomb-planted.jpg','Cannonball · held + planted','Painted iron, brass band and short glowing fuse']],
-mixes:[['/screenshots/dojo-mix-helmet.jpg','Cobalt helm only','T-shirt and shorts remain visible'],['/screenshots/dojo-mix-mail.jpg','Cobalt mail only','Bare head and plain lower body'],['/screenshots/dojo-mix-cuisses.jpg','Cobalt cuisses only','Plain T-shirt above the blue greaves']]
-};
-for(const [id,entries]of Object.entries(groups))for(const [src,title,caption]of entries){const figure=document.createElement('figure');figure.innerHTML=`<a class="crop" href="${src}" target="_blank"><img src="${src}" alt="${title}"></a><figcaption><b>${title}</b>${caption}</figcaption>`;document.getElementById(id).append(figure)}
-</script></html>
+<html lang="en"><meta charset="utf-8"><title>Stack D Dojo review</title>
+<meta http-equiv="refresh" content="0;url=classes-review.html">
+<p><a href="classes-review.html">Open the current Stack D comparison: all three classes and compact textures.</a></p></html>

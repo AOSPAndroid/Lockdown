@@ -2,10 +2,27 @@
   {
     "file": "armor/cobalt.glb",
     "triangles": 2020,
-    "bytes": 2221196,
+    "bytes": 214584,
+    "previousBytes": 2221196,
     "texture": [
       1024,
       1024
+    ],
+    "mimeType": "image/jpeg",
+    "textureBytes": 138941,
+    "sourceRegions": [
+      {
+        "tile": 8,
+        "name": "Stack cobalt paint"
+      },
+      {
+        "tile": 9,
+        "name": "Stack silver paint"
+      },
+      {
+        "tile": 11,
+        "name": "Stack cream cloth"
+      }
     ],
     "errors": 0,
     "warnings": 0,
@@ -14,10 +31,27 @@
   {
     "file": "bombs/blast.glb",
     "triangles": 764,
-    "bytes": 2098924,
+    "bytes": 79576,
+    "previousBytes": 2098924,
     "texture": [
-      1024,
-      1024
+      512,
+      512
+    ],
+    "mimeType": "image/jpeg",
+    "textureBytes": 51232,
+    "sourceRegions": [
+      {
+        "tile": 9,
+        "name": "Stack silver paint"
+      },
+      {
+        "tile": 10,
+        "name": "Stack leather"
+      },
+      {
+        "tile": 12,
+        "name": "shared brass"
+      }
     ],
     "errors": 0,
     "warnings": 0,
@@ -26,10 +60,31 @@
   {
     "file": "class/guardian.glb",
     "triangles": 736,
-    "bytes": 2095220,
+    "bytes": 100896,
+    "previousBytes": 2095220,
     "texture": [
-      1024,
-      1024
+      512,
+      512
+    ],
+    "mimeType": "image/jpeg",
+    "textureBytes": 53378,
+    "sourceRegions": [
+      {
+        "tile": 9,
+        "name": "Stack silver paint"
+      },
+      {
+        "tile": 11,
+        "name": "Stack cream cloth"
+      },
+      {
+        "tile": 12,
+        "name": "shared brass"
+      },
+      {
+        "tile": 13,
+        "name": "shared charcoal cloth"
+      }
     ],
     "errors": 0,
     "warnings": 0,
@@ -38,10 +93,27 @@
   {
     "file": "class/recon.glb",
     "triangles": 676,
-    "bytes": 2090224,
+    "bytes": 37752,
+    "previousBytes": 2090224,
     "texture": [
-      1024,
-      1024
+      256,
+      256
+    ],
+    "mimeType": "image/jpeg",
+    "textureBytes": 13582,
+    "sourceRegions": [
+      {
+        "tile": 9,
+        "name": "Stack silver paint"
+      },
+      {
+        "tile": 12,
+        "name": "shared brass"
+      },
+      {
+        "tile": 13,
+        "name": "shared charcoal cloth"
+      }
     ],
     "errors": 0,
     "warnings": 0,
@@ -50,10 +122,27 @@
   {
     "file": "helmet/cobalt.glb",
     "triangles": 1092,
-    "bytes": 2129396,
+    "bytes": 101616,
+    "previousBytes": 2129396,
     "texture": [
-      1024,
-      1024
+      512,
+      512
+    ],
+    "mimeType": "image/jpeg",
+    "textureBytes": 54579,
+    "sourceRegions": [
+      {
+        "tile": 8,
+        "name": "Stack cobalt paint"
+      },
+      {
+        "tile": 9,
+        "name": "Stack silver paint"
+      },
+      {
+        "tile": 13,
+        "name": "shared charcoal cloth"
+      }
     ],
     "errors": 0,
     "warnings": 0,
@@ -62,10 +151,23 @@
   {
     "file": "helmet/none.glb",
     "triangles": 740,
-    "bytes": 2093988,
+    "bytes": 56412,
+    "previousBytes": 2093988,
     "texture": [
-      1024,
-      1024
+      512,
+      512
+    ],
+    "mimeType": "image/jpeg",
+    "textureBytes": 29069,
+    "sourceRegions": [
+      {
+        "tile": 11,
+        "name": "Stack cream cloth"
+      },
+      {
+        "tile": 14,
+        "name": "shared chestnut hair"
+      }
     ],
     "errors": 0,
     "warnings": 0,
@@ -74,10 +176,43 @@
   {
     "file": "knight/body.glb",
     "triangles": 3176,
-    "bytes": 2346056,
+    "bytes": 270316,
+    "previousBytes": 2346056,
     "texture": [
       1024,
       1024
+    ],
+    "mimeType": "image/jpeg",
+    "textureBytes": 152388,
+    "sourceRegions": [
+      {
+        "tile": 9,
+        "name": "Stack silver paint"
+      },
+      {
+        "tile": 10,
+        "name": "Stack leather"
+      },
+      {
+        "tile": 11,
+        "name": "Stack cream cloth"
+      },
+      {
+        "tile": 12,
+        "name": "shared brass"
+      },
+      {
+        "tile": 13,
+        "name": "shared charcoal cloth"
+      },
+      {
+        "tile": 14,
+        "name": "shared chestnut hair"
+      },
+      {
+        "tile": 15,
+        "name": "shared skin gradient"
+      }
     ],
     "errors": 0,
     "warnings": 0,
@@ -90,10 +225,27 @@
   {
     "file": "pants/cobalt.glb",
     "triangles": 784,
-    "bytes": 2102000,
+    "bytes": 101868,
+    "previousBytes": 2102000,
     "texture": [
-      1024,
-      1024
+      512,
+      512
+    ],
+    "mimeType": "image/jpeg",
+    "textureBytes": 54579,
+    "sourceRegions": [
+      {
+        "tile": 8,
+        "name": "Stack cobalt paint"
+      },
+      {
+        "tile": 9,
+        "name": "Stack silver paint"
+      },
+      {
+        "tile": 13,
+        "name": "shared charcoal cloth"
+      }
     ],
     "errors": 0,
     "warnings": 0,
@@ -102,10 +254,27 @@
   {
     "file": "weapons/blast.glb",
     "triangles": 764,
-    "bytes": 2098904,
+    "bytes": 79556,
+    "previousBytes": 2098904,
     "texture": [
-      1024,
-      1024
+      512,
+      512
+    ],
+    "mimeType": "image/jpeg",
+    "textureBytes": 51232,
+    "sourceRegions": [
+      {
+        "tile": 9,
+        "name": "Stack silver paint"
+      },
+      {
+        "tile": 10,
+        "name": "Stack leather"
+      },
+      {
+        "tile": 12,
+        "name": "shared brass"
+      }
     ],
     "errors": 0,
     "warnings": 0,
@@ -114,10 +283,35 @@
   {
     "file": "weapons/blaster.glb",
     "triangles": 1212,
-    "bytes": 2142620,
+    "bytes": 90832,
+    "previousBytes": 2142620,
     "texture": [
-      1024,
-      1024
+      512,
+      512
+    ],
+    "mimeType": "image/jpeg",
+    "textureBytes": 46137,
+    "sourceRegions": [
+      {
+        "tile": 8,
+        "name": "Stack cobalt paint"
+      },
+      {
+        "tile": 9,
+        "name": "Stack silver paint"
+      },
+      {
+        "tile": 10,
+        "name": "Stack leather"
+      },
+      {
+        "tile": 12,
+        "name": "shared brass"
+      },
+      {
+        "tile": 13,
+        "name": "shared charcoal cloth"
+      }
     ],
     "errors": 0,
     "warnings": 0,
@@ -126,13 +320,34 @@
   {
     "file": "weapons/brand.glb",
     "triangles": 1036,
-    "bytes": 2124008,
+    "bytes": 83304,
+    "previousBytes": 2124008,
     "texture": [
-      1024,
-      1024
+      512,
+      512
+    ],
+    "mimeType": "image/jpeg",
+    "textureBytes": 42894,
+    "sourceRegions": [
+      {
+        "tile": 9,
+        "name": "Stack silver paint"
+      },
+      {
+        "tile": 12,
+        "name": "shared brass"
+      },
+      {
+        "tile": 13,
+        "name": "shared charcoal cloth"
+      }
     ],
     "errors": 0,
     "warnings": 0,
-    "messages": []
+    "messages": [],
+    "boundsX": [
+      -0.13443680107593536,
+      0.75
+    ]
   }
 ]

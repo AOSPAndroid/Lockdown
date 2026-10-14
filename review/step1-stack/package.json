@@ -1,0 +1,10 @@
+{
+  "name": "lockdown-stack-art-source",
+  "private": true,
+  "type": "module",
+  "scripts": {"build":"node build.mjs","audit":"node audit-packed.mjs"},
+  "devDependencies": {
+    "gltf-validator": "2.0.0-dev.3.10",
+    "sharp": "0.35.5"
+  }
+}
