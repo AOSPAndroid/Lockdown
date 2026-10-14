@@ -199,7 +199,14 @@ textures; anything that pokes through other gear when the knight moves; stretchi
 
 ## 8. How to work
 
-1. **Style lock (stop for approval).** Make the knight body (dark under-suit, eye-lit head), the whole
+0. **Design options (stop for a choice).** Before any full model set, show **three or four different design
+   directions** for the knight, each one a Recruit-set knight holding the Knight Brand, every one clearly in
+   the Spiral Knights style (see [reference/spiral-knights/](reference/spiral-knights/README.md)) but
+   different in proportions, helmet shape, shoulder size, materials and colour. Present them side by side on
+   one sheet, each with a short name and what makes it different, next to a reference close-up, plus each one
+   in the Dojo at game distance. Quick block-outs are fine: no need to finish or polish, no icons, nothing
+   committed as final. Wait until one direction (or a mix) is picked. Repeat if none is right.
+1. **Style lock (stop for approval).** In the chosen direction only, make the knight body (dark under-suit, eye-lit head), the whole
    Recruit set (`helmet/none`, `armor/none`, `pants/none`, `shoes/none`), the three class pieces, the Cobalt set
    (helm, mail, cuisses), the Knight Brand, the Pulse Blaster and the Cannonball Bomb (in hand and planted).
    Before showing anything, compare it side by side with the Spiral Knights screenshots in
