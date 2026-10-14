@@ -27,13 +27,13 @@ Views: the 3D view is the default; `?quality=low` turns off shadows and glow for
 
 ## How it plays
 
-See [docs/GAMEPLAY.md](docs/GAMEPLAY.md): classes, gear, weapons and their traits, the fighting rules
+See [docs/GAMEPLAY.md](docs/GAMEPLAY.md) and the [weapons audit](docs/WEAPONS-AUDIT.md): classes, gear, weapons and their traits, the fighting rules
 (interrupts, counters, perfect dodges, clashes, Spiral Knights-style cancels), statuses, hearts and the
 eight arenas.
 
 ## Look and art
 
-See [docs/LOOK.md](docs/LOOK.md) for the design rules, every number behind the look, and how to add
+Start with [docs/ART-GUIDE.md](docs/ART-GUIDE.md): all the art guidance in one place. See also [docs/LOOK.md](docs/LOOK.md) for the design rules, every number behind the look, and how to add
 textures (`public/art/3d/<theme>/`, checked by `node tools/art3d-index.mjs`). Every item to model is in
 [docs/CATALOG.md](docs/CATALOG.md) and the model contract in [docs/MODELS.md](docs/MODELS.md). Agents start
 with [AGENTS.md](AGENTS.md).
