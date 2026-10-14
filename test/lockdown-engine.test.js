@@ -773,14 +773,16 @@ test('bases are safe: the other team cannot walk in, rounds stop at the edge, no
   assert.ok(events(shot.state, 'barrier').length > 0, 'and spark on it');
 });
 
-test('timing beats mashing: a press before the cut lands breaks the combo; aim in the middle of the cut hits clean', () => {
+test('rapid presses flow through the combo while cuts land; whiffs break it; aim in the middle of the cut hits clean', () => {
   const move = WEAPONS.brand.combo[0];
-  // Mashing: pressing again during the wind-up is ignored and keeps the cut out of the combo.
-  const mash = duel({ gap: 50, a: { cls: 'recon' } });
-  run(mash.state, swingTicks(move) + BLADE.hitStop + 4, t => ({ 0: { attack: t % 4 === 0 } }));
-  assert.ok(events(mash.state, 'mash').length >= 1, 'the early press is a mash');
-  assert.ok(events(mash.state, 'damage').length >= 1, 'the cut itself still lands');
-  assert.ok(events(mash.state, 'swing').every(event => event.step === 0), 'but never chains: every cut starts the combo over');
+  // Pressing rapidly on a target chains the whole combo, as in Spiral Knights.
+  const flow = duel({ gap: 50, a: { cls: 'recon' } });
+  run(flow.state, 150, t => ({ 0: { attack: t % 4 === 0 } }));
+  assert.deepEqual(events(flow.state, 'swing').slice(0, 3).map(event => event.step), [0, 1, 2], 'the presses flow into the next cuts');
+  // At air, the same presses never chain: every miss starts the combo over.
+  const spam = duel({ gap: 300, a: { cls: 'recon' } });
+  run(spam.state, 150, t => ({ 0: { attack: t % 4 === 0 } }));
+  assert.ok(events(spam.state, 'swing').every(event => event.step === 0), 'whiffs never chain');
   // A whiff recovers for a long time.
   const air = duel({ gap: 300 });
   run(air.state, 1, () => ({ 0: { attack: true } }));
@@ -946,4 +948,15 @@ test('the katana: the narrowest cut; a clean hit lands extra hard, an edge hit b
   assert.ok(Math.abs(clean - Math.round(move.damage * katana.aim.clean)) <= 1, 'a clean hit lands 30% harder');
   assert.ok(edge > 0 && edge <= Math.ceil(move.damage * katana.aim.graze), 'an edge hit deals half');
   for (const id of ['sixgun', 'embersixgun', 'peacemaker']) assert.equal(WEAPONS[id].clip, 6, `${id} is a six-shooter`);
+});
+
+test('the katana and the three-cut elemental swords end on a critical; narrow swords reach further', () => {
+  for (const id of ['katana', 'blazebrand', 'frostbite', 'avenger']) {
+    const combo = WEAPONS[id].combo;
+    assert.equal(combo.length, 3); assert.ok(combo[2].critical && !combo[0].critical, `${id} ends on a critical`);
+  }
+  assert.ok(WEAPONS.katana.combo[0].reach > WEAPONS.brand.combo[0].reach, 'the katana reaches further than a plain sword');
+  const { state } = duel({ gap: 50, a: { cls: 'recon', weapons: ['katana', null, null, null] } });
+  run(state, 200, t => ({ 0: { attack: t % 4 === 0 } }));
+  assert.ok(events(state, 'critical').length >= 1, 'the third cut lands as a critical');
 });

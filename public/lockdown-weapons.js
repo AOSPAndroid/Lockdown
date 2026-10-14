@@ -22,7 +22,7 @@ const step = (damage, startup, active, recovery, reach, arc, push, stun, lunge) 
  * Balanced sits between. Thrusts keep the narrow line they are written with. Applied to every step's arc
  * and damage below. */
 export const CUTS = Object.freeze({
-  precise: Object.freeze({ arc: .55, damage: 1.2, push: .4, label: 'Precise', note: 'narrow cut that hits hard but barely pushes: aim it, and stay on them' }),
+  precise: Object.freeze({ arc: .55, damage: 1.2, push: .4, reach: 1.25, label: 'Precise', note: 'narrow but long cut that hits hard and barely pushes: aim it, and stay on them' }),
   balanced: Object.freeze({ arc: .75, damage: 1.1, push: 1, label: 'Balanced', note: 'medium cut, medium damage' }),
   sweeping: Object.freeze({ arc: 1, damage: .9, push: 3, reel: true, label: 'Sweeping', note: 'wide cut that hits lighter but knocks the enemy back reeling: follow up with a heavy sword, or switch to a gun and shoot them out of reach' }),
   thrust: Object.freeze({ arc: 1, damage: 1, push: .5, label: 'Thrust', note: 'a straight, narrow line with a sweet spot at the tip, little knockback' }),
@@ -30,7 +30,10 @@ export const CUTS = Object.freeze({
 /** A heavy sword's second blow: after a normal first cut, it carries the momentum through a half turn (back to
  * the target, then round with the blade), so it winds up fast and lands far harder, but a miss leaves you spun round and wide open (see BLADE.momentumWhiff). */
 const momentum = move => Object.freeze({ ...move, momentum: true });
-const cuts = (cut, ...steps) => Object.freeze(steps.map(move => Object.freeze({ ...move, arc: Math.round(move.arc * CUTS[cut].arc * 100) / 100, damage: Math.round(move.damage * CUTS[cut].damage), push: Math.round(move.push * CUTS[cut].push) })));
+/** The last cut of the katana's and the elemental swords' three-cut combo is a critical: it lands half again as hard. */
+export const CRITICAL = 1.5;
+const critical = move => Object.freeze({ ...move, damage: Math.round(move.damage * CRITICAL), critical: true });
+const cuts = (cut, ...steps) => Object.freeze(steps.map(move => Object.freeze({ ...move, arc: Math.round(move.arc * CUTS[cut].arc * 100) / 100, damage: Math.round(move.damage * CUTS[cut].damage), push: Math.round(move.push * CUTS[cut].push), reach: Math.round(move.reach * (CUTS[cut].reach || 1)) })));
 
 export const WEAPONS = Object.freeze({
   // ---------- blades ----------
@@ -62,12 +65,12 @@ export const WEAPONS = Object.freeze({
 
   // Elemental and special swords: every cut can carry a status or a trick of its own.
   frostbite: Object.freeze({ id: 'frostbite', family: 'blade', cut: 'balanced', type: 'Frost sword', name: 'Frostbite Edge', chargeTicks: 108, element: 'chill',
-    combo: cuts('balanced', step(12, 5, 5, 11, 68, 1.8, 100, 10, 10), step(15, 7, 6, 14, 72, 2.0, 140, 13, 18), step(21, 9, 7, 20, 76, 2.2, 210, 16, 28)), onHit: Object.freeze({ status: 'chill', chance: 1 }),
+    combo: cuts('balanced', step(12, 5, 5, 11, 68, 1.8, 100, 10, 10), step(15, 7, 6, 14, 72, 2.0, 140, 13, 18), critical(step(21, 9, 7, 20, 76, 2.2, 210, 16, 28))), onHit: Object.freeze({ status: 'chill', chance: 1 }),
     charge: Object.freeze({ kind: 'lungeBurst', distance: 110, ticks: 14, damage: 18, reach: 50, arc: 1.6, push: 120, stun: 16, recovery: 16, status: 'chill', chance: 1,
       burst: Object.freeze({ radius: 84, damage: 14, push: 140, status: 'freeze', chance: 1 }) }),
     description: 'Every cut chills: three chills freeze a knight solid. Charge: lunge into a freezing burst.' }),
   blazebrand: Object.freeze({ id: 'blazebrand', family: 'blade', cut: 'precise', type: 'Fire sword', name: 'Blazebrand', chargeTicks: 120, element: 'burn',
-    combo: cuts('precise', step(13, 5, 5, 11, 70, 1.8, 110, 12, 10), step(17, 7, 6, 14, 74, 2.0, 150, 15, 18), step(24, 9, 7, 20, 78, 2.3, 230, 18, 28)), onHit: Object.freeze({ status: 'burn', chance: .3 }),
+    combo: cuts('precise', step(13, 5, 5, 11, 70, 1.8, 110, 12, 10), step(17, 7, 6, 14, 74, 2.0, 150, 15, 18), critical(step(24, 9, 7, 20, 78, 2.3, 230, 18, 28))), onHit: Object.freeze({ status: 'burn', chance: .3 }),
     charge: Object.freeze({ kind: 'wave', damage: 22, speed: 320, range: 360, size: 24, push: 140, status: 'burn', chance: 1, recovery: 24 }),
     description: 'Cuts may set knights on fire (30%). Charge: a rolling wall of flame that always burns.' }),
   voltedge: Object.freeze({ id: 'voltedge', family: 'blade', cut: 'sweeping', type: 'Shock sword', name: 'Volt Fang', chargeTicks: 108, element: 'shock',
@@ -92,7 +95,7 @@ export const WEAPONS = Object.freeze({
 
   // More Spiral Knights lines. A holy sword that fires light, a long blade and a three-blow heavy.
   avenger: Object.freeze({ id: 'avenger', family: 'blade', cut: 'precise', type: 'Holy sword', name: 'Dawnbringer', chargeTicks: 120, element: 'holy',
-    combo: cuts('precise', step(14, 5, 5, 11, 72, 1.8, 110, 12, 10), step(18, 7, 6, 14, 76, 2.0, 160, 15, 18), step(26, 9, 7, 20, 80, 2.3, 240, 18, 28)),
+    combo: cuts('precise', step(14, 5, 5, 11, 72, 1.8, 110, 12, 10), step(18, 7, 6, 14, 76, 2.0, 160, 15, 18), critical(step(26, 9, 7, 20, 80, 2.3, 240, 18, 28))),
     charge: Object.freeze({ kind: 'beam', damage: 28, speed: 820, range: 640, size: 12, push: 140, pierce: true, recovery: 22 }),
     description: 'A blessed sword. Charge: a beam of light that pierces every knight down the lane.' }),
   leviathan: Object.freeze({ id: 'leviathan', family: 'blade', cut: 'precise', type: 'Long sword', name: 'Tidebreaker', chargeTicks: 120,
@@ -125,7 +128,7 @@ export const WEAPONS = Object.freeze({
   // clipping someone with the edge barely scratches them.
   katana: Object.freeze({ id: 'katana', family: 'blade', cut: 'precise', type: 'Katana', name: 'Moonlit Katana', chargeTicks: 108,
     aim: Object.freeze({ clean: 1.3, graze: .5 }),
-    combo: cuts('precise', step(17, 5, 4, 11, 80, 1.3, 120, 14, 12), step(20, 6, 4, 13, 82, 1.3, 150, 16, 18), step(28, 8, 5, 18, 86, 1.4, 220, 20, 26)),
+    combo: cuts('precise', step(17, 5, 4, 11, 80, 1.3, 120, 14, 12), step(20, 6, 4, 13, 82, 1.3, 150, 16, 18), critical(step(28, 8, 5, 18, 86, 1.4, 220, 20, 26))),
     charge: Object.freeze({ kind: 'lunge', distance: 190, ticks: 14, damage: 34, reach: 44, arc: .9, push: 160, stun: 18, recovery: 16 }),
     description: 'Fast, narrow, deadly cuts: a clean hit lands 30% harder, an edge hit only half. Charge: a lightning draw-cut dash.' }),
 

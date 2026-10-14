@@ -443,7 +443,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Frostbite Edge `frostbite`
 
 - **Does:** Every cut chills: three chills freeze a knight solid. Charge: lunge into a freezing burst.
-- **Stats:** Frost sword · element: chill · balanced cut, 3-cut combo (13 / 17 / 23 damage) · difficulty ★★ · good: Every cut chills; the third freezes; Charge ends in a freezing burst · bad: Slightly weaker cuts; Freeze breaks on the next hit
+- **Stats:** Frost sword · element: chill · balanced cut, 3-cut combo (13 / 17 / 35 damage) · difficulty ★★ · good: Every cut chills; the third freezes; Charge ends in a freezing burst · bad: Slightly weaker cuts; Freeze breaks on the next hit
 - **Looks:** A blade of blue ice with frost crystals on the edge, a silver guard rimed with frost and a pale blue glowing core.
 - **Size:** ≈ 0.75 from grip to tip (just over half the knight's height), blade ≈ 0.12 wide, guard ≈ 0.24 across
 - **Make:** `models/weapons/frostbite.glb`, icon `icon_weapon_frostbite.png`
@@ -451,7 +451,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Blazebrand `blazebrand`
 
 - **Does:** Cuts may set knights on fire (30%). Charge: a rolling wall of flame that always burns.
-- **Stats:** Fire sword · element: burn · precise cut, 3-cut combo (16 / 20 / 29 damage) · difficulty ★ · good: Cuts may set knights on fire; Charge: a wall of fire · bad: Burn is random on normal cuts
+- **Stats:** Fire sword · element: burn · precise cut, 3-cut combo (16 / 20 / 43 damage) · difficulty ★ · good: Cuts may set knights on fire; Charge: a wall of fire · bad: Burn is random on normal cuts
 - **Looks:** A sword of living flame: a red-hot orange blade with flickering fire along the edge, a blackened iron guard.
 - **Size:** ≈ 0.75 from grip to tip (just over half the knight's height), blade ≈ 0.12 wide, guard ≈ 0.24 across
 - **Make:** `models/weapons/blazebrand.glb`, icon `icon_weapon_blazebrand.png`
@@ -491,7 +491,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Dawnbringer `avenger`
 
 - **Does:** A blessed sword. Charge: a beam of light that pierces every knight down the lane.
-- **Stats:** Holy sword · element: holy · precise cut, 3-cut combo (17 / 22 / 31 damage) · difficulty ★★ · good: Steady three-cut combo; Charge: a piercing beam of light down a whole lane · bad: Beam recovery leaves you open
+- **Stats:** Holy sword · element: holy · precise cut, 3-cut combo (17 / 22 / 47 damage) · difficulty ★★ · good: Steady three-cut combo; Charge: a piercing beam of light down a whole lane · bad: Beam recovery leaves you open
 - **Looks:** A holy sword: a white-gold blade with a sun-shaped guard, two small feathered wings at the hilt and a soft golden glow along the edge.
 - **Size:** ≈ 0.75 from grip to tip (just over half the knight's height), blade ≈ 0.12 wide, guard ≈ 0.24 across
 - **Make:** `models/weapons/avenger.glb`, icon `icon_weapon_avenger.png`
@@ -547,7 +547,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Moonlit Katana `katana`
 
 - **Does:** Fast, narrow, deadly cuts: a clean hit lands 30% harder, an edge hit only half. Charge: a lightning draw-cut dash.
-- **Stats:** Katana · precise cut, 3-cut combo (20 / 24 / 34 damage) · difficulty ★★★ · good: Hardest light cuts: a clean hit lands 30% harder; Charge: a long draw-cut dash · bad: Narrowest cut of all; An edge hit deals only half
+- **Stats:** Katana · precise cut, 3-cut combo (20 / 24 / 50 damage) · difficulty ★★★ · good: Hardest light cuts: a clean hit lands 30% harder; Charge: a long draw-cut dash · bad: Narrowest cut of all; An edge hit deals only half
 - **Looks:** A slender curved katana: a mirror-bright single-edged blade with a wavy temper line, a small round guard and a long wrapped two-hand grip, a pale blue glint along the edge.
 - **Size:** long: ≈ 0.9 from grip to tip, slim (blade ≈ 0.06 wide)
 - **Make:** `models/weapons/katana.glb`, icon `icon_weapon_katana.png`

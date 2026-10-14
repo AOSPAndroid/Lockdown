@@ -407,14 +407,14 @@ const canCancel = player => inRecovery(player) || player.action === 'swing' && p
  * quick first cut, and a short lag passes before the next attack. */
 function cancelRecovery(state, player, by) {
   player.comboStep = 0; player.comboWindow = 0; player.cancelLag = BLADE.cancelLag;
-  player.action = 'idle'; player.actionTicks = 0; player.bufferAttack = false; player.whiffed = false; player.mashed = false;
+  player.action = 'idle'; player.actionTicks = 0; player.bufferAttack = false; player.whiffed = false;
   emit(state, 'cancel', { playerId: player.id, by });
 }
 const CHARGE_MOVES = new Set(['lunge', 'lungeBurst', 'slam', 'spin']);
 /** A hit knocks a knight out of a sword cut or a cast: the cut is lost and the combo starts over. */
 function interrupt(state, player, by) {
   if (player.action !== 'swing' && player.action !== 'cast') return false;
-  Object.assign(player, { action: 'idle', actionTicks: 0, comboStep: 0, comboWindow: 0, bufferAttack: false, whiffed: false, mashed: false });
+  Object.assign(player, { action: 'idle', actionTicks: 0, comboStep: 0, comboWindow: 0, bufferAttack: false, whiffed: false });
   emit(state, 'interrupt', { playerId: player.id, by, x: player.x, y: player.y });
   return true;
 }
@@ -678,6 +678,7 @@ function bladeContacts(state, player, reach, from, to, amount, options) {
       if (result !== 'attacker') return; // our cut was knocked aside
     }
     player.hitIds.push(target.id);
+    if (options.kind === 'blade' && player.swingCritical) emit(state, 'critical', { playerId: player.id, targetId: target.id, x: target.x, y: target.y });
     // Precise blades reward spacing: the tip of the reach (the sweet spot) hits harder.
     const { sweetSpot, ...rest } = options;
     const tip = sweetSpot && d >= reach * sweetSpot.from;
@@ -744,10 +745,10 @@ function startSwing(state, player, weapon) {
   const move = weapon.combo[player.comboStep];
   breakCloak(state, player);
   const speed = bladeSpeed(player), startup = Math.max(2, Math.round(move.startup / speed)), active = Math.max(2, Math.round(move.active / speed)), recovery = Math.max(2, Math.round(move.recovery / speed));
-  Object.assign(player, { action: 'swing', actionTotal: startup + active + recovery, actionTicks: startup + active + recovery, hitIds: [], bufferAttack: false, whiffed: false, mashed: false,
+  Object.assign(player, { action: 'swing', actionTotal: startup + active + recovery, actionTicks: startup + active + recovery, hitIds: [], bufferAttack: false, whiffed: false,
     swingAim: player.aim, swingDir: player.comboStep % 2 ? -1 : 1, swingReach: move.reach, swingArc: move.arc,
-    swingStartup: startup, swingActive: active, swingRecovery: recovery, swingDamage: move.damage * bladePower(player), swingMomentum: !!move.momentum });
-  emit(state, 'swing', { playerId: player.id, weapon: weapon.id, step: player.comboStep, x: player.x, y: player.y, angle: player.aim, dir: player.swingDir, arc: move.arc, reach: move.reach, startup, active, momentum: !!move.momentum });
+    swingStartup: startup, swingActive: active, swingRecovery: recovery, swingDamage: move.damage * bladePower(player), swingMomentum: !!move.momentum, swingCritical: !!move.critical });
+  emit(state, 'swing', { playerId: player.id, weapon: weapon.id, step: player.comboStep, x: player.x, y: player.y, angle: player.aim, dir: player.swingDir, arc: move.arc, reach: move.reach, startup, active, momentum: !!move.momentum, critical: !!move.critical });
 }
 function startCharge(state, player, weapon) {
   const charge = weapon.charge;
@@ -776,7 +777,7 @@ function tickAction(state, player, weapon) {
     else if (elapsed < startup + active) {
       // The blade sweeps from one side of the arc to the other across the active ticks.
       const start = player.swingAim - player.swingDir * move.arc / 2, progress = (elapsed - startup + 1) / active;
-      bladeContacts(state, player, move.reach, start, start + player.swingDir * move.arc * progress, player.swingDamage, { push: move.push, stun: move.stun, kind: 'blade', hitStop: BLADE.hitStop, weapon: weapon.id, status: weapon.onHit?.status, chance: weapon.onHit?.chance, sweetSpot: weapon.sweetSpot, reel: !!CUTS[weapon.cut]?.reel });
+      bladeContacts(state, player, move.reach, start, start + player.swingDir * move.arc * progress, player.swingDamage, { push: move.push, stun: move.stun, kind: 'blade', hitStop: move.critical ? BLADE.hitStop * 2 : BLADE.hitStop, weapon: weapon.id, status: weapon.onHit?.status, chance: weapon.onHit?.chance, sweetSpot: weapon.sweetSpot, reel: !!CUTS[weapon.cut]?.reel });
       // A heavy blow that shakes the ground sends a shockwave around the impact on its first active tick.
       if (move.shockwave && elapsed === startup) {
         const wave = move.shockwave, center = { x: player.x + Math.cos(player.swingAim) * wave.offset, y: player.y + Math.sin(player.swingAim) * wave.offset };
@@ -788,7 +789,7 @@ function tickAction(state, player, weapon) {
       const extra = Math.max(BLADE.whiffMin, Math.round(player.swingRecovery * BLADE.whiffRecovery)) * (player.swingMomentum ? BLADE.momentumWhiff : 1);
       Object.assign(player, { whiffed: true, bufferAttack: false, actionTicks: player.actionTicks + extra, actionTotal: player.actionTotal + extra, swingRecovery: player.swingRecovery + extra });
       emit(state, 'whiff', { playerId: player.id, x: player.x, y: player.y });
-    } else if (player.bufferAttack && !player.whiffed && !player.mashed && player.comboStep < weapon.combo.length - 1 && elapsed >= startup + active + Math.ceil(player.swingRecovery * BLADE.comboCancel)) {
+    } else if (player.bufferAttack && !player.whiffed && player.comboStep < weapon.combo.length - 1 && elapsed >= startup + active + Math.ceil(player.swingRecovery * BLADE.comboCancel)) {
       // Combo cancel: a queued press cuts the recovery short and goes straight into the next cut.
       player.comboStep++; player.action = 'idle'; player.actionTicks = 0; startSwing(state, player, weapon);
       return;
@@ -825,20 +826,17 @@ function tickAction(state, player, weapon) {
     const wasSwing = player.action === 'swing';
     player.action = 'idle';
     if (wasSwing) {
-      if (player.whiffed || player.mashed) { player.comboStep = 0; player.comboWindow = 0; player.whiffed = false; player.mashed = false; player.bufferAttack = false; }
+      if (player.whiffed) { player.comboStep = 0; player.comboWindow = 0; player.whiffed = false; player.bufferAttack = false; }
       else { player.comboStep = (player.comboStep + 1) % weapon.combo.length; player.comboWindow = BLADE.comboWindow; }
       if (player.bufferAttack) startSwing(state, player, weapon); // a well-timed press chains straight into the next cut
     }
   }
 }
 
-/** A press during a cut: once the cut has landed it queues the next one; before that (or after a whiff) it
- * is a mash, which is ignored and keeps this cut out of the combo. */
+/** A press during a cut queues the next one, as in Spiral Knights: press rapidly and the combo flows, but only
+ * while the cuts land. A whiff drops the queued press and breaks the combo. */
 function queueCut(state, player) {
-  if (player.mashed) return;
-  if (player.hitIds.length && !player.whiffed) { player.bufferAttack = true; return; }
-  player.mashed = true; player.bufferAttack = false;
-  emit(state, 'mash', { playerId: player.id, x: player.x, y: player.y });
+  if (!player.whiffed) player.bufferAttack = true;
 }
 function tickWeapon(state, player, input, previous) {
   const weapon = currentWeapon(player), pressed = input.attack && !previous.attack, released = !input.attack && previous.attack;
@@ -1319,7 +1317,7 @@ function botInput(state, bot) {
       const followWith = target.reelTicks > 0 && target.reelWeapon === weapon.id
         ? (d > reach + RULES.radius + 20 ? others('gun')[0] : undefined) ?? others('blade').sort((a, b) => !!WEAPONS[bot.weapons[b]].heavy - !!WEAPONS[bot.weapons[a]].heavy)[0] : undefined;
       if (followWith !== undefined && random(state) < brain.skill) input[`slot${followWith + 1}`] = !bot.previousInput[`slot${followWith + 1}`];
-      // Press to start a cut, then again only once it lands (mashing would break the combo).
+      // Press to start a cut, then again once it lands to flow into the next.
       if (bot.action === 'swing') input.attack = bot.hitIds.length > 0 && !bot.whiffed && !bot.previousInput.attack;
       else if (inReach && exposed(target) && !bot.previousInput.attack && random(state) < brain.skill) input.attack = true;
       else input.attack = inReach && brain.pulse < 2;

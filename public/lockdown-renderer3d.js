@@ -67,7 +67,7 @@ class ModelLibrary {
 const CALLOUTS = Object.freeze({
   counter: ['COUNTER', '#ffb347', 'target'], riposte: ['RIPOSTE', '#ffe680', 'target'], perfectDodge: ['PERFECT', '#9ff0ff', 'player'],
   clash: ['CLASH', '#ffffff', 'player'], steady: ['STEADY', '#c9d6ff', 'player'], interrupt: ['INTERRUPTED', '#ff8a7a', 'player'],
-  whiff: ['MISS', '#b8b8b8', 'player'], punish: ['PUNISH', '#ff7a4a', 'target'], clean: ['CLEAN', '#ffffff', 'target'], mash: ['TOO EARLY', '#9aa0aa', 'player'],
+  whiff: ['MISS', '#b8b8b8', 'player'], punish: ['PUNISH', '#ff7a4a', 'target'], clean: ['CLEAN', '#ffffff', 'target'], critical: ['CRITICAL', '#ff5a5a', 'target'],
   followUp: ['FOLLOW-UP', '#ffcf4a', 'target'], reel: ['REELING', '#ffe08a', 'target'], sweetSpot: ['TIP', '#ffe680', 'target'], ambush: ['AMBUSH', '#d29bff', 'target'],
   guardBreak: ['GUARD BREAK', '#ffffff', 'player'], evade: ['DODGE', '#ffffff', 'player'],
 });
@@ -1240,8 +1240,8 @@ export class Lockdown3DRenderer {
   slashEffect(state, event, now) {
     const owner = state.players[event.playerId], map = MAPS[state.mapId]; if (!owner || !map) return;
     const reach = (event.reach || 70) * U, start = event.angle - event.dir * event.arc / 2, delay = (event.startup || 0) * 1000 / 120, sweep = Math.max(1, (event.active || 1) * 1000 / 120);
-    const material = new THREE.MeshBasicMaterial({ color: '#ffffff', transparent: true, opacity: 0, depthWrite: false, side: THREE.DoubleSide, blending: THREE.AdditiveBlending });
-    const mesh = new THREE.Mesh(new THREE.BufferGeometry(), material);
+    const material = new THREE.MeshBasicMaterial({ color: event.critical ? '#ff6a5a' : '#ffffff', transparent: true, opacity: 0, depthWrite: false, side: THREE.DoubleSide, blending: THREE.AdditiveBlending });
+    const mesh = new THREE.Mesh(new THREE.BufferGeometry(), material); if (event.critical) mesh.scale.setScalar(1.15); // a critical finisher flashes red
     const lift = levelAt(map, owner.x, owner.y) * STOREY + KNIGHT * .4;
     mesh.position.set(owner.x * U, lift, owner.y * U);
     let shown = -1;
