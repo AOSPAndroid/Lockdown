@@ -850,3 +850,25 @@ test('sweep them out of reach, switch to the gun, shoot: every shot lands harder
   const free = foe.x; run(state, 12, () => ({ 4: { left: true } }));
   assert.ok(reelingStep < (free - foe.x) * .75, 'reeling knights are slowed');
 });
+
+test('sweep, boost, sweep: a Striker Boost pressed as soon as a cut lands cancels the rest of it', () => {
+  const { state, me, foe } = duel({ gap: 50, a: { cls: 'striker', weapons: ['thorn', null, null, null] } });
+  run(state, 1, () => ({ 0: { attack: true } }));
+  let waited = 0; while (!me.hitIds.length && waited++ < 40) run(state, 1);
+  run(state, BLADE.hitStop + 1);
+  const elapsed = me.actionTotal - me.actionTicks;
+  assert.ok(elapsed < me.swingStartup + me.swingActive, 'still mid-sweep when Boost is pressed');
+  run(state, 1, () => ({ 0: { ability: true, right: true } }));
+  assert.equal(me.action, 'idle'); assert.ok(events(state, 'cancel').some(event => event.by === 'dodge'), 'Boost cancels the landed cut');
+  // Close in under Boost and sweep again: the target is still reeling.
+  run(state, 30, () => ({ 0: { ability: true, right: foe.x - me.x > 45 } }));
+  run(state, 1, () => ({ 0: { attack: true } }));
+  waited = 0; while (events(state, 'damage').filter(event => event.targetId === 4).length < 2 && waited++ < 60) run(state, 1);
+  assert.equal(events(state, 'damage').filter(event => event.targetId === 4).length, 2, 'the second sweep lands');
+  // A whiffed cut cannot be cancelled before its recovery.
+  const air = duel({ gap: 300, a: { cls: 'striker', weapons: ['thorn', null, null, null] } });
+  run(air.state, 1, () => ({ 0: { attack: true } }));
+  run(air.state, 5);
+  run(air.state, 1, () => ({ 0: { ability: true } }));
+  assert.equal(air.me.action, 'swing', 'no cancel before a whiff has played out');
+});

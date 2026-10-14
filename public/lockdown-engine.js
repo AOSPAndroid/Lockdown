@@ -401,6 +401,8 @@ function inRecovery(player) {
   if (player.action === 'swing') return elapsed >= player.swingStartup + player.swingActive;
   return elapsed >= (player.chargeMoveTicks || 0);
 }
+/** A cut can be cancelled once it has landed (the rest of the sweep is skipped), or while it recovers. */
+const canCancel = player => inRecovery(player) || player.action === 'swing' && player.hitIds.length > 0 && !player.whiffed;
 /** The animation cancel: drop the rest of the recovery. As in Spiral Knights, the combo starts over at the
  * quick first cut, and a short lag passes before the next attack. */
 function cancelRecovery(state, player, by) {
@@ -631,7 +633,7 @@ function tickGuard(state, player, input) {
   if (player.guardBroken && player.guardHp >= max * GUARD.recover) player.guardBroken = false;
   if (player.domeBroken && player.domeHp >= GUARD.domeMax * GUARD.domeRecover) player.domeBroken = false;
   // Shield cancel: raising the shield cuts a sword's recovery short.
-  if (held && !player.guarding && !player.guardBroken && inRecovery(player)) cancelRecovery(state, player, 'guard');
+  if (held && !player.guarding && !player.guardBroken && canCancel(player)) cancelRecovery(state, player, 'guard');
   const wants = held && !player.guardBroken && player.stunTicks === 0 && !(player.status.freeze > 0) && !(player.status.curse > 0) && player.actionTicks === 0;
   if (wants && !player.guarding) { player.guarding = true; player.guardRaise = 0; player.charging = false; player.chargeTicks = 0; player.bufferAttack = false; emit(state, 'guardUp', { playerId: player.id, x: player.x, y: player.y }); }
   if (!wants) player.guarding = false;
@@ -893,8 +895,8 @@ function tickDash(state, player, input, previous) {
   player.dashCooldown = Math.max(0, player.dashCooldown - 1);
   if (!(input.dash && !previous.dash) || player.dashCooldown > 0 || player.dodgeTicks > 0) return;
   if (player.status.curse > 0) { emit(state, 'cursed', { playerId: player.id, x: player.x, y: player.y }); return; }
-  if (player.actionTicks > 0 && !inRecovery(player)) return;
-  if (inRecovery(player)) cancelRecovery(state, player, 'dash');
+  if (player.actionTicks > 0 && !canCancel(player)) return;
+  if (canCancel(player)) cancelRecovery(state, player, 'dash');
   player.guarding = false;
   let dx = (input.right ? 1 : 0) - (input.left ? 1 : 0), dy = (input.down ? 1 : 0) - (input.up ? 1 : 0);
   if (!dx && !dy) { dx = Math.cos(player.aim); dy = Math.sin(player.aim); }
@@ -913,8 +915,8 @@ function tickAbilities(state, player, input, previous) {
   if (!(input.ability && !previous.ability) || player.abilityCooldown > 0 || player.cls === 'guardian') return;
   if (player.status.curse > 0) { emit(state, 'cursed', { playerId: player.id, x: player.x, y: player.y }); return; }
   // Cloak may also cancel a cut's recovery, like the Guardian's shield.
-  if (player.actionTicks > 0 && !inRecovery(player)) return;
-  if (inRecovery(player)) cancelRecovery(state, player, 'cloak');
+  if (player.actionTicks > 0 && !canCancel(player)) return;
+  if (canCancel(player)) cancelRecovery(state, player, 'cloak');
   if (player.cls === 'recon') {
     player.cloakTicks = ABILITIES.cloak.ticks; player.abilityCooldown = Math.round(ABILITIES.cloak.cooldown * outfitOf(player).abilityCooldown); player.markReady = 0;
     emit(state, 'cloak', { playerId: player.id, x: player.x, y: player.y });
@@ -928,8 +930,9 @@ function tickBoost(state, player, input) {
   else player.cursedPing = false;
   const boosting = held && !(player.status.curse > 0) && !player.boostLocked && player.boostMeter > 0;
   if (boosting && !player.boosting) {
-    // Pressing Boost cuts a sword's recovery short and slips one hit; each press costs a slice of the meter.
-    if (inRecovery(player)) cancelRecovery(state, player, 'dodge');
+    // Pressing Boost once a cut lands cuts the rest of it short and slips one hit (sweep, boost in, sweep
+    // again); each press costs a slice of the meter.
+    if (canCancel(player)) cancelRecovery(state, player, 'dodge');
     player.boostMeter = Math.max(0, player.boostMeter - rule.pressCost);
     player.evadeTicks = Math.max(player.evadeTicks, rule.evadeTicks); player.perfectUsed = false;
     emit(state, 'dash', { playerId: player.id, x: player.x, y: player.y, angle: Math.atan2(player.vy, player.vx) });
