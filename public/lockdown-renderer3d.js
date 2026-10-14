@@ -823,7 +823,10 @@ export class Lockdown3DRenderer {
       if (elapsed < startup) { const w = easeOut(elapsed / startup); yaw = from * w; arm = [-.05, 0, lerp(.5, 1.35, w)]; elbow = lerp(.5, 1.05, w); pitch = lerp(-.2, .25, w); }
       else if (elapsed < startup + active) { const p = easeOut((elapsed - startup) / active); yaw = lerp(from, to, p); arm = [-.05, 0, 1.45 - .12 * Math.sin(p * Math.PI)]; elbow = lerp(1.05, .08, Math.min(1, p * 1.6)); pitch = lerp(.25, -.05, p); body.z -= .12; }
       else { const q = ease(Math.min(1, (elapsed - startup - active) / Math.max(1, total - startup - active))); yaw = lerp(to, 0, q); arm = [-.05, 0, lerp(1.45, .5, q)]; elbow = lerp(.08, .45, q); pitch = lerp(-.05, -.5, q); }
-      twist = -yaw * .3; arm[1] = -yaw * .7; snap = true;
+      // Across the body the shoulder only turns so far before the forearm would go through the chest: the torso
+      // twist carries the rest of the wind-up and the elbow opens up.
+      const cross = Math.max(0, -yaw * .7), spill = Math.max(0, cross - .28);
+      twist = -yaw * .3 + spill * .9; arm[1] = Math.min(-yaw * .7, .28); arm[0] -= spill * .4; elbow *= 1 - .65 * Math.min(1, cross / .7); snap = true;
       T.leg_L[2] += .25; T.leg_R[2] -= .2; T.shin_L[2] -= .2; T.shin_R[2] -= .25;
       T.arm_L = [.25, 0, .5]; T.forearm_L = [0, 0, .6];
     } else if (action === 'lunge' || action === 'lungeBurst') {
