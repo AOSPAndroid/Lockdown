@@ -776,32 +776,41 @@ export class Lockdown3DRenderer {
     const dx = (player.x - view.lastX) * U, dz = (player.y - view.lastY) * U; view.lastX = player.x; view.lastY = player.y;
     const step = Math.hypot(dx, dz) < .6 ? Math.hypot(dx, dz) : 0; // a respawn is a jump, not a step
     gait.speed = lerp(gait.speed, step / dt, 1 - Math.exp(-dt * 10));
-    const ahead = step > 1e-5 ? (dx * Math.cos(facing) + dz * Math.sin(facing)) / step : 1, backwards = ahead < -.3;
+    // Travel relative to facing: the forward part drives the stride, the sideways part a side-step.
+    const fwd = step > 1e-5 ? (dx * Math.cos(facing) + dz * Math.sin(facing)) / step : 1, side = step > 1e-5 ? (-dx * Math.sin(facing) + dz * Math.cos(facing)) / step : 0;
+    gait.side = lerp(gait.side || 0, side, 1 - Math.exp(-dt * 8)); gait.fwd = lerp(gait.fwd ?? 1, fwd, 1 - Math.exp(-dt * 8));
+    const sideW = Math.min(1, Math.max(0, (Math.abs(gait.side) - .45) / .35)), fwdW = 1 - sideW * .8, backwards = gait.fwd < -.3 && sideW < .5;
     const m = Math.min(1, gait.speed / .7);
     gait.run = lerp(gait.run, Math.min(1, Math.max(0, (gait.speed - 1.4) / 2.2)), 1 - Math.exp(-dt * 6));
-    const r = gait.run, ph = (gait.phase += step / lerp(.8, 1.5, r) * Math.PI * 2 * (backwards ? -1 : 1));
-    const hipAmp = lerp(.42, .75, r) * m, kneeAmp = lerp(.6, 1.35, r) * m;
-    for (const [side, offset] of [['L', 0], ['R', Math.PI]]) {
-      const a = ph + offset, thigh = hipAmp * Math.sin(a);
-      const knee = -(lerp(.05, .14, r) * m + kneeAmp * Math.max(0, Math.sin(a + 1.05)) ** 1.6);
-      const toeOff = -lerp(.35, .7, r) * m * Math.max(0, -Math.sin(a)) * Math.max(0, Math.cos(a)) * 2;
-      const heel = .2 * m * Math.max(0, Math.sin(a)) * Math.max(0, -Math.cos(a)) * 2;
-      T[`leg_${side}`] = [0, 0, thigh]; T[`shin_${side}`] = [0, 0, knee]; T[`foot_${side}`] = [0, 0, -(thigh + knee) * .85 + toeOff + heel];
+    const r = gait.run, ph = (gait.phase += step / lerp(.8, 1.45, r) * Math.PI * 2 * (backwards ? -1 : 1));
+    // Hips flex forward further than they extend back; the swing knee folds up (a heel kick when running), the
+    // stance knee gives a little as it takes the weight; the foot lands on the heel, rolls flat, pushes off the toe.
+    const flex = lerp(.45, .95, r) * m * fwdW, ext = lerp(.35, .55, r) * m * fwdW, swingKnee = lerp(.9, 1.75, r), loadKnee = lerp(.22, .45, r);
+    const sideAmp = .32 * m * sideW, sideDir = Math.sign(gait.side) || 1;
+    for (const [side2, offset] of [['L', 0], ['R', Math.PI]]) {
+      const a = ph + offset, sin = Math.sin(a), cos = Math.cos(a);
+      const thigh = (sin > 0 ? flex * sin : ext * sin) + .08 * r * m;
+      const knee = -((swingKnee * Math.max(0, Math.cos(a + .3)) ** 2 * (cos > -.2 ? 1 : .4) + loadKnee * Math.max(0, -cos) * Math.max(0, sin)) * m * fwdW + .04 * m);
+      const heel = .22 * m * fwdW * Math.max(0, sin) * Math.max(0, -cos) * 2, toeOff = -lerp(.4, .8, r) * m * fwdW * Math.max(0, -sin) * Math.max(0, cos) * 2;
+      const lift = Math.max(0, Math.sin(a)), stepOut = -sideDir * sideAmp * (side2 === (sideDir > 0 ? 'R' : 'L') ? lift : Math.max(0, -Math.sin(a)) * .6);
+      T[`leg_${side2}`] = [stepOut, 0, thigh + 1.1 * sideAmp * lift]; T[`shin_${side2}`] = [0, 0, knee - 2.2 * sideAmp * lift]; T[`foot_${side2}`] = [-stepOut * .6, 0, -(thigh + knee) + heel + toeOff];
     }
-    const armSwing = lerp(.35, .85, r) * m, breath = Math.sin(now / 650), idle = 1 - m;
-    const body = { y: m * (lerp(.012, .04, r) * Math.abs(Math.cos(ph)) - .02 * r) + idle * .006 * breath, x: m * lerp(.035, .05, r) * Math.sin(ph), z: -(lerp(.05, .2, r) * m + (player.boosting ? .14 : 0)) * (backwards ? -.6 : 1) };
-    const sway = idle * .025 * Math.sin(now / 1900), hipTwist = -.08 * m * Math.sin(ph);
-    T.hips = [sway, hipTwist, 0];
-    T.leg_L[0] -= sway; T.leg_R[0] -= sway;
-    T.chest = [0, .14 * m * Math.sin(ph) - hipTwist, idle * .025 * breath];
-    T.head = [.03 * m * Math.sin(ph * 2), idle * .12 * Math.sin(now / 2300), -body.z * .5 + .02 * m * Math.sin(ph * 2)];
-    T.arm_L = [.07, 0, -armSwing * Math.sin(ph) + .05 + idle * .02 * breath]; T.forearm_L = [0, 0, lerp(.25, 1.3, r) * m * (.75 + .25 * Math.sin(ph)) + .18]; T.hand_L = [0, 0, -.1];
+    const breath = Math.sin(now / 650), idle = 1 - m, armSwing = lerp(.3, .7, r) * m * fwdW;
+    const body = { y: idle * .006 * breath, x: m * .03 * Math.sin(ph) + .12 * m * gait.side, z: -(lerp(.04, .22, r) * m * fwdW + (player.boosting ? .14 : 0)) * (backwards ? -.5 : 1) };
+    // The pelvis turns and rolls with the legs, the chest counter-turns, the head stays level and looks ahead.
+    const sway = idle * .025 * Math.sin(now / 1900), pelvisTurn = -.1 * m * fwdW * Math.sin(ph), chestTurn = .17 * m * fwdW * Math.sin(ph);
+    T.hips = [sway + .05 * m * Math.cos(ph), pelvisTurn, 0];
+    T.leg_L[0] -= T.hips[0]; T.leg_R[0] -= T.hips[0];
+    T.chest = [-.03 * m * Math.cos(ph), chestTurn - pelvisTurn, idle * .025 * breath + .05 * r * m];
+    T.head = [-body.x * .7 + .02 * m * Math.sin(ph * 2), -chestTurn * .8 + idle * .12 * Math.sin(now / 2300), -body.z * .6 - .05 * r * m];
+    // Arms swing against the legs; running bends the elbows to about 90° and drives them back.
+    T.arm_L = [.07 + .05 * r, 0, -armSwing * Math.sin(ph) + .05 + idle * .02 * breath]; T.forearm_L = [0, 0, lerp(.25, 1.45, r) * m + .12 + .18 * m * Math.max(0, -Math.sin(ph))]; T.hand_L = [0, 0, -.15];
     // ---- the weapon arm, by weapon ----
     // Recoil: a sharp kick on each shot that springs back with a slight overshoot, scaled by how hard the gun hits.
     const sinceShot = now - (view.recoilAt || -1e9), recoil = sinceShot < 400 ? (view.recoilPower || .6) * (Math.exp(-sinceShot / 70) - .18 * Math.sin(Math.min(Math.PI, sinceShot / 70)) * Math.exp(-sinceShot / 160)) : 0;
     const reloading = family === 'gun' && player.reloadTicks?.[weapon.id] > 0;
     const aiming = family === 'gun' && !reloading && (player.fireCooldown > 0 || player.charging || sinceShot < 900);
-    let arm = [-.07, 0, .1 + armSwing * .5 * Math.sin(ph)], elbow = .45 + .5 * r * m, pitch = -.5 + .04 * Math.sin(now / 900) * idle;
+    let arm = [-.07 - .04 * r, 0, .1 + armSwing * .6 * Math.sin(ph)], elbow = .45 + .75 * r * m, pitch = -.5 + .04 * Math.sin(now / 900) * idle + .15 * r * m;
     let twist = 0, snap = false;
     if (family === 'gun') {
       // Pistols are held out one-handed; cannons and the scattergun two-handed and braced; the rifle is shouldered.
@@ -858,14 +867,37 @@ export class Lockdown3DRenderer {
       else if (family === 'gun') arm[2] += tremble;
     }
     if (player.guarding) { T.arm_L = [-.3, 0, 1.35]; T.forearm_L = [0, 0, .55]; twist -= .2; body.z += .06; }
-    if (player.dodgeTicks > 0) { body.z -= .4; body.y -= .06; T.leg_L = [0, 0, .5]; T.leg_R = [0, 0, -.3]; T.shin_L = [0, 0, -.9]; T.shin_R = [0, 0, -.9]; T.arm_L = [.2, 0, -.5]; if (!snap) arm[2] -= .3; }
+    let dashing = false;
+    if (player.dodgeTicks > 0) {
+      // The dash: dive the way you go. Forward tucks the knees and throws the arms back; backward leans away with the
+      // legs reaching; sideways leans into it with the legs crossing. Easing is fast so it reads in a few frames.
+      dashing = true;
+      const dfwd = player.dodgeX * Math.cos(facing) + player.dodgeY * Math.sin(facing), dside = -player.dodgeX * Math.sin(facing) + player.dodgeY * Math.cos(facing);
+      const f = Math.max(0, dfwd), bk = Math.max(0, -dfwd), sd = Math.abs(dside), sgn = Math.sign(dside) || 1;
+      body.z += -.5 * f + .38 * bk; body.x += .45 * dside;
+      T.leg_L = [-.25 * sd * sgn, 0, .75 * f + .5 * bk - .1]; T.leg_R = [-.15 * sd * sgn, 0, -.3 * f + .45 * bk + .2 * sd];
+      T.shin_L = [0, 0, -1.1 * f - .7 * bk - .8 * sd]; T.shin_R = [0, 0, -.6 * f - .9 * bk - .5 * sd];
+      T.foot_L = [0, 0, .2]; T.foot_R = [0, 0, .4 * f];
+      T.arm_L = [.25 + .3 * sd, 0, -.8 * f + .6 * bk]; T.forearm_L = [0, 0, .5];
+      if (!snap) { arm[2] += -.6 * f + .5 * bk; elbow = Math.max(elbow, .5); }
+      T.head[2] += .3 * f - .2 * bk;
+      // Afterimages: one now, two more as the dash carries on.
+      if (!view.dashing) view.ghosts = [now + 15, now + 55];
+    }
+    view.dashing = dashing;
     if (player.stunTicks > 0) { T.head[2] += .3 * Math.sin(now / 80); T.head[0] += .2 * Math.sin(now / 110); body.x += .08 * Math.sin(now / 150); T.arm_L = [.1, 0, 0]; }
     const flash = this.flashes?.get(player.id), hurt = flash ? Math.max(0, 1 - (now - flash) / 180) : 0;
     if (hurt) { body.z += .22 * hurt; T.head[0] -= .15 * hurt; }
     T.chest[1] += twist; T.arm_R = arm; T.forearm_R = [0, 0, elbow]; T.hand_R = [0, 0, pitch - arm[2] - elbow];
+    // Keep the planted foot on the floor: solve how far the lowest sole sits above the ground from the leg angles
+    // (thigh 0.215, shin 0.215, ankle to sole 0.1) and drop the body by that much. This also lowers the body in
+    // crouches, lunges and slams, and gives the run its bounce. A running stride keeps a little flight.
+    const soleDrop = side2 => { const t = T[`leg_${side2}`][2], k = T[`shin_${side2}`][2], spread = T[`leg_${side2}`][0]; return Math.cos(spread) * (.215 * Math.cos(t) + .215 * Math.cos(t + k)) + .1; };
+    const reach = Math.max(soleDrop('L'), soleDrop('R'));
+    body.y += (reach - .53) + (dashing ? .05 : r * m * .035 * Math.abs(Math.sin(ph)));
     // ---- apply, easing every joint toward its target (frozen knights and hit-stop hold the pose) ----
     if (player.status?.freeze > 0 || player.hitStop > 0) return facing;
-    const k = 1 - Math.exp(-dt * 16), pose = view.pose;
+    const k = 1 - Math.exp(-dt * (dashing ? 30 : 16)), pose = view.pose;
     for (const [name, target] of Object.entries(T)) {
       const part = parts[name]; if (!part) continue;
       const fast = snap && ['arm_R', 'forearm_R', 'hand_R', 'chest'].includes(name) ? 1 : k, now3 = pose[name] || (pose[name] = [0, 0, 0]);
@@ -875,12 +907,21 @@ export class Lockdown3DRenderer {
     const b = pose.body || (pose.body = { y: 0, x: 0, z: 0 });
     for (const key of ['y', 'x', 'z']) b[key] = lerp(b[key], body[key], k);
     view.body.position.y = b.y; view.body.rotation.x = b.x; view.body.rotation.z = b.z;
+    while (view.ghosts?.length && now >= view.ghosts[0]) { view.ghosts.shift(); this.ghost(view, player, now); }
     // Gun barrels kick back when they fire.
     const barrel = view.weapon?.getObjectByName?.('barrel');
     if (barrel) { barrel.userData.x0 ??= barrel.position.x; barrel.position.x = barrel.userData.x0 - .06 * Math.max(0, recoil); }
     const fuse = view.weapon?.getObjectByName?.('fuse');
     if (fuse) fuse.traverse(node => { if (node.material?.emissive) node.material.emissiveIntensity = player.charging ? 1.5 + Math.sin(now / 30) : .6; });
     return facing;
+  }
+  /** A dash afterimage: a see-through copy of the knight in its current pose, in team colour, fading out. */
+  ghost(view, player, now) {
+    const tint = colour(TEAM_COLORS[player.team]?.main || '#ffffff').multiplyScalar(.55), material = new THREE.MeshBasicMaterial({ color: tint, transparent: true, opacity: .3, depthWrite: false });
+    const copy = new THREE.Group(); copy.position.copy(view.group.position); copy.rotation.copy(view.group.rotation);
+    const body = view.body.clone(true); body.traverse(node => { if (node.isMesh) { node.material = material; node.castShadow = false; } else if (node.isSprite) node.visible = false; });
+    copy.add(body); copy.material = material; // so the effect cleanup disposes it
+    this.addEffect(copy, now, 220, t => { material.opacity = .3 * (1 - t) ** 2; });
   }
   updateKnight(view, player, map, now, viewer) {
     const x = player.x * U, z = player.y * U, ground = levelAt(map, player.x, player.y) * STOREY, parts = view.parts;
@@ -1139,6 +1180,7 @@ export class Lockdown3DRenderer {
       else if (event.type === 'heartUse' || event.type === 'heartPickup') this.texts.push({ x: event.x, y: event.y, lift: KNIGHT + .2, text: `+${event.amount}`, color: '#7dff9a', born: now, life: 800, size: 15, rise: 26 });
       else if (event.type === 'status') this.texts.push({ x: event.x, y: event.y, lift: KNIGHT + .35, text: event.status.toUpperCase(), color: STATUS_COLOR[event.status] || '#ffffff', born: now, life: 600, size: 12, rise: 18 });
       else if (event.type === 'chain') this.beam(at(event.fromX, event.fromY, .5), at(event.toX, event.toY, .5), STATUS_COLOR.shock, 220, now);
+      if (event.type === 'dodge') this.burst(at(event.x, event.y, .08), '#d8d2c4', .8, 260, now);
       if (event.type === 'cloak') this.burst(at(event.x, event.y, KNIGHT * .4), '#b48cff', .9, 260, now);
       if (event.type === 'chargeRelease') { this.ringEffect(at(event.x, event.y, .06), 1.4, '#ffd36b', 380, now); this.burst(at(event.x, event.y, KNIGHT * .5), '#ffe9a8', 1.3, 300, now, true); }
       if (event.type === 'clash') { this.burst(at(event.x, event.y, .5), '#ffffff', .9, 220, now, true); this.shakeNear(event.x, event.y, 4); }
