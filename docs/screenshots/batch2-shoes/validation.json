@@ -1,0 +1,1374 @@
+{
+  "baseMain": "f62b01ed5a6f8a01aa202eeb9a927a08a023d1e7",
+  "coreSkeletonUnchanged": true,
+  "errors": 0,
+  "warnings": 0,
+  "models": [
+    {
+      "file": "armor/ballistic.glb",
+      "bytes": 214536,
+      "triangles": 1072,
+      "topLevelNodes": [
+        "chest",
+        "arm_L",
+        "arm_R",
+        "forearm_L",
+        "forearm_R"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            1024,
+            1024
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "armor/berserker.glb",
+      "bytes": 189044,
+      "triangles": 812,
+      "topLevelNodes": [
+        "chest",
+        "arm_L",
+        "arm_R",
+        "forearm_L",
+        "forearm_R"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            1024,
+            1024
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "armor/bombardier.glb",
+      "bytes": 222980,
+      "triangles": 1208,
+      "topLevelNodes": [
+        "chest",
+        "arm_L",
+        "arm_R",
+        "forearm_L",
+        "forearm_R",
+        "hips"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            1024,
+            1024
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "armor/clockwork.glb",
+      "bytes": 275764,
+      "triangles": 1788,
+      "topLevelNodes": [
+        "chest",
+        "arm_L",
+        "arm_R",
+        "forearm_L",
+        "forearm_R"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            1024,
+            1024
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "armor/cobalt.glb",
+      "bytes": 250060,
+      "triangles": 1740,
+      "topLevelNodes": [
+        "chest",
+        "arm_L",
+        "forearm_L",
+        "arm_R",
+        "forearm_R"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            1024,
+            1024
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "armor/duelist.glb",
+      "bytes": 197248,
+      "triangles": 904,
+      "topLevelNodes": [
+        "chest",
+        "arm_L",
+        "arm_R",
+        "forearm_L",
+        "forearm_R"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            1024,
+            1024
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "armor/fencer.glb",
+      "bytes": 201772,
+      "triangles": 1024,
+      "topLevelNodes": [
+        "chest",
+        "arm_L",
+        "arm_R",
+        "forearm_L",
+        "forearm_R"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            1024,
+            1024
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "armor/gunslinger.glb",
+      "bytes": 219812,
+      "triangles": 1184,
+      "topLevelNodes": [
+        "chest",
+        "arm_L",
+        "arm_R",
+        "forearm_L",
+        "forearm_R",
+        "hips"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            1024,
+            1024
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "armor/heavy.glb",
+      "bytes": 220788,
+      "triangles": 1200,
+      "topLevelNodes": [
+        "chest",
+        "arm_L",
+        "arm_R",
+        "forearm_L",
+        "forearm_R",
+        "hips"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            1024,
+            1024
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "armor/juggernaut.glb",
+      "bytes": 271704,
+      "triangles": 1668,
+      "topLevelNodes": [
+        "chest",
+        "arm_L",
+        "arm_R",
+        "forearm_L",
+        "forearm_R"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            1024,
+            1024
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "armor/medic.glb",
+      "bytes": 208808,
+      "triangles": 1076,
+      "topLevelNodes": [
+        "chest",
+        "arm_L",
+        "arm_R",
+        "forearm_L",
+        "forearm_R",
+        "hips"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            1024,
+            1024
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "armor/mirrorweave.glb",
+      "bytes": 191520,
+      "triangles": 864,
+      "topLevelNodes": [
+        "chest",
+        "arm_L",
+        "arm_R",
+        "forearm_L",
+        "forearm_R"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            1024,
+            1024
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "armor/scout.glb",
+      "bytes": 263944,
+      "triangles": 1868,
+      "topLevelNodes": [
+        "chest",
+        "arm_L",
+        "forearm_L",
+        "arm_R",
+        "forearm_R",
+        "hips"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            1024,
+            1024
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "armor/vog.glb",
+      "bytes": 227736,
+      "triangles": 1192,
+      "topLevelNodes": [
+        "chest",
+        "arm_L",
+        "arm_R",
+        "forearm_L",
+        "forearm_R"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            1024,
+            1024
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "armor/windrunner.glb",
+      "bytes": 190912,
+      "triangles": 840,
+      "topLevelNodes": [
+        "chest",
+        "arm_L",
+        "arm_R",
+        "forearm_L",
+        "forearm_R"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            1024,
+            1024
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "bombs/blast.glb",
+      "bytes": 86048,
+      "triangles": 680,
+      "topLevelNodes": [
+        "bomb"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "class/guardian.glb",
+      "bytes": 146024,
+      "triangles": 1236,
+      "topLevelNodes": [
+        "forearm_L"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "class/recon.glb",
+      "bytes": 84368,
+      "triangles": 608,
+      "topLevelNodes": [
+        "forearm_L"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "helmet/bucket.glb",
+      "bytes": 70660,
+      "triangles": 384,
+      "topLevelNodes": [
+        "head"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "helmet/circlet.glb",
+      "bytes": 83212,
+      "triangles": 506,
+      "topLevelNodes": [
+        "head"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "helmet/cobalt.glb",
+      "bytes": 77116,
+      "triangles": 560,
+      "topLevelNodes": [
+        "head"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "helmet/demo.glb",
+      "bytes": 121072,
+      "triangles": 860,
+      "topLevelNodes": [
+        "head"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "helmet/feather.glb",
+      "bytes": 83580,
+      "triangles": 512,
+      "topLevelNodes": [
+        "head"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "helmet/goggles.glb",
+      "bytes": 139816,
+      "triangles": 1072,
+      "topLevelNodes": [
+        "head"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "helmet/hood.glb",
+      "bytes": 101712,
+      "triangles": 676,
+      "topLevelNodes": [
+        "head"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "helmet/horned.glb",
+      "bytes": 83416,
+      "triangles": 512,
+      "topLevelNodes": [
+        "head"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "helmet/lampcap.glb",
+      "bytes": 110168,
+      "triangles": 784,
+      "topLevelNodes": [
+        "head"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "helmet/sallet.glb",
+      "bytes": 77916,
+      "triangles": 568,
+      "topLevelNodes": [
+        "head"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "helmet/seraph.glb",
+      "bytes": 101996,
+      "triangles": 696,
+      "topLevelNodes": [
+        "head"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "helmet/visor.glb",
+      "bytes": 86600,
+      "triangles": 528,
+      "topLevelNodes": [
+        "head"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "helmet/wolver.glb",
+      "bytes": 84760,
+      "triangles": 508,
+      "topLevelNodes": [
+        "head"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "knight/body.glb",
+      "bytes": 162728,
+      "triangles": 3504,
+      "topLevelNodes": [
+        "hips"
+      ],
+      "images": [],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "pants/breeches.glb",
+      "bytes": 139880,
+      "triangles": 992,
+      "topLevelNodes": [
+        "hips",
+        "leg_L",
+        "leg_R",
+        "shin_L",
+        "shin_R"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "pants/cargo.glb",
+      "bytes": 151832,
+      "triangles": 1080,
+      "topLevelNodes": [
+        "hips",
+        "leg_L",
+        "leg_R",
+        "shin_L",
+        "shin_R"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "pants/chausses.glb",
+      "bytes": 230964,
+      "triangles": 1968,
+      "topLevelNodes": [
+        "hips",
+        "leg_L",
+        "leg_R",
+        "shin_L",
+        "shin_R"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "pants/cobalt.glb",
+      "bytes": 140904,
+      "triangles": 1120,
+      "topLevelNodes": [
+        "hips",
+        "leg_L",
+        "shin_L",
+        "leg_R",
+        "shin_R"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "pants/demo.glb",
+      "bytes": 159680,
+      "triangles": 1168,
+      "topLevelNodes": [
+        "hips",
+        "leg_L",
+        "leg_R",
+        "shin_L",
+        "shin_R"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "pants/greaves.glb",
+      "bytes": 138596,
+      "triangles": 992,
+      "topLevelNodes": [
+        "hips",
+        "leg_L",
+        "leg_R",
+        "shin_L",
+        "shin_R"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "pants/kilt.glb",
+      "bytes": 187004,
+      "triangles": 1456,
+      "topLevelNodes": [
+        "hips",
+        "leg_L",
+        "leg_R",
+        "shin_L",
+        "shin_R"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "pants/leggings.glb",
+      "bytes": 139892,
+      "triangles": 992,
+      "topLevelNodes": [
+        "hips",
+        "leg_L",
+        "leg_R",
+        "shin_L",
+        "shin_R"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "pants/sapper.glb",
+      "bytes": 147028,
+      "triangles": 1032,
+      "topLevelNodes": [
+        "hips",
+        "leg_L",
+        "leg_R",
+        "shin_L",
+        "shin_R"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "pants/seraph.glb",
+      "bytes": 151600,
+      "triangles": 1128,
+      "topLevelNodes": [
+        "hips",
+        "leg_L",
+        "leg_R",
+        "shin_L",
+        "shin_R"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "pants/wolver.glb",
+      "bytes": 151756,
+      "triangles": 1128,
+      "topLevelNodes": [
+        "hips",
+        "leg_L",
+        "leg_R",
+        "shin_L",
+        "shin_R"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "shoes/clogs.glb",
+      "bytes": 126868,
+      "triangles": 1000,
+      "topLevelNodes": [
+        "foot_L",
+        "foot_R"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "shoes/dashboots.glb",
+      "bytes": 76656,
+      "triangles": 448,
+      "topLevelNodes": [
+        "foot_L",
+        "foot_R"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "shoes/hover.glb",
+      "bytes": 102820,
+      "triangles": 736,
+      "topLevelNodes": [
+        "foot_L",
+        "foot_R"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "shoes/magma.glb",
+      "bytes": 115920,
+      "triangles": 856,
+      "topLevelNodes": [
+        "foot_L",
+        "foot_R"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "shoes/quicksilver.glb",
+      "bytes": 63720,
+      "triangles": 328,
+      "topLevelNodes": [
+        "foot_L",
+        "foot_R"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "shoes/sabatons.glb",
+      "bytes": 86684,
+      "triangles": 672,
+      "topLevelNodes": [
+        "foot_L",
+        "foot_R"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "shoes/sandals.glb",
+      "bytes": 75924,
+      "triangles": 432,
+      "topLevelNodes": [
+        "foot_L",
+        "foot_R"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "shoes/sneakers.glb",
+      "bytes": 88952,
+      "triangles": 592,
+      "topLevelNodes": [
+        "foot_L",
+        "foot_R"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "shoes/spurs.glb",
+      "bytes": 103944,
+      "triangles": 744,
+      "topLevelNodes": [
+        "foot_L",
+        "foot_R"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "shoes/striders.glb",
+      "bytes": 83044,
+      "triangles": 544,
+      "topLevelNodes": [
+        "foot_L",
+        "foot_R"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "shoes/treads.glb",
+      "bytes": 114624,
+      "triangles": 856,
+      "topLevelNodes": [
+        "foot_L",
+        "foot_R"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "weapons/blast.glb",
+      "bytes": 86084,
+      "triangles": 680,
+      "topLevelNodes": [
+        "bomb"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "weapons/blaster.glb",
+      "bytes": 148620,
+      "triangles": 1296,
+      "topLevelNodes": [
+        "gun"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    },
+    {
+      "file": "weapons/brand.glb",
+      "bytes": 63848,
+      "triangles": 448,
+      "topLevelNodes": [
+        "sword"
+      ],
+      "images": [
+        {
+          "mimeType": "image/jpeg",
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "gltf": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "contractErrors": []
+    }
+  ]
+}
