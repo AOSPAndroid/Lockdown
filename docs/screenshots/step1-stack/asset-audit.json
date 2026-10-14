@@ -1,0 +1,138 @@
+[
+  {
+    "file": "armor/cobalt.glb",
+    "triangles": 2020,
+    "bytes": 2221196,
+    "texture": [
+      1024,
+      1024
+    ],
+    "errors": 0,
+    "warnings": 0,
+    "messages": []
+  },
+  {
+    "file": "bombs/blast.glb",
+    "triangles": 764,
+    "bytes": 2098924,
+    "texture": [
+      1024,
+      1024
+    ],
+    "errors": 0,
+    "warnings": 0,
+    "messages": []
+  },
+  {
+    "file": "class/guardian.glb",
+    "triangles": 736,
+    "bytes": 2095220,
+    "texture": [
+      1024,
+      1024
+    ],
+    "errors": 0,
+    "warnings": 0,
+    "messages": []
+  },
+  {
+    "file": "class/recon.glb",
+    "triangles": 676,
+    "bytes": 2090224,
+    "texture": [
+      1024,
+      1024
+    ],
+    "errors": 0,
+    "warnings": 0,
+    "messages": []
+  },
+  {
+    "file": "helmet/cobalt.glb",
+    "triangles": 1092,
+    "bytes": 2129396,
+    "texture": [
+      1024,
+      1024
+    ],
+    "errors": 0,
+    "warnings": 0,
+    "messages": []
+  },
+  {
+    "file": "helmet/none.glb",
+    "triangles": 740,
+    "bytes": 2093988,
+    "texture": [
+      1024,
+      1024
+    ],
+    "errors": 0,
+    "warnings": 0,
+    "messages": []
+  },
+  {
+    "file": "knight/body.glb",
+    "triangles": 3176,
+    "bytes": 2346056,
+    "texture": [
+      1024,
+      1024
+    ],
+    "errors": 0,
+    "warnings": 0,
+    "messages": [],
+    "boundsY": [
+      1.7881393032936899e-9,
+      1.2999999880790711
+    ]
+  },
+  {
+    "file": "pants/cobalt.glb",
+    "triangles": 784,
+    "bytes": 2102000,
+    "texture": [
+      1024,
+      1024
+    ],
+    "errors": 0,
+    "warnings": 0,
+    "messages": []
+  },
+  {
+    "file": "weapons/blast.glb",
+    "triangles": 764,
+    "bytes": 2098904,
+    "texture": [
+      1024,
+      1024
+    ],
+    "errors": 0,
+    "warnings": 0,
+    "messages": []
+  },
+  {
+    "file": "weapons/blaster.glb",
+    "triangles": 1212,
+    "bytes": 2142620,
+    "texture": [
+      1024,
+      1024
+    ],
+    "errors": 0,
+    "warnings": 0,
+    "messages": []
+  },
+  {
+    "file": "weapons/brand.glb",
+    "triangles": 1036,
+    "bytes": 2124008,
+    "texture": [
+      1024,
+      1024
+    ],
+    "errors": 0,
+    "warnings": 0,
+    "messages": []
+  }
+]

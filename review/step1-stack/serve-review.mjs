@@ -1,0 +1,8 @@
+import{createServer}from'node:http';import{readFile}from'node:fs/promises';import{resolve,extname,sep}from'node:path';import{fileURLToPath}from'node:url';import{execFile}from'node:child_process';import{promisify}from'node:util';
+const run=promisify(execFile),approved='3bda5a1';
+const root=fileURLToPath(new URL('../../',import.meta.url)),pub=resolve(root,'public'),review=resolve(root,'review/step1-stack'),refs=resolve(root,'docs/reference'),shots=resolve(root,'docs/screenshots/step1-stack');
+const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript','.mjs':'text/javascript','.css':'text/css','.json':'application/json','.glb':'model/gltf-binary','.png':'image/png','.jpg':'image/jpeg','.svg':'image/svg+xml'};
+createServer(async(req,res)=>{try{const p=new URL(req.url,'http://localhost:3012').pathname;let base=pub,rel=p;
+if(p==='/'){base=review;rel='/studio.html'}else if(p.startsWith('/review/')){base=review;rel=p.slice(7)}else if(p.startsWith('/mockup/')){base=resolve(review,'mockup');rel=p.slice(7)}else if(p.startsWith('/reference/')){base=refs;rel=p.slice(10)}else if(p.startsWith('/screenshots/')){base=shots;rel=p.slice(12)}
+const file=resolve(base,'.'+rel);if(!file.startsWith(base+sep))throw Error();let data;try{data=await readFile(file)}catch(error){if(!p.startsWith('/mockup/'))throw error;data=(await run('git',['show',approved+':review/style-contrast/'+rel.replace(/^\//,'')],{cwd:root,encoding:'buffer',maxBuffer:16*1024*1024})).stdout}
+res.writeHead(200,{'Content-Type':mime[extname(file)]||'application/octet-stream','Cache-Control':'no-store'});res.end(data)}catch{res.writeHead(404);res.end('Not found')}}).listen(3012,'127.0.0.1',()=>console.log('Stack review: http://localhost:3012/'));

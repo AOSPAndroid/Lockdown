@@ -1,12 +1,14 @@
 {
   "files": [],
   "models": [
+    "armor/cobalt.glb",
     "bombs/blast.glb",
     "class/guardian.glb",
     "class/recon.glb",
-    "class/striker.glb",
+    "helmet/cobalt.glb",
     "helmet/none.glb",
     "knight/body.glb",
+    "pants/cobalt.glb",
     "weapons/blast.glb",
     "weapons/blaster.glb",
     "weapons/brand.glb"

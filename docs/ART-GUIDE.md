@@ -78,6 +78,7 @@ planet. Its art works because of a handful of rules. Follow them exactly.
 **Stack is the approved direction for all new and replacement art.** Use **D**, the four-head skeleton
 [`reference/knight_rig_4_heads.glb`](reference/knight_rig_4_heads.glb), at **1.3 units tall**. Keep its named
 parts, hierarchy and pivots: a prominent head above a slim, heroic body, defined waist and slender limbs.
+This choice takes precedence over the generic three-head proportions elsewhere in the guide and catalogue.
 
 Build layered, overlapping plates, banded helmets, rolled rims and firm bevels. Paint broad visible brush
 strokes, coloured gradients, dark seams, rivets and sparse edge scuffs. Highlights are **strong and broad
