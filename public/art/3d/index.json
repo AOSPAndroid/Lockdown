@@ -2,11 +2,13 @@
   "files": [],
   "models": [
     "armor/cobalt.glb",
+    "armor/scout.glb",
     "bombs/blast.glb",
     "class/guardian.glb",
     "class/recon.glb",
     "helmet/cobalt.glb",
     "helmet/none.glb",
+    "helmet/sallet.glb",
     "knight/body.glb",
     "pants/cobalt.glb",
     "weapons/blast.glb",
