@@ -32,7 +32,16 @@ for(const [model,size]of Object.entries(textureSizes).sort()){
   for(const ref of reference.nodes){const n=d.nodes.find(n=>n.name===ref.name);check(n&&JSON.stringify(n.translation)===JSON.stringify(ref.translation||[0,0,0]),'D pivot '+ref.name);check(JSON.stringify((n.children||[]).map(i=>d.nodes[i].name))===JSON.stringify((ref.children||[]).map(i=>reference.nodes[i].name)),'D hierarchy '+ref.name)}
   let low=Infinity,high=-Infinity;function bounds(k,y){const n=d.nodes[k],yy=y+(n.translation?.[1]||0);for(const p of d.meshes[n.mesh]?.primitives||[]){const a=d.accessors[p.attributes.POSITION];low=Math.min(low,yy+a.min[1]);high=Math.max(high,yy+a.max[1])}for(const c of n.children||[])bounds(c,yy)}for(const k of d.scenes[0].nodes)bounds(k,0);row.boundsY=[low,high];check(Math.abs(low)<1e-5&&Math.abs(high-1.3)<1e-5,'Body height');
  }
- if(model==='weapons/brand'){const all=d.meshes.flatMap(m=>m.primitives.map(p=>d.accessors[p.attributes.POSITION]));row.boundsX=[Math.min(...all.map(a=>a.min[0])),Math.max(...all.map(a=>a.max[0]))];check(Math.abs(row.boundsX[1]-.75)<1e-5,'Brand grip-to-tip length')}
+ if(model==='weapons/brand'){
+  const primitives=d.meshes.flatMap(m=>m.primitives),all=primitives.map(p=>d.accessors[p.attributes.POSITION]);
+  row.boundsX=[Math.min(...all.map(a=>a.min[0])),Math.max(...all.map(a=>a.max[0]))];
+  const width=name=>{const ranges=primitives.filter(p=>d.materials[p.material].name===name).map(p=>d.accessors[p.attributes.POSITION]);return Math.max(...ranges.map(a=>a.max[2]))-Math.min(...ranges.map(a=>a.min[2]))};
+  row.gripToTip=row.boundsX[1];row.overallLength=row.boundsX[1]-row.boundsX[0];
+  row.bladeWidth=width('painted_silver_rims');row.guardWidth=width('painted_brass');
+  check(Math.abs(row.gripToTip-.75)<1e-5,'Brand grip-to-tip length');
+  check(Math.abs(row.bladeWidth-.12)<.004,'Brand blade width');
+  check(Math.abs(row.guardWidth-.24)<.004,'Brand guard width');
+ }
  if(model==='class/recon')check(d.materials.some(m=>m.name.includes('lens')&&m.emissiveFactor?.some(n=>n>0)),'Recon lens');
  check(!row.errors&&!row.warnings,path+' glTF diagnostics');report.push(row);
  console.log(`${path}: ${(bytes.length/1024).toFixed(1)} KiB; ${size}² JPEG; ${row.triangles} triangles; 0 errors / warnings`);

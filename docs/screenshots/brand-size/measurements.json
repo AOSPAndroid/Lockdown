@@ -1,0 +1,20 @@
+{
+  "before": {
+    "commit": "42d60a7",
+    "gripToTip": 1.0655564069747925,
+    "overallLength": 1.2565564066171646,
+    "bladeWidth": 0.23199999332427979,
+    "guardWidth": 0.40434524416923523,
+    "bytes": 2124008,
+    "sha256": "88ff37a09a20a097d20dac1c32cfb1314c90cc0c4ae8ffffe368f4e14fae81ba"
+  },
+  "after": {
+    "file": "public/art/3d/models/weapons/brand.glb",
+    "gripToTip": 0.75,
+    "overallLength": 0.8844368010759354,
+    "bladeWidth": 0.12106351554393768,
+    "guardWidth": 0.24237002432346344,
+    "bytes": 83304,
+    "sha256": "d5e648ef0050811376b1ea8fa6195107d2d256f84a8b9e4ccb6071c98163950c"
+  }
+}

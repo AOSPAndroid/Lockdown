@@ -68,5 +68,8 @@ node review/step1-stack/serve-review.mjs
   with links to every complete screenshot. The review server reads approved references from
   commit `3bda5a1` if a local `mockup/` cache is absent. It never alters the game server or its assets.
 - Permanent screenshots and validation results: [docs/screenshots/step1-stack](../../docs/screenshots/step1-stack).
+- Knight Brand size comparison: [old versus catalogue size in the Dojo](../../docs/screenshots/brand-size),
+  including measured grip-to-tip, blade and guard dimensions. Run `node review/step1-stack/serve-sword-comparison.mjs`
+  alongside the game, then open <http://localhost:3013/comparison/>.
 
 Stop here for approval before other equipment, weapons, icons or arenas.
