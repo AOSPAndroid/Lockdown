@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lockdown</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <style>
+    :root { color-scheme: dark; --bg: #0d1016; --panel: #171b24; --line: #2a3140; --text: #eef1f6; --muted: #9aa4b6; --amber: #e39a3b; --cyan: #3bb8c4; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; background: radial-gradient(ellipse at top, #1f2636 0%, var(--bg) 60%); color: var(--text); font: 15px/1.5 system-ui, -apple-system, Segoe UI, sans-serif; display: grid; place-items: center; padding: 24px 16px; }
+    main { width: min(560px, 100%); }
+    h1 { font-size: 44px; letter-spacing: .08em; margin: 0 0 4px; background: linear-gradient(90deg, var(--amber), #ffe0a8 50%, var(--cyan)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    p.lead { color: var(--muted); margin: 0 0 24px; }
+    section { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px; margin-bottom: 14px; }
+    h2 { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+    label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+    input, select { width: 100%; padding: 10px 12px; border-radius: 9px; border: 1px solid var(--line); background: #0f131b; color: var(--text); font: inherit; }
+    .row { display: flex; gap: 10px; align-items: end; flex-wrap: wrap; }
+    .row > * { flex: 1 1 160px; }
+    button { padding: 11px 16px; border-radius: 9px; border: 0; font: 600 15px system-ui, sans-serif; cursor: pointer; background: #2a3140; color: var(--text); }
+    button.primary { background: linear-gradient(180deg, #f1b45a, var(--amber)); color: #1d1408; }
+    button:hover { filter: brightness(1.1); }
+    .rooms { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+    .rooms li { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 9px; }
+    .rooms small { color: var(--muted); }
+    .empty { color: var(--muted); font-size: 14px; }
+    .error { color: #ff8a7a; font-size: 14px; min-height: 1.4em; margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>LOCKDOWN</h1>
+    <p class="lead">Three control points. Swords, guns and bombs. Up to 4v4 — bots fill every empty seat.</p>
+    <section>
+      <h2>Your name</h2>
+      <input id="name" maxlength="20" autocomplete="nickname">
+    </section>
+    <section>
+      <h2>Practice</h2>
+      <div class="row"><p class="empty" style="margin:0">Play right away against seven bots, in your browser.</p><button class="primary" id="solo" type="button">Play solo</button></div>
+    </section>
+    <section>
+      <h2>Play online</h2>
+      <div class="row">
+        <div><label for="map">Arena</label><select id="map"></select></div>
+        <button class="primary" id="create" type="button">Create room</button>
+      </div>
+      <div class="row" style="margin-top:12px">
+        <div><label for="code">Room code</label><input id="code" maxlength="6" placeholder="ABC234" autocapitalize="characters"></div>
+        <button id="join" type="button">Join</button>
+      </div>
+      <div class="error" id="error" role="status"></div>
+      <h2 style="margin-top:8px">Open rooms</h2>
+      <ul class="rooms" id="rooms"><li class="empty">Looking for rooms…</li></ul>
+    </section>
+  </main>
+  <script type="module">
+    import { MAPS, MAP_IDS } from '/lockdown-maps.js';
+    import { getName, saveName } from '/lockdown-name.js';
+    const $ = id => document.getElementById(id);
+    $('name').value = getName();
+    $('name').addEventListener('change', () => { $('name').value = saveName($('name').value); });
+    for (const id of MAP_IDS) $('map').append(new Option(MAPS[id].name, id));
+    const play = room => { saveName($('name').value); location.href = `/lockdown.html?room=${encodeURIComponent(room)}`; };
+    $('solo').addEventListener('click', () => { saveName($('name').value); location.href = '/lockdown.html?solo=1'; });
+    $('join').addEventListener('click', () => { const code = $('code').value.trim().toUpperCase(); if (/^[A-Z0-9]{6}$/.test(code)) play(code); else $('error').textContent = 'A room code has six letters or digits.'; });
+    $('create').addEventListener('click', async () => {
+      $('error').textContent = '';
+      try {
+        const response = await fetch('/api/rooms', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: `${$('name').value || 'Lockdown'}'s room`, mapId: $('map').value }) });
+        const body = await response.json();
+        if (!response.ok) throw new Error(body.error || 'Could not create a room.');
+        play(body.room.id);
+      } catch (problem) { $('error').textContent = problem.message; }
+    });
+    async function refresh() {
+      try {
+        const { rooms } = await (await fetch('/api/rooms')).json();
+        const list = $('rooms'); list.replaceChildren();
+        if (!rooms.length) { const empty = document.createElement('li'); empty.className = 'empty'; empty.textContent = 'No open rooms yet: create one and share the link.'; list.append(empty); return; }
+        for (const room of rooms) {
+          const item = document.createElement('li'), info = document.createElement('div'), button = document.createElement('button');
+          const people = room.players.filter(Boolean).length;
+          info.innerHTML = `<div></div><small></small>`; info.firstChild.textContent = room.name; info.lastChild.textContent = `${room.mapName} · ${people}/${room.capacity} · ${room.phase === 'lobby' ? 'in lobby' : 'playing'} · ${room.id}`;
+          button.textContent = 'Join'; button.addEventListener('click', () => play(room.id));
+          item.append(info, button); list.append(item);
+        }
+      } catch { /* the list refreshes again shortly */ }
+    }
+    refresh(); setInterval(refresh, 3000);
+  </script>
+</body>
+</html>

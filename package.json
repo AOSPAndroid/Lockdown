@@ -1,0 +1,14 @@
+{
+  "name": "lockdown",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Lockdown: a 4v4 Spiral Knights-style control-point brawl with swords, guns and bombs, in the browser.",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test test/*.test.js",
+    "art": "node tools/lockdown-art-index.mjs"
+  },
+  "engines": { "node": ">=20" },
+  "dependencies": { "ws": "^8.18.0" }
+}
