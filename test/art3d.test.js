@@ -86,3 +86,16 @@ test('the 3D art tool keeps model downloads small: file size and embedded textur
   assert.match(errorsFor('weapons/blaster.glb'), /over the 600 KB limit/);
   assert.match(errorsFor('weapons/blaster.glb'), /1254×1254: use a power of two/);
 });
+
+test('the 3D art tool keeps weapons in proportion to the knight', async () => {
+  const { writeGlb } = await import('../tools/glb.mjs');
+  const dir = mkdtempSync(join(tmpdir(), 'models-')), weapons = join(dir, 'models', 'weapons');
+  mkdirSync(weapons, { recursive: true });
+  const sword = length => writeGlb({ nodes: [{ name: 'blade', box: { size: [length, .04, .12], center: [length / 2, 0, 0], material: { name: 'steel', color: [.8, .8, .8] } } }] });
+  writeFileSync(join(weapons, 'brand.glb'), sword(.75));
+  writeFileSync(join(weapons, 'rapier.glb'), sword(1.26));
+  const run = spawnSync(process.execPath, [tool, dir], { encoding: 'utf8' });
+  const errorsFor = file => run.stdout.split('\n').filter(line => line.startsWith(`ERROR models/${file}`)).join('\n');
+  assert.equal(errorsFor('weapons/brand.glb'), '', 'a 0.75 sword is fine');
+  assert.match(errorsFor('weapons/rapier.glb'), /1\.26 long, over 1 for a sword/);
+});

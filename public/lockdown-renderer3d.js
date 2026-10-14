@@ -765,9 +765,10 @@ export class Lockdown3DRenderer {
     const metal = new THREE.MeshStandardMaterial({ color: '#d8dde6', roughness: .25, metalness: .85, emissive: glow || '#000000', emissiveIntensity: glow ? .55 : 0 });
     const brass = new THREE.MeshStandardMaterial({ color: '#b8893a', roughness: .35, metalness: .8 }), grip = new THREE.MeshStandardMaterial({ color: '#4a3020', roughness: .8 });
     if (weapon.family === 'blade') {
-      const heavy = !!weapon.heavy, length = id === 'maul' ? .55 : heavy ? .78 : id === 'rapier' ? .72 : id === 'leviathan' ? .8 : .62, width = id === 'rapier' ? .035 : heavy ? .17 : .1;
+      // Sized to the catalogue (sword ≈ 0.75, heavy ≈ 0.95, long ≈ 0.9 from grip to tip), before KNIGHT_SCALE.
+      const heavy = !!weapon.heavy, length = id === 'maul' ? .42 : heavy ? .47 : ['rapier', 'leviathan'].includes(id) ? .43 : ['spur', 'voltedge'].includes(id) ? .22 : .33, width = id === 'rapier' ? .03 : heavy ? .13 : .085;
       const handle = new THREE.Mesh(new THREE.CylinderGeometry(.025, .025, .18, 6), grip); handle.rotation.z = Math.PI / 2; handle.position.x = .02;
-      const guard = new THREE.Mesh(new THREE.BoxGeometry(.05, .04, .24), brass); guard.position.x = .12;
+      const guard = new THREE.Mesh(new THREE.BoxGeometry(.04, .035, .17), brass); guard.position.x = .12;
       if (id === 'maul') { const head = new THREE.Mesh(new THREE.BoxGeometry(.24, .24, .34), new THREE.MeshStandardMaterial({ color: '#7a7066', roughness: .5, metalness: .5 })); head.position.x = .12 + length; const shaft = new THREE.Mesh(new THREE.CylinderGeometry(.035, .035, length, 6), grip); shaft.rotation.z = Math.PI / 2; shaft.position.x = .12 + length / 2; group.add(handle, shaft, head); }
       else { const blade = new THREE.Mesh(new THREE.BoxGeometry(length, .03, width), metal); blade.position.x = .14 + length / 2; const tip = new THREE.Mesh(new THREE.ConeGeometry(width / 2, .1, 4), metal); tip.rotation.z = -Math.PI / 2; tip.position.x = .14 + length + .05; tip.scale.z = .3; group.add(handle, guard, blade, tip); }
     } else if (weapon.family === 'gun') {

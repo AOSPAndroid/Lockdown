@@ -93,6 +93,23 @@ function downloadProblems(bytes, gltf) {
   return problems;
 }
 
+/** The longest side of the model's mesh bounds (vertex ranges, scaled by node scales). Weapons must stay
+ * in proportion to a 1.3-tall knight: swords at most 1.0, guns 1.05 (the rifle), bombs 0.5. */
+const WEAPON_MAX = { blade: 1, gun: 1.05, bomb: .5 };
+function longestExtent(gltf) {
+  const min = [Infinity, Infinity, Infinity], max = [-Infinity, -Infinity, -Infinity];
+  const visit = (index, scale) => {
+    const node = gltf.nodes[index], s = (node.scale || [1, 1, 1]).map((v, i) => v * scale[i]);
+    for (const primitive of gltf.meshes?.[node.mesh]?.primitives || []) {
+      const accessor = gltf.accessors[primitive.attributes.POSITION];
+      if (accessor?.min && accessor?.max) for (let i = 0; i < 3; i++) { min[i] = Math.min(min[i], accessor.min[i] * s[i]); max[i] = Math.max(max[i], accessor.max[i] * s[i]); }
+    }
+    for (const child of node.children || []) visit(child, s);
+  };
+  for (const index of gltf.scenes?.[gltf.scene ?? 0]?.nodes || []) visit(index, [1, 1, 1]);
+  return Math.max(0, ...max.map((v, i) => v - min[i]).filter(Number.isFinite));
+}
+
 const models = [], modelDir = join(dir, 'models');
 let kinds = []; try { kinds = readdirSync(modelDir).filter(name => statSync(join(modelDir, name)).isDirectory()); } catch { /* no models yet */ }
 for (const kind of kinds) {
@@ -105,6 +122,7 @@ for (const kind of kinds) {
     if (!rule.ids.includes(id)) { errors.push(`${where}: no ${kind} item is called "${id}"`); continue; }
     let gltf, bytes; try { bytes = readFileSync(join(modelDir, kind, file)); gltf = readGlb(bytes); } catch (problem) { errors.push(`${where}: ${problem.message}`); continue; }
     for (const problem of downloadProblems(bytes, gltf)) errors.push(`${where}: ${problem}`);
+    if (kind === 'weapons') { const length = longestExtent(gltf), limit = WEAPON_MAX[WEAPONS[id].family]; if (length > limit) errors.push(`${where}: ${length.toFixed(2)} long, over ${limit} for a ${WEAPONS[id].family === 'blade' ? 'sword' : WEAPONS[id].family} (see its size in docs/CATALOG.md)`); }
     const names = nodeNames(gltf), strip = name => name.replace(/\.\d+$/, '');
     if (kind === 'knight') { const missing = RIG_PARTS.filter(part => !names.all.map(strip).includes(part)); if (missing.length) errors.push(`${where}: the body is missing rig parts ${missing.join(', ')}`); }
     if (rule.gear) { const stray = names.top.map(strip).filter(name => !RIG_PARTS.includes(name)); if (stray.length) errors.push(`${where}: top-level nodes must be named after rig parts; found ${stray.join(', ')}`); }
