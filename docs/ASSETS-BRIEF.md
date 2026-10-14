@@ -1,7 +1,7 @@
 # Asset brief: what to make for Lockdown
 
 **The code is done.** This page is everything an artist (or art agent) needs: what to make, how to build it
-on the skeleton, the sizes, and the order. Details live in [ART-GUIDE.md](ART-GUIDE.md) (style),
+on the skeleton, the sizes, and the order. The prompt for the art agent is [CODEX-PROMPT.md](CODEX-PROMPT.md). Details live in [ART-GUIDE.md](ART-GUIDE.md) (style),
 [MODELS.md](MODELS.md) (file contract) and [CATALOG.md](CATALOG.md) (every item, with its look and size).
 
 ## The look
@@ -25,11 +25,14 @@ no gear is just the skeleton.
 - Rigid named parts, no skinning, no animation clips. 15 parts, split at every joint:
   `hips` > `chest` > `head`, `arm_L` > `forearm_L` > `hand_L` (and `_R`), `hips` > `leg_L` > `shin_L` > `foot_L`
   (and `_R`). Pivots are in [MODELS.md](MODELS.md).
-- **The game animates the joints**: a walk that blends into a run with knees and ankles bending, a body bob,
-  sway and lean, arms swinging against the legs, an idle with breathing and the weapon held loosely, sword
-  swings through shoulder, elbow and wrist, lunges, slams, aiming, guarding. So split armour at the joints
-  (a thigh plate on `leg_L`, the knee guard and shin on `shin_L`) and keep every piece clear of its neighbours
-  when the joint turns.
+- **The game animates every joint like a body** (see the motion sheet below): a walk that blends into a run,
+  hips swinging further forward than back, the knee folding up behind on each stride, feet landing on the heel and
+  pushing off the toe; running arms bent to 90°; side-steps when strafing; a dash that dives, leans or tucks the
+  knees; sword swings through shoulder, elbow and wrist; gun stances with recoil; lunges, slams, guarding.
+  So **split armour at the joints** (a thigh plate on `leg_L`, the knee guard and shin on `shin_L`, a pauldron on
+  `arm_L`, the bracer on `forearm_L`) and keep every piece clear of its neighbours when the joint turns.
+
+![How the knight moves](reference/motion-sheet.jpg)
 
 ## Where armour goes: the fit guide
 
@@ -46,8 +49,18 @@ Model each piece **around these volumes** (about 1.5× at most; crests, wings, t
 | shoes | `shoes/<id>.glb` | `foot_L`, `foot_R` | foot 0.26 × 0.09 × 0.14 at (0.03, −0.055, 0) |
 | class | `class/guardian.glb`, `class/recon.glb` | `forearm_L` | Guardian shield ≈ 0.7 across at (0.03, −0.1, −0.08), facing out (−Z); Recon shield ≈ 0.22 across at (0.02, −0.09, −0.055) |
 
-Each node is moved onto that part of the skeleton keeping its offset, so model it in the rig's space, around
-the part's pivot. Nothing may poke through when legs swing ±40°, arms ±35° and the weapon arm turns ±80°.
+Each top-level node is put on that part of the skeleton as it is: **its origin is the joint at the top of the part**
+(the shoulder for `arm_L`, the elbow for `forearm_L`, the hip for `leg_L`, the knee for `shin_L`), and the piece
+is modelled in that part's own space, exactly like the templates. Nothing may poke through at these ranges:
+
+| Joint | Range the game uses |
+|---|---|
+| hip (`leg_`) | 35° back to 60° forward, 20° out to the side |
+| knee (`shin_`) | straight to 110° bent |
+| ankle (`foot_`) | 40° up and down |
+| shoulder (`arm_`) | 45° back to straight overhead (the slam), 30° out |
+| elbow (`forearm_`) | straight to 100° bent |
+| waist (`chest` on `hips`) | 30° twist each way, 15° lean |
 
 ## Templates: start every piece from one
 
@@ -98,13 +111,28 @@ middle of the grip, pointing **+X**. Planted bombs: origin on the floor, standin
 - `node tools/art3d-index.mjs` checks all of this (ids, nodes, budgets, size, textures, weapon lengths) and must
   report no errors.
 
+## Reusing the step-1 models (refit)
+
+The Stack-style pieces on branch `art/step1-knights` are kept: same designs, same textures, refitted to this
+skeleton. Run the checker on them and it lists what to change. What changed since they were made:
+
+| File | Refit |
+|---|---|
+| `knight/body.glb`, `helmet/none.glb` | delete: the body and the bare head are the core skeleton |
+| `helmet/cobalt.glb`, `helmet/sallet.glb` | the head is smaller (5 heads tall now): scale to the 0.30 head volume (about 0.7×), origin at the neck |
+| `armor/cobalt.glb`, `armor/scout.glb` | chest: reshape to the 0.28 × 0.32 × 0.42 volume (broader shoulders, less deep). Arms: each arm was one piece down to the wrist and the right arm reached forward. Turn `arm_R` to hang straight down like `arm_L`, then cut both at the elbow, 0.19 below the shoulder: the pauldron and upper arm stay on `arm_L`/`arm_R`, the bracer goes on a new `forearm_L`/`forearm_R` node whose origin is the elbow (move that geometry up 0.19). `hips` coat tails stay |
+| `pants/cobalt.glb` | each leg was one piece to the ankle: cut at the knee, 0.215 below the hip; the thigh stays on `leg_L`/`leg_R`, the knee guard and shin go on new `shin_L`/`shin_R` nodes with origin at the knee (move up 0.215) |
+| `class/guardian.glb`, `class/recon.glb` | the node becomes `forearm_L` (origin at the elbow); place the shield at the volumes above |
+| `weapons/brand.glb` | the length (0.75) is right; split the mesh into child nodes `grip`, `guard`, `blade`, `tip` like `templates/sword.glb` |
+| `weapons/blaster.glb` | length right; split into `body`, `barrel` (the part that kicks back), `core`, `muzzle` (where the flash comes out) like `templates/gun.glb` |
+| `weapons/blast.glb`, `bombs/blast.glb` | add a `fuse` node (it glows while charging and blinks before the blast) |
+
+Keep the look and push it further toward the LBX references: crisper plate edges, panel lines, glowing eyes.
+
 ## Order
 
-0. **Direction (stop for a pick):** 3 different design directions, each showing the Cobalt set (helmet, armour,
-   pants) and the Scout armour with the Sallet helmet on the skeleton, holding the Knight Brand, plus the
-   Guardian shield. One comparison sheet next to the LBX references, and each in the Dojo. Rough is fine.
-1. **Style lock (stop for approval):** in the chosen direction, the Cobalt set, the Guardian and Recon shields,
-   the Knight Brand, the Pulse Blaster and the Cannonball Bomb (held and planted).
+1. **Refit (stop for approval):** the step-1 pieces above on the new skeleton, plus `shoes/sabatons` in the Cobalt style. Show them in the
+   Dojo: idle, walk, run, dash, sword combo, shooting, Guardian guard.
 2. **All armour:** 13 helmets, 15 armours, 11 pants, 11 shoes (not the `none` pieces: that's the skeleton).
 3. **All weapons:** 15 swords, 15 guns, 10 bombs + 10 planted.
 4. **Icons** (96×96, see ART-GUIDE section 5), made from the models.

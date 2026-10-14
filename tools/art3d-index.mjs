@@ -110,6 +110,25 @@ function longestExtent(gltf) {
   return Math.max(0, ...max.map((v, i) => v - min[i]).filter(Number.isFinite));
 }
 
+// Nodes the game animates, by weapon kind (start from docs/reference/templates/ and keep these names).
+const NAMED = { blade: ['grip', 'blade', 'tip'], maul: ['grip', 'head', 'tip'], gun: ['barrel', 'muzzle'], bomb: ['fuse'] };
+// How far a piece on one part may reach before it crosses the next joint (the elbow is 0.19 below the shoulder,
+// the knee 0.215 below the hip): an arm or leg modelled in one piece must be split there.
+const REACH = { arm_L: ['elbow', 'forearm_L'], arm_R: ['elbow', 'forearm_R'], leg_L: ['knee', 'shin_L'], leg_R: ['knee', 'shin_R'] };
+function nodeBox(gltf, index) {
+  const min = [Infinity, Infinity, Infinity], max = [-Infinity, -Infinity, -Infinity];
+  const visit = (i, offset, scale) => {
+    const node = gltf.nodes[i], s = (node.scale || [1, 1, 1]).map((v, k) => v * scale[k]), t = (node.translation || [0, 0, 0]).map((v, k) => offset[k] + v * scale[k]);
+    for (const primitive of gltf.meshes?.[node.mesh]?.primitives || []) {
+      const accessor = gltf.accessors[primitive.attributes.POSITION];
+      if (accessor?.min && accessor?.max) for (let k = 0; k < 3; k++) { min[k] = Math.min(min[k], accessor.min[k] * s[k] + t[k]); max[k] = Math.max(max[k], accessor.max[k] * s[k] + t[k]); }
+    }
+    for (const child of node.children || []) visit(child, t, s);
+  };
+  const node = gltf.nodes[index]; visit(index, (node.translation || [0, 0, 0]).map(v => -v), [1, 1, 1]);
+  return { min, max };
+}
+
 const models = [], modelDir = join(dir, 'models');
 let kinds = []; try { kinds = readdirSync(modelDir).filter(name => statSync(join(modelDir, name)).isDirectory()); } catch { /* no models yet */ }
 for (const kind of kinds) {
@@ -126,6 +145,13 @@ for (const kind of kinds) {
     const names = nodeNames(gltf), strip = name => name.replace(/\.\d+$/, '');
     if (kind === 'knight') { const missing = RIG_PARTS.filter(part => !names.all.map(strip).includes(part)); if (missing.length) errors.push(`${where}: the body is missing rig parts ${missing.join(', ')}`); }
     if (rule.gear) { const stray = names.top.map(strip).filter(name => !rule.gear.includes(name)); if (stray.length) errors.push(`${where}: top-level nodes must be named after the parts this slot covers (${rule.gear.join(', ')}); found ${stray.join(', ')}`); }
+    if (rule.gear) for (const index of gltf.scenes?.[gltf.scene ?? 0]?.nodes || []) {
+      const part = strip(gltf.nodes[index].name || ''), joint = REACH[part]; if (!joint) continue;
+      const { min, max } = nodeBox(gltf, index), arm = part.startsWith('arm');
+      if (min[1] < (arm ? -.26 : -.29) || (arm && max[0] > .26)) errors.push(`${where}: the ${part} piece reaches past the ${joint[0]}; split it there and put the lower half on ${joint[1]}${arm ? ' (arms hang straight down in the rest pose)' : ''}`);
+    }
+    const named = kind === 'weapons' || kind === 'bombs' ? NAMED[id === 'maul' ? 'maul' : WEAPONS[id].family] : null;
+    if (named) { const missing = named.filter(name => !names.all.map(strip).includes(name)); if (missing.length) errors.push(`${where}: missing the named part${missing.length > 1 ? 's' : ''} ${missing.join(', ')} the game animates (start from docs/reference/templates/)`); }
     const triangles = triangleCount(gltf);
     if (triangles > rule.budget) errors.push(`${where}: ${triangles} triangles, over the ${rule.budget} budget`);
     models.push(`${kind}/${file}`);

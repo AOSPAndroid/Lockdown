@@ -36,20 +36,25 @@ test('the 3D art tool lists clean textures and rejects seams, grids, bad sizes a
 test('the 3D art tool checks models: rig parts, gear nodes, item ids and triangle budgets', async () => {
   const { writeGlb } = await import('../tools/glb.mjs');
   const dir = mkdtempSync(join(tmpdir(), 'models-')), models = join(dir, 'models');
-  for (const kind of ['knight', 'helmet', 'weapons', 'shoes']) mkdirSync(join(models, kind), { recursive: true });
+  for (const kind of ['knight', 'helmet', 'weapons', 'shoes', 'armor']) mkdirSync(join(models, kind), { recursive: true });
   const box = name => ({ size: [.2, .2, .2], material: { name, color: [.5, .5, .5] } });
   const rig = readFileSync(new URL('../docs/reference/knight_rig.glb', import.meta.url));
   writeFileSync(join(models, 'knight', 'body.glb'), rig);
   writeFileSync(join(models, 'helmet', 'sallet.glb'), writeGlb({ nodes: [{ name: 'head', box: box('steel') }] }));
   writeFileSync(join(models, 'helmet', 'crown.glb'), writeGlb({ nodes: [{ name: 'head', box: box('gold') }] }));
   writeFileSync(join(models, 'shoes', 'sneakers.glb'), writeGlb({ nodes: [{ name: 'foot_L', box: box('rubber') }, { name: 'ankle', box: box('rubber') }] }));
-  writeFileSync(join(models, 'weapons', 'brand.glb'), writeGlb({ nodes: [{ name: 'brand', box: box('steel') }] }));
+  writeFileSync(join(models, 'weapons', 'brand.glb'), writeGlb({ nodes: ['grip', 'blade', 'tip'].map(name => ({ name, box: box('steel') })) }));
+  writeFileSync(join(models, 'weapons', 'blaster.glb'), writeGlb({ nodes: [{ name: 'body', box: box('steel') }] }));
+  // An arm modelled in one piece down to the wrist (the old rig) has to be split at the elbow.
+  writeFileSync(join(models, 'armor', 'scout.glb'), writeGlb({ nodes: [{ name: 'chest', box: box('plate') }, { name: 'arm_L', box: { size: [.1, .33, .1], center: [0, -.16, 0], material: { name: 'plate', color: [.5, .5, .5] } } }] }));
   const run = spawnSync(process.execPath, [tool, dir], { encoding: 'utf8' });
   const errorsFor = file => run.stdout.split('\n').filter(line => line.startsWith(`ERROR models/${file}`));
   assert.deepEqual(errorsFor('knight/body.glb'), [], 'the reference rig is a valid body');
   assert.deepEqual(errorsFor('helmet/sallet.glb'), []); assert.deepEqual(errorsFor('weapons/brand.glb'), []);
   assert.match(errorsFor('helmet/crown.glb').join(), /no helmet item/);
   assert.match(errorsFor('shoes/sneakers.glb').join(), /ankle/);
+  assert.match(errorsFor('weapons/blaster.glb').join(), /barrel, muzzle/, 'guns need the parts the game animates');
+  assert.match(errorsFor('armor/scout.glb').join(), /arm_L piece reaches past the elbow.*forearm_L/);
   const index = JSON.parse(readFileSync(join(dir, 'index.json'), 'utf8'));
   assert.ok(index.models.includes('knight/body.glb') && index.models.includes('helmet/sallet.glb'));
 });
@@ -70,7 +75,7 @@ test('the 3D art tool keeps model downloads small: file size and embedded textur
   // A hand-built .glb holding one embedded PNG (only its header matters) padded to `kb`.
   const glbWithImage = (width, height, kb) => {
     const png = Buffer.alloc(kb * 1024); Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]).copy(png); png.writeUInt32BE(width, 16); png.writeUInt32BE(height, 20);
-    const json = Buffer.from(JSON.stringify({ asset: { version: '2.0' }, scene: 0, scenes: [{ nodes: [0] }], nodes: [{ name: 'brand' }], images: [{ bufferView: 0, mimeType: 'image/png' }], bufferViews: [{ buffer: 0, byteOffset: 0, byteLength: png.length }], buffers: [{ byteLength: png.length }] }));
+    const json = Buffer.from(JSON.stringify({ asset: { version: '2.0' }, scene: 0, scenes: [{ nodes: [0] }], nodes: [{ name: 'grip', children: [1, 2] }, { name: 'blade' }, { name: 'tip' }], images: [{ bufferView: 0, mimeType: 'image/png' }], bufferViews: [{ buffer: 0, byteOffset: 0, byteLength: png.length }], buffers: [{ byteLength: png.length }] }));
     const jsonChunk = Buffer.concat([json, Buffer.alloc((4 - json.length % 4) % 4, 0x20)]), header = Buffer.alloc(12), jh = Buffer.alloc(8), bh = Buffer.alloc(8);
     jh.writeUInt32LE(jsonChunk.length, 0); jh.write('JSON', 4, 'latin1'); bh.writeUInt32LE(png.length, 0); bh.write('BIN\0', 4, 'latin1');
     header.write('glTF', 0, 'latin1'); header.writeUInt32LE(2, 4); header.writeUInt32LE(12 + 8 + jsonChunk.length + 8 + png.length, 8);
@@ -91,7 +96,8 @@ test('the 3D art tool keeps weapons in proportion to the knight', async () => {
   const { writeGlb } = await import('../tools/glb.mjs');
   const dir = mkdtempSync(join(tmpdir(), 'models-')), weapons = join(dir, 'models', 'weapons');
   mkdirSync(weapons, { recursive: true });
-  const sword = length => writeGlb({ nodes: [{ name: 'blade', box: { size: [length, .04, .12], center: [length / 2, 0, 0], material: { name: 'steel', color: [.8, .8, .8] } } }] });
+  const steel = { name: 'steel', color: [.8, .8, .8] };
+  const sword = length => writeGlb({ nodes: [{ name: 'grip', box: { size: [.1, .04, .04], center: [.05, 0, 0], material: steel } }, { name: 'blade', box: { size: [length, .04, .12], center: [length / 2, 0, 0], material: steel } }, { name: 'tip', box: { size: [.02, .02, .02], center: [length - .01, 0, 0], material: steel } }] });
   writeFileSync(join(weapons, 'brand.glb'), sword(.75));
   writeFileSync(join(weapons, 'rapier.glb'), sword(1.26));
   const run = spawnSync(process.execPath, [tool, dir], { encoding: 'utf8' });

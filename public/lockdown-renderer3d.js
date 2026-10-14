@@ -793,7 +793,9 @@ export class Lockdown3DRenderer {
       const knee = -((swingKnee * Math.max(0, Math.cos(a + .3)) ** 2 * (cos > -.2 ? 1 : .4) + loadKnee * Math.max(0, -cos) * Math.max(0, sin)) * m * fwdW + .04 * m);
       const heel = .22 * m * fwdW * Math.max(0, sin) * Math.max(0, -cos) * 2, toeOff = -lerp(.4, .8, r) * m * fwdW * Math.max(0, -sin) * Math.max(0, cos) * 2;
       const lift = Math.max(0, Math.sin(a)), stepOut = -sideDir * sideAmp * (side2 === (sideDir > 0 ? 'R' : 'L') ? lift : Math.max(0, -Math.sin(a)) * .6);
-      T[`leg_${side2}`] = [stepOut, 0, thigh + 1.1 * sideAmp * lift]; T[`shin_${side2}`] = [0, 0, knee - 2.2 * sideAmp * lift]; T[`foot_${side2}`] = [-stepOut * .6, 0, -(thigh + knee) + heel + toeOff];
+      T[`leg_${side2}`] = [stepOut, 0, thigh + 1.1 * sideAmp * lift]; T[`shin_${side2}`] = [0, 0, knee - 2.2 * sideAmp * lift]; // On the ground the foot stays flat; in the air it hangs off the ankle, toes pointing a little down.
+      const planted = Math.min(1, Math.max(0, (.35 - cos) / .7)), ankle = lerp(-.25 * m - .3 * (thigh + knee) * (1 - m), -(thigh + knee), Math.max(planted, 1 - m));
+      T[`foot_${side2}`] = [-stepOut * .6, 0, ankle + heel + toeOff];
     }
     const breath = Math.sin(now / 650), idle = 1 - m, armSwing = lerp(.3, .7, r) * m * fwdW;
     const body = { y: idle * .006 * breath, x: m * .03 * Math.sin(ph) + .12 * m * gait.side, z: -(lerp(.04, .22, r) * m * fwdW + (player.boosting ? .14 : 0)) * (backwards ? -.5 : 1) };
