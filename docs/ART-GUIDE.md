@@ -74,14 +74,21 @@ Every knight is the same **robot frame** (1.3 units tall), wearing four armour p
 one weapon. Build it on the rig in [reference/knight_rig.glb](reference/knight_rig.glb): about five heads tall,
 broad shoulders, narrow waist, long legs, big feet.
 
-- **The bare frame** (the body, and what a knight with no gear looks like): the dark inner frame with plain
-  light-grey base plates (chest plate with a `team` stripe, shoulder caps, thigh, shin and foot plates) and the
-  bare head unit: a compact rounded head with a dark visor band, **two round glowing camera eyes** and a small
-  `team` antenna fin. It must look like a real, cool robot on its own, not unfinished.
-- **Armour parts** go over the frame plates and change the silhouette: a new head unit, a new chest and
+- **The bare frame** (the body, and what a knight with no gear looks like) is a **core skeleton**, like the
+  ones in [reference/lbx/20-core-skeleton-drawing.jpg](reference/lbx/20-core-skeleton-drawing.jpg) and
+  [21-core-skeleton-kit.jpg](reference/lbx/21-core-skeleton-kit.jpg): a dark gunmetal body with an X-patterned
+  chest block (with a `team` stripe), round joint discs, pale blue-grey piston limbs, blocky hands, wedge feet
+  and a smooth dark head with **two glowing yellow slit eyes**. It must look finished and cool on its own.
+- **Armour goes on the skeleton** the way LBX armour frames do ([15-skeleton-to-armour-kits.jpg](reference/lbx/15-skeleton-to-armour-kits.jpg)):
+  skeleton, then a simple armour, then a hero armour, each changing the silhouette a lot.
+- **Armour parts** go over the skeleton and change the silhouette: a new head unit, a new chest and
   pauldrons, new thighs and shins, new feet. Each set has its own shape language and main colour (Cobalt: deep
   blue knight; Wolver: grey wolf; Volcanic Demo: black and glowing orange; Seraph: white and gold with a halo;
   Vog Cub: shaggy orange-black). Every part must also look right mixed with any other part.
+- **Go for variety.** LBX robots range from knights to heavy tanks, sleek fencers, beasts and winged fairies
+  (see the line-up in [reference/lbx/](reference/lbx/README.md)). Lockdown's armours should be just as varied:
+  Heavy and Juggernaut blocky and wide, Fencer and Windrunner slim and sharp, Wolver a beast, Seraph winged.
+  Extra shapes (wings, tails, horns, backpacks) are rigid parts on `chest`, `hips` or `head`.
 - **Heads read from above.** The camera looks down at about 48°, so the head, the shoulders and the weapon are
   what people see most. Put the most character there: crests, horns, fins, antennae, shoulder shapes.
 - **Class marks** read on any outfit:

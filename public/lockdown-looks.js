@@ -8,7 +8,7 @@
  * light from the top-left. Team colour is never part of an item: where an item has a "team" trim, that trim
  * is made with a material named `team` and the game paints it Amber or Cyan. */
 
-export const BODY_LOOK = 'The bare robot frame every knight is built on, before any armour: a small battle robot 1.3 units tall, about five heads tall, in the LBX style. A dark gunmetal inner frame with visible mechanical joints (ball shoulders, piston elbows and knees, a jointed waist), broad shoulders and chest, a narrow waist, long legs and big wedge feet. Over the frame, plain light-grey base plates: a simple chest plate with a `team` stripe, plain shoulder caps, shin and thigh plates, flat foot plates. The head is the bare frame head: a compact rounded unit with a dark visor band and two round glowing camera eyes (white-cyan, emissive), a small antenna fin. No skin, hair or face. Finish: clean painted plastic with crisp panel lines and a few gold bolt caps at the joints. Every part is a rigid piece so the game can swing it.';
+export const BODY_LOOK = 'The bare robot frame every knight is built on, before any armour: a "core skeleton" in the LBX style (see docs/reference/lbx/20-core-skeleton-drawing.jpg), 1.3 units tall, about five heads tall, original design. A dark gunmetal body: a blocky chest unit with a raised X pattern and a `team` stripe, a jointed waist block, round joint discs at the shoulders, elbows, hips and knees, pale blue-grey piston limbs (forearms and shins with visible cylinders and ribbing), blocky dark hands and wedge-shaped feet. The head is a smooth dark helmet-shaped unit with two narrow glowing yellow slit eyes. No skin, hair or face. It must look finished and cool on its own: the bare frame is a real look in the game. Every part is a rigid piece so the game can swing it.';
 
 export const CLASS_LOOKS = Object.freeze({
   striker: 'No piece to model: the Striker is marked by a thin neon line in `team` colour that the game draws trailing behind the robot as it moves (longer and brighter while Boost is held).',
@@ -17,7 +17,7 @@ export const CLASS_LOOKS = Object.freeze({
 });
 
 export const HELMET_LOOKS = Object.freeze({
-  none: 'Bare head: the plain frame head (part of the starting look): a compact rounded light-grey head unit with a dark visor band, two round glowing camera eyes and a small `team` antenna fin.',
+  none: 'Bare head: the core skeleton\'s own smooth dark head with two glowing yellow slit eyes (part of the body).',
   sallet: 'A rounded steel knight head with a narrow eye slit glowing white, a swept tail fin at the back and a `team` brow band.',
   visor: 'A sleek sniper head: a wraparound dark visor with one big glowing cyan targeting lens, a brass sensor ear and a short antenna.',
   horned: 'A heavy iron head with two big curved horns sweeping forward, a jutting jaw guard and red glowing eyes.',
@@ -34,7 +34,7 @@ export const HELMET_LOOKS = Object.freeze({
 });
 
 export const ARMOR_LOOKS = Object.freeze({
-  none: 'Unarmoured: the frame\'s own plain chest plate and shoulder caps (part of the body).',
+  none: 'Unarmoured: the core skeleton\'s own X-patterned chest and joint discs (part of the body).',
   scout: 'Light tan armour: a slim chest plate with a brown strap, small rounded shoulder guards and a canister on the hip; quick and practical.',
   ballistic: 'Chunky grey-green padded plates over the chest and shoulders with a high armoured collar, like a bomb-disposal suit; bullet scuffs.',
   duelist: 'A fitted burgundy chest with diagonal steel bands, one large swept left pauldron and a high collar; elegant and sharp.',
@@ -53,7 +53,7 @@ export const ARMOR_LOOKS = Object.freeze({
 });
 
 export const PANTS_LOOKS = Object.freeze({
-  none: 'Unarmoured: the frame\'s own plain thigh and shin plates (part of the body).',
+  none: 'Unarmoured: the core skeleton\'s own piston legs (part of the body).',
   greaves: 'Steel knee guards and shin plates over the frame.',
   leggings: 'Slim dark-blue runner legs with a light stripe down the side.',
   chausses: 'Grey chain-link leg armour (a clear ring pattern) to the ankle.',
@@ -68,7 +68,7 @@ export const PANTS_LOOKS = Object.freeze({
 });
 
 export const SHOE_LOOKS = Object.freeze({
-  none: 'Unarmoured: the frame\'s own plain wedge feet (part of the body).',
+  none: 'Unarmoured: the core skeleton\'s own wedge feet (part of the body).',
   sneakers: 'White runner feet with a bright sole stripe.',
   sabatons: 'Chunky segmented iron feet with pointed toes.',
   dashboots: 'Sleek blue feet with small silver wing fins at the ankles.',

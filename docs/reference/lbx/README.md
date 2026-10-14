@@ -28,3 +28,23 @@ Never ship these images with the game.
 7. **Finish:** a clean painted model-kit look, satin colours, very little wear.
 
 Compare every model you make with these, side by side, before you show it.
+
+## More references: the core skeleton and the range of robots
+
+| File | What it shows |
+|---|---|
+| [20-core-skeleton-drawing.jpg](20-core-skeleton-drawing.jpg) | **The core skeleton**: the bare frame every LBX is built on. This is the look of Lockdown's bare frame (no gear): dark gunmetal, an X-patterned chest block, round joint discs, pale piston limbs, two glowing slit eyes. |
+| [21-core-skeleton-kit.jpg](21-core-skeleton-kit.jpg) | The core skeleton as a model kit: how the pistons, joints and blocky hands and feet look in 3D. |
+| [15-skeleton-to-armour-kits.jpg](15-skeleton-to-armour-kits.jpg) | Skeleton, then a simple armour, then a hero armour: exactly how our gear goes on the frame. |
+| [14-lineup-sheet.jpg](14-lineup-sheet.jpg) | A line-up of robots from simple to elaborate: how much silhouettes vary (crests, wings, blades, energy effects). |
+| [13-blue-knight-art.jpg](13-blue-knight-art.jpg) | A blue knight in anime art: clean colour blocking, green glowing eyes, big orange shoulder blocks. |
+| [10-scythe-wildcat.jpg](10-scythe-wildcat.jpg) | A sleek, sharp robot with a huge scythe and a stiff cape: an aggressive silhouette. |
+| [11-heavy-gunner-sheet.jpg](11-heavy-gunner-sheet.jpg) | A heavy, boxy robot with a shield and a gun: the heavy-armour silhouette (Heavy, Juggernaut). |
+| [12-winged-fairy-sheet.jpg](12-winged-fairy-sheet.jpg) | A slim winged robot: wings as rigid parts, a very different silhouette (Seraph). |
+| [16-white-sleek-kit.jpg](16-white-sleek-kit.jpg) | A white and teal sleek robot with a crystal blade: elegant, light armour (Fencer, Windrunner). |
+| [17-beast-sniper-kit.jpg](17-beast-sniper-kit.jpg) | A wolf-like beast robot with a long rifle: spikes, a tail, a beast head (Wolver). |
+
+8. **The bare frame is a core skeleton:** dark, mechanical, joint discs and pistons, glowing slit eyes. Gear
+   is armour that goes on it.
+9. **Variety:** every armour set should have its own silhouette (heavy, sleek, beast, winged), as varied as
+   this line-up, not the same knight in different colours.

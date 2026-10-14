@@ -694,7 +694,7 @@ export class Lockdown3DRenderer {
     const legL = node('leg_L', hips, 0, -.021, -.061), legR = node('leg_R', hips, 0, -.021, .061), footL = node('foot_L', legL, 0, -.307, 0), footR = node('foot_R', legR, 0, -.307, 0);
     const armL = node('arm_L', chest, 0, .236, -.179), armR = node('arm_R', chest, .029, .186, .179), handL = node('hand_L', armL, 0, -.271, 0), handR = node('hand_R', armR, .257, 0, 0);
     const parts = { hips, chest, head, leg_L: legL, leg_R: legR, foot_L: footL, foot_R: footR, arm_L: armL, arm_R: armR, hand_L: handL, hand_R: handR };
-    const frame = std('#3a3f48', { metalness: .55, roughness: .45 }), plate = std('#d4d8de'), teamMat = std(team, { emissive: team, emissiveIntensity: .4 });
+    const frame = std('#3a3f48', { metalness: .55, roughness: .45 }), plate = std('#9fb0c2', { metalness: .45, roughness: .35 }), teamMat = std(team, { emissive: team, emissiveIntensity: .4 });
     const mesh = (geometry, material, parent, x = 0, y = 0, z = 0, slot = null) => { const m = new THREE.Mesh(geometry, material); m.position.set(x, y, z); if (slot) m.userData.slot = slot; parent.add(m); return m; };
     const box = (w, h, d) => new THREE.BoxGeometry(w, h, d), joint = r => new THREE.SphereGeometry(r, 10, 8);
     // The bare frame: dark joints and core, light base plates (the slots' gear recolours the plates).
@@ -704,9 +704,9 @@ export class Lockdown3DRenderer {
     mesh(chestGeo, plate, chest, 0, .145, 0, 'armor');
     mesh(box(.02, .14, .03), teamMat, chest, .085, .16, 0);
     mesh(new THREE.CylinderGeometry(.035, .04, .05, 10), frame, chest, 0, .275, 0);
-    mesh(box(.15, .15, .15), plate, head, 0, .095, 0);
+    mesh(box(.15, .15, .15), frame, head, 0, .095, 0);
     mesh(box(.02, .04, .14), std('#14171c', { roughness: .3 }), head, .076, .1, 0);
-    const eye = std('#e8f6ff', { emissive: '#9fe3ff', emissiveIntensity: 2 });
+    const eye = std('#fff2b0', { emissive: '#ffd84a', emissiveIntensity: 2.2 }); // the core skeleton's yellow eyes
     mesh(joint(.016), eye, head, .087, .1, -.034); mesh(joint(.016), eye, head, .087, .1, .034);
     mesh(box(.08, .045, .012), teamMat, head, -.01, .19, 0).rotation.z = .3;
     for (const arm of [armL, armR]) {
@@ -761,7 +761,7 @@ export class Lockdown3DRenderer {
     }
   }
   armorColour(id) {
-    if (!id || id === 'none') return '#d4d8de'; // the bare frame's light plates
+    if (!id || id === 'none') return '#9fb0c2'; // the core skeleton's pale piston limbs
     const palette = ['#9aa4b2', '#c08a4a', '#5a6270', '#a8483e', '#4e7a52', '#e4dcc8', '#6e5a8e', '#3e6e8a', '#b49a5a', '#7a3e5a'];
     let h = 0; for (const ch of id) h = (h * 31 + ch.charCodeAt(0)) | 0;
     return palette[Math.abs(h) % palette.length];
