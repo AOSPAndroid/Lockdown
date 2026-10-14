@@ -38,6 +38,9 @@ every part is a rigid piece parented to the part above it, pivoting at its joint
 in [reference/knight_rig.glb](reference/knight_rig.glb) (`node tools/make-reference-rig.mjs` writes it):
 same names, same hierarchy, same pivots. It is about three heads tall: a big head on a **slim** body, with a
 tapered torso, a defined waist and slender limbs. Never make the body round or bulby.
+Two leaner options use the same parts and names: `reference/knight_rig_3.5_heads.glb` and
+`reference/knight_rig_4_heads.glb`; [reference/skeleton-options.jpg](reference/skeleton-options.jpg) shows
+all of them next to Spiral Knights close-ups. Use the one the art lead picked.
 
 ```
 hips                (0, 0.46, 0)          pelvis; the body bobs and leans from here
