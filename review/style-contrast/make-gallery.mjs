@@ -1,0 +1,9 @@
+import{readFileSync,writeFileSync}from'node:fs';
+let html=readFileSync(new URL('../painted-directions/dojo.html',import.meta.url),'utf8');
+html=html.replaceAll('/painted/','/contrast/').replaceAll('crestline','arc').replaceAll('brushforge','cut').replaceAll('inksteel','stack').replace('01 / CRESTLINE','01 / ARC').replace('02 / BRUSHFORGE','02 / CUT').replace('03 / INKSTEEL','03 / STACK').replace('Clean plates and crisp painted edges','Swept shells and broad glossy highlights').replace('Warm, broad brushwork and swept forms','Faceted planes and graphic highlights').replace('Darker blue and graphic plate shapes','Overlapping bands and visible brushwork').replace('Three directions on skeleton B','Three new directions on skeleton D').replace('Painted styles at game distance.','Arc, Cut and Stack in the Dojo.').replace('&nbsp; / &nbsp; <a href="/contrast/heights.html">B, C and D</a>','').replace('choose style and skeleton first','D proportions fixed · choose the art style');
+writeFileSync(new URL('./dojo.html',import.meta.url),html);
+let focus=readFileSync(new URL('./sheets.js',import.meta.url),'utf8');
+const begin=focus.indexOf("if(mode==='styles')"),end=focus.indexOf('const gl=');
+focus=focus.slice(0,begin)+`for(const o of outfits.slice(1,3)){const row=document.createElement('section');row.className='focus-grid';for(const s of styles){const cell=document.createElement('div');cell.className='cell view';cell.innerHTML='<div class="outfit-note">'+o.name+' · '+s.name+'</div>';row.append(cell);views.push({cell,style:s,rig:'D',outfit:o});}document.querySelector('#rows').append(row);}\n`+focus.slice(end);
+focus=focus.replace('cam.position.set(4.2,2.5,3.1);cam.lookAt(.04,.74,.035)','cam.position.set(4.2,2.5,3.1);cam.lookAt(.04,1.08,.035)').replace("half=v.outfit.id==='guardian'?1.02:.97","half=.49");
+writeFileSync(new URL('./closeup.js',import.meta.url),focus);

@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lockdown — painted styles in the Dojo</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#e8eeed;color:#233845;font-family:Arial,sans-serif;min-width:1140px}.page{width:1140px;margin:auto;padding:28px 24px 22px}header{display:flex;justify-content:space-between;gap:40px;border-bottom:1px solid #b6c6c8;padding-bottom:22px}.eyebrow{font-size:10px;letter-spacing:2px;font-weight:bold;color:#617982}h1{font-size:28px;letter-spacing:-1px;margin:12px 0}p{font-size:12px;color:#526c77;line-height:1.6;margin:0}.links{text-align:right;max-width:340px;padding-top:4px}a{color:#365f70;text-underline-offset:4px}.matrix{display:grid;grid-template-columns:144px repeat(3,316px)}.heading{padding:20px 12px 14px;font-size:12px;letter-spacing:1px;font-weight:bold;text-align:center}.heading small{display:block;font-size:10px;letter-spacing:0;font-weight:normal;margin-top:7px;color:#607883}.outfit{padding:65px 12px 0 0;border-top:1px solid #bdcccd;font-size:17px;font-weight:bold;line-height:1.3}.outfit small{display:block;font-size:11px;line-height:1.5;font-weight:normal;color:#617982;margin-top:9px}.cell{border-top:1px solid #bdcccd;padding:14px 18px 12px;text-decoration:none;display:block}.crop{width:280px;height:200px;position:relative;overflow:hidden;background:#9f9e8d}.crop img{max-width:none;position:absolute;width:1280px;height:720px;left:-500px;top:-235px}.caption{display:block;margin-top:8px;font-size:10px;text-align:center;color:#5d7780}footer{border-top:1px solid #bdcccd;padding-top:16px;margin-top:4px;display:flex;justify-content:space-between;font-size:10px;color:#647c85}
+</style>
+</head>
+<body><main class="page">
+<header><div><div class="eyebrow">LOCKDOWN / GAME CAMERA COMPARISON</div><h1>Arc, Cut and Stack in the Dojo.</h1><p>Three new directions on skeleton D · actual Dojo captures · Knight Brand in every outfit</p></div><div class="links"><p>Unscaled crops from 1280 × 720 screenshots.<br>Click any image to open its complete game frame.</p><p style="margin-top:12px"><a href="/contrast/styles.html">Style sheet</a> </p></div></header>
+<section class="matrix" id="grid"><div class="heading" style="text-align:left">OUTFIT</div><div class="heading">01 / ARC<small>Swept shells and broad glossy highlights</small></div><div class="heading">02 / CUT<small>Faceted planes and graphic highlights</small></div><div class="heading">03 / STACK<small>Overlapping bands and visible brushwork</small></div></section>
+<footer><span>Camera, lighting and gameplay come from the existing Dojo. No camera zoom or image enlargement.</span><span>Temporary design mockups · D proportions fixed · choose the art style</span></footer>
+</main><script>
+const rows=[['bare','Bare starter','T-shirt, shorts and hair'],['cobalt','Cobalt Guardian','Helm, mail, cuisses and large shield'],['scout','Scout + Sallet','Tan jerkin, steel helm and shorts']];
+const styles=['arc','cut','stack'];
+for(const [outfit,label,note] of rows){const h=document.createElement('div');h.className='outfit';h.innerHTML=label+'<small>'+note+'</small>';grid.append(h);for(const style of styles){const a=document.createElement('a');a.className='cell';a.href='/contrast/screenshots/dojo-'+style+'-'+outfit+'.jpg';a.target='_blank';a.innerHTML='<div class="crop"><img alt="'+style+' '+label+' in the real Dojo" src="'+a.getAttribute('href')+'"></div><span class="caption">Open full Dojo screenshot ↗</span>';grid.append(a)}}
+</script></body></html>

@@ -1,0 +1,29 @@
+[
+  {
+    "id": "arc",
+    "name": "Arc",
+    "row": 0,
+    "n": 20,
+    "exp": 0.94,
+    "bevel": 0.014,
+    "line": "Broad curves, swept shells and clean glossy paint."
+  },
+  {
+    "id": "cut",
+    "name": "Cut",
+    "row": 1,
+    "n": 8,
+    "exp": 0.55,
+    "bevel": 0.008,
+    "line": "Faceted planes, wide chamfers and graphic contrast."
+  },
+  {
+    "id": "stack",
+    "name": "Stack",
+    "row": 2,
+    "n": 12,
+    "exp": 0.75,
+    "bevel": 0.009,
+    "line": "Overlapping bands, rolled rims and visible brushwork."
+  }
+]
