@@ -99,12 +99,12 @@ floor, origin on the floor, up +Y. Start from the template for the type and keep
 
 | Template | Ids | Length from grip |
 |---|---|---|
-| `sword.glb` | brand thorn frostbite blazebrand sickle avenger | 0.75 |
+| `sword.glb` | brand thorn frostbite blazebrand sickle avenger, and the fencing sabres sabre flamesabre frostsabre stormsabre (curved blade, basket guard) | 0.75 |
 | `sword_heavy.glb` | cleaver greatblade hexblade troika | 0.95 |
 | `sword_long.glb` | rapier leviathan | 0.9 |
 | `sword_short.glb` | spur voltedge | 0.6 |
 | `maul.glb` | maul | 0.75 haft |
-| `gun.glb` (pistol) | blaster pulsar alchemer autogun catalyzer frostgun embercaster voltneedle viper polaris riftlocker | 0.5 |
+| `gun.glb` (pistol) | blaster pulsar alchemer autogun sixgun catalyzer frostgun embercaster voltneedle viper polaris riftlocker | 0.5 |
 | `gun_cannon.glb` | magnus grimcannon scatter | 0.65 |
 | `gun_rifle.glb` | rifle | 1.0 |
 | `bomb.glb` → `weapons/<id>.glb` | blast haze frost venom storm hex shard vortex nitro spark | 0.28 across (nitro 0.45) |

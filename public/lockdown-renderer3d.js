@@ -863,6 +863,9 @@ export class Lockdown3DRenderer {
       // Across the body the shoulder only turns so far before the forearm would go through the chest: the torso
       // twist carries the rest of the wind-up and the elbow opens up.
       const cross = Math.max(0, -yaw * .7), spill = Math.max(0, cross - .28);
+      // A heavy sword's momentum blow: the knight spins a full turn, back to the target through the wind-up,
+      // then round with the blade.
+      if (player.swingMomentum && elapsed < startup + active) facing += dir * Math.PI * (elapsed < startup ? easeOut(elapsed / startup) : 1 + easeOut((elapsed - startup) / active));
       twist = -yaw * .3 + spill * .9; arm[1] = Math.min(-yaw * .7, .28); arm[0] -= spill * .4; elbow *= 1 - .65 * Math.min(1, cross / .7); snap = true;
       T.leg_L[2] += .25; T.leg_R[2] -= .2; T.shin_L[2] -= .2; T.shin_R[2] -= .25;
       T.arm_L = [.25, 0, .5]; T.forearm_L = [0, 0, .6];

@@ -134,7 +134,7 @@ Keep the look and push it further toward the LBX references: crisper plate edges
 1. **Refit (stop for approval):** the step-1 pieces above on the new skeleton, plus `shoes/sabatons` in the Cobalt style. Show them in the
    Dojo: idle, walk, run, dash, sword combo, shooting, Guardian guard.
 2. **All armour:** 13 helmets, 15 armours, 11 pants, 11 shoes (not the `none` pieces: that's the skeleton).
-3. **All weapons:** 15 swords, 15 guns, 10 bombs + 10 planted.
+3. **All weapons:** 19 swords, 16 guns, 10 bombs + 10 planted.
 4. **Icons** (96×96, see ART-GUIDE section 5), made from the models.
 
 After every batch: `node tools/art3d-index.mjs` (no errors), `npm test` (all pass), then `npm start` and open

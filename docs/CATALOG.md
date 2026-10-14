@@ -19,8 +19,8 @@ colour is never baked in: trims meant to show the team use a material named `tea
 | Armor | 16 | `models/armor/<id>.glb` |
 | Pants | 12 | `models/pants/<id>.glb` |
 | Shoes | 12 | `models/shoes/<id>.glb` |
-| Swords | 15 | `models/weapons/<id>.glb` |
-| Guns | 15 | `models/weapons/<id>.glb` |
+| Swords | 19 | `models/weapons/<id>.glb` |
+| Guns | 16 | `models/weapons/<id>.glb` |
 | Bombs | 10 | `models/weapons/<id>.glb` + `models/bombs/<id>.glb` |
 
 ## The robot frame (knight body)
@@ -390,7 +390,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 - **Looks:** Thin liquid-silver feet with a mirror sheen and little speed streaks.
 - **Make:** `models/shoes/quicksilver.glb`, icon `icon_shoes_quicksilver.png`
 
-## Swords (15)
+## Swords (19)
 
 ### Knight Brand `brand`
 
@@ -403,7 +403,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Troll Cleaver `cleaver`
 
 - **Does:** Slow, brutal overhead chain that stuns. Charge: leap and slam the ground around you.
-- **Stats:** Heavy sword · heavy (unflinching) · sweeping cut, 2-cut combo (24 / 30 damage) · difficulty ★★ · good: Huge two-cut damage and long stuns; Not interrupted when hit mid-swing; Charge: leaping ground slam · bad: Very slow wind-up; Easy to see coming
+- **Stats:** Heavy sword · heavy (unflinching) · sweeping cut, 2-cut combo (24 / 43 damage) · difficulty ★★ · good: Second blow spins round on the first one's momentum: fast and brutal; Not interrupted when hit mid-swing; Charge: leaping ground slam · bad: Very slow first wind-up; Missing the second blow leaves you spun round and wide open
 - **Looks:** A huge troll-sized cleaver: a slab of notched dark iron as wide as the knight's head, a short wrapped handle and a ring through the spine. Looks too heavy to swing.
 - **Size:** heavy: ≈ 0.95 from grip to tip, blade ≈ 0.18 wide, guard ≈ 0.3 across
 - **Make:** `models/weapons/cleaver.glb`, icon `icon_weapon_cleaver.png`
@@ -427,7 +427,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Umbral Greatblade `greatblade`
 
 - **Does:** Heavy two-hit chain. Charge: a slow wave of shadow that carries knights along with it.
-- **Stats:** Dark sword · heavy (unflinching) · precise cut, 2-cut combo (31 / 37 damage) · difficulty ★★ · good: Heavy two-cut combo, not interrupted when hit; Charge: a long shadow wave that drags knights · bad: Slow swings
+- **Stats:** Dark sword · heavy (unflinching) · precise cut, 2-cut combo (31 / 53 damage) · difficulty ★★ · good: Second blow spins round on momentum for huge damage; Not interrupted when hit; Charge: a long shadow wave that drags knights · bad: Slow first swing; Missing the second blow is punished hard
 - **Looks:** A two-handed umbral greatblade: a long jagged black blade with purple veins of light running down it and a winged guard.
 - **Size:** heavy: ≈ 0.95 from grip to tip, blade ≈ 0.18 wide, guard ≈ 0.3 across
 - **Make:** `models/weapons/greatblade.glb`, icon `icon_weapon_greatblade.png`
@@ -475,7 +475,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Hexblade `hexblade`
 
 - **Does:** Heavy cuts that may curse (35%): no dash and no class ability for a while. Charge: a cursing slam.
-- **Stats:** Curse sword · element: curse · heavy (unflinching) · precise cut, 2-cut combo (30 / 35 damage) · difficulty ★★ · good: Heavy cuts that may curse (no dash, no ability); Not interrupted when hit mid-swing · bad: Slow two-cut combo
+- **Stats:** Curse sword · element: curse · heavy (unflinching) · precise cut, 2-cut combo (30 / 50 damage) · difficulty ★★ · good: Heavy cuts that may curse (no dash, no ability); Second blow spins round on momentum for huge damage · bad: Slow first swing; Missing the second blow is punished hard
 - **Looks:** A heavy cursed blade of dark violet steel etched with glowing purple runes, a skull on the guard and a chain on the pommel.
 - **Size:** heavy: ≈ 0.95 from grip to tip, blade ≈ 0.18 wide, guard ≈ 0.3 across
 - **Make:** `models/weapons/hexblade.glb`, icon `icon_weapon_hexblade.png`
@@ -512,7 +512,39 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 - **Size:** heavy: ≈ 0.95 from grip to tip, blade ≈ 0.18 wide, guard ≈ 0.3 across
 - **Make:** `models/weapons/troika.glb`, icon `icon_weapon_troika.png`
 
-## Guns (15)
+### Duelist Sabre `sabre`
+
+- **Does:** A fencing sword whose wide cuts knock back and stun hard. Charge: two sweeping spins that throw everyone back.
+- **Stats:** Fencing sword · sweeping cut, 3-cut combo (13 / 16 / 22 damage) · difficulty ★ · good: Wide cuts that knock back and stun hard; Starts every sweep combo · bad: Lower damage than a plain sword
+- **Looks:** A curved fencing sabre: a slim gleaming blade with a single edge, a sweeping basket guard of polished brass and a wrapped grip.
+- **Size:** ≈ 0.75 from grip to tip (just over half the knight's height), blade ≈ 0.12 wide, guard ≈ 0.24 across
+- **Make:** `models/weapons/sabre.glb`, icon `icon_weapon_sabre.png`
+
+### Ember Sabre `flamesabre`
+
+- **Does:** A fencing sword that may set knights on fire (35%) as it knocks them back. Charge: two blazing spins that always burn.
+- **Stats:** Fencing sword · element: burn · sweeping cut, 3-cut combo (12 / 14 / 20 damage) · difficulty ★★ · good: Knocks back and may set on fire (35%); Charge: burning spins · bad: Lower damage than a plain sword
+- **Looks:** A fencing sabre of red-hot steel: an orange glowing curved blade trailing small flames, a blackened basket guard.
+- **Size:** ≈ 0.75 from grip to tip (just over half the knight's height), blade ≈ 0.12 wide, guard ≈ 0.24 across
+- **Make:** `models/weapons/flamesabre.glb`, icon `icon_weapon_flamesabre.png`
+
+### Rime Sabre `frostsabre`
+
+- **Does:** A fencing sword that chills (60%) as it knocks knights back: three chills freeze. Charge: two frosty spins.
+- **Stats:** Fencing sword · element: chill · sweeping cut, 3-cut combo (11 / 14 / 19 damage) · difficulty ★★ · good: Knocks back and chills (60%): three chills freeze; Charge: frosty spins · bad: Lowest damage of the sabres
+- **Looks:** A fencing sabre of pale blue ice-steel: a curved frosted blade with crystals along the spine, a silver basket guard.
+- **Size:** ≈ 0.75 from grip to tip (just over half the knight's height), blade ≈ 0.12 wide, guard ≈ 0.24 across
+- **Make:** `models/weapons/frostsabre.glb`, icon `icon_weapon_frostsabre.png`
+
+### Storm Sabre `stormsabre`
+
+- **Does:** A fencing sword that may shock (30%) as it knocks knights back. Charge: two crackling spins.
+- **Stats:** Fencing sword · element: shock · sweeping cut, 3-cut combo (11 / 14 / 19 damage) · difficulty ★★ · good: Knocks back and may shock (30%); Charge: crackling spins · bad: Lowest damage of the sabres
+- **Looks:** A fencing sabre crackling with lightning: a dark curved blade with a glowing cyan edge, a copper basket guard with coils.
+- **Size:** ≈ 0.75 from grip to tip (just over half the knight's height), blade ≈ 0.12 wide, guard ≈ 0.24 across
+- **Make:** `models/weapons/stormsabre.glb`, icon `icon_weapon_stormsabre.png`
+
+## Guns (16)
 
 ### Pulse Blaster `blaster`
 
@@ -545,6 +577,14 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 - **Looks:** A rattling autogun with a short drum magazine, a perforated barrel shroud and a crank on the side.
 - **Size:** ≈ 0.5 from grip to muzzle, a fat body ≈ 0.25 tall
 - **Make:** `models/weapons/autogun.glb`, icon `icon_weapon_autogun.png`
+
+### Prairie Sixgun `sixgun`
+
+- **Does:** Six light, accurate shots as fast as you can pull the trigger, then a quick reload. Charge: fan the hammer, all six at once.
+- **Stats:** Six-shooter · 6-round clip, 5 damage · difficulty ★ · good: Fires as fast as you click, and stays accurate; Quick reload; Great after a sweep knocks someone back · bad: Very low damage per shot; Short clip
+- **Looks:** A frontier six-shooter: a long octagonal barrel, a six-chamber revolving cylinder with brass caps, a hammer and a curved wooden grip.
+- **Size:** ≈ 0.5 from grip to muzzle, a fat body ≈ 0.25 tall
+- **Make:** `models/weapons/sixgun.glb`, icon `icon_weapon_sixgun.png`
 
 ### Tether Catalyst `catalyzer`
 

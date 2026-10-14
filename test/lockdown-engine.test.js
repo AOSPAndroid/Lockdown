@@ -889,3 +889,46 @@ test('the off-hand cancel: the class button cancels a landed cut even when the a
     assert.equal(me.action, 'swing', `${cls}: swinging again right away`);
   }
 });
+
+test('heavy momentum: the second blow winds up faster and hits far harder, and a miss is punished hard', () => {
+  for (const id of ['cleaver', 'greatblade', 'hexblade']) {
+    const [first, second] = WEAPONS[id].combo;
+    assert.ok(second.momentum && second.startup < first.startup && second.damage > first.damage * 1.5, `${id}: a fast, heavy momentum blow`);
+  }
+  const land = () => {
+    const d = duel({ gap: 50, a: { cls: 'recon', weapons: ['greatblade', null, null, null] } });
+    run(d.state, 1, () => ({ 0: { attack: true } }));
+    let waited = 0; while (!d.me.hitIds.length && waited++ < 60) run(d.state, 1);
+    run(d.state, BLADE.hitStop + 1);
+    return d;
+  };
+  // Chained after a landed first cut, the second blow carries momentum.
+  const hit = land();
+  run(hit.state, 1, () => ({ 0: { attack: true } }));
+  run(hit.state, 80);
+  const swings = events(hit.state, 'swing');
+  assert.equal(swings.length, 2); assert.ok(swings[1].momentum);
+  const dealt = events(hit.state, 'damage').filter(event => event.targetId === 4).map(event => event.amount);
+  assert.ok(dealt[1] > dealt[0] * 1.5, 'the momentum blow lands far harder');
+  // Whiffed: a much longer recovery than an ordinary miss.
+  const miss = land();
+  run(miss.state, 1, () => ({ 0: { attack: true } }));
+  Object.assign(miss.foe, { x: miss.foe.x + 400 });
+  let waited = 0; while (!miss.me.whiffed && waited++ < 120) run(miss.state, 1);
+  assert.ok(miss.me.swingMomentum && miss.me.whiffed);
+  assert.ok(miss.me.swingRecovery >= BLADE.whiffMin * BLADE.momentumWhiff, 'spun round and wide open');
+});
+
+test('the six-shooter fires six light shots as fast as you click, then reloads quickly; sabres sweep and stun', () => {
+  const gun = WEAPONS.sixgun;
+  assert.equal(gun.clip, 6); assert.ok(gun.interval < WEAPONS.blaster.interval && gun.damage < WEAPONS.blaster.damage);
+  const { state, me } = duel({ gap: 200, a: { cls: 'recon', weapons: ['sixgun', null, null, null] } });
+  run(state, 6 * (gun.interval + 1), t => ({ 0: { attack: t % (gun.interval + 1) === 0 } }));
+  assert.equal(events(state, 'shot').length, 6, 'six shots in under a second');
+  assert.equal(me.clips.sixgun, 0);
+  for (const id of ['sabre', 'flamesabre', 'frostsabre', 'stormsabre']) {
+    const sabre = WEAPONS[id];
+    assert.equal(sabre.cut, 'sweeping'); assert.ok(sabre.combo[0].stun >= WEAPONS.brand.combo[0].stun, `${id} stuns hard`);
+  }
+  assert.equal(WEAPONS.flamesabre.onHit.status, 'burn');
+});

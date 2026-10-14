@@ -27,6 +27,9 @@ export const CUTS = Object.freeze({
   sweeping: Object.freeze({ arc: 1, damage: .9, push: 3, reel: true, label: 'Sweeping', note: 'wide cut that hits lighter but knocks the enemy back reeling: follow up with a heavy sword, or switch to a gun and shoot them out of reach' }),
   thrust: Object.freeze({ arc: 1, damage: 1, push: 1, label: 'Thrust', note: 'a straight, narrow line with a sweet spot at the tip' }),
 });
+/** A heavy sword's second blow: it carries the first one's momentum through a half turn, so it winds up
+ * faster and lands far harder, but a miss leaves you spun round and wide open (see BLADE.momentumWhiff). */
+const momentum = move => Object.freeze({ ...move, momentum: true });
 const cuts = (cut, ...steps) => Object.freeze(steps.map(move => Object.freeze({ ...move, arc: Math.round(move.arc * CUTS[cut].arc * 100) / 100, damage: Math.round(move.damage * CUTS[cut].damage), push: Math.round(move.push * CUTS[cut].push) })));
 
 export const WEAPONS = Object.freeze({
@@ -37,7 +40,7 @@ export const WEAPONS = Object.freeze({
       burst: Object.freeze({ radius: 76, damage: 20, push: 260, status: 'burn', chance: 1 }) }),
     description: 'Balanced three-cut combo. Charge: lunge forward and end in a burning burst.' }),
   cleaver: Object.freeze({ id: 'cleaver', family: 'blade', cut: 'sweeping', type: 'Heavy sword', name: 'Troll Cleaver', chargeTicks: 132, heavy: true,
-    combo: cuts('sweeping', step(27, 14, 8, 22, 78, 2.0, 300, 24, 10), step(33, 16, 9, 28, 82, 2.3, 380, 30, 14)),
+    combo: cuts('sweeping', step(27, 14, 8, 22, 78, 2.0, 300, 24, 10), momentum(step(48, 8, 9, 30, 84, 2.3, 400, 34, 18))),
     charge: Object.freeze({ kind: 'slam', distance: 70, ticks: 30, radius: 104, offset: 34, damage: 42, push: 380, stun: 40, recovery: 24 }),
     description: 'Slow, brutal overhead chain that stuns. Charge: leap and slam the ground around you.' }),
   rapier: Object.freeze({ id: 'rapier', family: 'blade', cut: 'thrust', type: 'Fast sword', name: 'Needle Rapier', chargeTicks: 96, sweetSpot: Object.freeze({ from: .72, bonus: 1.4 }),
@@ -49,7 +52,7 @@ export const WEAPONS = Object.freeze({
     charge: Object.freeze({ kind: 'thorns', count: 9, spread: 1.1, damage: 7, speed: 520, range: 220, size: 5, status: 'poison', chance: .5, recovery: 20 }),
     description: 'Balanced combo. Charge: spray a short, wide shower of poison thorns.' }),
   greatblade: Object.freeze({ id: 'greatblade', family: 'blade', cut: 'precise', type: 'Dark sword', name: 'Umbral Greatblade', chargeTicks: 132, heavy: true,
-    combo: cuts('precise', step(26, 12, 8, 20, 80, 2.0, 260, 20, 12), step(31, 14, 9, 24, 84, 2.3, 320, 24, 14)),
+    combo: cuts('precise', step(26, 12, 8, 20, 80, 2.0, 260, 20, 12), momentum(step(44, 7, 9, 26, 86, 2.3, 340, 28, 18))),
     charge: Object.freeze({ kind: 'wave', damage: 30, speed: 300, range: 420, size: 26, push: 160, status: 'shock', chance: .5, recovery: 26 }),
     description: 'Heavy two-hit chain. Charge: a slow wave of shadow that carries knights along with it.' }),
   spur: Object.freeze({ id: 'spur', family: 'blade', cut: 'sweeping', type: 'Spin sword', name: 'Gyre Spur', chargeTicks: 108,
@@ -77,7 +80,7 @@ export const WEAPONS = Object.freeze({
     charge: Object.freeze({ kind: 'lunge', distance: 170, ticks: 18, damage: 24, reach: 40, arc: 1.4, push: 180, stun: 16, recovery: 14 }),
     description: 'Heals you for 30% of the damage it deals. Charge: a long draining lunge.' }),
   hexblade: Object.freeze({ id: 'hexblade', family: 'blade', cut: 'precise', type: 'Curse sword', name: 'Hexblade', chargeTicks: 132, element: 'curse', heavy: true,
-    combo: cuts('precise', step(25, 13, 8, 22, 78, 2.0, 260, 22, 10), step(29, 15, 9, 26, 82, 2.3, 320, 26, 14)), onHit: Object.freeze({ status: 'curse', chance: .35 }),
+    combo: cuts('precise', step(25, 13, 8, 22, 78, 2.0, 260, 22, 10), momentum(step(42, 8, 9, 28, 84, 2.3, 330, 30, 18))), onHit: Object.freeze({ status: 'curse', chance: .35 }),
     charge: Object.freeze({ kind: 'slam', distance: 60, ticks: 30, radius: 100, offset: 34, damage: 34, push: 320, stun: 36, recovery: 24, status: 'curse', chance: 1 }),
     description: 'Heavy cuts that may curse (35%): no dash and no class ability for a while. Charge: a cursing slam.' }),
 
@@ -101,6 +104,23 @@ export const WEAPONS = Object.freeze({
     combo: cuts('sweeping', step(24, 12, 8, 18, 76, 1.9, 240, 20, 10), step(28, 14, 8, 22, 80, 2.1, 300, 24, 12), step(36, 18, 9, 30, 84, 2.4, 420, 32, 16)),
     charge: Object.freeze({ kind: 'slam', distance: 60, ticks: 30, radius: 96, offset: 34, damage: 36, push: 360, stun: 36, recovery: 24 }),
     description: 'A three-blow heavy chain that is never interrupted when you are hit. Charge: a ground slam.' }),
+  // Fencing sabres: sweeping cuts that knock back and stun hard, the opener of every sweep combo. Four variants.
+  sabre: Object.freeze({ id: 'sabre', family: 'blade', cut: 'sweeping', type: 'Fencing sword', name: 'Duelist Sabre', chargeTicks: 108,
+    combo: cuts('sweeping', step(14, 5, 5, 11, 72, 1.9, 140, 20, 10), step(18, 6, 6, 13, 74, 2.1, 180, 24, 16), step(24, 8, 7, 18, 78, 2.3, 260, 28, 24)),
+    charge: Object.freeze({ kind: 'spin', turns: 2, ticksPerTurn: 20, reach: 76, damage: 14, push: 220, stun: 18, speed: .5, recovery: 14 }),
+    description: 'A fencing sword whose wide cuts knock back and stun hard. Charge: two sweeping spins that throw everyone back.' }),
+  flamesabre: Object.freeze({ id: 'flamesabre', family: 'blade', cut: 'sweeping', type: 'Fencing sword', name: 'Ember Sabre', chargeTicks: 108, element: 'burn',
+    combo: cuts('sweeping', step(13, 5, 5, 11, 72, 1.9, 140, 18, 10), step(16, 6, 6, 13, 74, 2.1, 180, 22, 16), step(22, 8, 7, 18, 78, 2.3, 260, 26, 24)), onHit: Object.freeze({ status: 'burn', chance: .35 }),
+    charge: Object.freeze({ kind: 'spin', turns: 2, ticksPerTurn: 20, reach: 76, damage: 12, push: 200, stun: 16, speed: .5, recovery: 14, status: 'burn', chance: 1 }),
+    description: 'A fencing sword that may set knights on fire (35%) as it knocks them back. Charge: two blazing spins that always burn.' }),
+  frostsabre: Object.freeze({ id: 'frostsabre', family: 'blade', cut: 'sweeping', type: 'Fencing sword', name: 'Rime Sabre', chargeTicks: 108, element: 'chill',
+    combo: cuts('sweeping', step(12, 5, 5, 11, 72, 1.9, 130, 18, 10), step(15, 6, 6, 13, 74, 2.1, 170, 22, 16), step(21, 8, 7, 18, 78, 2.3, 240, 26, 24)), onHit: Object.freeze({ status: 'chill', chance: .6 }),
+    charge: Object.freeze({ kind: 'spin', turns: 2, ticksPerTurn: 20, reach: 76, damage: 11, push: 190, stun: 16, speed: .5, recovery: 14, status: 'chill', chance: 1 }),
+    description: 'A fencing sword that chills (60%) as it knocks knights back: three chills freeze. Charge: two frosty spins.' }),
+  stormsabre: Object.freeze({ id: 'stormsabre', family: 'blade', cut: 'sweeping', type: 'Fencing sword', name: 'Storm Sabre', chargeTicks: 108, element: 'shock',
+    combo: cuts('sweeping', step(12, 5, 5, 11, 72, 1.9, 130, 18, 10), step(15, 6, 6, 13, 74, 2.1, 170, 22, 16), step(21, 8, 7, 18, 78, 2.3, 240, 26, 24)), onHit: Object.freeze({ status: 'shock', chance: .3 }),
+    charge: Object.freeze({ kind: 'spin', turns: 2, ticksPerTurn: 20, reach: 76, damage: 11, push: 190, stun: 16, speed: .5, recovery: 14, status: 'shock', chance: .6 }),
+    description: 'A fencing sword that may shock (30%) as it knocks knights back. Charge: two crackling spins.' }),
 
   // ---------- guns ----------
   blaster: Object.freeze({ id: 'blaster', family: 'gun', type: 'Blaster', name: 'Pulse Blaster', chargeTicks: 120,
@@ -119,6 +139,10 @@ export const WEAPONS = Object.freeze({
     clip: 6, interval: 8, reload: 66, reloadDelay: 60, damage: 4, speed: 800, range: 560, push: 25, spread: .09, size: 4, kind: 'bullet',
     charge: Object.freeze({ kind: 'stream', count: 10, every: 4, damage: 5, speed: 820, range: 600, push: 30, size: 4, spread: .03 }),
     description: 'Six fast, light rounds. Charge: a focused ten-round stream.' }),
+  sixgun: Object.freeze({ id: 'sixgun', bloom: 0.02, family: 'gun', type: 'Six-shooter', name: 'Prairie Sixgun', chargeTicks: 108,
+    clip: 6, interval: 9, reload: 60, reloadDelay: 48, damage: 5, speed: 840, range: 520, push: 30, spread: .015, size: 4, kind: 'bullet',
+    charge: Object.freeze({ kind: 'stream', count: 6, every: 3, damage: 6, speed: 860, range: 540, push: 40, size: 4, spread: .14 }),
+    description: 'Six light, accurate shots as fast as you can pull the trigger, then a quick reload. Charge: fan the hammer, all six at once.' }),
   catalyzer: Object.freeze({ id: 'catalyzer', family: 'gun', type: 'Catalyzer', name: 'Tether Catalyst', chargeTicks: 120,
     clip: 3, interval: 20, reload: 60, reloadDelay: 60, damage: 8, speed: 560, range: 520, push: 20, spread: .02, size: 6, kind: 'catalyst',
     charge: Object.freeze({ kind: 'detonator', damage: 10, speed: 720, range: 620, push: 80, size: 7, perCharge: 18, pushPerCharge: 180 }),
@@ -199,21 +223,26 @@ export const WEAPON_IDS = Object.freeze(Object.keys(WEAPONS));
 const note = (difficulty, pros, cons) => Object.freeze({ difficulty, pros: Object.freeze(pros), cons: Object.freeze(cons) });
 export const WEAPON_NOTES = Object.freeze({
   brand: note(1, ['Reliable three-cut combo', 'Charge lunges in and sets a burning burst'], ['No special strength']),
-  cleaver: note(2, ['Huge two-cut damage and long stuns', 'Not interrupted when hit mid-swing', 'Charge: leaping ground slam'], ['Very slow wind-up', 'Easy to see coming']),
+  cleaver: note(2, ['Second blow spins round on the first one\'s momentum: fast and brutal', 'Not interrupted when hit mid-swing', 'Charge: leaping ground slam'], ['Very slow first wind-up', 'Missing the second blow leaves you spun round and wide open']),
   rapier: note(3, ['Fastest cuts, long narrow reach', 'Sweet spot: +40% at the tip of its reach'], ['Narrow arc misses moving targets', 'Low damage up close']),
   thorn: note(1, ['Steady combo', 'Charge sprays poison thorns'], ['Thorns are short range']),
-  greatblade: note(2, ['Heavy two-cut combo, not interrupted when hit', 'Charge: a long shadow wave that drags knights'], ['Slow swings']),
+  greatblade: note(2, ['Second blow spins round on momentum for huge damage', 'Not interrupted when hit', 'Charge: a long shadow wave that drags knights'], ['Slow first swing', 'Missing the second blow is punished hard']),
   spur: note(2, ['Very fast four-cut chain', 'Charge: three full spins'], ['Light hits: easily out-traded by heavies']),
   maul: note(3, ['Biggest single hits in the game', 'Second blow sends a shockwave', 'Never interrupted when hit mid-swing'], ['Extremely slow: whiffs are punished', 'Slowest charge']),
   frostbite: note(2, ['Every cut chills; the third freezes', 'Charge ends in a freezing burst'], ['Slightly weaker cuts', 'Freeze breaks on the next hit']),
   blazebrand: note(1, ['Cuts may set knights on fire', 'Charge: a wall of fire'], ['Burn is random on normal cuts']),
   voltedge: note(2, ['Fast cuts that may shock', 'Lightning jumps to two nearby enemies (40%)'], ['Light damage per cut']),
   sickle: note(2, ['Heals you for 30% of its damage', 'Charge: a long draining lunge'], ['Lower damage than a plain sword']),
-  hexblade: note(2, ['Heavy cuts that may curse (no dash, no ability)', 'Not interrupted when hit mid-swing'], ['Slow two-cut combo']),
+  hexblade: note(2, ['Heavy cuts that may curse (no dash, no ability)', 'Second blow spins round on momentum for huge damage'], ['Slow first swing', 'Missing the second blow is punished hard']),
   blaster: note(1, ['Reliable three-shot clip', 'Charge: a bolt that pierces everyone in line'], ['No special strength']),
   pulsar: note(1, ['Wide waves are easy to land and pass through knights'], ['Low damage', 'Slow and short ranged']),
   alchemer: note(3, ['Bolts bounce off walls: hit around corners', 'Charge: four shocking bolts'], ['Bank shots take practice']),
   autogun: note(1, ['Six fast rounds, easy to keep on target'], ['Wide spread, light hits']),
+  sixgun: note(1, ['Fires as fast as you click, and stays accurate', 'Quick reload', 'Great after a sweep knocks someone back'], ['Very low damage per shot', 'Short clip']),
+  sabre: note(1, ['Wide cuts that knock back and stun hard', 'Starts every sweep combo'], ['Lower damage than a plain sword']),
+  flamesabre: note(2, ['Knocks back and may set on fire (35%)', 'Charge: burning spins'], ['Lower damage than a plain sword']),
+  frostsabre: note(2, ['Knocks back and chills (60%): three chills freeze', 'Charge: frosty spins'], ['Lowest damage of the sabres']),
+  stormsabre: note(2, ['Knocks back and may shock (30%)', 'Charge: crackling spins'], ['Lowest damage of the sabres']),
   catalyzer: note(3, ['Stack charges, then detonate them for a huge hit'], ['Weak until you detonate', 'Needs a follow-up shot']),
   magnus: note(2, ['Heavy rounds with big knockback', 'Up to +40% damage at long range', 'Charge: explosive round'], ['Two-round clip, slow reload']),
   rifle: note(3, ['Up to +60% damage at long range', 'Very fast, accurate round', 'Charge: piercing rail shot'], ['One round, long reload', 'Tiny bullet: hard to hit']),
@@ -269,6 +298,8 @@ export const BLADE = Object.freeze({ comboCancel: .4, comboWindow: 36, hitStop: 
   // ticks), cannot chain into the next cut and drops the combo, and you barely move meanwhile, so swinging
   // at air leaves you wide open (a hit on a whiffed knight is a punish, see FIGHT).
   whiffRecovery: 2, whiffMin: 36, whiffMove: .12,
+  // A heavy sword's momentum blow (the second cut, a half-turn swing) that misses recovers this much longer again.
+  momentumWhiff: 2,
   // Timing: the next cut can only be queued once this one has landed. Pressing earlier (mashing) is
   // ignored and locks the cut out of the combo, so it plays to the end and the next press starts over.
   // Aim: a cut that meets the target near the middle of its arc is clean and deals its full damage; off

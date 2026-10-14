@@ -745,8 +745,8 @@ function startSwing(state, player, weapon) {
   const speed = bladeSpeed(player), startup = Math.max(2, Math.round(move.startup / speed)), active = Math.max(2, Math.round(move.active / speed)), recovery = Math.max(2, Math.round(move.recovery / speed));
   Object.assign(player, { action: 'swing', actionTotal: startup + active + recovery, actionTicks: startup + active + recovery, hitIds: [], bufferAttack: false, whiffed: false, mashed: false,
     swingAim: player.aim, swingDir: player.comboStep % 2 ? -1 : 1, swingReach: move.reach, swingArc: move.arc,
-    swingStartup: startup, swingActive: active, swingRecovery: recovery, swingDamage: move.damage * bladePower(player) });
-  emit(state, 'swing', { playerId: player.id, weapon: weapon.id, step: player.comboStep, x: player.x, y: player.y, angle: player.aim, dir: player.swingDir, arc: move.arc, reach: move.reach, startup, active });
+    swingStartup: startup, swingActive: active, swingRecovery: recovery, swingDamage: move.damage * bladePower(player), swingMomentum: !!move.momentum });
+  emit(state, 'swing', { playerId: player.id, weapon: weapon.id, step: player.comboStep, x: player.x, y: player.y, angle: player.aim, dir: player.swingDir, arc: move.arc, reach: move.reach, startup, active, momentum: !!move.momentum });
 }
 function startCharge(state, player, weapon) {
   const charge = weapon.charge;
@@ -784,7 +784,7 @@ function tickAction(state, player, weapon) {
       }
     } else if (elapsed === startup + active && !player.hitIds.length && !player.whiffed) {
       // A whiff: nothing was hit. The recovery stretches, the queued press is dropped and the combo breaks.
-      const extra = Math.max(BLADE.whiffMin, Math.round(player.swingRecovery * BLADE.whiffRecovery));
+      const extra = Math.max(BLADE.whiffMin, Math.round(player.swingRecovery * BLADE.whiffRecovery)) * (player.swingMomentum ? BLADE.momentumWhiff : 1);
       Object.assign(player, { whiffed: true, bufferAttack: false, actionTicks: player.actionTicks + extra, actionTotal: player.actionTotal + extra, swingRecovery: player.swingRecovery + extra });
       emit(state, 'whiff', { playerId: player.id, x: player.x, y: player.y });
     } else if (player.bufferAttack && !player.whiffed && !player.mashed && player.comboStep < weapon.combo.length - 1 && elapsed >= startup + active + Math.ceil(player.swingRecovery * BLADE.comboCancel)) {
