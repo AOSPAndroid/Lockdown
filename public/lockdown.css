@@ -154,6 +154,9 @@ kbd { display: inline-block; padding: 1px 6px; border: 1px solid var(--line); bo
 .ld-primary { background: #f2f4f7 !important; color: #111 !important; border-color: #f2f4f7 !important; font-weight: 700; }
 .ld-actions button:disabled { opacity: .45; cursor: not-allowed; }
 .ld-controls { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 18px; color: var(--muted); font-size: 12px; }
+.ld-layout { display: inline-flex; align-items: center; gap: 4px; }
+.ld-layout button { padding: 2px 8px; border-radius: 6px; border: 1px solid var(--line); background: var(--panel-2); color: var(--muted); font-size: 12px; font-weight: 600; }
+.ld-layout button[aria-pressed="true"] { color: var(--text); border-color: #ffd36b; }
 .ld-results { margin-top: 12px; padding: 16px; border-radius: 14px; background: var(--panel); border: 1px solid var(--line); }
 .ld-results table { width: 100%; border-collapse: collapse; font-size: 13px; }
 .ld-results th, .ld-results td { padding: 6px 8px; text-align: left; border-bottom: 1px solid var(--line); }

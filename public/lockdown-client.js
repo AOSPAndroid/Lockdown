@@ -3,7 +3,7 @@
 import * as Engine from './lockdown-engine.js';
 import { LockdownRenderer, TEAM_COLORS, FLOOR_RISE } from './lockdown-renderer.js';
 import { createAssetLibrary } from './lockdown-assets.js';
-import { gameKey } from './keyboard-layout.js';
+import { gameKey, getKeyboardLayout, setKeyboardLayout, subscribeKeyboardLayout, displayKey, KEYBOARD_LAYOUT_STORAGE_KEY } from './keyboard-layout.js';
 import { GameAudio } from './lockdown-audio.js';
 import { getName, saveName } from './lockdown-name.js';
 
@@ -145,6 +145,19 @@ function bindingFor(event) {
   return KEY_BINDINGS[code] || KEY_BINDINGS[event.code] || null;
 }
 function press(control) { held.add(control); pressed.add(control); }
+// Movement keys: WASD, or ZQSD for French (AZERTY) keyboards. An AZERTY keyboard is recognised on its own the
+// first time (from the browser's layout map, or the first letter typed on it) unless the player already chose.
+const layoutChosen = () => { try { return localStorage.getItem(KEYBOARD_LAYOUT_STORAGE_KEY) !== null; } catch { return false; } };
+function refreshKeyLabels() {
+  const layout = getKeyboardLayout();
+  for (const kbd of document.querySelectorAll('[data-keylabel]')) kbd.textContent = displayKey(kbd.dataset.keylabel, layout);
+  for (const button of document.querySelectorAll('[data-layout]')) button.setAttribute('aria-pressed', String(button.dataset.layout === layout));
+  canvas.setAttribute('aria-label', `Lockdown arena. ${displayKey('WASD', layout)} moves, the mouse aims, left click attacks (hold to charge), right click uses your class ability, Space dashes, 1 to 4 or ${displayKey('Q', layout)} switch weapons, Escape opens the menu.`);
+}
+for (const button of document.querySelectorAll('[data-layout]')) button.addEventListener('click', () => setKeyboardLayout(button.dataset.layout));
+subscribeKeyboardLayout(refreshKeyLabels);
+if (!layoutChosen()) navigator.keyboard?.getLayoutMap?.().then(map => { if (!layoutChosen() && map.get('KeyQ') === 'a') setKeyboardLayout('zqsd'); }).catch(() => {});
+addEventListener('keydown', event => { if (!layoutChosen() && event.code === 'KeyQ' && event.key?.toLowerCase() === 'a') setKeyboardLayout('zqsd'); }, { capture: true });
 function release(control) { held.delete(control); }
 addEventListener('keydown', event => {
   if (event.target instanceof HTMLInputElement || event.target instanceof HTMLSelectElement) return;
@@ -901,6 +914,7 @@ function overviewFocus(view, me) {
 
 buildMenu();
 setupPreview();
+refreshKeyLabels();
 refreshIcons();
 if (solo) soloCreate(); else connect();
 if (dojo) setupDojoPanel();

@@ -28,6 +28,9 @@ place to try every weapon and charge attack. **Create room**
 opens an online room (up to eight people, Amber vs Cyan); share the link or the six-letter code with
 friends on your network, who open the same address. The host picks the arena and starts the match.
 
+**French (AZERTY) keyboards:** the game switches to **ZQSD** on its own the first time you play on an AZERTY
+keyboard; the **Keys: WASD / ZQSD** buttons at the bottom of the menu switch it by hand.
+
 Controls: **WASD** move, **mouse** aim, **left click** attack (hold to charge), **right click** class
 ability (Striker Boost, Guardian shield, Recon cloak), **Space** dash, **1–4** or **Q** switch slot,
 **I** inventory, **B** equipment in base, **Tab** scoreboard, **Esc** menu.
