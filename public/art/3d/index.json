@@ -1,5 +1,10 @@
 {
-  "files": [],
+  "files": [
+    "fx/blast.png",
+    "fx/flash.png",
+    "fx/slash.png",
+    "fx/spark.png"
+  ],
   "models": [
     "armor/ballistic.glb",
     "armor/berserker.glb",
@@ -57,6 +62,15 @@
     "pants/seraph.glb",
     "pants/wolver.glb",
     "pickups/heart.glb",
+    "projectiles/bolt.glb",
+    "projectiles/bullet.glb",
+    "projectiles/catalyst.glb",
+    "projectiles/explosive.glb",
+    "projectiles/pulse.glb",
+    "projectiles/ricochet.glb",
+    "projectiles/shard.glb",
+    "projectiles/thorn.glb",
+    "projectiles/wave.glb",
     "shoes/clogs.glb",
     "shoes/dashboots.glb",
     "shoes/hover.glb",

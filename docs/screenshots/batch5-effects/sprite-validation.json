@@ -1,0 +1,94 @@
+[
+  {
+    "file": "blast.png",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 21700,
+    "sha256": "be1e0f09761fb43ce3d481e9774e7ff65efbe26639d317b0a04b81345c1f9d9f",
+    "rgbAllWhite": true,
+    "edgeAlphaMax": 0,
+    "alphaMax": 253,
+    "nonzeroAlphaPixels": 24913,
+    "quadrantMeanAlpha": [
+      [
+        45.23,
+        50.34
+      ],
+      [
+        48.76,
+        52.67
+      ]
+    ]
+  },
+  {
+    "file": "flash.png",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 9812,
+    "sha256": "923d627933c9451ae6cde95f0c0736971f011364b3e03d3eb6e8d06fdac37575",
+    "rgbAllWhite": true,
+    "edgeAlphaMax": 0,
+    "alphaMax": 253,
+    "nonzeroAlphaPixels": 9215,
+    "quadrantMeanAlpha": [
+      [
+        3.61,
+        11.1
+      ],
+      [
+        18.42,
+        29.79
+      ]
+    ]
+  },
+  {
+    "file": "slash.png",
+    "size": [
+      512,
+      512
+    ],
+    "bytes": 28293,
+    "sha256": "b0f4c857dcca5b35ff5d9894d3129d1430d550020f0ee456a41a0c654269a2d6",
+    "rgbAllWhite": true,
+    "edgeAlphaMax": 0,
+    "alphaMax": 253,
+    "nonzeroAlphaPixels": 43675,
+    "quadrantMeanAlpha": [
+      [
+        7.66,
+        32.76
+      ],
+      [
+        4.28,
+        7.24
+      ]
+    ]
+  },
+  {
+    "file": "spark.png",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 15609,
+    "sha256": "df5f08c27d6af0e7cde6caac712c4080655c89ec6261a29bdf9630a6733deba8",
+    "rgbAllWhite": true,
+    "edgeAlphaMax": 0,
+    "alphaMax": 255,
+    "nonzeroAlphaPixels": 14187,
+    "quadrantMeanAlpha": [
+      [
+        11.76,
+        11.12
+      ],
+      [
+        10.11,
+        22.31
+      ]
+    ]
+  }
+]

@@ -1,0 +1,110 @@
+[
+  {
+    "file": "projectiles/bullet.glb",
+    "bytes": 22076,
+    "triangles": 130,
+    "texture": [
+      256,
+      256
+    ],
+    "nodes": [
+      "bullet"
+    ]
+  },
+  {
+    "file": "projectiles/pulse.glb",
+    "bytes": 33452,
+    "triangles": 248,
+    "texture": [
+      256,
+      256
+    ],
+    "nodes": [
+      "pulse"
+    ]
+  },
+  {
+    "file": "projectiles/bolt.glb",
+    "bytes": 18280,
+    "triangles": 90,
+    "texture": [
+      256,
+      256
+    ],
+    "nodes": [
+      "bolt"
+    ]
+  },
+  {
+    "file": "projectiles/ricochet.glb",
+    "bytes": 27672,
+    "triangles": 188,
+    "texture": [
+      256,
+      256
+    ],
+    "nodes": [
+      "ricochet"
+    ]
+  },
+  {
+    "file": "projectiles/catalyst.glb",
+    "bytes": 24564,
+    "triangles": 156,
+    "texture": [
+      256,
+      256
+    ],
+    "nodes": [
+      "catalyst"
+    ]
+  },
+  {
+    "file": "projectiles/explosive.glb",
+    "bytes": 26836,
+    "triangles": 180,
+    "texture": [
+      256,
+      256
+    ],
+    "nodes": [
+      "explosive"
+    ]
+  },
+  {
+    "file": "projectiles/shard.glb",
+    "bytes": 9968,
+    "triangles": 10,
+    "texture": [
+      256,
+      256
+    ],
+    "nodes": [
+      "shard"
+    ]
+  },
+  {
+    "file": "projectiles/thorn.glb",
+    "bytes": 11848,
+    "triangles": 30,
+    "texture": [
+      256,
+      256
+    ],
+    "nodes": [
+      "thorn"
+    ]
+  },
+  {
+    "file": "projectiles/wave.glb",
+    "bytes": 22272,
+    "triangles": 132,
+    "texture": [
+      256,
+      256
+    ],
+    "nodes": [
+      "wave"
+    ]
+  }
+]

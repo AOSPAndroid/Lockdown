@@ -1,0 +1,11 @@
+{
+  "baseStep": "ba8021c",
+  "captureHashesMatch": true,
+  "other123ModelsUnchanged": true,
+  "all4EffectSpritesUnchanged": true,
+  "codeTestsHtmlAndMenuIconsUnchangedFromMain": true,
+  "nativeCaptures": 11,
+  "browserErrors": [],
+  "browserWarnings": [],
+  "classAssetLoaded": true
+}
