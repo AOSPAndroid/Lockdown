@@ -30,7 +30,7 @@ const STATUS_COLORS = Object.freeze({ burn: '#ff8a3d', poison: '#7bd65a', shock:
 const CALLOUTS = Object.freeze({
   counter: ['COUNTER', '#ffb347', 'target'], riposte: ['RIPOSTE', '#ffe680', 'target'], perfectDodge: ['PERFECT', '#9ff0ff', 'player'],
   clash: ['CLASH', '#ffffff', 'player'], steady: ['STEADY', '#c9d6ff', 'player'], interrupt: ['INTERRUPTED', '#ff8a7a', 'player'],
-  whiff: ['MISS', '#b8b8b8', 'player'], sweetSpot: ['TIP', '#ffe680', 'target'], ambush: ['AMBUSH', '#d29bff', 'target'],
+  whiff: ['MISS', '#b8b8b8', 'player'], clean: ['CLEAN', '#ffffff', 'target'], graze: ['GRAZE', '#9a9a9a', 'target'], sweetSpot: ['TIP', '#ffe680', 'target'], ambush: ['AMBUSH', '#d29bff', 'target'],
 });
 /** A weapon's element colour (glow on the blade or muzzle, tint on its shots). */
 const FLAT_EFFECTS = new Set(['slash', 'spinTurn', 'slam', 'dust', 'vortexOpen', 'explosion', 'heal', 'capture', 'pop', 'kill']);
@@ -406,8 +406,8 @@ export class LockdownRenderer {
       else if (CALLOUTS[event.type]) {
         // Fight callouts only for fights the viewer is part of, so a crowded point stays readable.
         const [text, color, on] = CALLOUTS[event.type], who = on === 'target' ? event.targetId : event.playerId;
-        const row = this.effects.filter(effect => effect.type === 'callout' && effect.playerId === who && now - effect.born < effect.life).length;
-        const shown = (event.playerId === this.localId || event.targetId === this.localId) && !(event.type === 'interrupt' && event.by === 'clash');
+        const live = this.effects.filter(effect => effect.type === 'callout' && effect.playerId === who && now - effect.born < effect.life), row = live.length;
+        const shown = (event.playerId === this.localId || event.targetId === this.localId) && !(event.type === 'interrupt' && event.by === 'clash') && !live.some(effect => effect.text === text);
         if (shown) add('callout', 650, { x: event.x, y: event.y, text, color, playerId: who, row });
         if (event.type === 'clash') { add('block', 260, { x: event.x, y: event.y }); this.bump(event.x, event.y, 4); }
       }

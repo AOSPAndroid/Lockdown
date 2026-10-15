@@ -19,21 +19,29 @@ const step = (damage, startup, active, recovery, reach, arc, push, stun, lunge) 
 
 /** How a sword cuts, so aiming matters and a wide swing is not free. Precise swords sweep a narrow arc and
  * hit hard: miss and the whiff leaves you open. Sweeping swords catch anything in front but hit lighter.
- * Balanced sits between. Thrusts keep the narrow line they are written with. Applied to every step's arc
- * and damage below. */
+ * Balanced sits between. Thrusts keep the narrow line they are written with. Applied to every step's arc,
+ * push and reach below; the damage follows from the final arc (see AIM). */
 export const CUTS = Object.freeze({
-  precise: Object.freeze({ arc: .55, damage: 1.2, push: .4, reach: 1.25, label: 'Precise', note: 'narrow but long cut that hits hard and barely pushes: aim it, and stay on them' }),
-  balanced: Object.freeze({ arc: .75, damage: 1.1, push: 1, label: 'Balanced', note: 'medium cut, medium damage' }),
-  sweeping: Object.freeze({ arc: 1, damage: .9, push: 3, reel: true, label: 'Sweeping', note: 'wide cut that hits lighter but knocks the enemy back reeling: follow up with a heavy sword, or switch to a gun and shoot them out of reach' }),
-  thrust: Object.freeze({ arc: 1, damage: 1, push: .5, label: 'Thrust', note: 'a straight, narrow line with a sweet spot at the tip, little knockback' }),
+  precise: Object.freeze({ arc: .55, push: .4, reach: 1.25, label: 'Precise', note: 'narrow but long cut that hits hard and barely pushes: aim it, and stay on them' }),
+  balanced: Object.freeze({ arc: .75, push: 1, label: 'Balanced', note: 'medium cut, medium damage' }),
+  sweeping: Object.freeze({ arc: 1, push: 3, reel: true, label: 'Sweeping', note: 'wide cut that hits lighter but knocks the enemy back reeling: follow up with a heavy sword, or switch to a gun and shoot them out of reach' }),
+  thrust: Object.freeze({ arc: 1, push: .5, label: 'Thrust', note: 'a straight, narrow line with a sweet spot at the tip, little knockback' }),
 });
 /** A heavy sword's second blow: after a normal first cut, it carries the momentum through a half turn (back to
- * the target, then round with the blade), so it winds up fast and lands far harder, but a miss leaves you spun round and wide open (see BLADE.momentumWhiff). */
-const momentum = move => Object.freeze({ ...move, momentum: true });
+ * the target, then round with the blade), so it winds up fast, cuts a narrower arc and lands far harder, but a miss leaves you spun round and wide open (see BLADE.momentumWhiff). */
+const momentum = move => Object.freeze({ ...move, arc: Math.round(move.arc * .7 * 100) / 100, momentum: true });
 /** The last cut of the katana's and the elemental swords' three-cut combo is a critical: it lands half again as hard. */
 export const CRITICAL = 1.5;
 const critical = move => Object.freeze({ ...move, damage: Math.round(move.damage * CRITICAL), critical: true });
-const cuts = (cut, ...steps) => Object.freeze(steps.map(move => Object.freeze({ ...move, arc: Math.round(move.arc * CUTS[cut].arc * 100) / 100, damage: Math.round(move.damage * CUTS[cut].damage), push: Math.round(move.push * CUTS[cut].push), reach: Math.round(move.reach * (CUTS[cut].reach || 1)) })));
+/** Aim pays. The harder a weapon is to land, the harder it hits; the easier, the lighter. A cut's damage is its
+ * written damage times (AIM.arc / arc) ^ AIM.power, kept within [AIM.min, AIM.max]: a 0.8 rad overhand strike
+ * hits ~13% harder than a 1.2 rad cut, a 1.9 rad sweep ~13% lighter, a full spin ~40% lighter. Guns follow the
+ * same rule through where the round meets the knight: through the middle is a clean shot, only the edge of a
+ * big round touching them is a graze (AIM.shot). */
+export const AIM = Object.freeze({ arc: 1.2, power: .3, min: .6, max: 1.3,
+  shot: Object.freeze({ clean: .4, offCentre: .9, graze: .6 }) });
+export const aimFactor = arc => Math.min(AIM.max, Math.max(AIM.min, (AIM.arc / arc) ** AIM.power));
+const cuts = (cut, ...steps) => Object.freeze(steps.map(move => Object.freeze({ ...move, arc: Math.round(move.arc * CUTS[cut].arc * 100) / 100, push: Math.round(move.push * CUTS[cut].push), reach: Math.round(move.reach * (CUTS[cut].reach || 1)) })));
 
 const WEAPON_LIST = {
   // ---------- blades ----------
@@ -138,7 +146,7 @@ const WEAPON_LIST = {
     charge: Object.freeze({ kind: 'pierce', damage: 24, speed: 880, range: 700, push: 220, size: 9, pierce: true }),
     description: 'Reliable three-shot gun. Charge: a big bolt that pierces every knight in its path.' }),
   pulsar: Object.freeze({ id: 'pulsar', family: 'gun', type: 'Pulsar', name: 'Ripple Caster', chargeTicks: 120,
-    clip: 3, interval: 22, reload: 60, reloadDelay: 60, damage: 11, speed: 400, range: 340, push: 60, spread: 0, size: 8, grow: 14, kind: 'pulse', pierce: true,
+    clip: 3, interval: 22, reload: 60, reloadDelay: 60, damage: 8, speed: 400, range: 340, push: 60, spread: 0, size: 8, grow: 14, kind: 'pulse', pierce: true,
     charge: Object.freeze({ kind: 'bigPulse', damage: 22, speed: 260, range: 380, push: 140, size: 16, grow: 32, pierce: true }),
     description: 'Slow waves that widen as they travel and pass through knights. Charge: one huge wave.' }),
   alchemer: Object.freeze({ id: 'alchemer', family: 'gun', type: 'Ricochet', name: 'Ricochet Coil', chargeTicks: 120,
@@ -182,7 +190,7 @@ const WEAPON_LIST = {
     charge: Object.freeze({ kind: 'pierce', damage: 16, speed: 820, range: 660, push: 120, size: 9, pierce: true, status: 'freeze', chance: 1 }),
     description: 'Every round chills; three chills freeze. Charge: a piercing bolt that freezes on the spot.' }),
   embercaster: Object.freeze({ id: 'embercaster', family: 'gun', type: 'Fire pulsar', name: 'Ember Caster', chargeTicks: 120, element: 'burn',
-    clip: 3, interval: 22, reload: 60, reloadDelay: 60, damage: 8, speed: 340, range: 320, push: 50, spread: 0, size: 8, grow: 14, kind: 'pulse', pierce: true, status: 'burn', chance: .25,
+    clip: 3, interval: 22, reload: 60, reloadDelay: 60, damage: 7, speed: 340, range: 320, push: 50, spread: 0, size: 8, grow: 14, kind: 'pulse', pierce: true, status: 'burn', chance: .25,
     charge: Object.freeze({ kind: 'bigPulse', damage: 18, speed: 250, range: 360, push: 120, size: 16, grow: 30, pierce: true, status: 'burn', chance: 1 }),
     description: 'Fire waves that may ignite (25%) every knight they pass. Charge: a huge wave that sets all of them alight.' }),
   voltneedle: Object.freeze({ id: 'voltneedle', bloom: 0.03, family: 'gun', type: 'Shock autogun', name: 'Volt Needle', chargeTicks: 120, element: 'shock',
@@ -205,7 +213,7 @@ const WEAPON_LIST = {
     charge: Object.freeze({ kind: 'pierce', damage: 30, speed: 760, range: 420, push: 360, size: 10, pierce: false }),
     description: 'Six pellets in a wide fan: brutal up close, useless far away. Charge: a single heavy slug that knocks knights flying.' }),
   polaris: Object.freeze({ id: 'polaris', family: 'gun', type: 'Pulsar', name: 'Northstar', chargeTicks: 120,
-    clip: 3, interval: 22, reload: 60, reloadDelay: 60, damage: 11, speed: 380, range: 420, push: 60, spread: 0, size: 8, grow: 12, kind: 'pulse', pierce: true, bounces: 1,
+    clip: 3, interval: 22, reload: 60, reloadDelay: 60, damage: 8, speed: 380, range: 420, push: 60, spread: 0, size: 8, grow: 12, kind: 'pulse', pierce: true, bounces: 1,
     charge: Object.freeze({ kind: 'bigPulse', damage: 24, speed: 280, range: 460, push: 140, size: 16, grow: 28, pierce: true, bounces: 2 }),
     description: 'Widening waves that pass through knights and bounce once off walls. Charge: a huge wave that bounces twice.' }),
   riftlocker: Object.freeze({ id: 'riftlocker', bloom: .06, family: 'gun', type: 'Rift gun', name: 'Rift Repeater', chargeTicks: 132,
@@ -245,9 +253,9 @@ const WEAPON_LIST = {
 export const MOVE_KINDS = Object.freeze({
   sweep: Object.freeze({ label: 'sweep', alternates: true }),
   rise: Object.freeze({ label: 'rising cut', arc: .8, alternates: true }),
-  // From above one shoulder, down across the body: narrow, so it hits harder and pushes less. The next one comes
+  // From above one shoulder, down across the body: narrow, so it hits harder (AIM) and pushes less. The next one comes
   // down from the other shoulder.
-  overhand: Object.freeze({ label: 'overhand strike', fixedArc: .8, reach: 1.05, damage: 1.15, push: .75, alternates: true }),
+  overhand: Object.freeze({ label: 'overhand strike', fixedArc: .8, reach: 1.05, push: .75, alternates: true }),
   chop: Object.freeze({ label: 'overhead chop', fixedArc: .6, reach: 1.05, straight: true }),
   thrust: Object.freeze({ label: 'thrust', fixedArc: .35, reach: 1.2, straight: true }),
   spin: Object.freeze({ label: 'spin', fixedArc: Math.PI * 2, reach: .9 }),
@@ -273,17 +281,30 @@ export const MOVESETS = Object.freeze({
   maul: ['sweep', 'chop'],                           // a swing, then the overhead smash that shakes the ground
 });
 const withMoves = (id, combo) => Object.freeze(combo.map((move, i) => {
-  const kind = MOVESETS[id]?.[i] || 'sweep', rule = MOVE_KINDS[kind];
-  return Object.freeze({ ...move, kind, arc: rule.fixedArc ?? Math.round(move.arc * (rule.arc ?? 1) * 100) / 100, reach: Math.round(move.reach * (rule.reach ?? 1)),
-    damage: Math.round(move.damage * (rule.damage ?? 1)), push: Math.round(move.push * (rule.push ?? 1)) });
+  const kind = MOVESETS[id]?.[i] || 'sweep', rule = MOVE_KINDS[kind], arc = rule.fixedArc ?? Math.round(move.arc * (rule.arc ?? 1) * 100) / 100;
+  return Object.freeze({ ...move, kind, arc, reach: Math.round(move.reach * (rule.reach ?? 1)),
+    damage: Math.round(move.damage * aimFactor(arc)), push: Math.round(move.push * (rule.push ?? 1)) });
 }));
 export const WEAPONS = Object.freeze(Object.fromEntries(Object.entries(WEAPON_LIST).map(([id, weapon]) => [id, weapon.family === 'blade' ? Object.freeze({ ...weapon, combo: withMoves(id, weapon.combo) }) : weapon])));
 export const WEAPON_IDS = Object.freeze(Object.keys(WEAPONS));
+/** How hard a weapon is to aim, for the Armory: a sword by its cuts' average aim factor, a gun by how forgiving its
+ * rounds are (pellets, spray, a big round) against how much each single shot has to count. */
+export function aimRating(weapon) {
+  if (weapon.family === 'blade') {
+    const factor = weapon.combo.reduce((sum, move) => sum + aimFactor(move.arc), 0) / weapon.combo.length;
+    const level = factor >= 1.12 ? 'hard' : factor <= .92 ? 'easy' : 'medium';
+    return { level, note: `${level}: ${factor >= 1 ? 'narrow' : 'wide'} cuts, ×${factor.toFixed(2)} damage` };
+  }
+  if (weapon.family !== 'gun') return null;
+  const easy = weapon.pellets > 1 || weapon.spread >= .08 || weapon.size + (weapon.grow || 0) >= 18;
+  const level = easy ? 'easy' : weapon.interval >= 30 && weapon.spread <= .02 ? 'hard' : 'medium';
+  return { level, note: `${level}: ${easy ? 'forgiving rounds, lighter hits' : level === 'hard' ? 'every shot must count' : 'steady rounds'}; a clean shot through the middle deals full damage, a graze ${Math.round(AIM.shot.graze * 100)}%` };
+}
 
 /** Armory notes: what each weapon is good and bad at, and how hard it is to use well (1 easy, 3 hard). */
 const note = (difficulty, pros, cons) => Object.freeze({ difficulty, pros: Object.freeze(pros), cons: Object.freeze(cons) });
 export const WEAPON_NOTES = Object.freeze({
-  brand: note(1, ['Reliable three-cut combo of narrow overhand strikes that hit hard', 'Charge lunges in and sets a burning burst'], ['Narrow: aim it, or it misses']),
+  brand: note(2, ['Reliable three-cut combo of narrow overhand strikes that hit hard', 'Charge lunges in and sets a burning burst'], ['Narrow: aim it, or it misses']),
   cleaver: note(2, ['Second blow spins round on the first one\'s momentum: fast and brutal', 'Not interrupted when hit mid-swing', 'Charge: leaping ground slam'], ['Missing the second blow leaves you spun round and wide open']),
   rapier: note(3, ['Fastest cuts, long narrow reach', 'Sweet spot: +40% at the tip of its reach'], ['Narrow arc misses moving targets', 'Low damage up close']),
   thorn: note(1, ['Steady combo', 'Charge sprays poison thorns'], ['Thorns are short range']),

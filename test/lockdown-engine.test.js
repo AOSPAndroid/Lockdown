@@ -1014,3 +1014,24 @@ test('every sword type has its own combo, and the blade path is coherent from on
   assert.ok(events(spin.state, 'swing').some(event => event.kind === 'spin'), 'the finisher is a spin');
   assert.ok(spin.foe.hp < before, 'and it hits behind you');
 });
+
+test('aim pays: narrow cuts and clean shots hit harder, wide cuts and grazes lighter', () => {
+  const { AIM, aimFactor } = L;
+  // Swords: the narrower the arc, the more the cut deals per written point.
+  assert.ok(aimFactor(.35) > aimFactor(.8) && aimFactor(.8) > aimFactor(AIM.arc) && aimFactor(AIM.arc) > aimFactor(1.9) && aimFactor(1.9) > aimFactor(Math.PI * 2));
+  assert.ok(WEAPONS.sabre.combo[2].damage < WEAPONS.katana.combo[2].damage, 'a spin that hits all round is lighter than a precise thrust');
+  for (const id of ['cleaver', 'greatblade', 'hexblade']) assert.ok(WEAPONS[id].combo[1].arc < 2, `${id}: the momentum blow is narrower, so it must be aimed`);
+  // Guns: a round through the middle of the knight is clean; the same round passing beside them, its edge
+  // only touching, grazes for much less.
+  const shoot = offset => {
+    const fight = duel({ gap: 200, a: { cls: 'recon', weapons: ['pulsar', null, null, null], slot: 0 }, b: { hp: 1e4, maxHp: 1e4, domeHp: 0, domeBroken: true } });
+    fight.foe.y += offset;
+    const before = fight.foe.hp;
+    run(fight.state, 90, t => ({ 0: { attack: t === 0, aim: 0 } }));
+    return { lost: before - fight.foe.hp, clean: events(fight.state, 'clean').length, graze: events(fight.state, 'graze').length };
+  };
+  const centre = shoot(0), edge = shoot(L.RULES.radius * 1.3);
+  assert.ok(centre.lost > 0 && centre.clean === 1, 'through the middle: clean');
+  assert.ok(edge.lost > 0 && edge.graze === 1, 'the edge of the pulse: a graze');
+  assert.ok(edge.lost < centre.lost * .7, 'a graze deals much less');
+});

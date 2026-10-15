@@ -3,10 +3,10 @@
  * Up to 4v4; empty seats are filled by bots. Teams score every five seconds by
  * the points they hold; first to 500 (or the leader at the time limit) wins. */
 import { MAPS, MAP_IDS, TILE, isWall, isBlocked, wallAt, levelAt, levelCell, levelOk, canStep, shotBlocked } from './lockdown-maps.js';
-import { WEAPONS, WEAPON_IDS, MOVESETS, MOVE_KINDS, WEAPON_NOTES, CUTS, DEFAULT_LOADOUTS, SLOT_COUNT, STATUS, STATUS_IDS, GUARD, BLADE, BLOOM, FIGHT } from './lockdown-weapons.js';
+import { WEAPONS, WEAPON_IDS, MOVESETS, MOVE_KINDS, AIM, aimFactor, aimRating, WEAPON_NOTES, CUTS, DEFAULT_LOADOUTS, SLOT_COUNT, STATUS, STATUS_IDS, GUARD, BLADE, BLOOM, FIGHT } from './lockdown-weapons.js';
 import { ARMORS, ARMOR_IDS, HELMETS, PANTS, SHOES, GEAR, GEAR_SLOTS, combineGear } from './lockdown-equipment.js';
 
-export { MAPS, MAP_IDS, TILE, BLOOM, FIGHT, WEAPONS, WEAPON_IDS, MOVESETS, MOVE_KINDS, WEAPON_NOTES, CUTS, DEFAULT_LOADOUTS, SLOT_COUNT, STATUS, STATUS_IDS, GUARD, BLADE, ARMORS, ARMOR_IDS, HELMETS, PANTS, SHOES, GEAR, GEAR_SLOTS, combineGear };
+export { MAPS, MAP_IDS, TILE, BLOOM, FIGHT, WEAPONS, WEAPON_IDS, MOVESETS, MOVE_KINDS, AIM, aimFactor, aimRating, WEAPON_NOTES, CUTS, DEFAULT_LOADOUTS, SLOT_COUNT, STATUS, STATUS_IDS, GUARD, BLADE, ARMORS, ARMOR_IDS, HELMETS, PANTS, SHOES, GEAR, GEAR_SLOTS, combineGear };
 export const TICK_RATE = 120;
 const DT = 1 / TICK_RATE;
 export const TEAM_SIZE = 4;
@@ -700,7 +700,8 @@ function bladeContacts(state, player, reach, from, to, amount, options) {
       const share = Math.abs(bearing - player.swingAim) / (player.swingArc / 2 + pad);
       const sharp = WEAPONS[options.weapon]?.aim; // the katana rewards and punishes aim harder
       if (share <= BLADE.clean.within) { aimed = sharp?.clean ?? 1; emit(state, 'clean', { playerId: player.id, targetId: target.id, x: target.x, y: target.y }); }
-      else aimed = share > BLADE.graze.beyond ? sharp?.graze ?? BLADE.graze.damage : BLADE.offCentre;
+      else if (share > BLADE.graze.beyond) { aimed = sharp?.graze ?? BLADE.graze.damage; emit(state, 'graze', { playerId: player.id, targetId: target.id, x: target.x, y: target.y }); }
+      else aimed = BLADE.offCentre;
     }
     damage(state, player, target, (tip ? amount * sweetSpot.bonus : amount) * aimed, { angle: Math.atan2(target.y - player.y, target.x - player.x), damageFamily: 'blade', ...rest });
   }
@@ -1092,7 +1093,16 @@ function tickProjectiles(state) {
         // Precision rounds hit harder the farther they have flown.
         const flown = Math.hypot(shot.x - shot.ox, shot.y - shot.oy), long = shot.longShot ? 1 + shot.longShot.bonus * clamp((flown - shot.longShot.from) / Math.max(1, shot.range - shot.longShot.from), 0, 1) : 1;
         if (long > 1.15) emit(state, 'longShot', { playerId: shot.ownerId, targetId: target.id, x: target.x, y: target.y, bonus: long });
-        const landed = damage(state, owner, target, shot.damage * long, { push: shot.push, angle: Math.atan2(shot.vy, shot.vx), stun: shotStun(shot), kind: shot.kind, damageFamily, source: shot, status: shot.status, chance: shot.chance, weapon: shot.weapon });
+        // Aim: how far the round's line passes from the middle of the knight. Through the middle is clean (full
+        // damage); only a big round's edge touching them is a graze. Bomb shrapnel is not aimed.
+        let aimed = 1;
+        if (damageFamily === 'gun') {
+          const speed = Math.hypot(shot.vx, shot.vy) || 1, off = Math.abs((target.x - shot.x) * shot.vy - (target.y - shot.y) * shot.vx) / speed / RULES.radius;
+          if (off <= AIM.shot.clean) emit(state, 'clean', { playerId: shot.ownerId, targetId: target.id, x: target.x, y: target.y, shot: true });
+          else if (off > 1) { aimed = AIM.shot.graze; emit(state, 'graze', { playerId: shot.ownerId, targetId: target.id, x: target.x, y: target.y, shot: true }); }
+          else aimed = AIM.shot.offCentre;
+        }
+        const landed = damage(state, owner, target, shot.damage * long * aimed, { push: shot.push, angle: Math.atan2(shot.vy, shot.vx), stun: shotStun(shot), kind: shot.kind, damageFamily, source: shot, status: shot.status, chance: shot.chance, weapon: shot.weapon });
         if (landed && shot.kind === 'catalyst') { target.catalysts = Math.min(3, (target.catalysts || 0) + 1); target.catalystTicks = 6 * TICK_RATE; emit(state, 'catalyst', { playerId: target.id, count: target.catalysts }); }
         if (shot.kind === 'detonator' && target.alive && target.catalysts > 0) {
           const count = target.catalysts; target.catalysts = 0;
