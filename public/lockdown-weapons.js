@@ -192,9 +192,9 @@ const WEAPON_LIST = {
 
   // Elemental guns.
   frostgun: Object.freeze({ id: 'frostgun', family: 'gun', type: 'Frost blaster', name: 'Winter Repeater', chargeTicks: 120, element: 'chill',
-    clip: 3, interval: 16, reload: 54, reloadDelay: 60, damage: 7, speed: 720, range: 580, push: 50, spread: .02, size: 5, kind: 'bullet', status: 'chill', chance: 1,
+    clip: 3, interval: 16, reload: 54, reloadDelay: 60, damage: 7, speed: 720, range: 580, push: 50, spread: .02, size: 5, kind: 'bullet', status: 'chill', chance: 1, stacks: 2,
     charge: Object.freeze({ kind: 'pierce', damage: 16, speed: 820, range: 660, push: 120, size: 9, pierce: true, status: 'freeze', chance: 1 }),
-    description: 'Every round chills; three chills freeze. Charge: a piercing bolt that freezes on the spot.' }),
+    description: 'Every round chills twice over: two rounds freeze a knight in place (they can still swing). A sword or bomb hit shatters the ice for extra damage. Charge: a piercing bolt that freezes on the spot.' }),
   embercaster: Object.freeze({ id: 'embercaster', family: 'gun', type: 'Fire pulsar', name: 'Ember Caster', chargeTicks: 120, element: 'burn',
     clip: 3, interval: 22, reload: 60, reloadDelay: 60, damage: 7, speed: 340, range: 320, push: 50, spread: 0, size: 8, grow: 14, kind: 'pulse', pierce: true, status: 'burn', chance: .25,
     charge: Object.freeze({ kind: 'bigPulse', damage: 18, speed: 250, range: 360, push: 120, size: 16, grow: 30, pierce: true, status: 'burn', chance: 1 }),
@@ -233,7 +233,7 @@ const WEAPON_LIST = {
   haze: Object.freeze({ id: 'haze', family: 'bomb', type: 'Haze bomb', name: 'Ember Haze', chargeTicks: 96, element: 'burn', fuse: 24, radius: 0, damage: 0, push: 0,
     cloud: Object.freeze({ radius: 92, ticks: 480, status: 'burn' }), description: 'Leaves a cloud that sets enemies on fire.' }),
   frost: Object.freeze({ id: 'frost', family: 'bomb', type: 'Haze bomb', name: 'Frost Haze', chargeTicks: 96, element: 'freeze', fuse: 24, radius: 0, damage: 0, push: 0,
-    cloud: Object.freeze({ radius: 92, ticks: 480, status: 'freeze' }), description: 'Leaves a cloud that freezes enemies solid.' }),
+    cloud: Object.freeze({ radius: 92, ticks: 480, status: 'freeze' }), description: 'Leaves a cloud that freezes enemies in place: they can still swing, but not move.' }),
   venom: Object.freeze({ id: 'venom', family: 'bomb', type: 'Haze bomb', name: 'Venom Veil', chargeTicks: 96, fuse: 24, radius: 0, damage: 0, push: 0, element: 'poison',
     cloud: Object.freeze({ radius: 92, ticks: 480, status: 'poison' }), description: 'Leaves a cloud that poisons enemies: they hit softer and cannot heal.' }),
   storm: Object.freeze({ id: 'storm', family: 'bomb', type: 'Haze bomb', name: 'Storm Haze', chargeTicks: 96, fuse: 24, radius: 0, damage: 0, push: 0, element: 'shock',
@@ -322,7 +322,7 @@ export const WEAPON_NOTES = Object.freeze({
   greatblade: note(2, ['Second blow spins round on momentum for huge damage', 'Not interrupted when hit', 'Charge: a long shadow wave that drags knights'], ['Slow first swing', 'Missing the second blow is punished hard']),
   spur: note(2, ['Very fast four-cut chain', 'Charge: three full spins'], ['Light hits: easily out-traded by heavies']),
   maul: note(3, ['Biggest single hits in the game', 'Second blow sends a shockwave', 'Never interrupted when hit mid-swing'], ['Extremely slow: whiffs are punished', 'Slowest charge']),
-  frostbite: note(2, ['Every cut chills; the third freezes', 'Charge ends in a freezing burst'], ['Slightly weaker cuts', 'Freeze breaks on the next hit']),
+  frostbite: note(2, ['Every cut chills; the third freezes', 'Charge ends in a freezing burst'], ['Slightly weaker cuts', 'A frozen knight can still swing back']),
   blazebrand: note(1, ['Cuts may set knights on fire', 'Charge: a wall of fire'], ['Burn is random on normal cuts']),
   voltedge: note(2, ['Fast cuts that may shock', 'Lightning jumps to two nearby enemies (40%)'], ['Light damage per cut']),
   sickle: note(2, ['Heals you for 30% of its damage', 'Charge: a long draining lunge'], ['Lower damage than a plain sword']),
@@ -342,7 +342,7 @@ export const WEAPON_NOTES = Object.freeze({
   catalyzer: note(3, ['Stack charges, then detonate them for a huge hit'], ['Weak until you detonate', 'Needs a follow-up shot']),
   magnus: note(2, ['Heavy rounds with big knockback', 'Up to +40% damage at long range', 'Charge: explosive round'], ['Two-round clip, slow reload']),
   rifle: note(3, ['Up to +60% damage at long range', 'Very fast, accurate round', 'Charge: piercing rail shot'], ['One round, long reload', 'Tiny bullet: hard to hit']),
-  frostgun: note(1, ['Every round chills; three freeze', 'Charge freezes on the spot'], ['Lower damage per round']),
+  frostgun: note(1, ['Two rounds freeze a knight in place', 'Switch to a sword to shatter the ice (+25%)'], ['Lower damage per round', 'A frozen knight can still swing and shoot']),
   embercaster: note(1, ['Fire waves are easy to land', 'Charge always burns everyone it passes'], ['Short range, low damage']),
   voltneedle: note(1, ['Fast shocking needles that arc between enemies'], ['Very light hits']),
   viper: note(2, ['Poison stops healing and weakens hits', 'Charge: a fan of venom bolts'], ['Poison is random on normal shots']),
@@ -372,7 +372,9 @@ export const STATUS = Object.freeze({
   burn: Object.freeze({ id: 'burn', name: 'Burning', ticks: 3 * TICKS, every: 30, damage: 4 }),
   poison: Object.freeze({ id: 'poison', name: 'Poisoned', ticks: 5 * TICKS, damageScale: .7, noHeal: true }),
   shock: Object.freeze({ id: 'shock', name: 'Shocked', ticks: 3 * TICKS, every: 48, stun: 14, damage: 2 }),
-  freeze: Object.freeze({ id: 'freeze', name: 'Frozen', ticks: 72, immuneTicks: 2 * TICKS }),
+  // Frozen: rooted in ice (no moving, dashing, shield or ability) but the arms still work: you can turn, swing
+  // and shoot. Bullets don't break the ice; a sword or bomb hit shatters it and lands `shatter` harder.
+  freeze: Object.freeze({ id: 'freeze', name: 'Frozen', ticks: 150, immuneTicks: 2 * TICKS, shatter: 1.25 }),
   chill: Object.freeze({ id: 'chill', name: 'Chilled', ticks: Math.round(2.5 * TICKS), slowPerStack: .14, freezeAt: 3 }),
   curse: Object.freeze({ id: 'curse', name: 'Cursed', ticks: Math.round(2.5 * TICKS) }),
 });

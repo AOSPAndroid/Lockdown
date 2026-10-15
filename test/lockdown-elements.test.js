@@ -29,10 +29,10 @@ function run(state, ticks, controls = () => ({})) {
 }
 const events = (state, type) => state.events.filter(event => event.type === type);
 
-test('chill stacks slow a knight and the third chilling hit freezes them solid', () => {
-  const { state, me, foe } = duel({ a: { weapons: ['frostgun', 'brand', 'blast'] }, gap: 160 });
+test('the frost gun freezes in two hits; bullets leave the ice whole, a sword hit shatters it', () => {
+  const { state, me, foe } = duel({ a: { weapons: ['frostgun', 'brand', 'blast'] }, gap: 160, b: { hp: 1e4, maxHp: 1e4 } });
   run(state, 30, t => ({ 0: { attack: t === 0 } }));
-  assert.equal(foe.status.chill > 0, true); assert.equal(foe.chillStacks, 1);
+  assert.equal(foe.status.chill > 0, true); assert.equal(foe.chillStacks, 2, 'a frost round chills twice over');
   // A chilled knight walks slower than a fresh one.
   const fresh = duel({ gap: 160 });
   const walk = s => { const p = s.players[4], x = p.x; run(s, 20, () => ({ 4: { up: true } })); return Math.abs(p.y - 600) + Math.abs(p.x - x); };
@@ -40,13 +40,32 @@ test('chill stacks slow a knight and the third chilling hit freezes them solid',
   assert.ok(walk(chilled.state) < walk(fresh.state) * .8, 'two chill stacks slow you down');
   me.fireCooldown = 0;
   run(state, 30, t => ({ 0: { attack: t === 0 } }));
-  assert.equal(foe.chillStacks, 2);
-  run(state, 30, t => ({ 0: { attack: t === 0 } }));
-  assert.ok(foe.status.freeze > 0, 'third chill freezes'); assert.equal(foe.chillStacks, 0); assert.equal(foe.status.chill, 0);
-  // The next hit shatters the freeze and leaves a short immunity, so chill cannot chain-freeze.
+  assert.ok(foe.status.freeze > 0, 'the second frost round freezes'); assert.equal(foe.chillStacks, 0); assert.equal(foe.status.chill, 0);
+  // More bullets don't break the ice.
   me.clips.frostgun = WEAPONS.frostgun.clip;
-  run(state, 30, t => ({ 0: { attack: t === 0 } }));
+  run(state, 20, t => ({ 0: { attack: t === 0 } }));
+  assert.ok(foe.status.freeze > 0, 'still frozen after another bullet');
+  // A sword cut shatters it: extra damage, a SHATTER, and a short immunity so it cannot chain-freeze.
+  Object.assign(foe, { x: me.x + 50, y: me.y, stunTicks: 0 });
+  me.slot = 1; me.actionTicks = 0; me.action = 'idle';
+  const before = foe.hp;
+  run(state, 40, t => ({ 0: { attack: t === 0, aim: 0 } }));
   assert.equal(foe.status.freeze, 0); assert.ok(foe.freezeImmune > 0);
+  assert.equal(events(state, 'shatter').length, 1, 'shattered');
+  assert.ok(before - foe.hp > 0);
+});
+
+test('frozen knights cannot move, dash or shield, but can still turn and swing', () => {
+  const { state, foe } = duel({ gap: 300, b: { cls: 'guardian', weapons: ['brand', null, null, null], slot: 0 } });
+  foe.status.freeze = 120;
+  const x0 = foe.x, y0 = foe.y;
+  run(state, 30, t => ({ 4: { left: true, up: true, dash: t === 0, ability: true, aim: 1 } }));
+  assert.equal(foe.x, x0); assert.equal(foe.y, y0); assert.equal(foe.guarding, false);
+  assert.ok(Math.abs(foe.aim - 1) < 1e-6, 'turns in the ice');
+  run(state, 1, () => ({ 4: { attack: true, aim: 1 } }));
+  assert.equal(foe.action, 'swing', 'and swings');
+  run(state, 30, () => ({ 4: { aim: 1 } }));
+  assert.equal(foe.x, x0, 'without stepping out of the ice');
 });
 
 test('Frostbite Edge freezes with its third cut', () => {

@@ -45,6 +45,8 @@ const LONG_GUNS = new Set(['rifle', 'magnus', 'grimcannon', 'scatter']);
 const DRAW_MS = 260, DRAW = Object.freeze({ away: .3, grab: .45 });
 /** Which projectile model each kind of round uses (models/projectiles/); charge rounds share their family's. */
 const PROJECTILE_MODEL = Object.freeze({ bullet: 'bullet', stream: 'bullet', split: 'bullet', pulse: 'pulse', bigPulse: 'pulse', bolt: 'bolt', pierce: 'bolt', beam: 'bolt', ricochet: 'ricochet', catalyst: 'catalyst', detonator: 'catalyst', explosive: 'explosive', shard: 'shard', thorn: 'thorn', wave: 'wave' });
+/** The parts held still in the ice while a knight is frozen (the arms, chest and head still move). */
+const ICE_LOCKED = new Set(['hips', 'leg_L', 'leg_R', 'shin_L', 'shin_R', 'foot_L', 'foot_R']);
 /** A sword's ready guard: the blade up and forward, between cuts and for a moment after a combo. */
 const SWORD_GUARD = Object.freeze({ armZ: .95, elbow: .9, pitch: .5 });
 /** Holstered weapons ride a little smaller than in hand, so a full loadout doesn't swamp the knight. */
@@ -91,7 +93,7 @@ class ModelLibrary {
 const CALLOUTS = Object.freeze({
   counter: ['COUNTER', '#ffb347', 'target'], riposte: ['RIPOSTE', '#ffe680', 'target'], perfectDodge: ['PERFECT', '#9ff0ff', 'player'],
   clash: ['CLASH', '#ffffff', 'player'], steady: ['STEADY', '#c9d6ff', 'player'], interrupt: ['INTERRUPTED', '#ff8a7a', 'player'],
-  whiff: ['MISS', '#b8b8b8', 'player'], punish: ['PUNISH', '#ff7a4a', 'target'], clean: ['CLEAN', '#ffffff', 'target'], graze: ['GRAZE', '#9a9a9a', 'target'], combo: ['COMBO', '#ffd34a', 'target'], feinted: ['FEINT', '#c9a2ff', 'target'], multiBlast: ['BLAST', '#ff9a4a', 'player'], zoneBreak: ['ZONE CRACKED', '#ffb347', 'player'], critical: ['CRITICAL', '#ff5a5a', 'target'], parry: ['PARRY', '#9fd8ff', 'player'],
+  whiff: ['MISS', '#b8b8b8', 'player'], punish: ['PUNISH', '#ff7a4a', 'target'], clean: ['CLEAN', '#ffffff', 'target'], graze: ['GRAZE', '#9a9a9a', 'target'], combo: ['COMBO', '#ffd34a', 'target'], feinted: ['FEINT', '#c9a2ff', 'target'], multiBlast: ['BLAST', '#ff9a4a', 'player'], zoneBreak: ['ZONE CRACKED', '#ffb347', 'player'], shatter: ['SHATTER', '#bfeaff', 'target'], critical: ['CRITICAL', '#ff5a5a', 'target'], parry: ['PARRY', '#9fd8ff', 'player'],
   followUp: ['FOLLOW-UP', '#ffcf4a', 'target'], reel: ['REELING', '#ffe08a', 'target'], sweetSpot: ['TIP', '#ffe680', 'target'], ambush: ['AMBUSH', '#d29bff', 'target'],
   guardBreak: ['GUARD BREAK', '#ffffff', 'player'], evade: ['DODGE', '#ffffff', 'player'],
 });
@@ -1009,17 +1011,19 @@ export class Lockdown3DRenderer {
     const soleDrop = side2 => { const t = T[`leg_${side2}`][2], k = T[`shin_${side2}`][2], spread = T[`leg_${side2}`][0]; return Math.cos(spread) * (.215 * Math.cos(t) + .215 * Math.cos(t + k)) + .1; };
     const reach = Math.max(soleDrop('L'), soleDrop('R'));
     body.y += (reach - .53) + (dashing ? .05 : r * m * .035 * Math.abs(Math.sin(ph)));
-    // ---- apply, easing every joint toward its target (frozen knights and hit-stop hold the pose) ----
-    if (player.status?.freeze > 0 || player.hitStop > 0) return facing;
+    // ---- apply, easing every joint toward its target (hit-stop holds the pose; frozen knights keep their hips and
+    // legs locked in the ice while the arms still swing) ----
+    if (player.hitStop > 0) return facing;
+    const frozen = player.status?.freeze > 0;
     const k = 1 - Math.exp(-dt * (dashing ? 30 : 16)), pose = view.pose;
     for (const [name, target] of Object.entries(T)) {
-      const part = parts[name]; if (!part) continue;
+      const part = parts[name]; if (!part || frozen && ICE_LOCKED.has(name)) continue;
       const fast = snap && ['arm_R', 'forearm_R', 'hand_R', 'chest'].includes(name) ? 1 : k, now3 = pose[name] || (pose[name] = [0, 0, 0]);
       for (let i = 0; i < 3; i++) now3[i] = lerp(now3[i], target[i], fast);
       part.rotation.set(now3[0], now3[1], now3[2]);
     }
     const b = pose.body || (pose.body = { y: 0, x: 0, z: 0 });
-    for (const key of ['y', 'x', 'z']) b[key] = lerp(b[key], body[key], k);
+    if (!frozen) for (const key of ['y', 'x', 'z']) b[key] = lerp(b[key], body[key], k);
     view.body.position.y = b.y; view.body.rotation.x = b.x; view.body.rotation.z = b.z;
     while (view.ghosts?.length && now >= view.ghosts[0]) { view.ghosts.shift(); this.ghost(view, player, now); }
     // Gun barrels kick back when they fire.
@@ -1096,6 +1100,13 @@ export class Lockdown3DRenderer {
   updateKnight(view, player, map, now, viewer) {
     const x = player.x * U, z = player.y * U, ground = levelAt(map, player.x, player.y) * STOREY, parts = view.parts;
     view.group.position.set(x, ground, z);
+    // Frozen: a block of ice round the legs up to the waist (the arms stay free).
+    const frozen = player.status?.freeze > 0;
+    if (frozen && !view.ice) {
+      view.ice = new THREE.Mesh(new THREE.CylinderGeometry(KNIGHT * .26, KNIGHT * .32, KNIGHT * .5, 7), new THREE.MeshStandardMaterial({ color: '#cfefff', emissive: '#6fb8ff', emissiveIntensity: .35, roughness: .08, metalness: .1, transparent: true, opacity: .5, depthWrite: false }));
+      view.ice.position.y = KNIGHT * .25; view.group.add(view.ice);
+    }
+    if (view.ice) { view.ice.visible = frozen; if (frozen) view.ice.rotation.y = player.id * 1.3; }
     const weaponId = this.updateWeapons(view, player, now);
     const weapon = WEAPONS[weaponId], facing = this.animateKnight(view, player, weapon, now);
     const chargeLevel = player.charging && weapon ? Math.min(1, player.chargeTicks / Math.max(1, chargeTicksFor(player, weapon))) : 0;
@@ -1348,6 +1359,7 @@ export class Lockdown3DRenderer {
         const position = muzzle ? muzzle.getWorldPosition(new THREE.Vector3()) : at(event.x + Math.cos(event.angle) * 22, event.y + Math.sin(event.angle) * 22, KNIGHT * .45);
         this.burst(position, '#fff4c0', .45, 90, now, false, 'flash');
       }
+      else if (event.type === 'shatter') { this.burst(at(event.x, event.y, KNIGHT * .3), '#cfefff', 1.4, 380, now, true, 'spark'); this.ringEffect(at(event.x, event.y, .06), .9, '#bfeaff', 320, now); }
       else if (event.type === 'kill') this.burst(at(event.x, event.y, .5), '#ffffff', 1.6, 500, now, true);
       else if (event.type === 'capture') this.ringEffect(at(event.x, event.y, .05), RULES.pointRadius * U, TEAM_COLORS[event.team]?.main || '#ffffff', 900, now);
       else if (event.type === 'heal' || event.type === 'dome') this.ringEffect(at(event.x, event.y, .05), (event.radius || 60) * U, '#7dff9a', 500, now);

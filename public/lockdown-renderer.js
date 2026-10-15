@@ -30,7 +30,7 @@ const STATUS_COLORS = Object.freeze({ burn: '#ff8a3d', poison: '#7bd65a', shock:
 const CALLOUTS = Object.freeze({
   counter: ['COUNTER', '#ffb347', 'target'], riposte: ['RIPOSTE', '#ffe680', 'target'], perfectDodge: ['PERFECT', '#9ff0ff', 'player'],
   clash: ['CLASH', '#ffffff', 'player'], steady: ['STEADY', '#c9d6ff', 'player'], interrupt: ['INTERRUPTED', '#ff8a7a', 'player'],
-  whiff: ['MISS', '#b8b8b8', 'player'], clean: ['CLEAN', '#ffffff', 'target'], graze: ['GRAZE', '#9a9a9a', 'target'], combo: ['COMBO', '#ffd34a', 'target'], feinted: ['FEINT', '#c9a2ff', 'target'], multiBlast: ['BLAST', '#ff9a4a', 'player'], zoneBreak: ['ZONE CRACKED', '#ffb347', 'player'], sweetSpot: ['TIP', '#ffe680', 'target'], ambush: ['AMBUSH', '#d29bff', 'target'],
+  whiff: ['MISS', '#b8b8b8', 'player'], clean: ['CLEAN', '#ffffff', 'target'], graze: ['GRAZE', '#9a9a9a', 'target'], combo: ['COMBO', '#ffd34a', 'target'], feinted: ['FEINT', '#c9a2ff', 'target'], multiBlast: ['BLAST', '#ff9a4a', 'player'], zoneBreak: ['ZONE CRACKED', '#ffb347', 'player'], shatter: ['SHATTER', '#bfeaff', 'target'], sweetSpot: ['TIP', '#ffe680', 'target'], ambush: ['AMBUSH', '#d29bff', 'target'],
 });
 /** A weapon's element colour (glow on the blade or muzzle, tint on its shots). */
 const FLAT_EFFECTS = new Set(['slash', 'spinTurn', 'slam', 'dust', 'vortexOpen', 'explosion', 'heal', 'capture', 'pop', 'kill']);

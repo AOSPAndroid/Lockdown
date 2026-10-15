@@ -443,7 +443,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Frostbite Edge `frostbite`
 
 - **Does:** Every cut chills: three chills freeze a knight solid. Charge: lunge into a freezing burst.
-- **Stats:** Frost sword · element: chill · balanced cut, 3-cut combo: overhand strike → rising cut → thrust (14 / 15 / 42 damage) · aim hard · difficulty ★★ · good: Every cut chills; the third freezes; Charge ends in a freezing burst · bad: Slightly weaker cuts; Freeze breaks on the next hit
+- **Stats:** Frost sword · element: chill · balanced cut, 3-cut combo: overhand strike → rising cut → thrust (14 / 15 / 42 damage) · aim hard · difficulty ★★ · good: Every cut chills; the third freezes; Charge ends in a freezing burst · bad: Slightly weaker cuts; A frozen knight can still swing back
 - **Looks:** A blade of blue ice with frost crystals on the edge, a silver guard rimed with frost and a pale blue glowing core.
 - **Size:** ≈ 0.75 from grip to tip (just over half the knight's height), blade ≈ 0.12 wide, guard ≈ 0.24 across
 - **Make:** `models/weapons/frostbite.glb`, icon `icon_weapon_frostbite.png`
@@ -636,8 +636,8 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 
 ### Winter Repeater `frostgun`
 
-- **Does:** Every round chills; three chills freeze. Charge: a piercing bolt that freezes on the spot.
-- **Stats:** Frost blaster · element: chill · 3-round clip, 6 damage · aim medium · difficulty ★ · good: Every round chills; three freeze; Charge freezes on the spot · bad: Lower damage per round
+- **Does:** Every round chills twice over: two rounds freeze a knight in place (they can still swing). A sword or bomb hit shatters the ice for extra damage. Charge: a piercing bolt that freezes on the spot.
+- **Stats:** Frost blaster · element: chill · 3-round clip, 6 damage · aim medium · difficulty ★ · good: Two rounds freeze a knight in place; Switch to a sword to shatter the ice (+25%) · bad: Lower damage per round; A frozen knight can still swing and shoot
 - **Looks:** A winter repeater: a white-and-blue pistol with an ice crystal chamber, frost on the barrel and a snowflake emblem.
 - **Size:** ≈ 0.5 from grip to muzzle, a fat body ≈ 0.25 tall
 - **Make:** `models/weapons/frostgun.glb`, icon `icon_weapon_frostgun.png`
@@ -718,7 +718,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 
 ### Frost Haze `frost`
 
-- **Does:** Leaves a cloud that freezes enemies solid.
+- **Does:** Leaves a cloud that freezes enemies in place: they can still swing, but not move.
 - **Stats:** Haze bomb · element: freeze · freeze cloud · difficulty ★ · good: Cloud freezes enemies solid · bad: No direct damage; Frozen knights break free when hit
 - **Looks:** A round glass bomb full of swirling blue frost with a silver cap and snowflake etching.
 - **Size:** held ≈ 0.28 across; planted ≈ 0.4 tall

@@ -486,12 +486,12 @@ function heal(player, amount) {
   const gained = Math.min(amount, player.maxHp - player.hp); player.hp += gained; return gained;
 }
 /** Apply a status unless the shield is up; freeze leaves a short immunity behind. */
-function applyStatus(state, target, id, ownerId, chance = 1) {
+function applyStatus(state, target, id, ownerId, chance = 1, stacks = 1) {
   if (!id || !target.alive || guardUp(target) || inAlliedBubble(state, target) || random(state) >= chance) return false;
   if (id === 'freeze' && target.freezeImmune > 0) return false;
   if (id === 'chill') {
     // Chill stacks: each chilling hit slows a little more, and the last stack freezes solid.
-    target.chillStacks = Math.min(STATUS.chill.freezeAt, (target.chillStacks || 0) + 1);
+    target.chillStacks = Math.min(STATUS.chill.freezeAt, (target.chillStacks || 0) + stacks);
     if (target.chillStacks >= STATUS.chill.freezeAt && !(target.freezeImmune > 0)) {
       target.chillStacks = 0; target.status.chill = 0;
       return applyStatus(state, target, 'freeze', ownerId);
@@ -499,7 +499,7 @@ function applyStatus(state, target, id, ownerId, chance = 1) {
     target.chillStacks = Math.min(target.chillStacks, STATUS.chill.freezeAt - 1);
   }
   target.status[id] = Math.max(1, Math.round(STATUS[id].ticks * outfitOf(target).statusDuration)); target.statusOwner[id] = ownerId;
-  if (id === 'freeze') { target.charging = false; target.chargeTicks = 0; target.guarding = false; target.action = 'idle'; target.actionTicks = 0; }
+  if (id === 'freeze') { target.guarding = false; target.dodgeTicks = 0; } // rooted, but a swing or charge carries on
   emit(state, 'status', { playerId: target.id, status: id, x: target.x, y: target.y });
   return true;
 }
@@ -521,7 +521,7 @@ function knockOut(state, attacker, target) {
   emit(state, 'kill', { playerId: attacker?.id ?? null, targetId: target.id, x: target.x, y: target.y, respawnTicks: target.respawnTicks });
 }
 /** Every hit goes through here: spawn protection, domes, shields, poison, marks, statuses, knockback. */
-function damage(state, attacker, target, amount, { push = 0, angle = 0, stun = 10, kind = 'hit', damageFamily = null, source = null, status = null, chance = 1, hitStop = 0, weapon = null, reel = false } = {}) {
+function damage(state, attacker, target, amount, { push = 0, angle = 0, stun = 10, kind = 'hit', damageFamily = null, source = null, status = null, chance = 1, stacks = 1, hitStop = 0, weapon = null, reel = false } = {}) {
   if (!target.alive || target.team === attacker?.team || target.shieldTicks > 0) return false;
   if (inBase(state, target) || attacker && inBase(state, attacker)) return false; // nobody fights across a base barrier
   // A Striker mid-dodge is untouchable.
@@ -591,12 +591,15 @@ function damage(state, attacker, target, amount, { push = 0, angle = 0, stun = 1
     target.stagger += stun;
     if (target.stagger >= FIGHT.stagger.limit) { target.stagger = 0; target.steadyTicks = stun + FIGHT.stagger.steadyTicks; emit(state, 'steady', { playerId: target.id, x: target.x, y: target.y }); }
   }
+  // Shatter: a sword or bomb hit breaks a frozen knight's ice and lands harder; bullets leave the ice whole.
+  const shatters = target.status.freeze > 0 && (damageFamily === 'blade' || damageFamily === 'bomb');
+  if (shatters) total *= STATUS.freeze.shatter;
   target.hp -= total; target.stunTicks = Math.max(target.stunTicks, stun);
   if (reel && !unflinching && target.hp > 0) { target.reelTicks = FIGHT.reel.ticks; target.reelWeapon = weapon; target.reelShot = false; emit(state, 'reel', { playerId: attacker?.id ?? null, targetId: target.id, x: target.x, y: target.y }); }
   if (stun > 0) interrupt(state, target, 'hit');
   const shove = push * outfitOf(target).knockback;
   target.pushX = Math.cos(angle) * shove; target.pushY = Math.sin(angle) * shove; target.lastHurtTick = state.tick;
-  if (target.status.freeze > 0) { target.status.freeze = 0; target.freezeImmune = STATUS.freeze.immuneTicks; emit(state, 'thaw', { playerId: target.id }); }
+  if (shatters) { target.status.freeze = 0; target.freezeImmune = STATUS.freeze.immuneTicks; emit(state, 'shatter', { playerId: attacker?.id ?? null, targetId: target.id, x: target.x, y: target.y }); emit(state, 'thaw', { playerId: target.id }); }
   if (target.cloakTicks > 0) { target.cloakTicks = 0; emit(state, 'uncloak', { playerId: target.id }); }
   if (target.charging && currentWeapon(target).family !== 'bomb') { target.charging = false; target.chargeTicks = 0; } // a bomb charge holds
   if (hitStop) { target.hitStop = Math.max(target.hitStop, hitStop); if (attacker) attacker.hitStop = Math.max(attacker.hitStop, hitStop); }
@@ -604,7 +607,7 @@ function damage(state, attacker, target, amount, { push = 0, angle = 0, stun = 1
   emit(state, 'damage', { playerId: attacker?.id ?? null, targetId: target.id, amount: total, kind, x: target.x, y: target.y, hp: Math.max(0, target.hp) });
   weaponSpecials(state, attacker, target, total, WEAPONS[weapon], damageFamily);
   if (target.hp <= 0) { knockOut(state, attacker, target); return true; }
-  if (status) applyStatus(state, target, status, attacker?.id ?? null, chance);
+  if (status) applyStatus(state, target, status, attacker?.id ?? null, chance, stacks);
   return true;
 }
 /** What a weapon does on top of its damage: draining swords heal the wielder, shock weapons
@@ -768,7 +771,7 @@ function spawnShot(state, player, weapon, spec, angle) {
     x: player.x + Math.cos(angle) * (RULES.radius + 4), y: player.y + Math.sin(angle) * (RULES.radius + 4), z: levelAt(MAPS[state.mapId], player.x, player.y),
     vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed, size, grow: (spec.grow || 0) / Math.max(1, Math.ceil(spec.range / speed * TICK_RATE)),
     damage: spec.damage * power, push: spec.push ?? 0, ttl: Math.ceil(spec.range / speed * TICK_RATE), pierce: !!spec.pierce, bounces: spec.bounces || 0,
-    status: spec.status || null, chance: spec.chance ?? 1, radius: spec.radius || 0, carry: spec.kind === 'wave', hitIds: [],
+    status: spec.status || null, chance: spec.chance ?? 1, stacks: spec.stacks || 1, radius: spec.radius || 0, carry: spec.kind === 'wave', hitIds: [],
     longShot: spec.longShot || (spec === weapon ? weapon.longShot : null) || null, ox: player.x, oy: player.y, range: spec.range,
     perCharge: (spec.perCharge || 0) * power, pushPerCharge: spec.pushPerCharge || 0,
   });
@@ -849,7 +852,7 @@ function tickAction(state, player, weapon) {
   const map = MAPS[state.mapId], elapsed = player.actionTotal - player.actionTicks;
   if (player.action === 'swing') {
     const move = weapon.combo[player.comboStep], startup = player.swingStartup, active = player.swingActive;
-    if (elapsed < startup) moveBody(map, player, Math.cos(player.swingAim) * move.lunge / startup, Math.sin(player.swingAim) * move.lunge / startup);
+    if (elapsed < startup && !(player.status.freeze > 0)) moveBody(map, player, Math.cos(player.swingAim) * move.lunge / startup, Math.sin(player.swingAim) * move.lunge / startup); // no step forward out of the ice
     else if (elapsed < startup + active) {
       // The blade sweeps from one side of the arc to the other across the active ticks. A flurry sweeps across
       // and straight back, each stroke able to hit the same knight once.
@@ -1064,8 +1067,8 @@ function tickPlayer(state, player, input) {
     player.previousInput = input; return;
   }
   const frozen = player.status.freeze > 0;
-  // Committed swings and lunges keep their direction; otherwise you face the pointer.
-  if (!frozen) player.aim = wrapAngle(finite(input.aim, player.aim));
+  // Committed swings and lunges keep their direction; otherwise you face the pointer (frozen too: you turn in the ice).
+  player.aim = wrapAngle(finite(input.aim, player.aim));
   player.shieldTicks = Math.max(0, player.shieldTicks - 1);
   if (state.phase !== 'fight') { player.previousInput = input; return; }
   tickStatus(state, player);
@@ -1092,6 +1095,8 @@ function tickPlayer(state, player, input) {
   if (player.stunTicks > 0 || frozen) { player.dashTicks = 0; player.boosting = false; }
   if (player.stunTicks > 0) { player.stunTicks--; player.guarding = false; tickGuard(state, player, emptyInput()); }
   else if (!frozen) { tickGuard(state, player, input); tickDash(state, player, input, previous); tickAbilities(state, player, input, previous); tickWeapon(state, player, input, previous); }
+  // Frozen: rooted (no shield, dash or ability) but the arms still work.
+  else { tickGuard(state, player, emptyInput()); tickWeapon(state, player, input, previous); }
   if (player.shieldTicks > 0 && (input.attack && !previous.attack)) player.shieldTicks = 0;
   if (player.catalystTicks > 0 && --player.catalystTicks === 0) player.catalysts = 0;
   if (player.held > 0) player.held--;
@@ -1172,7 +1177,7 @@ function tickProjectiles(state) {
           else if (off > 1) { aimed = AIM.shot.graze; emit(state, 'graze', { playerId: shot.ownerId, targetId: target.id, x: target.x, y: target.y, shot: true }); }
           else aimed = AIM.shot.offCentre;
         }
-        const landed = damage(state, owner, target, shot.damage * long * aimed, { push: shot.push, angle: Math.atan2(shot.vy, shot.vx), stun: shotStun(shot), kind: shot.kind, damageFamily, source: shot, status: shot.status, chance: shot.chance, weapon: shot.weapon });
+        const landed = damage(state, owner, target, shot.damage * long * aimed, { push: shot.push, angle: Math.atan2(shot.vy, shot.vx), stun: shotStun(shot), kind: shot.kind, damageFamily, source: shot, status: shot.status, chance: shot.chance, stacks: shot.stacks, weapon: shot.weapon });
         if (landed && shot.kind === 'catalyst') { target.catalysts = Math.min(3, (target.catalysts || 0) + 1); target.catalystTicks = 6 * TICK_RATE; emit(state, 'catalyst', { playerId: target.id, count: target.catalysts }); }
         if (shot.kind === 'detonator' && target.alive && target.catalysts > 0) {
           const count = target.catalysts; target.catalysts = 0;
