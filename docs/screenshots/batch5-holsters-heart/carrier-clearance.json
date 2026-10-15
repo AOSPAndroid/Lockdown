@@ -1,0 +1,8246 @@
+{
+  "samples": 411,
+  "pairsChecked": 91464,
+  "intersections": [
+    {
+      "sequence": "idle-brand",
+      "time": 2688,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "idle-brand",
+      "time": 2688,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "idle-brand",
+      "time": 2720,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "idle-brand",
+      "time": 2720,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "idle-katana",
+      "time": 3168,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "idle-katana",
+      "time": 3168,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "idle-katana",
+      "time": 3200,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "idle-katana",
+      "time": 3200,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "idle-blaster",
+      "time": 3664,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "idle-blaster",
+      "time": 3664,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "idle-blaster",
+      "time": 3696,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "idle-blaster",
+      "time": 3696,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "idle-blast",
+      "time": 4144,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "idle-blast",
+      "time": 4144,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "idle-blast",
+      "time": 4176,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "idle-blast",
+      "time": 4176,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5088,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5088,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5104,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5104,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5120,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5120,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5120,
+      "carrier": "blaster",
+      "mesh": "shell",
+      "bodyPart": "core:hand_R",
+      "triangles": 8,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5136,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5136,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5136,
+      "carrier": "blaster",
+      "mesh": "shell",
+      "bodyPart": "core:hand_R",
+      "triangles": 6,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5152,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 5152,
+        "phase": 0
+      }
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5152,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 5152,
+        "phase": 0
+      }
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5168,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 5152,
+        "phase": 0.06153846153846154
+      }
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5168,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 5152,
+        "phase": 0.06153846153846154
+      }
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5184,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 5152,
+        "phase": 0.12307692307692308
+      }
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5184,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 5152,
+        "phase": 0.12307692307692308
+      }
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5216,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 5152,
+        "phase": 0.24615384615384617
+      }
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5216,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 5152,
+        "phase": 0.24615384615384617
+      }
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5232,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 5152,
+        "phase": 0.3076923076923077
+      }
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5232,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 5152,
+        "phase": 0.3076923076923077
+      }
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5248,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 5152,
+        "phase": 0.36923076923076925
+      }
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5248,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "pants/cobalt:hips",
+      "triangles": 4,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 5152,
+        "phase": 0.36923076923076925
+      }
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5248,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 5152,
+        "phase": 0.36923076923076925
+      }
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5280,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 5152,
+        "phase": 0.49230769230769234
+      }
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5280,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "pants/cobalt:hips",
+      "triangles": 4,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 5152,
+        "phase": 0.49230769230769234
+      }
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5280,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 5152,
+        "phase": 0.49230769230769234
+      }
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5296,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 5152,
+        "phase": 0.5538461538461539
+      }
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5296,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 5152,
+        "phase": 0.5538461538461539
+      }
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5312,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 5152,
+        "phase": 0.6153846153846154
+      }
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5312,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 5152,
+        "phase": 0.6153846153846154
+      }
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5328,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 5152,
+        "phase": 0.676923076923077
+      }
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5328,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 5152,
+        "phase": 0.676923076923077
+      }
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5344,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 5152,
+        "phase": 0.7384615384615385
+      }
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5344,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 5152,
+        "phase": 0.7384615384615385
+      }
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5360,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 5152,
+        "phase": 0.8
+      }
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5360,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 5152,
+        "phase": 0.8
+      }
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5376,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 5152,
+        "phase": 0.8615384615384616
+      }
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5376,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 5152,
+        "phase": 0.8615384615384616
+      }
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5392,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 5152,
+        "phase": 0.9230769230769231
+      }
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5392,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 5152,
+        "phase": 0.9230769230769231
+      }
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5408,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 5152,
+        "phase": 0.9846153846153847
+      }
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5408,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 5152,
+        "phase": 0.9846153846153847
+      }
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5424,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5424,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5440,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5440,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5456,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5456,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5472,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5472,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5488,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5488,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5504,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5504,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5520,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5520,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5536,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5536,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5552,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5552,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5568,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5568,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5584,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5584,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5600,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5600,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5616,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5616,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5632,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5632,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5648,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5648,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5664,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5664,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5680,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5680,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5696,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5696,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5712,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "walking-swaps",
+      "time": 5712,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 6864,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 6864,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 6880,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 6880,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 6896,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 6896,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 6912,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 6912,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 6928,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 6928,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 6944,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 6944,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 6960,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 6960,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 6976,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 6976,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 6992,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 6992,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7008,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7008,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7024,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7024,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7040,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7040,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7056,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7056,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7072,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7072,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7088,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7088,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7104,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7104,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7120,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7120,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7136,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7136,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7152,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7152,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7168,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7168,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7184,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7184,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7200,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7200,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7216,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 7216,
+        "phase": 0
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7216,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 7216,
+        "phase": 0
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7232,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 7216,
+        "phase": 0.06153846153846154
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7232,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 7216,
+        "phase": 0.06153846153846154
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7248,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 7216,
+        "phase": 0.12307692307692308
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7248,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 7216,
+        "phase": 0.12307692307692308
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7280,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 7216,
+        "phase": 0.24615384615384617
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7280,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 7216,
+        "phase": 0.24615384615384617
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7296,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 7216,
+        "phase": 0.3076923076923077
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7296,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 7216,
+        "phase": 0.3076923076923077
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7312,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 7216,
+        "phase": 0.36923076923076925
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7312,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 7216,
+        "phase": 0.36923076923076925
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7344,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 7216,
+        "phase": 0.49230769230769234
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7344,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 7216,
+        "phase": 0.49230769230769234
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7360,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 7216,
+        "phase": 0.5538461538461539
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7360,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 7216,
+        "phase": 0.5538461538461539
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7376,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 7216,
+        "phase": 0.6153846153846154
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7376,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 7216,
+        "phase": 0.6153846153846154
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7392,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 7216,
+        "phase": 0.676923076923077
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7392,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 7216,
+        "phase": 0.676923076923077
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7408,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 7216,
+        "phase": 0.7384615384615385
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7408,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 7216,
+        "phase": 0.7384615384615385
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7424,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 7216,
+        "phase": 0.8
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7424,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 7216,
+        "phase": 0.8
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7440,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 7216,
+        "phase": 0.8615384615384616
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7440,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 7216,
+        "phase": 0.8615384615384616
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7456,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 7216,
+        "phase": 0.9230769230769231
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7456,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 7216,
+        "phase": 0.9230769230769231
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7472,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 7216,
+        "phase": 0.9846153846153847
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7472,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "brand",
+        "to": "katana",
+        "start": 7216,
+        "phase": 0.9846153846153847
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7488,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7488,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7504,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7504,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7520,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7520,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7536,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7536,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7552,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "katana",
+        "to": "blaster",
+        "start": 7552,
+        "phase": 0
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7552,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "katana",
+        "to": "blaster",
+        "start": 7552,
+        "phase": 0
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7568,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "katana",
+        "to": "blaster",
+        "start": 7552,
+        "phase": 0.06153846153846154
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7568,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "katana",
+        "to": "blaster",
+        "start": 7552,
+        "phase": 0.06153846153846154
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7584,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "katana",
+        "to": "blaster",
+        "start": 7552,
+        "phase": 0.12307692307692308
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7584,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "katana",
+        "to": "blaster",
+        "start": 7552,
+        "phase": 0.12307692307692308
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7616,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "katana",
+        "to": "blaster",
+        "start": 7552,
+        "phase": 0.24615384615384617
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7616,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "katana",
+        "to": "blaster",
+        "start": 7552,
+        "phase": 0.24615384615384617
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7632,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "katana",
+        "to": "blaster",
+        "start": 7552,
+        "phase": 0.3076923076923077
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7632,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "katana",
+        "to": "blaster",
+        "start": 7552,
+        "phase": 0.3076923076923077
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7648,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "katana",
+        "to": "blaster",
+        "start": 7552,
+        "phase": 0.36923076923076925
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7648,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "katana",
+        "to": "blaster",
+        "start": 7552,
+        "phase": 0.36923076923076925
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7680,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "katana",
+        "to": "blaster",
+        "start": 7552,
+        "phase": 0.49230769230769234
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7680,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "katana",
+        "to": "blaster",
+        "start": 7552,
+        "phase": 0.49230769230769234
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7696,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "katana",
+        "to": "blaster",
+        "start": 7552,
+        "phase": 0.5538461538461539
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7696,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "katana",
+        "to": "blaster",
+        "start": 7552,
+        "phase": 0.5538461538461539
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7712,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "katana",
+        "to": "blaster",
+        "start": 7552,
+        "phase": 0.6153846153846154
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7712,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "katana",
+        "to": "blaster",
+        "start": 7552,
+        "phase": 0.6153846153846154
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7728,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "katana",
+        "to": "blaster",
+        "start": 7552,
+        "phase": 0.676923076923077
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7728,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "katana",
+        "to": "blaster",
+        "start": 7552,
+        "phase": 0.676923076923077
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7744,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "katana",
+        "to": "blaster",
+        "start": 7552,
+        "phase": 0.7384615384615385
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7744,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "katana",
+        "to": "blaster",
+        "start": 7552,
+        "phase": 0.7384615384615385
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7760,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "katana",
+        "to": "blaster",
+        "start": 7552,
+        "phase": 0.8
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7760,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "katana",
+        "to": "blaster",
+        "start": 7552,
+        "phase": 0.8
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7776,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "katana",
+        "to": "blaster",
+        "start": 7552,
+        "phase": 0.8615384615384616
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7776,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "katana",
+        "to": "blaster",
+        "start": 7552,
+        "phase": 0.8615384615384616
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7792,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "katana",
+        "to": "blaster",
+        "start": 7552,
+        "phase": 0.9230769230769231
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7792,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "katana",
+        "to": "blaster",
+        "start": 7552,
+        "phase": 0.9230769230769231
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7808,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "katana",
+        "to": "blaster",
+        "start": 7552,
+        "phase": 0.9846153846153847
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7808,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "katana",
+        "to": "blaster",
+        "start": 7552,
+        "phase": 0.9846153846153847
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7824,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7824,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7840,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7840,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7856,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7856,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7872,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7872,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7888,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "blaster",
+        "to": "blast",
+        "start": 7888,
+        "phase": 0
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7888,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "blaster",
+        "to": "blast",
+        "start": 7888,
+        "phase": 0
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7904,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "blaster",
+        "to": "blast",
+        "start": 7888,
+        "phase": 0.06153846153846154
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7904,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "blaster",
+        "to": "blast",
+        "start": 7888,
+        "phase": 0.06153846153846154
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7920,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "blaster",
+        "to": "blast",
+        "start": 7888,
+        "phase": 0.12307692307692308
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7920,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "blaster",
+        "to": "blast",
+        "start": 7888,
+        "phase": 0.12307692307692308
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7952,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "blaster",
+        "to": "blast",
+        "start": 7888,
+        "phase": 0.24615384615384617
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7952,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "blaster",
+        "to": "blast",
+        "start": 7888,
+        "phase": 0.24615384615384617
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7968,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "blaster",
+        "to": "blast",
+        "start": 7888,
+        "phase": 0.3076923076923077
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7968,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "blaster",
+        "to": "blast",
+        "start": 7888,
+        "phase": 0.3076923076923077
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7984,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "blaster",
+        "to": "blast",
+        "start": 7888,
+        "phase": 0.36923076923076925
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 7984,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "blaster",
+        "to": "blast",
+        "start": 7888,
+        "phase": 0.36923076923076925
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8016,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "blaster",
+        "to": "blast",
+        "start": 7888,
+        "phase": 0.49230769230769234
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8016,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "blaster",
+        "to": "blast",
+        "start": 7888,
+        "phase": 0.49230769230769234
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8032,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "blaster",
+        "to": "blast",
+        "start": 7888,
+        "phase": 0.5538461538461539
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8032,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "blaster",
+        "to": "blast",
+        "start": 7888,
+        "phase": 0.5538461538461539
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8048,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "blaster",
+        "to": "blast",
+        "start": 7888,
+        "phase": 0.6153846153846154
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8048,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "blaster",
+        "to": "blast",
+        "start": 7888,
+        "phase": 0.6153846153846154
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8064,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "blaster",
+        "to": "blast",
+        "start": 7888,
+        "phase": 0.676923076923077
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8064,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "blaster",
+        "to": "blast",
+        "start": 7888,
+        "phase": 0.676923076923077
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8080,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "blaster",
+        "to": "blast",
+        "start": 7888,
+        "phase": 0.7384615384615385
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8080,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "blaster",
+        "to": "blast",
+        "start": 7888,
+        "phase": 0.7384615384615385
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8096,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "blaster",
+        "to": "blast",
+        "start": 7888,
+        "phase": 0.8
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8096,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "blaster",
+        "to": "blast",
+        "start": 7888,
+        "phase": 0.8
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8112,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "blaster",
+        "to": "blast",
+        "start": 7888,
+        "phase": 0.8615384615384616
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8112,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "blaster",
+        "to": "blast",
+        "start": 7888,
+        "phase": 0.8615384615384616
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8128,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "blaster",
+        "to": "blast",
+        "start": 7888,
+        "phase": 0.9230769230769231
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8128,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "blaster",
+        "to": "blast",
+        "start": 7888,
+        "phase": 0.9230769230769231
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8144,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "blaster",
+        "to": "blast",
+        "start": 7888,
+        "phase": 0.9846153846153847
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8144,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "blaster",
+        "to": "blast",
+        "start": 7888,
+        "phase": 0.9846153846153847
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8160,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8160,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8176,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8176,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8192,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8192,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8208,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8208,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8224,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8224,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8240,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "blast",
+        "to": "brand",
+        "start": 8240,
+        "phase": 0
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8240,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "blast",
+        "to": "brand",
+        "start": 8240,
+        "phase": 0
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8256,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "blast",
+        "to": "brand",
+        "start": 8240,
+        "phase": 0.06153846153846154
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8256,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "blast",
+        "to": "brand",
+        "start": 8240,
+        "phase": 0.06153846153846154
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8272,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "blast",
+        "to": "brand",
+        "start": 8240,
+        "phase": 0.12307692307692308
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8272,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "blast",
+        "to": "brand",
+        "start": 8240,
+        "phase": 0.12307692307692308
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8304,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "blast",
+        "to": "brand",
+        "start": 8240,
+        "phase": 0.24615384615384617
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8304,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "blast",
+        "to": "brand",
+        "start": 8240,
+        "phase": 0.24615384615384617
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8320,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "blast",
+        "to": "brand",
+        "start": 8240,
+        "phase": 0.3076923076923077
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8320,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "pants/cobalt:hips",
+      "triangles": 4,
+      "draw": {
+        "from": "blast",
+        "to": "brand",
+        "start": 8240,
+        "phase": 0.3076923076923077
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8320,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "blast",
+        "to": "brand",
+        "start": 8240,
+        "phase": 0.3076923076923077
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8336,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "blast",
+        "to": "brand",
+        "start": 8240,
+        "phase": 0.36923076923076925
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8336,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "pants/cobalt:hips",
+      "triangles": 4,
+      "draw": {
+        "from": "blast",
+        "to": "brand",
+        "start": 8240,
+        "phase": 0.36923076923076925
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8336,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "blast",
+        "to": "brand",
+        "start": 8240,
+        "phase": 0.36923076923076925
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8368,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "blast",
+        "to": "brand",
+        "start": 8240,
+        "phase": 0.49230769230769234
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8368,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "pants/cobalt:hips",
+      "triangles": 4,
+      "draw": {
+        "from": "blast",
+        "to": "brand",
+        "start": 8240,
+        "phase": 0.49230769230769234
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8368,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "blast",
+        "to": "brand",
+        "start": 8240,
+        "phase": 0.49230769230769234
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8384,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "blast",
+        "to": "brand",
+        "start": 8240,
+        "phase": 0.5538461538461539
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8384,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "blast",
+        "to": "brand",
+        "start": 8240,
+        "phase": 0.5538461538461539
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8400,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "blast",
+        "to": "brand",
+        "start": 8240,
+        "phase": 0.6153846153846154
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8400,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "blast",
+        "to": "brand",
+        "start": 8240,
+        "phase": 0.6153846153846154
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8416,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "blast",
+        "to": "brand",
+        "start": 8240,
+        "phase": 0.676923076923077
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8416,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "blast",
+        "to": "brand",
+        "start": 8240,
+        "phase": 0.676923076923077
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8432,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "blast",
+        "to": "brand",
+        "start": 8240,
+        "phase": 0.7384615384615385
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8432,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "blast",
+        "to": "brand",
+        "start": 8240,
+        "phase": 0.7384615384615385
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8448,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "blast",
+        "to": "brand",
+        "start": 8240,
+        "phase": 0.8
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8448,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "blast",
+        "to": "brand",
+        "start": 8240,
+        "phase": 0.8
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8464,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "blast",
+        "to": "brand",
+        "start": 8240,
+        "phase": 0.8615384615384616
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8464,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "blast",
+        "to": "brand",
+        "start": 8240,
+        "phase": 0.8615384615384616
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8480,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "blast",
+        "to": "brand",
+        "start": 8240,
+        "phase": 0.9230769230769231
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8480,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "blast",
+        "to": "brand",
+        "start": 8240,
+        "phase": 0.9230769230769231
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8496,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": {
+        "from": "blast",
+        "to": "brand",
+        "start": 8240,
+        "phase": 0.9846153846153847
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8496,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": {
+        "from": "blast",
+        "to": "brand",
+        "start": 8240,
+        "phase": 0.9846153846153847
+      }
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8512,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8512,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8528,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8528,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8544,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8544,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8560,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8560,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8576,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8576,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8592,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8592,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8608,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8608,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8624,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8624,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8640,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8640,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8656,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8656,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8672,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8672,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8688,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8688,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8704,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8704,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8720,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8720,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8736,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8736,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8752,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8752,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8768,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8768,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8784,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8784,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8800,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "running-swaps",
+      "time": 8800,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23216,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23216,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23232,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23232,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23248,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23248,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23264,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23264,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23280,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23280,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23296,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23296,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23312,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23312,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23328,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23328,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23344,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23344,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23360,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23360,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23376,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23376,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23392,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23392,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23408,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23408,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23424,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23424,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23440,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23440,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23456,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23456,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23472,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23472,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23488,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23488,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23504,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23504,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23520,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23520,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23536,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23536,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23552,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23552,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23568,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23568,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23584,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23584,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23600,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23600,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23616,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23616,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23632,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23632,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23648,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23648,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23664,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23664,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23680,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23680,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23696,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23696,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23712,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23712,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23728,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23728,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23744,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23744,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23760,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23760,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23776,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23776,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23792,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23792,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23808,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23808,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23824,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23824,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23840,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23840,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23856,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23856,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23872,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23872,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23888,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23888,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23904,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23904,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23920,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23920,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23936,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23936,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23952,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23952,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23968,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23968,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23984,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 23984,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24000,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24000,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24016,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24016,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24032,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24032,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24048,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24048,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24064,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24064,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24080,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24080,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24096,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24096,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24112,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24112,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24128,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24128,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24144,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24144,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24160,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24160,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24176,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24176,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24192,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24192,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24208,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24208,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24224,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24224,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24240,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24240,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24256,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24256,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24272,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24272,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24288,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24288,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24304,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24304,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24320,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24320,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24336,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24336,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24352,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24352,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24368,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24368,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24384,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24384,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24400,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24400,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24416,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24416,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24432,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24432,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24448,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24448,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24464,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24464,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24480,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24480,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24496,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24496,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24512,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24512,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24528,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24528,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24544,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24544,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24560,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24560,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24576,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24576,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24592,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24592,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24608,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24608,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24624,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24624,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24640,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24640,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24656,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24656,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24672,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24672,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24688,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24688,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24704,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24704,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24720,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24720,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24736,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24736,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24752,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24752,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24768,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24768,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24784,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24784,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24800,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24800,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24816,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24816,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24832,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24832,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24848,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24848,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24864,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24864,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24880,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24880,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24896,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24896,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24912,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24912,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24928,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24928,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24944,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24944,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24960,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24960,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24976,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24976,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24992,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 24992,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25008,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25008,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25024,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25024,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25040,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25040,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25056,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25056,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25072,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25072,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25088,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25088,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25104,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25104,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25120,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25120,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25136,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25136,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25152,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25152,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25168,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25168,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25184,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25184,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25200,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25200,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25216,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25216,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25232,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25232,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25248,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25248,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25264,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25264,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25280,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25280,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25296,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25296,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25312,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25312,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25328,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25328,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25344,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25344,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25360,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25360,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25376,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25376,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25392,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25392,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25408,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25408,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25424,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25424,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25440,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25440,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25456,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25456,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25472,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25472,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25488,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25488,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25504,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25504,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25520,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25520,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25536,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25536,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25552,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25552,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25568,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25568,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25584,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25584,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25600,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25600,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25616,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25616,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25632,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25632,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25648,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25648,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25664,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25664,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25680,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25680,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25696,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25696,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25712,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25712,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25728,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25728,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25744,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25744,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25760,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25760,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25776,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25776,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25792,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25792,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25808,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25808,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25824,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25824,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25840,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25840,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25856,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25856,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25872,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25872,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25888,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25888,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25904,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25904,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25920,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25920,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25936,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25936,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25952,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25952,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25968,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25968,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25984,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 25984,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26000,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26000,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26016,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26016,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26032,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26032,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26048,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26048,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26064,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26064,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26080,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26080,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26096,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26096,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26112,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26112,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26128,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26128,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26144,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26144,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26160,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26160,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26176,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26176,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26192,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26192,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26208,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26208,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26224,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26224,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26240,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26240,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26256,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26256,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26272,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26272,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26288,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26288,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26304,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26304,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26320,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26320,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26336,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26336,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26352,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26352,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26368,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26368,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26384,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26384,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26400,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26400,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26416,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26416,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26432,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26432,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26448,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26448,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26464,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26464,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26480,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26480,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26496,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26496,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26512,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26512,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26528,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26528,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26544,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26544,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26560,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26560,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26576,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26576,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26592,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26592,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26608,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26608,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26624,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26624,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26640,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26640,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26656,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26656,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26672,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26672,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26688,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26688,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26704,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26704,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26720,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26720,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26736,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26736,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26752,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26752,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26768,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26768,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26784,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26784,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26800,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26800,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26816,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26816,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26832,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26832,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26848,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26848,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26864,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26864,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26880,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26880,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26896,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26896,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26912,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26912,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26928,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26928,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26944,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26944,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26960,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26960,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26976,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26976,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26992,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 26992,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 27008,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 27008,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 27024,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 27024,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 27040,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 27040,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 27056,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 27056,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 27072,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 27072,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 27088,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 27088,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 27104,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 27104,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 27120,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 27120,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 27136,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 27136,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 27152,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 27152,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 27168,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 27168,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 27184,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 27184,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 27200,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 27200,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 27216,
+      "carrier": "brand",
+      "mesh": "shell",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 12,
+      "draw": null
+    },
+    {
+      "sequence": "dummy-knockout",
+      "time": 27216,
+      "carrier": "brand",
+      "mesh": "locket",
+      "bodyPart": "armor/cobalt:chest",
+      "triangles": 42,
+      "draw": null
+    }
+  ],
+  "excludedContacts": [
+    "pouch belt clip attachment",
+    "right hand during native weapon draw"
+  ]
+}
