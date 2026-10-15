@@ -20,6 +20,16 @@ export const MODE_RULES = Object.freeze({
   4: Object.freeze({ label: '4v4', points: null, scoreTable: null }),
 });
 const modeOf = state => MODE_RULES[state.teamSize] || MODE_RULES[TEAM_SIZE];
+/** How well bots play, chosen in the lobby. skill: the range each bot's skill is drawn from; reaction: how many
+ * ticks a bot's idea of where you are lags behind you; turn: how fast it can swing its aim (radians a second);
+ * wobble: how far its aim drifts off; lead: how much of a moving target's travel it allows for; pause: extra time
+ * between its shots (times the gun's interval); reads: how often it dodges, blocks and cancels (times a hard bot). */
+export const BOT_LEVELS = Object.freeze({
+  easy: Object.freeze({ label: 'Easy', skill: [.15, .4], reaction: 26, turn: 3, wobble: .32, lead: .1, pause: 1.2, reads: .3 }),
+  normal: Object.freeze({ label: 'Normal', skill: [.3, .6], reaction: 20, turn: 6.5, wobble: .12, lead: .65, pause: .35, reads: .65 }),
+  hard: Object.freeze({ label: 'Hard', skill: [.5, .9], reaction: 10, turn: 11, wobble: .05, lead: 1, pause: .1, reads: 1 }),
+});
+const botLevel = state => BOT_LEVELS[state.botLevel] || BOT_LEVELS.normal;
 const activePoints = (map, teamSize) => map.points.filter(point => !MODE_RULES[teamSize]?.points || MODE_RULES[teamSize].points.includes(point.id)).map(point => ({ id: point.id, x: point.x, y: point.y, progress: 0, owner: null }));
 /** `ability` is the class ability (right mouse): Striker Boost, Guardian shield (hold), Recon Cloak.
  * `dash` (Space) is the quick dash every knight has. */
@@ -110,12 +120,12 @@ function newPlayer(id) {
   };
 }
 
-export function createState({ mapId = MAP_IDS[0], seed = 1, teamSize = TEAM_SIZE } = {}) {
+export function createState({ mapId = MAP_IDS[0], seed = 1, teamSize = TEAM_SIZE, botLevel = 'normal' } = {}) {
   if (!Object.hasOwn(MAPS, mapId)) throw new RangeError('Unknown Lockdown map.');
   const map = MAPS[mapId];
   if (map.training || !TEAM_SIZES.includes(teamSize)) teamSize = TEAM_SIZE;
   return {
-    gameId: 'lockdown', mapId, mapName: map.name, mode: map.training ? 'dojo' : 'match', tick: 0, phase: 'lobby', phaseTicks: 0, seed: seed >>> 0 || 1, teamSize,
+    gameId: 'lockdown', mapId, mapName: map.name, mode: map.training ? 'dojo' : 'match', tick: 0, phase: 'lobby', phaseTicks: 0, seed: seed >>> 0 || 1, teamSize, botLevel: Object.hasOwn(BOT_LEVELS, botLevel) ? botLevel : 'normal',
     scores: [0, 0], winner: null, timeLeftTicks: RULES.timeLimitTicks, scoreTimer: RULES.scoreIntervalTicks,
     points: activePoints(map, teamSize),
     players: Array.from({ length: CAPACITY }, (_, id) => newPlayer(id)),
@@ -310,7 +320,7 @@ export function setDojoSpar(state, on) {
 
 export function resetLobby(state) {
   const keep = state.players.map(player => ({ team: player.team, cls: player.cls, armor: player.armor, helmet: player.helmet, pants: player.pants, shoes: player.shoes, weapons: player.weapons, hearts: Array(SLOT_COUNT).fill(0), name: player.name, human: player.human, connected: player.connected }));
-  const fresh = createState({ mapId: state.mapId, seed: state.seed, teamSize: state.teamSize });
+  const fresh = createState({ mapId: state.mapId, seed: state.seed, teamSize: state.teamSize, botLevel: state.botLevel });
   Object.assign(state, fresh, { tick: state.tick, eventId: state.eventId });
   state.players.forEach((player, id) => Object.assign(player, keep[id], { bot: !keep[id].human, maxHp: maxHpFor(keep[id].cls, keep[id]), hp: maxHpFor(keep[id].cls, keep[id]) }));
   return state;
@@ -323,6 +333,12 @@ export function selectMap(state, mapId) {
   const map = MAPS[mapId];
   Object.assign(state, { mapId, mapName: map.name, points: activePoints(map, state.teamSize) });
   return { ok: true };
+}
+/** Easy, Normal or Hard bots, chosen in the lobby. */
+export function selectBotLevel(state, level) {
+  if (!Object.hasOwn(BOT_LEVELS, level)) return { ok: false, error: 'Choose easy, normal or hard bots.' };
+  if (state.phase !== 'lobby') return { ok: false, error: 'Change the bots in the lobby.' };
+  state.botLevel = level; return { ok: true };
 }
 /** 1v1, 2v2 or 4v4, chosen in the lobby. */
 export function selectTeamSize(state, size) {
@@ -1402,13 +1418,20 @@ function botInput(state, bot) {
   const detour = pressed ? null : brain.retreat && !inBase(state, bot) ? nearestBaseTile(map, bot) : heart ? heart : null;
   let moveAngle = null;
   if (target) {
-    const d = dist(target, bot);
-    bot.aim = Math.atan2(target.y - bot.y, target.x - bot.x) + (random(state) - .5) * .12;
-    input.aim = bot.aim;
+    const d = dist(target, bot), level = botLevel(state);
+    // Aim like a person: the bot follows where it last saw you (a reaction lag), its aim drifts a little, and it
+    // turns onto you at a human pace instead of snapping. Its level sets how well.
+    const track = brain.track?.id === target.id ? brain.track : (brain.track = { id: target.id, x: target.x, y: target.y, vx: 0, vy: 0 });
+    const follow = 1 / level.reaction;
+    track.x += (target.x - track.x) * follow; track.y += (target.y - track.y) * follow;
+    track.vx += ((target.vx || 0) - track.vx) * follow; track.vy += ((target.vy || 0) - track.vy) * follow;
+    // The drift wanders smoothly with a typical size of about half the level's wobble.
+    brain.wobble = Math.max(-level.wobble * 1.5, Math.min(level.wobble * 1.5, (brain.wobble || 0) * .95 + (random(state) - .5) * level.wobble * .6));
+    let desired = Math.atan2(track.y - bot.y, track.x - bot.x) + brain.wobble;
     // Choose a weapon for the range: blade close, gun mid, bomb when they crowd us or a point.
     const families = bot.weapons.map(id => WEAPONS[id]?.family ?? 'none');
     const crowded = state.players.filter(other => other.alive && other.team !== bot.team && dist(other, bot) < 130).length >= 2 || state.points.some(point => dist(point, bot) <= RULES.pointRadius && dist(point, target) <= RULES.pointRadius);
-    if (!brain.style || brain.life !== bot.deaths) { brain.life = bot.deaths; brain.style = bot.cls === 'striker' || random(state) < .4 ? 'melee' : 'ranged'; brain.skill = .35 + random(state) * .55; }
+    if (!brain.style || brain.life !== bot.deaths) { brain.life = bot.deaths; brain.style = bot.cls === 'striker' || random(state) < .4 ? 'melee' : 'ranged'; brain.skill = level.skill[0] + random(state) * (level.skill[1] - level.skill[0]); }
     const want = d < (brain.style === 'melee' ? 170 : 90) ? 'blade' : crowded && d < 140 ? 'bomb' : 'gun';
     let slot = families.indexOf(want);
     // Hurt bots eat a stored heart when they get a moment.
@@ -1416,11 +1439,13 @@ function botInput(state, bot) {
     if (heartSlot >= 0 && bot.hp < bot.maxHp * .45 && canHeal(bot)) slot = heartSlot;
     if (slot >= 0 && slot !== bot.slot && bot.actionTicks === 0 && !bot.charging) input[`slot${slot + 1}`] = !bot.previousInput[`slot${slot + 1}`];
     const weapon = currentWeapon(bot);
-    // Gunners lead a moving target (better bots lead it better) instead of shooting where it was.
+    // Gunners lead a moving target, as far as they read its movement (better bots lead it better).
     if (weapon.family === 'gun') {
-      const lead = d / weapon.speed * (brain.skill ?? .5) * 1.4;
-      bot.aim = Math.atan2(target.y + target.vy * lead - bot.y, target.x + target.vx * lead - bot.x) + (random(state) - .5) * .12; input.aim = bot.aim;
+      const lead = d / weapon.speed * (brain.skill ?? .5) * 1.4 * level.lead;
+      desired = Math.atan2(track.y + track.vy * lead - bot.y, track.x + track.vx * lead - bot.x) + brain.wobble;
     }
+    const off = wrapAngle(desired - bot.aim), turn = level.turn / TICK_RATE, onTarget = Math.abs(off) < .25;
+    bot.aim = wrapAngle(bot.aim + Math.max(-turn, Math.min(turn, off))); input.aim = bot.aim;
     if (weapon === HANDS) { if (bot.slot === heartSlot) input.attack = !bot.previousInput.attack; }
     else {
     // Bombs always charge; blades and guns mostly tap, sometimes commit to a full charge.
@@ -1445,7 +1470,7 @@ function botInput(state, bot) {
       if (bot.action === 'swing') input.attack = bot.hitIds.length > 0 && !bot.whiffed && !bot.previousInput.attack;
       else if (inReach && exposed(target) && !bot.previousInput.attack && random(state) < brain.skill) input.attack = true;
       else input.attack = inReach && brain.pulse < 2;
-    } else { brain.pulse = (brain.pulse + 1) % (weapon.interval + 2); input.attack = brain.pulse < 2; }
+    } else { brain.pulse = (brain.pulse + 1) % (Math.round(weapon.interval * (1 + level.pause)) + 2); input.attack = brain.pulse < 2 && onTarget; }
     }
     // Keep a fighting distance and strafe.
     if (--brain.strafeTicks <= 0) { brain.strafeTicks = 40 + Math.floor(random(state) * 60); brain.strafe = random(state) < .5 ? -1 : 1; }
@@ -1489,23 +1514,23 @@ function botInput(state, bot) {
   }) || state.players.some(enemy => enemy.alive && enemy.team !== bot.team && dist(enemy, bot) < 100 && (enemy.action !== 'idle' || enemy.charging && enemy.chargeTicks > chargeTicksFor(enemy, currentWeapon(enemy)) * .8))
     || state.bombs.some(bomb => bomb.team !== bot.team && bomb.fuse < 36 && dist(bomb, bot) < (WEAPONS[bomb.weapon].radius || 0) + 24);
   // The Spiral Knights habit: land the quick first cut, cancel its recovery, cut again.
-  if (target && bot.action === 'swing' && bot.comboStep === 0 && inRecovery(bot) && bot.hitIds.length && dist(target, bot) < 120 && random(state) < (brain.skill || .5) * .12) {
+  if (target && bot.action === 'swing' && bot.comboStep === 0 && inRecovery(bot) && bot.hitIds.length && dist(target, bot) < 120 && random(state) < (brain.skill || .5) * .12 * botLevel(state).reads) {
     if (bot.cls === 'recon') { if (bot.dashCooldown === 0) input.dash = !bot.previousInput.dash; }
     else if (!bot.previousInput.ability && !(bot.cls === 'striker' && bot.boostLocked)) input.ability = true;
   }
   // Reading a wind-up: a cut about to come our way can be slipped with a well-timed dodge (or blocked).
   const windup = state.players.find(enemy => enemy.alive && enemy.team !== bot.team && enemy.action === 'swing' && enemy.actionTotal - enemy.actionTicks < enemy.swingStartup
     && dist(enemy, bot) <= enemy.swingReach + RULES.radius + 10 && Math.abs(wrapAngle(Math.atan2(bot.y - enemy.y, bot.x - enemy.x) - enemy.swingAim)) <= enemy.swingArc / 2 + .3);
-  const read = windup && bot.actionTicks === 0 && random(state) < (brain.skill || .5) * .08;
+  const read = windup && bot.actionTicks === 0 && random(state) < (brain.skill || .5) * .08 * botLevel(state).reads;
   if (read && bot.cls !== 'guardian' && bot.dashCooldown === 0) input.dash = !bot.previousInput.dash;
   if (read && bot.cls === 'guardian' && !bot.guardBroken && (brain.guardTicks || 0) === 0) brain.guardTicks = 24;
   brain.guardTicks = Math.max(0, (brain.guardTicks || 0) - 1);
-  if (threatened && bot.cls === 'guardian' && !bot.guardBroken && bot.guardHp > guardMax(bot) * .3 && !bot.charging && brain.guardTicks === 0 && random(state) < .05) brain.guardTicks = 30 + Math.floor(random(state) * 40);
+  if (threatened && bot.cls === 'guardian' && !bot.guardBroken && bot.guardHp > guardMax(bot) * .3 && !bot.charging && brain.guardTicks === 0 && random(state) < .05 * botLevel(state).reads) brain.guardTicks = 30 + Math.floor(random(state) * 40);
   // Anyone may dash out of a threat; melee bots dash in to close the gap.
-  if (threatened && bot.cls !== 'guardian' && bot.dashCooldown === 0 && random(state) < .03) input.dash = !bot.previousInput.dash;
+  if (threatened && bot.cls !== 'guardian' && bot.dashCooldown === 0 && random(state) < .03 * botLevel(state).reads) input.dash = !bot.previousInput.dash;
   if (target && brain.style === 'melee' && dist(target, bot) > 110 && dist(target, bot) < 220 && bot.dashCooldown === 0 && random(state) < .02) input.dash = !bot.previousInput.dash;
   // Strikers dodge through the threat; Guardians block it.
-  if (threatened && bot.cls === 'striker' && !bot.boostLocked && bot.boostMeter > ABILITIES.dash.meter * .25 && random(state) < .04) input.ability = true; // a tap of Boost slips the hit
+  if (threatened && bot.cls === 'striker' && !bot.boostLocked && bot.boostMeter > ABILITIES.dash.meter * .25 && random(state) < .04 * botLevel(state).reads) input.ability = true; // a tap of Boost slips the hit
   else if (bot.cls === 'guardian' && brain.guardTicks > 0) { input.ability = true; input.attack = false; }
   if (detour) { moveAngle = stepToward(map, bot, detour); if (!target) { bot.aim = moveAngle; input.aim = moveAngle; } }
   else if (brain.retreat && !pressed && inBase(state, bot)) moveAngle = null; // wait in base until healed

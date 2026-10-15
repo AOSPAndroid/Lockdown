@@ -1219,3 +1219,12 @@ test("a Guardian's dome breaks in a few hits: about nine blaster rounds or three
   assert.ok(shots >= 6 && shots <= 12, `blaster rounds to break the dome: ${shots}`);
   assert.ok(cuts >= 2 && cuts <= 4, `sword cuts to break the dome: ${cuts}`);
 });
+
+test('bot levels: the lobby picks easy, normal or hard, and the choice carries into the next match', () => {
+  const state = L.createState({ mapId: 'temple' });
+  assert.equal(state.botLevel, 'normal');
+  assert.equal(L.selectBotLevel(state, 'easy').ok, true);
+  assert.equal(L.selectBotLevel(state, 'godlike').ok, false);
+  L.resetLobby(state); assert.equal(state.botLevel, 'easy');
+  L.startMatch(state, []); assert.equal(L.selectBotLevel(state, 'hard').ok, false, 'not mid-match');
+});

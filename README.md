@@ -58,8 +58,8 @@ npm install
 npm start
 ```
 
-Then open <http://localhost:3000>. **Play solo** starts a practice match against bots (pick 1v1, 2v2 or 4v4 in
-the lobby). **Dojo** opens a
+Then open <http://localhost:3000>. **Play solo** starts a practice match against bots (pick 1v1, 2v2 or 4v4 and
+Easy, Normal or Hard bots in the lobby). **Dojo** opens a
 training hall with dummies and a damage meter, where **B** changes class, gear and weapons anywhere: the
 place to try every weapon and charge attack. **Create room**
 opens an online room (1v1, 2v2 or 4v4, Amber vs Cyan); share the link or the six-letter code with
@@ -71,7 +71,7 @@ keyboard; the **Keys: WASD / ZQSD** buttons at the bottom of the menu switch it 
 
 Controls: **WASD** move, **mouse** aim, **left click** attack (hold to charge, let go early for a fake
 charge), **right click** class
-ability (Striker Boost, Guardian shield, Recon cloak), **Space** dash, **1–4**, **Q** or the **wheel** (down: next, up: previous) switch slot,
+ability (Striker Boost, Guardian shield, Recon cloak), **Space** dash, **1–4**, **Q** or the **wheel** (down: next, up: previous, wrapping round) switch slot,
 **I** inventory, **B** equipment in base, **Tab** scoreboard, **M** map, **O** full screen (locks the mouse to the game),
 **Esc** menu.
 

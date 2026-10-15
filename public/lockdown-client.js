@@ -199,7 +199,8 @@ canvas.addEventListener('pointerup', event => {
   if (event.button === 0) { mouse.left = false; release('attack'); }
   if (event.button === 2) { mouse.right = false; release('ability'); }
 });
-// The wheel: down for the next slot, up for the previous one, skipping empty slots and stopping at the ends.
+// The wheel: down for the next slot, up for the previous one (up from the first goes round to the last), skipping
+// empty slots.
 // One scroll gesture is one step: the burst of events a smooth wheel or a trackpad sends for one notch or flick
 // (events less than 0.2 s apart) moves one slot.
 canvas.addEventListener('wheel', event => {
@@ -213,7 +214,8 @@ canvas.addEventListener('wheel', event => {
   const dir = Math.sign(wheelSum); wheelUsed = true;
   const me = viewState()?.players[localId ?? -1]; if (!me) return;
   const filled = index => me.weapons[index] || me.hearts?.[index] > 0;
-  for (let index = (me.pendingSlot ?? me.slot) + dir; index >= 0 && index < SLOT_COUNT; index += dir) if (filled(index)) { pressed.add(`slot${index + 1}`); return; } // a single press: a wheel never lets go
+  const from = me.pendingSlot ?? me.slot;
+  for (let step = 1; step < SLOT_COUNT; step++) { const index = (from + dir * step + SLOT_COUNT) % SLOT_COUNT; if (filled(index)) { pressed.add(`slot${index + 1}`); return; } } // a single press: a wheel never lets go
 }, { passive: false });
 
 // ---------- full screen and mouse lock ----------
@@ -567,6 +569,12 @@ function buildMenu() {
   $('ld-armory-open').addEventListener('click', () => openArmory(null));
   $('ld-armory-close').addEventListener('click', () => closeArmory());
   for (const tab of document.querySelectorAll('[data-family]')) tab.addEventListener('click', () => { armory.family = tab.dataset.family; renderArmory(); });
+  const botSelect = $('ld-bots');
+  for (const [id, level] of Object.entries(Engine.BOT_LEVELS)) botSelect.append(new Option(level.label, id));
+  botSelect.addEventListener('change', () => {
+    if (solo) { const result = Engine.selectBotLevel(state, botSelect.value); if (!result.ok) setStatus(result.error); renderMenu(); }
+    else send({ type: 'lockdown-bots', level: botSelect.value });
+  });
   const sizeSelect = $('ld-size');
   for (const size of Engine.TEAM_SIZES) sizeSelect.append(new Option(`${Engine.MODE_RULES[size].label}${size === 4 ? ' · three zones' : ' · middle zone'}`, String(size)));
   sizeSelect.addEventListener('change', () => {
@@ -831,6 +839,7 @@ function renderMenu() {
   $('ld-map').value = mapId; $('ld-map').disabled = !isHost || phase !== 'lobby';
   const size = state?.teamSize || 4, sizeLabel = Engine.MODE_RULES[size].label.toUpperCase();
   $('ld-size').value = String(size); $('ld-size').disabled = !isHost || phase !== 'lobby'; $('ld-size-field').hidden = !!dojo;
+  $('ld-bots').value = state?.botLevel || 'normal'; $('ld-bots').disabled = !isHost || phase !== 'lobby'; $('ld-bots-field').hidden = !!dojo;
   if (!dojo) $('ld-lede').textContent = `${size === 4 ? 'Capture and hold the three control points. Every five seconds your team scores for the points it holds' : `${Engine.MODE_RULES[size].label}: fight over the middle zone alone. Every five seconds the team holding it scores ${Engine.MODE_RULES[size].scoreTable[1]}`}: first to ${Engine.RULES.scoreToWin} wins. Bots fill every empty place. Your base heals you, and it is where you change class and equipment mid-match. Every knockout drops a heart.`;
   $('ld-mode').textContent = dojo ? 'DOJO · TRAINING' : solo ? `PRACTICE · ${sizeLabel} · YOU + ${size * 2 - 1} BOT${size * 2 - 1 === 1 ? '' : 'S'}` : `ONLINE ROOM · ${sizeLabel}`;
   $('ld-map-note').textContent = `${MAPS[mapId].description}${isHost ? '' : ' The host picks the map.'}`;

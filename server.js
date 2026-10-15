@@ -278,6 +278,12 @@ export function createServer(options = {}) {
         const result = Lockdown.selectMap(state, data.mapId);
         if (!result.ok) { error(ws, result.error); return; }
         room.mapId = data.mapId; room.mapName = Lockdown.MAPS[data.mapId].name; broadcast(room);
+      } else if (data.type === 'lockdown-bots') {
+        if (id !== room.hostId) { error(ws, 'Only the room host can change the bots.'); return; }
+        if (Object.keys(data).some(key => !['type', 'level'].includes(key))) { error(ws, 'Choose easy, normal or hard bots.'); return; }
+        const result = Lockdown.selectBotLevel(state, data.level);
+        if (!result.ok) { error(ws, result.error); return; }
+        broadcast(room);
       } else if (data.type === 'lockdown-mode') {
         if (id !== room.hostId) { error(ws, 'Only the room host can change the mode.'); return; }
         if (Object.keys(data).some(key => !['type', 'teamSize'].includes(key))) { error(ws, 'Choose 1v1, 2v2 or 4v4.'); return; }
