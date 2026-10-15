@@ -33,7 +33,7 @@ crystals.
 - **Build your knight:** 13 helmets, 15 armours, 11 pants and 11 shoes, each trading something (speed,
   protection, damage, healing...), on top of the class.
 - **The Dojo:** a training hall with dummies and a damage meter to try every weapon and charge.
-- **Eight arenas,** each with two floors joined by stairs; high ground shoots down, low ground hides.
+- **Ten arenas,** each with two floors joined by stairs; high ground shoots down, low ground hides. The Grand Colosseum is wide open sand with almost no walls; the Moonlit Cloister fights through pillar colonnades.
 
 | | |
 |---|---|
@@ -43,6 +43,8 @@ crystals.
 | The Armory: aim rating, combo and perfect-combo reward | Switching draws the weapon from its holster (half speed) |
 | ![A 1v1 duel at the middle zone](docs/screenshots/duel-1v1.jpg) | ![The lobby set to 1v1](docs/screenshots/lobby-1v1.jpg) |
 | 1v1 at the middle zone | Pick 1v1, 2v2 or 4v4 and the arena in the lobby |
+| ![The Grand Colosseum: open sand under raised stands](docs/screenshots/colosseum.jpg) | ![The Moonlit Cloister: fighting through the colonnade](docs/screenshots/cloister.jpg) |
+| The Grand Colosseum: almost no walls | The Moonlit Cloister: pillar colonnades and a gallery |
 
 ## Play
 
@@ -83,7 +85,7 @@ they can hit, rounds, bomb blasts) over the 3D view.
 
 See [docs/GAMEPLAY.md](docs/GAMEPLAY.md) and the [weapons audit](docs/WEAPONS-AUDIT.md): classes, gear, weapons and their traits, the fighting rules
 (combos and perfect combos, aim, hitboxes, fake charges, interrupts, counters, perfect dodges, clashes, Spiral
-Knights-style cancels), statuses, hearts, the modes and the eight arenas.
+Knights-style cancels), statuses, hearts, the modes and the ten arenas.
 
 ## Look and art
 
@@ -100,7 +102,7 @@ with [AGENTS.md](AGENTS.md).
 | `public/index.html` | start page: play solo, create or join a room |
 | `public/lockdown.html`, `lockdown-client.js`, `lockdown.css` | the game page, input, HUD, menus |
 | `public/lockdown-engine.js` | deterministic simulation: movement, combat, classes, points, bots |
-| `public/lockdown-maps.js` | the eight arenas (walls, two floors, stairs) |
+| `public/lockdown-maps.js` | the ten arenas (walls, two floors, stairs) |
 | `public/lockdown-weapons.js`, `lockdown-equipment.js` | the armoury and the gear tables |
 | `public/lockdown-renderer3d.js` | the 3D view (three.js, vendored in `public/vendor/three/`) |
 | `public/lockdown-renderer.js`, `lockdown-assets.js` | the 2D view, minimap, reticle, and the sprite manifest |
