@@ -125,7 +125,7 @@ test('elemental guns carry their status on rounds and charges', () => {
   assert.ok(grim.foe.status.curse > 0);
   // Every elemental weapon names a status the engine knows.
   for (const weapon of Object.values(WEAPONS)) {
-    for (const status of [weapon.status, weapon.onHit?.status, weapon.charge?.status, weapon.cloud?.status, weapon.chain?.status]) if (status) assert.ok(STATUS[status], `${weapon.id}: ${status}`);
+    for (const status of [weapon.status, weapon.onHit?.status, weapon.charge?.status, weapon.cloud?.status, weapon.chain?.status]) if (status) assert.ok(STATUS[status] || status === 'mark', `${weapon.id}: ${status}`);
   }
 });
 
@@ -207,4 +207,22 @@ test('guns bloom when fired back to back and settle when you pause', () => {
   const rifle = duel({ a: { weapons: ['rifle', 'brand', 'blast', null] } });
   run(rifle.state, 2, t => ({ 0: { attack: t === 0 } }));
   assert.ok(rifle.me.bloom >= WEAPONS.rifle.bloom - .01, 'precise guns bloom hardest');
+});
+
+test('elemental guns and swords always set their effect off: the meter fills in a set number of hits', () => {
+  const { BUILD } = L;
+  const effect = (foe, status) => status === 'mark' ? foe.markTicks > 0 : foe.status[status] > 0;
+  for (const weapon of Object.values(WEAPONS).filter(w => (w.build || w.onHit?.build) && w.family !== 'bomb')) {
+    const status = weapon.status || weapon.onHit.status, need = Math.ceil(BUILD.full / (weapon.build || weapon.onHit.build));
+    const { state, me, foe } = duel({ gap: weapon.family === 'gun' ? 160 : 50, a: { cls: 'recon', weapons: [weapon.id, null, null, null], slot: 0 }, b: { hp: 1e5, maxHp: 1e5, domeHp: 0, domeBroken: true } });
+    let hits = 0, at = null;
+    for (let t = 0; t < 3000 && at === null; t++) {
+      if (me.clips?.[weapon.id] === 0) me.clips[weapon.id] = weapon.clip;
+      run(state, 1, () => ({ 0: { attack: t % 4 === 0, aim: 0 } }));
+      hits += events(state, 'damage').filter(event => event.playerId === 0 && event.targetId === foe.id && event.kind !== 'chain').length; state.events.length = 0;
+      if (effect(foe, status)) at = hits;
+      Object.assign(foe, { x: me.x + (weapon.family === 'gun' ? 160 : 50), y: me.y });
+    }
+    assert.equal(at, need, `${weapon.id}: ${status} on hit ${need}`);
+  }
 });

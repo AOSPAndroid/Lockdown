@@ -12,7 +12,7 @@ import { RenderPass } from './vendor/three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from './vendor/three/addons/postprocessing/UnrealBloomPass.js';
 import { OutputPass } from './vendor/three/addons/postprocessing/OutputPass.js';
 import { MAPS, TILE, isWall, levelCell, levelAt, STAIRS } from './lockdown-maps.js';
-import { WEAPONS, MOVE_KINDS, RULES, GUARD, ABILITIES, STATUS_IDS, TICK_RATE, chargeTicksFor } from './lockdown-engine.js';
+import { WEAPONS, MOVE_KINDS, RULES, GUARD, ABILITIES, STATUS_IDS, TICK_RATE, BUILD, chargeTicksFor } from './lockdown-engine.js';
 import { TEAM_COLORS } from './lockdown-renderer.js';
 import { RIG, RIG_PARTS, GEAR_PARTS, GRIP, SHIELDS, skeletonParts, WEAPON_SIZES, swordSize, BLADE_START, FX_SPRITES } from './lockdown-skeleton.js';
 export { RIG_PARTS };
@@ -93,7 +93,7 @@ class ModelLibrary {
 const CALLOUTS = Object.freeze({
   counter: ['COUNTER', '#ffb347', 'target'], riposte: ['RIPOSTE', '#ffe680', 'target'], perfectDodge: ['PERFECT', '#9ff0ff', 'player'],
   clash: ['CLASH', '#ffffff', 'player'], steady: ['STEADY', '#c9d6ff', 'player'], interrupt: ['INTERRUPTED', '#ff8a7a', 'player'],
-  whiff: ['MISS', '#b8b8b8', 'player'], punish: ['PUNISH', '#ff7a4a', 'target'], clean: ['CLEAN', '#ffffff', 'target'], graze: ['GRAZE', '#9a9a9a', 'target'], combo: ['COMBO', '#ffd34a', 'target'], feinted: ['FEINT', '#c9a2ff', 'target'], multiBlast: ['BLAST', '#ff9a4a', 'player'], zoneBreak: ['ZONE CRACKED', '#ffb347', 'player'], shatter: ['SHATTER', '#bfeaff', 'target'], critical: ['CRITICAL', '#ff5a5a', 'target'], parry: ['PARRY', '#9fd8ff', 'player'],
+  whiff: ['MISS', '#b8b8b8', 'player'], punish: ['PUNISH', '#ff7a4a', 'target'], clean: ['CLEAN', '#ffffff', 'target'], graze: ['GRAZE', '#9a9a9a', 'target'], combo: ['COMBO', '#ffd34a', 'target'], feinted: ['FEINT', '#c9a2ff', 'target'], multiBlast: ['BLAST', '#ff9a4a', 'player'], zoneBreak: ['ZONE CRACKED', '#ffb347', 'player'], shatter: ['SHATTER', '#bfeaff', 'target'], judged: ['JUDGED', '#fff2a0', 'target'], critical: ['CRITICAL', '#ff5a5a', 'target'], parry: ['PARRY', '#9fd8ff', 'player'],
   followUp: ['FOLLOW-UP', '#ffcf4a', 'target'], reel: ['REELING', '#ffe08a', 'target'], sweetSpot: ['TIP', '#ffe680', 'target'], ambush: ['AMBUSH', '#d29bff', 'target'],
   guardBreak: ['GUARD BREAK', '#ffffff', 'player'], evade: ['DODGE', '#ffffff', 'player'],
 });
@@ -1463,6 +1463,13 @@ export class Lockdown3DRenderer {
       }
       const statuses = STATUS_IDS.filter(id => player.status?.[id] > 0);
       statuses.forEach((id, i) => { ctx.fillStyle = STATUS_COLOR[id] || '#fff'; ctx.beginPath(); ctx.arc(head.x - (statuses.length - 1) * 6 + i * 12, head.y - 26, 4.5, 0, Math.PI * 2); ctx.fill(); });
+      // Elemental build-up: a ring per element filling toward the effect going off.
+      const building = Object.entries(player.buildup || {}).filter(([, meter]) => meter.value > 0 && state.tick - meter.at <= BUILD.decayTicks);
+      building.forEach(([id, meter], i) => {
+        const x = head.x - (building.length - 1) * 9 + i * 18, y = head.y - 40;
+        ctx.lineWidth = 3; ctx.strokeStyle = 'rgba(0,0,0,.55)'; ctx.beginPath(); ctx.arc(x, y, 6, 0, Math.PI * 2); ctx.stroke();
+        ctx.strokeStyle = STATUS_COLOR[id] || ELEMENT.holy; ctx.beginPath(); ctx.arc(x, y, 6, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * Math.min(1, meter.value / BUILD.full)); ctx.stroke();
+      });
       if (player.stunTicks > 0) { ctx.fillStyle = '#ffe680'; for (let i = 0; i < 3; i++) { const a = now / 150 + i * 2.1; ctx.beginPath(); ctx.arc(head.x + Math.cos(a) * 14, head.y + 8 + Math.sin(a) * 4, 2.5, 0, Math.PI * 2); ctx.fill(); } }
     }
     for (const text of this.texts) {

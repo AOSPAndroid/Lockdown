@@ -3,10 +3,10 @@
  * Up to 4v4; empty seats are filled by bots. Teams score every five seconds by
  * the points they hold; first to 500 (or the leader at the time limit) wins. */
 import { MAPS, MAP_IDS, TILE, isWall, isBlocked, wallAt, levelAt, levelCell, levelOk, canStep, shotBlocked } from './lockdown-maps.js';
-import { WEAPONS, WEAPON_IDS, MOVESETS, MOVE_KINDS, AIM, aimFactor, aimRating, CRITICAL, WEAPON_NOTES, CUTS, DEFAULT_LOADOUTS, SLOT_COUNT, STATUS, STATUS_IDS, GUARD, BLADE, BLOOM, FIGHT, GUN, BOMB } from './lockdown-weapons.js';
+import { WEAPONS, WEAPON_IDS, MOVESETS, MOVE_KINDS, AIM, aimFactor, aimRating, CRITICAL, WEAPON_NOTES, CUTS, DEFAULT_LOADOUTS, SLOT_COUNT, STATUS, STATUS_IDS, GUARD, BLADE, BLOOM, FIGHT, GUN, BOMB, BUILD } from './lockdown-weapons.js';
 import { ARMORS, ARMOR_IDS, HELMETS, PANTS, SHOES, GEAR, GEAR_SLOTS, combineGear } from './lockdown-equipment.js';
 
-export { MAPS, MAP_IDS, TILE, BLOOM, FIGHT, GUN, BOMB, WEAPONS, WEAPON_IDS, MOVESETS, MOVE_KINDS, AIM, aimFactor, aimRating, CRITICAL, WEAPON_NOTES, CUTS, DEFAULT_LOADOUTS, SLOT_COUNT, STATUS, STATUS_IDS, GUARD, BLADE, ARMORS, ARMOR_IDS, HELMETS, PANTS, SHOES, GEAR, GEAR_SLOTS, combineGear };
+export { MAPS, MAP_IDS, TILE, BLOOM, FIGHT, GUN, BOMB, BUILD, WEAPONS, WEAPON_IDS, MOVESETS, MOVE_KINDS, AIM, aimFactor, aimRating, CRITICAL, WEAPON_NOTES, CUTS, DEFAULT_LOADOUTS, SLOT_COUNT, STATUS, STATUS_IDS, GUARD, BLADE, ARMORS, ARMOR_IDS, HELMETS, PANTS, SHOES, GEAR, GEAR_SLOTS, combineGear };
 export const TICK_RATE = 120;
 const DT = 1 / TICK_RATE;
 export const TEAM_SIZE = 4;
@@ -358,7 +358,7 @@ function spawn(state, player) {
     stunTicks: 0, pushX: 0, pushY: 0, action: 'idle', actionTicks: 0, actionTotal: 0, comboStep: 0, comboWindow: 0, hitIds: [], chargeTicks: 0, charging: false,
     dashTicks: 0, cloakTicks: 0, markTicks: 0, markReady: 0, fireCooldown: 0, boostMeter: ABILITIES.dash.meter, boostDelay: 0, boostLocked: false, boosting: false,
     aim: player.team === 0 ? 0 : Math.PI, burst: null, hitStop: 0, bufferAttack: false, dodgeTicks: 0, evadeTicks: 0, dashCooldown: 0, perfectUsed: false, riposteTicks: 0, stagger: 0, steadyTicks: 0, cancelLag: 0, guarding: false, guardRaise: 0, guardBroken: false, guardDelay: 0,
-    guardHp: GUARD.max, domeHp: GUARD.domeMax, domeBroken: false, freezeImmune: 0, chillStacks: 0, catalysts: 0, catalystTicks: 0,
+    guardHp: GUARD.max, domeHp: GUARD.domeMax, domeBroken: false, freezeImmune: 0, chillStacks: 0, buildup: {}, catalysts: 0, catalystTicks: 0,
     status: Object.fromEntries(STATUS_IDS.map(key => [key, 0])), statusOwner: {},
   });
   player.clips = Object.fromEntries(player.weapons.filter(isGun).map(id => [id, WEAPONS[id].clip]));
@@ -521,7 +521,7 @@ function knockOut(state, attacker, target) {
   emit(state, 'kill', { playerId: attacker?.id ?? null, targetId: target.id, x: target.x, y: target.y, respawnTicks: target.respawnTicks });
 }
 /** Every hit goes through here: spawn protection, domes, shields, poison, marks, statuses, knockback. */
-function damage(state, attacker, target, amount, { push = 0, angle = 0, stun = 10, kind = 'hit', damageFamily = null, source = null, status = null, chance = 1, stacks = 1, hitStop = 0, weapon = null, reel = false } = {}) {
+function damage(state, attacker, target, amount, { push = 0, angle = 0, stun = 10, kind = 'hit', damageFamily = null, source = null, status = null, chance = 1, stacks = 1, build = 0, hitStop = 0, weapon = null, reel = false } = {}) {
   if (!target.alive || target.team === attacker?.team || target.shieldTicks > 0) return false;
   if (inBase(state, target) || attacker && inBase(state, attacker)) return false; // nobody fights across a base barrier
   // A Striker mid-dodge is untouchable.
@@ -605,24 +605,37 @@ function damage(state, attacker, target, amount, { push = 0, angle = 0, stun = 1
   if (hitStop) { target.hitStop = Math.max(target.hitStop, hitStop); if (attacker) attacker.hitStop = Math.max(attacker.hitStop, hitStop); }
   if (attacker) attacker.damage += total;
   emit(state, 'damage', { playerId: attacker?.id ?? null, targetId: target.id, amount: total, kind, x: target.x, y: target.y, hp: Math.max(0, target.hp) });
-  weaponSpecials(state, attacker, target, total, WEAPONS[weapon], damageFamily);
+  // Elemental build-up: this hit fills the target's meter; a full one sets the effect off for sure.
+  const proc = status && build > 0 ? buildUp(state, attacker, target, status, build) : false;
+  weaponSpecials(state, attacker, target, total, WEAPONS[weapon], damageFamily, proc && status === 'shock');
   if (target.hp <= 0) { knockOut(state, attacker, target); return true; }
-  if (status) applyStatus(state, target, status, attacker?.id ?? null, chance, stacks);
+  if (status && !build) applyStatus(state, target, status, attacker?.id ?? null, chance, stacks);
+  else if (proc && status === 'mark') { target.markTicks = Math.max(target.markTicks, BUILD.markTicks); emit(state, 'judged', { playerId: attacker?.id ?? null, targetId: target.id, x: target.x, y: target.y }); }
+  else if (proc) applyStatus(state, target, status, attacker?.id ?? null, 1, stacks);
   return true;
+}
+/** Fill a target's build-up meter for an element; true when it fills (and empties again). */
+function buildUp(state, attacker, target, id, amount) {
+  if (guardUp(target) || inAlliedBubble(state, target)) return false;
+  const meters = target.buildup ||= {}, meter = meters[id] && state.tick - meters[id].at <= BUILD.decayTicks ? meters[id] : { value: 0, at: 0 };
+  meter.value += amount; meter.at = state.tick; meters[id] = meter;
+  if (meter.value < BUILD.full) { emit(state, 'buildup', { playerId: attacker?.id ?? null, targetId: target.id, status: id, value: meter.value }); return false; }
+  meter.value = 0; return true;
 }
 /** What a weapon does on top of its damage: draining swords heal the wielder, shock weapons
  * arc lightning to other enemies near the one they hit (arcs never arc again). */
-function weaponSpecials(state, attacker, target, dealt, weapon, damageFamily) {
+function weaponSpecials(state, attacker, target, dealt, weapon, damageFamily, shocked = false) {
   if (!weapon || !attacker) return;
   if (weapon.lifesteal) { const gained = heal(attacker, dealt * weapon.lifesteal); if (gained > 0) emit(state, 'drain', { playerId: attacker.id, targetId: target.id, amount: gained, x: attacker.x, y: attacker.y }); }
+  // A shock that goes off arcs to the nearest other enemies, shocking them too.
   const chain = weapon.chain;
-  if (chain && random(state) < chain.chance) {
+  if (chain && shocked) {
     const map = MAPS[state.mapId];
     const others = state.players.filter(other => other.alive && other !== target && other.team !== attacker.team && dist(other, target) <= chain.radius && lineOfSight(map, target, other))
       .sort((a, b) => dist(a, target) - dist(b, target)).slice(0, chain.count);
     for (const other of others) {
       emit(state, 'chain', { playerId: attacker.id, fromX: target.x, fromY: target.y, toX: other.x, toY: other.y, targetId: other.id });
-      damage(state, attacker, other, chain.damage * (damageFamily === 'gun' ? gunPower(attacker) : bladePower(attacker)), { stun: 6, kind: 'chain', damageFamily, source: target, status: chain.status, chance: chain.chance2 });
+      damage(state, attacker, other, chain.damage * (damageFamily === 'gun' ? gunPower(attacker) : bladePower(attacker)), { stun: 6, kind: 'chain', damageFamily, source: target, status: chain.status, chance: 1 });
     }
   }
 }
@@ -771,7 +784,7 @@ function spawnShot(state, player, weapon, spec, angle) {
     x: player.x + Math.cos(angle) * (RULES.radius + 4), y: player.y + Math.sin(angle) * (RULES.radius + 4), z: levelAt(MAPS[state.mapId], player.x, player.y),
     vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed, size, grow: (spec.grow || 0) / Math.max(1, Math.ceil(spec.range / speed * TICK_RATE)),
     damage: spec.damage * power, push: spec.push ?? 0, ttl: Math.ceil(spec.range / speed * TICK_RATE), pierce: !!spec.pierce, bounces: spec.bounces || 0,
-    status: spec.status || null, chance: spec.chance ?? 1, stacks: spec.stacks || 1, radius: spec.radius || 0, carry: spec.kind === 'wave', hitIds: [],
+    status: spec.status || null, chance: spec.chance ?? 1, stacks: spec.stacks || 1, build: spec === weapon ? weapon.build || 0 : 0, radius: spec.radius || 0, carry: spec.kind === 'wave', hitIds: [],
     longShot: spec.longShot || (spec === weapon ? weapon.longShot : null) || null, ox: player.x, oy: player.y, range: spec.range,
     perCharge: (spec.perCharge || 0) * power, pushPerCharge: spec.pushPerCharge || 0,
   });
@@ -859,7 +872,7 @@ function tickAction(state, player, weapon) {
       const start = player.swingAim - player.swingDir * move.arc / 2, k = elapsed - startup, half = (move.strokes || 1) > 1 ? Math.ceil(active / 2) : active;
       if (k === half && half < active) player.hitIds = [];
       const [from, to] = k < half ? [start, start + player.swingDir * move.arc * (k + 1) / half] : [start + player.swingDir * move.arc, start + player.swingDir * move.arc * (1 - (k - half + 1) / (active - half))];
-      bladeContacts(state, player, move.reach, from, to, player.swingDamage, { push: move.push, stun: player.swingFinisher || move.critical || move.momentum ? move.stun : Math.round(move.stun * BLADE.chainStun), kind: 'blade', hitStop: move.critical ? BLADE.hitStop * 2 : BLADE.hitStop, weapon: weapon.id, status: weapon.onHit?.status, chance: weapon.onHit?.chance, sweetSpot: weapon.sweetSpot, reel: !!CUTS[weapon.cut]?.reel });
+      bladeContacts(state, player, move.reach, from, to, player.swingDamage, { push: move.push, stun: player.swingFinisher || move.critical || move.momentum ? move.stun : Math.round(move.stun * BLADE.chainStun), kind: 'blade', hitStop: move.critical ? BLADE.hitStop * 2 : BLADE.hitStop, weapon: weapon.id, status: weapon.onHit?.status, chance: weapon.onHit?.chance, build: weapon.onHit?.build || 0, sweetSpot: weapon.sweetSpot, reel: !!CUTS[weapon.cut]?.reel });
       // A heavy blow that shakes the ground sends a shockwave around the impact on its first active tick.
       if (move.shockwave && elapsed === startup) {
         const wave = move.shockwave, center = { x: player.x + Math.cos(player.swingAim) * wave.offset, y: player.y + Math.sin(player.swingAim) * wave.offset };
@@ -1177,7 +1190,7 @@ function tickProjectiles(state) {
           else if (off > 1) { aimed = AIM.shot.graze; emit(state, 'graze', { playerId: shot.ownerId, targetId: target.id, x: target.x, y: target.y, shot: true }); }
           else aimed = AIM.shot.offCentre;
         }
-        const landed = damage(state, owner, target, shot.damage * long * aimed, { push: shot.push, angle: Math.atan2(shot.vy, shot.vx), stun: shotStun(shot), kind: shot.kind, damageFamily, source: shot, status: shot.status, chance: shot.chance, stacks: shot.stacks, weapon: shot.weapon });
+        const landed = damage(state, owner, target, shot.damage * long * aimed, { push: shot.push, angle: Math.atan2(shot.vy, shot.vx), stun: shotStun(shot), kind: shot.kind, damageFamily, source: shot, status: shot.status, chance: shot.chance, stacks: shot.stacks, build: shot.build, weapon: shot.weapon });
         if (landed && shot.kind === 'catalyst') { target.catalysts = Math.min(3, (target.catalysts || 0) + 1); target.catalystTicks = 6 * TICK_RATE; emit(state, 'catalyst', { playerId: target.id, count: target.catalysts }); }
         if (shot.kind === 'detonator' && target.alive && target.catalysts > 0) {
           const count = target.catalysts; target.catalysts = 0;

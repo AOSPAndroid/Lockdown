@@ -450,16 +450,16 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 
 ### Blazebrand `blazebrand`
 
-- **Does:** Cuts may set knights on fire (30%). Charge: a rolling wall of flame that always burns.
-- **Stats:** Fire sword · element: burn · precise cut, 3-cut combo: rising cut → flurry → overhead chop (15 / 2×11 / 44 damage) · aim hard · difficulty ★ · good: Cuts may set knights on fire; Charge: a wall of fire · bad: Burn is random on normal cuts
+- **Does:** Every second cut on a knight sets them on fire. Charge: a rolling wall of flame that always burns.
+- **Stats:** Fire sword · element: burn · precise cut, 3-cut combo: rising cut → flurry → overhead chop (15 / 2×11 / 44 damage) · aim hard · difficulty ★ · good: Every second cut on a knight sets them on fire; Charge: a wall of fire · bad: No burn if your cuts keep missing
 - **Looks:** A sword of living flame: a red-hot orange blade with flickering fire along the edge, a blackened iron guard.
 - **Size:** ≈ 0.75 from grip to tip (just over half the knight's height), blade ≈ 0.12 wide, guard ≈ 0.24 across
 - **Make:** `models/weapons/blazebrand.glb`, icon `icon_weapon_blazebrand.png`
 
 ### Volt Fang `voltedge`
 
-- **Does:** Fast cuts that may shock (15%); a hit can arc lightning to two more enemies nearby. Charge: an electric spin.
-- **Stats:** Shock sword · element: shock · sweeping cut, 4-cut combo: sweep → sweep → rising cut → spin (7 / 8 / 9 / 9 damage) · aim easy · difficulty ★★ · good: Fast cuts that may shock; Lightning jumps to two nearby enemies (40%) · bad: Light damage per cut
+- **Does:** Fast cuts that shock on the third hit, arcing lightning to two more enemies nearby. Charge: an electric spin.
+- **Stats:** Shock sword · element: shock · sweeping cut, 4-cut combo: sweep → sweep → rising cut → spin (7 / 8 / 9 / 9 damage) · aim easy · difficulty ★★ · good: The third hit shocks; Its shock arcs to two nearby enemies · bad: Light damage per cut
 - **Looks:** A crackling sword: a short silver blade with a zigzag edge and a glowing cyan lightning core, copper coils on the guard.
 - **Size:** short: ≈ 0.6 from grip to tip
 - **Make:** `models/weapons/voltedge.glb`, icon `icon_weapon_voltedge.png`
@@ -474,8 +474,8 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 
 ### Hexblade `hexblade`
 
-- **Does:** Heavy cuts that may curse (35%): no dash and no class ability for a while. Charge: a cursing slam.
-- **Stats:** Curse sword · element: curse · heavy (unflinching) · precise cut, 2-cut combo: sweep → sweep (18 / 46 damage) · aim medium · difficulty ★★ · good: Heavy cuts that may curse (no dash, no ability); Second blow spins round on momentum for huge damage · bad: Slow first swing; Missing the second blow is punished hard
+- **Does:** Two heavy cuts curse a knight: no dash and no class ability for a while. Charge: a cursing slam.
+- **Stats:** Curse sword · element: curse · heavy (unflinching) · precise cut, 2-cut combo: sweep → sweep (18 / 46 damage) · aim medium · difficulty ★★ · good: Two cuts curse (no dash, no ability); Second blow spins round on momentum for huge damage · bad: Slow first swing; Missing the second blow is punished hard
 - **Looks:** A heavy cursed blade of dark violet steel etched with glowing purple runes, a skull on the guard and a chain on the pommel.
 - **Size:** heavy: ≈ 0.95 from grip to tip, blade ≈ 0.18 wide, guard ≈ 0.3 across
 - **Make:** `models/weapons/hexblade.glb`, icon `icon_weapon_hexblade.png`
@@ -490,8 +490,8 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 
 ### Dawnbringer `avenger`
 
-- **Does:** A blessed sword. Charge: a beam of light that pierces every knight down the lane.
-- **Stats:** Holy sword · element: holy · precise cut, 3-cut combo: thrust → sweep → overhead chop (18 / 18 / 48 damage) · aim hard · difficulty ★★ · good: Steady three-cut combo; Charge: a piercing beam of light down a whole lane · bad: Beam recovery leaves you open
+- **Does:** A blessed sword: two cuts judge a knight, who takes 30% more damage from everyone for 3 seconds. Charge: a beam of light that pierces every knight down the lane.
+- **Stats:** Holy sword · element: holy · precise cut, 3-cut combo: thrust → sweep → overhead chop (18 / 18 / 48 damage) · aim hard · difficulty ★★ · good: Two cuts judge a knight: +30% damage from everyone for 3 s; Charge: a piercing beam of light down a whole lane · bad: Beam recovery leaves you open
 - **Looks:** A holy sword: a white-gold blade with a sun-shaped guard, two small feathered wings at the hilt and a soft golden glow along the edge.
 - **Size:** ≈ 0.75 from grip to tip (just over half the knight's height), blade ≈ 0.12 wide, guard ≈ 0.24 across
 - **Make:** `models/weapons/avenger.glb`, icon `icon_weapon_avenger.png`
@@ -522,24 +522,24 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 
 ### Ember Sabre `flamesabre`
 
-- **Does:** A fencing sword that may set knights on fire (35%) as it knocks them back. Charge: two blazing spins that always burn.
-- **Stats:** Fencing sword · element: burn · sweeping cut, 3-cut combo: sweep → sweep → spin (11 / 14 / 13 damage) · aim easy · difficulty ★★ · good: Knocks back and may set on fire (35%); Charge: burning spins · bad: Lower damage than a plain sword
+- **Does:** A fencing sword that knocks knights back and sets them on fire on its second hit. Charge: two blazing spins that always burn.
+- **Stats:** Fencing sword · element: burn · sweeping cut, 3-cut combo: sweep → sweep → spin (11 / 14 / 13 damage) · aim easy · difficulty ★★ · good: Knocks back; the second hit sets on fire; Charge: burning spins · bad: Lower damage than a plain sword
 - **Looks:** A fencing sabre of red-hot steel: an orange glowing curved blade trailing small flames, a blackened basket guard.
 - **Size:** ≈ 0.75 from grip to tip (just over half the knight's height), blade ≈ 0.12 wide, guard ≈ 0.24 across
 - **Make:** `models/weapons/flamesabre.glb`, icon `icon_weapon_flamesabre.png`
 
 ### Rime Sabre `frostsabre`
 
-- **Does:** A fencing sword that chills (60%) as it knocks knights back: three chills freeze. Charge: two frosty spins.
-- **Stats:** Fencing sword · element: chill · sweeping cut, 3-cut combo: sweep → sweep → spin (10 / 13 / 13 damage) · aim easy · difficulty ★★ · good: Knocks back and chills (60%): three chills freeze; Charge: frosty spins · bad: Lowest damage of the sabres
+- **Does:** A fencing sword that chills with every hit as it knocks knights back: three chills freeze. Charge: two frosty spins.
+- **Stats:** Fencing sword · element: chill · sweeping cut, 3-cut combo: sweep → sweep → spin (10 / 13 / 13 damage) · aim easy · difficulty ★★ · good: Knocks back and chills every hit: three freeze; Charge: frosty spins · bad: Lowest damage of the sabres
 - **Looks:** A fencing sabre of pale blue ice-steel: a curved frosted blade with crystals along the spine, a silver basket guard.
 - **Size:** ≈ 0.75 from grip to tip (just over half the knight's height), blade ≈ 0.12 wide, guard ≈ 0.24 across
 - **Make:** `models/weapons/frostsabre.glb`, icon `icon_weapon_frostsabre.png`
 
 ### Storm Sabre `stormsabre`
 
-- **Does:** A fencing sword that may shock (30%) as it knocks knights back. Charge: two crackling spins.
-- **Stats:** Fencing sword · element: shock · sweeping cut, 3-cut combo: sweep → sweep → spin (10 / 13 / 13 damage) · aim easy · difficulty ★★ · good: Knocks back and may shock (30%); Charge: crackling spins · bad: Lowest damage of the sabres
+- **Does:** A fencing sword that knocks knights back and shocks them on its second hit. Charge: two crackling spins.
+- **Stats:** Fencing sword · element: shock · sweeping cut, 3-cut combo: sweep → sweep → spin (10 / 13 / 13 damage) · aim easy · difficulty ★★ · good: Knocks back; the second hit shocks; Charge: crackling spins · bad: Lowest damage of the sabres
 - **Looks:** A fencing sabre crackling with lightning: a dark curved blade with a glowing cyan edge, a copper basket guard with coils.
 - **Size:** ≈ 0.75 from grip to tip (just over half the knight's height), blade ≈ 0.12 wide, guard ≈ 0.24 across
 - **Make:** `models/weapons/stormsabre.glb`, icon `icon_weapon_stormsabre.png`
@@ -596,8 +596,8 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 
 ### Ember Sixgun `embersixgun`
 
-- **Does:** Six fast incendiary shots, each may set the target on fire (20%). Charge: fan six burning rounds.
-- **Stats:** Fire six-shooter · element: burn · 6-round clip, 4 damage · aim medium · difficulty ★ · good: Fast shots that may set on fire (20%); Burning keeps hurting after the shots · bad: Lowest damage per shot
+- **Does:** Six fast incendiary shots: every fourth hit sets the target on fire. Charge: fan six burning rounds.
+- **Stats:** Fire six-shooter · element: burn · 6-round clip, 4 damage · aim medium · difficulty ★ · good: Every fourth hit sets on fire; Burning keeps hurting after the shots · bad: Lowest damage per shot
 - **Looks:** A six-shooter that runs hot: a blackened barrel glowing orange at the muzzle, a cylinder of red-hot rounds and a charred wooden grip.
 - **Size:** ≈ 0.5 from grip to muzzle, a fat body ≈ 0.25 tall
 - **Make:** `models/weapons/embersixgun.glb`, icon `icon_weapon_embersixgun.png`
@@ -644,7 +644,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 
 ### Ember Caster `embercaster`
 
-- **Does:** Fire waves that may ignite (25%) every knight they pass. Charge: a huge wave that sets all of them alight.
+- **Does:** Fire waves: two set a knight alight. Charge: a huge wave that sets all of them alight.
 - **Stats:** Fire pulsar · element: burn · 3-round clip, 6 damage · aim easy · difficulty ★ · good: Fire waves are easy to land; Charge always burns everyone it passes · bad: Short range, low damage
 - **Looks:** A fire pulsar: a black iron flared barrel with glowing orange vents and a small furnace chamber.
 - **Size:** ≈ 0.5 from grip to muzzle, a fat body ≈ 0.25 tall
@@ -652,7 +652,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 
 ### Volt Needle `voltneedle`
 
-- **Does:** Six fast needles that may shock (8%) and arc to a nearby enemy. Charge: a shocking ten-needle stream.
+- **Does:** Six fast needles: every fifth hit shocks and arcs to a nearby enemy. Charge: a shocking ten-needle stream.
 - **Stats:** Shock autogun · element: shock · 6-round clip, 4 damage · aim easy · difficulty ★ · good: Fast shocking needles that arc between enemies · bad: Very light hits
 - **Looks:** A shock autogun: a slim gun with a row of glowing cyan needles in the magazine and lightning coils along the barrel.
 - **Size:** ≈ 0.5 from grip to muzzle, a fat body ≈ 0.25 tall
@@ -660,16 +660,16 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 
 ### Viper Spitter `viper`
 
-- **Does:** Rounds that may poison (40%): poisoned knights hit softer and cannot heal. Charge: a fan of five venom bolts.
-- **Stats:** Toxic blaster · element: poison · 3-round clip, 9 damage · aim medium · difficulty ★★ · good: Poison stops healing and weakens hits; Charge: a fan of venom bolts · bad: Poison is random on normal shots
+- **Does:** Two rounds poison a knight: they hit softer and cannot heal. Charge: a fan of five venom bolts.
+- **Stats:** Toxic blaster · element: poison · 3-round clip, 9 damage · aim medium · difficulty ★★ · good: Two rounds poison: no healing, weaker hits; Charge: a fan of venom bolts · bad: Poison needs both rounds of a pair to land
 - **Looks:** A toxic blaster shaped like a snake head: green scales, two fang prongs at the muzzle and a glowing green venom vial.
 - **Size:** ≈ 0.5 from grip to muzzle, a fat body ≈ 0.25 tall
 - **Make:** `models/weapons/viper.glb`, icon `icon_weapon_viper.png`
 
 ### Grim Hand-cannon `grimcannon`
 
-- **Does:** Heavy rounds that may curse (30%). Charge: a blast that curses everyone it catches.
-- **Stats:** Curse hand-cannon · element: curse · 2-round clip, 13 damage · aim hard · difficulty ★★ · good: Heavy rounds that may curse; Up to +40% damage at long range; Charge: a cursing explosion · bad: Two-round clip, slow reload
+- **Does:** Two heavy rounds curse a knight. Charge: a blast that curses everyone it catches.
+- **Stats:** Curse hand-cannon · element: curse · 2-round clip, 13 damage · aim hard · difficulty ★★ · good: Two heavy rounds curse; Up to +40% damage at long range; Charge: a cursing explosion · bad: Two-round clip, slow reload
 - **Looks:** A cursed hand-cannon: a dark iron barrel shaped like a gaping skull, violet runes and purple smoke curling from the muzzle.
 - **Size:** big: ≈ 0.65 from grip to muzzle, body ≈ 0.3 tall
 - **Make:** `models/weapons/grimcannon.glb`, icon `icon_weapon_grimcannon.png`
