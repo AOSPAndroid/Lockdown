@@ -45,6 +45,8 @@ const LONG_GUNS = new Set(['rifle', 'magnus', 'grimcannon', 'scatter']);
 const DRAW_MS = 260, DRAW = Object.freeze({ away: .3, grab: .45 });
 /** Which projectile model each kind of round uses (models/projectiles/); charge rounds share their family's. */
 const PROJECTILE_MODEL = Object.freeze({ bullet: 'bullet', stream: 'bullet', split: 'bullet', pulse: 'pulse', bigPulse: 'pulse', bolt: 'bolt', pierce: 'bolt', beam: 'bolt', ricochet: 'ricochet', catalyst: 'catalyst', detonator: 'catalyst', explosive: 'explosive', shard: 'shard', thorn: 'thorn', wave: 'wave' });
+/** A sword's ready guard: the blade up and forward, between cuts and for a moment after a combo. */
+const SWORD_GUARD = Object.freeze({ armZ: .95, elbow: .9, pitch: .5 });
 /** Holstered weapons ride a little smaller than in hand, so a full loadout doesn't swamp the knight. */
 const HOLSTER_SCALE = .7;
 const TRAIL_POINTS = 64;    // samples in the Striker's neon trail // pieces of the charge ring, filled one by one
@@ -701,6 +703,8 @@ export class Lockdown3DRenderer {
     const chargeGlow = new THREE.Sprite(new THREE.SpriteMaterial({ map: this.glow, color: '#ffd36b', transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending })); chargeGlow.position.x = .5; hand.add(chargeGlow);
     // Arms pitch, then yaw (so a raised arm sweeps across a swing); the rest bend in their own plane.
     for (const name of ['arm_L', 'arm_R']) if (parts[name]) parts[name].rotation.order = 'YZX';
+    // The sword hand turns the blade on its own axis first (roll), then pitches it.
+    if (parts.hand_R) parts.hand_R.rotation.order = 'ZYX';
     const boostTrail = new THREE.Sprite(new THREE.SpriteMaterial({ map: this.glow, color: '#ffd36b', transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending })); boostTrail.scale.set(2, 1, 1); boostTrail.position.set(-.6, .5, 0); group.add(boostTrail);
     const view = { group, body, parts, hand, team, chargeGlow, chargeRing, chargeFloor, boostTrail, ring, weaponId: null, weapon: null, lastX: player.x, lastY: player.y, key: this.knightKey(player), materials: [], pose: {}, gait: { phase: 0, speed: 0, run: 0 } };
     group.traverse(node => { if (node.material) view.materials.push(node.material); });
@@ -852,7 +856,7 @@ export class Lockdown3DRenderer {
     const reloading = family === 'gun' && player.reloadTicks?.[weapon.id] > 0;
     const aiming = family === 'gun' && !reloading && (player.fireCooldown > 0 || player.charging || sinceShot < 900);
     let arm = [-.07 - .04 * r, 0, .1 + armSwing * .6 * Math.sin(ph)], elbow = .45 + .75 * r * m, pitch = -.5 + .04 * Math.sin(now / 900) * idle + .15 * r * m;
-    let twist = 0, snap = false;
+    let twist = 0, snap = false, roll = 0;
     if (family === 'gun') {
       // Pistols are held out one-handed; cannons and the scattergun two-handed and braced; the rifle is shouldered.
       const grip = weapon.id === 'rifle' ? 'rifle' : ['magnus', 'grimcannon', 'scatter'].includes(weapon.id) ? 'cannon' : 'pistol';
@@ -874,58 +878,67 @@ export class Lockdown3DRenderer {
       } else { arm = [-.05, 0, .55 + armSwing * .15 * Math.sin(ph)]; elbow = 1; pitch = -.12; }
     } else if (family === 'bomb') { arm = [-.06, 0, .35 + armSwing * .4 * Math.sin(ph)]; elbow = .75; pitch = -.2; }
     else if (family === 'none') { arm = [-.07, 0, armSwing * Math.sin(ph) + .05]; elbow = .2 + .9 * r * m; pitch = -1.2; }
+    // Just after a cut the blade stays up in a ready guard for a moment before it drops back to the idle carry.
+    if (family === 'blade' && action === 'idle' && !player.charging && view.swingPose && now - view.swingPose.at < 450) { arm = [-.05, -.1, SWORD_GUARD.armZ]; elbow = SWORD_GUARD.elbow; pitch = SWORD_GUARD.pitch; }
     const total = player.actionTotal || 1, elapsed = total - (player.actionTicks || 0);
     if (action === 'swing') {
-      // Wind up across the body, cut through the arc with the elbow snapping straight, follow through, settle.
+      // A cut in four beats: wind up (the blade cocked back, the weight on the back foot), strike (the blade
+      // accelerates and is fastest at contact, in the middle of the active ticks, where the game lands the hit),
+      // follow through (it carries past the target and holds there a beat), then settle into a ready guard. The hips
+      // and chest turn into the cut, the front foot steps in, the free arm pulls back to balance it.
       const startup = player.swingStartup || 1, active = player.swingActive || 1, dir = player.swingDir || 1, arc = player.swingArc || 1.6;
-      const from = -dir * arc / 2 * 1.15, to = dir * arc / 2 * 1.1, kind = player.swingKind || 'sweep';
-      // Each kind of cut has a wind-up pose and a strike pose (yaw: where the blade points, negative across the body
-      // to the left; armZ: how high the arm is raised; lean: negative leans into the blow); the strike runs between
-      // them, the recovery settles back to rest.
-      const side = Math.min(Math.abs(from), 1.1) * Math.sign(from || 1), wide = Math.min(Math.abs(to), 1.1) * Math.sign(to || 1);
-      const POSES = {
-        sweep: [{ yaw: from, armZ: 1.35, elbow: 1.05, pitch: .25, lean: 0 }, { yaw: to, armZ: 1.45, elbow: .08, pitch: -.05, lean: -.12 }],
-        rise: [{ yaw: side * .8, armZ: .2, elbow: .6, pitch: -.9, lean: .04 }, { yaw: wide * .8, armZ: 2.3, elbow: .12, pitch: .6, lean: .06 }],
-        overhand: [{ yaw: side, armZ: 2.65, elbow: .95, pitch: 1.05, lean: .1 }, { yaw: wide, armZ: .7, elbow: .06, pitch: -.45, lean: -.22 }],
-        flurry: [{ yaw: side, armZ: 1.75, elbow: .85, pitch: .55, lean: .04 }, { yaw: wide, armZ: 1.15, elbow: .1, pitch: -.25, lean: -.16 }],
-        chop: [{ yaw: .12, armZ: 2.85, elbow: .45, pitch: 1.15, lean: .12 }, { yaw: 0, armZ: .6, elbow: .05, pitch: -.55, lean: -.3 }],
-        thrust: [{ yaw: .2, armZ: 1.2, elbow: 1.75, pitch: .1, lean: .08 }, { yaw: 0, armZ: 1.5, elbow: 0, pitch: 0, lean: -.28 }],
-        spin: [{ yaw: side * .6, armZ: 1.4, elbow: .45, pitch: .1, lean: .05 }, { yaw: side * .6, armZ: 1.45, elbow: .04, pitch: 0, lean: -.08 }],
+      const kind = player.swingKind || 'sweep', from = -dir * arc / 2, sgn = Math.sign(from || 1), hw = Math.min(1.15, Math.max(.55, arc / 2 * 1.2));
+      // Keys per kind: W wind-up, C contact, F follow-through. yaw: where the blade points (negative across the body
+      // to the left); armZ: how high the arm is raised; elbow: its bend; pitch: the blade's angle up (+) or down (-);
+      // roll: the blade turned on its axis (a vertical cut leads with the edge); lean: the body back (+) or into the
+      // blow (-); drop: the knees bending.
+      const K = (yaw, armZ, elbow, pitch, roll = 0, lean = 0, drop = 0) => ({ yaw, armZ, elbow, pitch, roll, lean, drop });
+      const KEYS = {
+        sweep: [K(sgn * hw * 1.05, 1.3, 1.2, .35, 0, .06), K(0, 1.45, .12, .05, 0, -.14, .02), K(-sgn * hw * 1.1, 1.25, .35, -.1, 0, -.1, .02)],
+        flurry: [K(sgn * .7, 1.35, 1, .3, 0, .04), K(0, 1.45, .12, .05, 0, -.12), K(-sgn * .75, 1.3, .3, -.05, 0, -.1)],
+        rise: [K(sgn * hw * .8, .15, .5, -1, -.4, .02, .04), K(0, 1.3, .15, .2, -.4, -.08), K(-sgn * hw * .7, 2.4, .3, 1, -.4, .04)],
+        overhand: [K(sgn * .7, 2.7, 1, 1.2, .9, .1), K(sgn * .1, 1.55, .1, .15, .9, -.16, .03), K(-sgn * .55, .75, .25, -.55, .9, -.22, .06)],
+        chop: [K(.1, 2.9, .7, 1.5, 1.45, .12), K(0, 1.55, .05, .05, 1.45, -.2, .04), K(-.05, .7, .15, -.6, 1.45, -.3, .1)],
+        thrust: [K(.25, 1.15, 1.9, .05, 1.45, .08), K(0, 1.5, 0, 0, 1.45, -.26), K(0, 1.55, 0, .02, 1.45, -.3)],
+        spin: [K(sgn * .6, 1.45, .5, .15, 0, .05), K(0, 1.5, .05, 0, 0, -.06), K(0, 1.5, .05, 0, 0, -.08)],
       };
-      const [W, E] = POSES[kind] || POSES.sweep, REST = { yaw: 0, armZ: .5, elbow: .45, pitch: -.5 };
-      let yaw;
-      // Each wind-up starts where the blade is: from rest for an opener, from the end of the last cut in a combo,
-      // so the blade flows from one cut into the next instead of snapping back to the middle.
-      if (view.swingId !== player.swingId) { view.swingId = player.swingId; const last = view.swingPose; view.swingStart = last && now - last.at < 300 ? last : { yaw: 0, armZ: .5, elbow: .5, pitch: -.2 }; }
-      const start = view.swingStart || { yaw: 0, armZ: .5, elbow: .5, pitch: -.2 };
-      if (elapsed < startup) { const w = easeOut(elapsed / startup); yaw = lerp(start.yaw, W.yaw, w); arm = [-.05, 0, lerp(start.armZ, W.armZ, w)]; elbow = lerp(start.elbow, W.elbow, w); pitch = lerp(start.pitch, W.pitch, w); body.z += W.lean * w; }
+      const [W, C, F] = KEYS[kind] || KEYS.sweep, G = { ...SWORD_GUARD, yaw: .15, roll: 0, lean: 0, drop: 0 };
+      const mix = (a, b, t) => Object.fromEntries(Object.keys(a).map(key => [key, lerp(a[key], b[key] ?? a[key], t)]));
+      // Each wind-up starts where the blade is: from the guard for an opener, from the end of the last cut in a
+      // combo, so the blade flows from one cut into the next instead of snapping back to the middle.
+      if (view.swingId !== player.swingId) { view.swingId = player.swingId; const last = view.swingPose; view.swingStart = last && now - last.at < 300 ? last : G; }
+      const start = { ...G, ...view.swingStart };
+      let pose, coil = 0, drive = 0;
+      if (elapsed < startup) { const t = easeOut(elapsed / startup); pose = mix(start, W, t); coil = t; }
       else if (elapsed < startup + active) {
-        // A flurry cuts across in the first half of the active ticks and straight back in the second.
-        const raw = (elapsed - startup) / active, back = kind === 'flurry' && raw >= .5, p = kind === 'flurry' ? easeOut(back ? 2 - raw * 2 : raw * 2) : easeOut(raw);
-        yaw = lerp(W.yaw, E.yaw, p); arm = [-.05, 0, lerp(W.armZ, E.armZ, p) + (kind === 'sweep' ? -.12 * Math.sin(p * Math.PI) : 0)];
-        elbow = lerp(W.elbow, E.elbow, Math.min(1, p * 1.6)); pitch = lerp(W.pitch, E.pitch, p); body.z += lerp(W.lean, E.lean, p);
-        if (kind === 'thrust') { T.leg_L[2] += .45 * p; T.shin_L[2] -= .35 * p; T.leg_R[2] -= .3 * p; } // step into the stab
-        if (kind === 'overhand') { body.y -= .03 * p; T.leg_L[2] += .2 * p; T.shin_L[2] -= .25 * p; } // weight onto the front foot
-        if (kind === 'chop') { body.y -= .05 * p; T.leg_L[2] += .3 * p; T.shin_L[2] -= .4 * p; T.shin_R[2] -= .3 * p; } // drop into the blow
-      }
-      else {
-        const q = ease(Math.min(1, (elapsed - startup - active) / Math.max(1, total - startup - active)));
-        const F = kind === 'flurry' ? W : E; // a flurry finishes back where it started
-        yaw = lerp(F.yaw, REST.yaw, q); arm = [-.05, 0, lerp(F.armZ, REST.armZ, q)]; elbow = lerp(F.elbow, REST.elbow, q); pitch = lerp(F.pitch, REST.pitch, q); body.z += F.lean * (1 - q);
+        const p = (elapsed - startup) / active;
+        if (kind === 'flurry') { const half = p < .5, q = half ? p * 2 : p * 2 - 1, a = half ? W : F, b = half ? F : W; pose = mix(a, b, q * q * (3 - 2 * q)); }
+        else pose = p < .5 ? mix(W, C, (p * 2) ** 2) : mix(C, F, easeOut(p * 2 - 1)); // speeds up into contact, slows after
+        drive = Math.min(1, p * 2);
+      } else {
+        const r = Math.min(1, (elapsed - startup - active) / Math.max(1, total - startup - active)), end = kind === 'flurry' ? W : F;
+        // Hold the follow-through a beat (with a little settle), then come up into the guard.
+        if (r < .3) { pose = { ...end }; pose.pitch -= .08 * Math.sin(r / .3 * Math.PI); drive = 1; }
+        else { const t = ease((r - .3) / .7); pose = mix(end, G, t); drive = 1 - t; }
         // A miss throws you off balance: the blade drags low past the body, the knight stumbles forward.
-        if (player.whiffed) { const off = Math.sin(Math.min(1, q * 1.4) * Math.PI); body.z -= .3 * off; body.y -= .04 * off; arm[2] -= .6 * off; pitch -= .5 * off; T.head[2] += .15 * off; T.leg_L[2] += .45 * off; T.shin_L[2] -= .55 * off; T.leg_R[2] -= .25 * off; }
+        if (player.whiffed) { const off = Math.sin(Math.min(1, r * 1.4) * Math.PI); body.z -= .3 * off; body.y -= .04 * off; pose.armZ -= .6 * off; pose.pitch -= .5 * off; T.head[2] += .15 * off; T.leg_L[2] += .45 * off; T.shin_L[2] -= .55 * off; T.leg_R[2] -= .25 * off; }
       }
-      view.swingPose = { yaw, armZ: arm[2], elbow, pitch, at: now };
+      const yaw = pose.yaw; arm = [-.05, 0, pose.armZ]; elbow = pose.elbow; pitch = pose.pitch; roll = pose.roll;
+      body.z += pose.lean; body.y -= pose.drop;
+      view.swingPose = { ...pose, at: now };
+      // The body drives the blade: weight back on the wind-up, then the front foot steps in, the hips lead the turn
+      // and the free arm pulls back against the cut.
+      T.leg_R[2] += .12 * coil * (1 - drive); T.leg_L[2] += .4 * drive; T.shin_L[2] -= .35 * drive; T.foot_L[2] += .1 * drive; T.leg_R[2] -= .28 * drive; T.shin_R[2] -= .15 * drive;
+      T.hips[1] += -yaw * .18;
+      T.arm_L = [.28 + .12 * drive, 0, .2 + .7 * coil * (1 - drive) - .35 * drive]; T.forearm_L = [0, 0, .7 - .2 * drive];
       // Across the body the shoulder only turns so far before the forearm would go through the chest: the torso
       // twist carries the rest of the wind-up and the elbow opens up.
-      const cross = Math.max(0, -yaw * .7), spill = Math.max(0, cross - .28);
+      const cross = Math.max(0, -yaw * .7), spill = Math.max(0, cross - .3);
       // A heavy sword's momentum blow turns the knight round: back to the target through the wind-up, then round
       // with the blade. A spin turns a full circle through the cut, the blade held out.
       if (player.swingMomentum && elapsed < startup + active) facing += dir * Math.PI * (elapsed < startup ? easeOut(elapsed / startup) : 1 + easeOut((elapsed - startup) / active));
       else if (kind === 'spin' && elapsed >= startup && elapsed < startup + active) facing += dir * Math.PI * 2 * easeOut((elapsed - startup) / active);
-      twist = -yaw * .3 + spill * .9; arm[1] = Math.min(-yaw * .7, .28); arm[0] -= spill * .4; elbow *= 1 - .65 * Math.min(1, cross / .7); snap = true;
-      T.leg_L[2] += .25; T.leg_R[2] -= .2; T.shin_L[2] -= .2; T.shin_R[2] -= .25;
-      T.arm_L = [.25, 0, .5]; T.forearm_L = [0, 0, .6];
+      twist = -yaw * .42 + spill * .9; arm[1] = Math.max(-1.2, Math.min(-yaw * .8, .4)); arm[0] -= spill * .4; elbow *= 1 - .6 * Math.min(1, cross / .8); snap = true;
     } else if (action === 'lunge' || action === 'lungeBurst') {
       arm = [-.05, 0, 1.5]; elbow = .05; pitch = 0; body.z -= .32; snap = true;
       T.leg_L = [0, 0, .75]; T.shin_L = [0, 0, -.25]; T.foot_L = [0, 0, -.5]; T.leg_R = [0, 0, -.55]; T.shin_R = [0, 0, -.5]; T.foot_R = [0, 0, .5];
@@ -989,7 +1002,7 @@ export class Lockdown3DRenderer {
     if (player.stunTicks > 0) { T.head[2] += .3 * Math.sin(now / 80); T.head[0] += .2 * Math.sin(now / 110); body.x += .08 * Math.sin(now / 150); T.arm_L = [.1, 0, 0]; }
     const flash = this.flashes?.get(player.id), hurt = flash ? Math.max(0, 1 - (now - flash) / 180) : 0;
     if (hurt) { body.z += .22 * hurt; T.head[0] -= .15 * hurt; }
-    T.chest[1] += twist; T.arm_R = arm; T.forearm_R = [0, 0, elbow]; T.hand_R = [0, 0, pitch - arm[2] - elbow];
+    T.chest[1] += twist; T.arm_R = arm; T.forearm_R = [0, 0, elbow]; T.hand_R = [roll, 0, pitch - arm[2] - elbow];
     // Keep the planted foot on the floor: solve how far the lowest sole sits above the ground from the leg angles
     // (thigh 0.215, shin 0.215, ankle to sole 0.1) and drop the body by that much. This also lowers the body in
     // crouches, lunges and slams, and gives the run its bounce. A running stride keeps a little flight.
