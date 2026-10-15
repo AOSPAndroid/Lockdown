@@ -1457,6 +1457,13 @@ export class Lockdown3DRenderer {
         ctx.fillStyle = 'rgba(0,0,0,.6)'; ctx.fillRect(head.x - w / 2 - 1, head.y - 3, w + 2, 6);
         ctx.fillStyle = pct > .5 ? team.light : pct > .25 ? '#ffd36b' : '#ff6b5a'; ctx.fillRect(head.x - w / 2, head.y - 2, w * pct, 4);
       }
+      // A Guardian's shield bar, for everyone: the dome while it stands (pale blue), then the personal shield (gold);
+      // red while broken. Shown while the shield is up or worn.
+      if (player.cls === 'guardian' && (player.guarding || player.guardBroken || player.domeHp < GUARD.domeMax || player.guardHp < GUARD.max)) {
+        const w = 40, dome = !player.domeBroken && player.domeHp > 0, fill = player.guardBroken ? 1 : dome ? player.domeHp / GUARD.domeMax : Math.max(0, player.guardHp / GUARD.max);
+        ctx.fillStyle = 'rgba(0,0,0,.65)'; ctx.fillRect(head.x - w / 2 - 1, head.y + 4, w + 2, 6);
+        ctx.fillStyle = player.guardBroken ? (Math.floor(now / 120) % 2 ? '#ff6b5a' : '#7a2a24') : dome ? '#bfe6ff' : '#ffd36b'; ctx.fillRect(head.x - w / 2, head.y + 5, w * Math.max(0, Math.min(1, fill)), 4);
+      }
       if (player.cls === 'striker' && player.id === this.localId && (player.boosting || player.boostMeter < ABILITIES.dash.meter)) {
         const feet = this.project(player.x, player.y, ground), w = 40, fill = Math.max(0, Math.min(1, player.boostMeter / ABILITIES.dash.meter));
         ctx.fillStyle = 'rgba(0,0,0,.65)'; ctx.fillRect(feet.x - w / 2 - 1, feet.y + 14, w + 2, 6);

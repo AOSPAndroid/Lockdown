@@ -1202,3 +1202,20 @@ test('bombs: the charge holds through hits, a crowded blast hits harder, and a b
   assert.equal(point.progress, -100 + BOMB.zoneBreak);
   assert.equal(events(zone.state, 'zoneBreak').length, 1);
 });
+
+test("a Guardian's dome breaks in a few hits: about nine blaster rounds or three sword cuts", () => {
+  const until = (weapon, gap) => {
+    const fight = duel({ gap, a: { cls: 'recon', weapons: [weapon, null, null, null], slot: 0 }, b: { cls: 'guardian', hp: 1e4, maxHp: 1e4 } });
+    let hits = 0;
+    for (let t = 0; t < 4000 && !fight.foe.domeBroken; t++) {
+      if (fight.me.clips?.[weapon] === 0) fight.me.clips[weapon] = WEAPONS[weapon].clip;
+      run(fight.state, 1, () => ({ 0: { attack: t % 20 === 0, aim: 0 }, 4: { ability: true, aim: Math.PI } }));
+      hits += events(fight.state, 'swing').length + events(fight.state, 'shot').length; fight.state.events.length = 0;
+      Object.assign(fight.foe, { x: fight.me.x + gap, y: fight.me.y });
+    }
+    return hits;
+  };
+  const shots = until('blaster', 160), cuts = until('brand', 60);
+  assert.ok(shots >= 6 && shots <= 12, `blaster rounds to break the dome: ${shots}`);
+  assert.ok(cuts >= 2 && cuts <= 4, `sword cuts to break the dome: ${cuts}`);
+});

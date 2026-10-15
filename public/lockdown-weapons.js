@@ -385,8 +385,11 @@ export const STATUS_IDS = Object.freeze(Object.keys(STATUS));
  * The dome has its own health (`domeMax`); when it breaks, the Guardian keeps a personal shield for a
  * few more hits (`max`), then is stunned. Both recharge after a pause once the shield is lowered;
  * a broken dome only reopens once it is half recharged. */
-export const GUARD = Object.freeze({ raiseTicks: 6, max: 60, regenPerSecond: 15, regenDelay: 90, breakStun: 72, recover: .5, speed: .5, knockback: .3, bombScale: 1.5, bladeScale: 1.3,
-  expandTicks: 18, radius: 96, healPerSecond: 6, domeMax: 160, domeRegenPerSecond: 25, domeRecover: .5 });
+/** The Guardian's shield breaks in a few hits: the dome takes `domeMax` (about 9 blaster rounds or 3 sword cuts,
+ * swords wearing it 1.3× and bombs 1.5× faster), then the personal shield `max` more before the Guardian is
+ * stunned. Everyone sees a shield bar over a Guardian whose shield is up or worn. */
+export const GUARD = Object.freeze({ raiseTicks: 6, max: 40, regenPerSecond: 10, regenDelay: 90, breakStun: 72, recover: .5, speed: .5, knockback: .3, bombScale: 1.5, bladeScale: 1.3,
+  expandTicks: 18, radius: 96, healPerSecond: 6, domeMax: 70, domeRegenPerSecond: 15, domeRecover: .5 });
 
 /** Sword timing rules. Raising the shield or dodging cancels a cut's recovery (the
  * animation cancel), and a queued press may start the next cut once this fraction of
