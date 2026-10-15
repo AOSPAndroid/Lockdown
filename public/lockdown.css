@@ -44,6 +44,10 @@ kbd { display: inline-block; padding: 1px 6px; border: 1px solid var(--line); bo
 .ld-dojo dd { margin: 0; font: 700 16px/1.2 ui-monospace, monospace; }
 .ld-dojo-actions { display: flex; gap: 6px; margin-top: 8px; } .ld-dojo-actions button { flex: 1; padding: 4px 6px; border-radius: 6px; border: 1px solid var(--line); background: var(--panel-2); color: var(--text); font-size: 11px; }
 .ld-dojo-actions button[aria-pressed="true"] { border-color: #ffd36b; color: #ffd36b; }
+.ld-bigmap { position: absolute; inset: 0; display: grid; place-items: center; align-content: center; gap: 8px; background: rgba(8,10,14,.62); pointer-events: none; z-index: 5; }
+.ld-bigmap[hidden] { display: none; }
+.ld-bigmap canvas { width: min(90vw, 160vh * .9); height: auto; border-radius: 14px; border: 1px solid var(--line); background: rgba(15,17,21,.85); box-shadow: 0 20px 60px rgba(0,0,0,.5); }
+.ld-bigmap p { margin: 0; color: var(--muted); font-size: 13px; }
 .ld-minimap { position: absolute; top: 12px; right: 12px; width: 216px; height: 132px; border-radius: 8px; border: 1px solid var(--line); background: rgba(15,17,21,.6); }
 .ld-feed { position: absolute; top: 152px; right: 12px; margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 4px; align-items: flex-end; }
 .ld-feed li { padding: 3px 8px; border-radius: 6px; background: rgba(15,17,21,.78); font-size: 12px; }

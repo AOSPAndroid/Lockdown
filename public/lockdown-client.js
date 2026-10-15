@@ -152,7 +152,7 @@ function refreshKeyLabels() {
   const layout = getKeyboardLayout();
   for (const kbd of document.querySelectorAll('[data-keylabel]')) kbd.textContent = displayKey(kbd.dataset.keylabel, layout);
   for (const button of document.querySelectorAll('[data-layout]')) button.setAttribute('aria-pressed', String(button.dataset.layout === layout));
-  canvas.setAttribute('aria-label', `Lockdown arena. ${displayKey('WASD', layout)} moves, the mouse aims, left click attacks (hold to charge), right click uses your class ability, Space dashes, 1 to 4 or ${displayKey('Q', layout)} switch weapons, Escape opens the menu.`);
+  canvas.setAttribute('aria-label', `Lockdown arena. ${displayKey('WASD', layout)} moves, the mouse aims, left click attacks (hold to charge), right click uses your class ability, Space dashes, 1 to 4 or ${displayKey('Q', layout)} switch weapons, M shows the map, O plays full screen, Escape opens the menu.`);
 }
 for (const button of document.querySelectorAll('[data-layout]')) button.addEventListener('click', () => setKeyboardLayout(button.dataset.layout));
 subscribeKeyboardLayout(refreshKeyLabels);
@@ -163,9 +163,11 @@ addEventListener('keydown', event => {
   if (event.target instanceof HTMLInputElement || event.target instanceof HTMLSelectElement) return;
   if (event.code === 'Escape' && inventoryOpen) { event.preventDefault(); toggleInventory(false); return; }
   if (event.code === 'Escape' && armory.open) { event.preventDefault(); closeArmory(); return; }
+  if (event.code === 'Escape' && bigMapOpen) { event.preventDefault(); toggleBigMap(false); return; }
   if (event.code === 'Escape' || event.code === 'KeyP') { event.preventDefault(); toggleMenu(); return; }
   if (event.code === 'Tab') { event.preventDefault(); showBoard(true); return; }
-  if (event.code === 'KeyF' && !event.repeat) { event.preventDefault(); toggleFullscreen(); return; }
+  if (String(gameKey(event)).toLowerCase() === 'o' && !event.repeat) { event.preventDefault(); toggleFullscreen(); return; }
+  if (String(gameKey(event)).toLowerCase() === 'm' && !event.repeat && !menuOpen) { event.preventDefault(); toggleBigMap(); return; }
   if (gameKey(event) === 'i' && !event.repeat && !menuOpen) { event.preventDefault(); toggleInventory(); return; }
   if (event.code === 'Escape' && inventoryOpen) { event.preventDefault(); toggleInventory(false); return; }
   if (event.code === 'KeyB' && !event.repeat && !menuOpen) {
@@ -215,7 +217,10 @@ canvas.addEventListener('wheel', event => {
 }, { passive: false });
 
 // ---------- full screen and mouse lock ----------
-// Full screen (F or the menu button): the game fills the screen, and while you play the mouse is locked to it,
+// The big map (M): the whole arena, the zones with their letters, capture progress and who stands on them.
+let bigMapOpen = false;
+function toggleBigMap(force) { bigMapOpen = typeof force === 'boolean' ? force : !bigMapOpen; $('ld-bigmap').hidden = !bigMapOpen; }
+// Full screen (O or the menu button): the game fills the screen, and while you play the mouse is locked to it,
 // so it can never wander off the window or onto another monitor. The game's own reticle follows the mouse
 // inside the screen; menus and the inventory free it, going back to the fight locks it again.
 let fullscreenWanted = false;
@@ -501,6 +506,7 @@ function updateHud(current) {
   if (boardOpen && performance.now() - boardDrawn > 250) { boardDrawn = performance.now(); $('ld-board').hidden = false; $('ld-board').replaceChildren(scoreTables(current)); }
   if (text && (banner.dataset.text !== text + sub)) { banner.dataset.text = text + sub; banner.textContent = text; const small = document.createElement('small'); small.textContent = sub; banner.append(small); }
   renderer.drawMinimap(minimap, current, { localId });
+  if (bigMapOpen) renderer.drawMinimap($('ld-bigmap-canvas'), current, { localId, detailed: true });
   pushFeed(current);
 }
 

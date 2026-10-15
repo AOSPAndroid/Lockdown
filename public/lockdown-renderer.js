@@ -1069,8 +1069,9 @@ export class LockdownRenderer {
     }
   }
 
-  /** Small overview used by the HUD minimap and the respawn camera. */
-  drawMinimap(target, state, { localId = null } = {}) {
+  /** Small overview used by the HUD minimap and the respawn camera; `detailed` is the big map (M): bases in team
+   * colours, each zone's letter, capture progress and who stands on it, and which way you face. */
+  drawMinimap(target, state, { localId = null, detailed = false } = {}) {
     const ctx = target.getContext('2d'), map = MAPS[state.mapId]; if (!map) return;
     const scale = Math.min(target.width / map.width, target.height / map.height);
     ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, target.width, target.height);
@@ -1084,13 +1085,32 @@ export class LockdownRenderer {
     for (let row = 0; row < map.rows; row++) for (let col = 0; col < map.cols; col++) if (map.grid[row][col] === '#') ctx.fillRect(col * TILE, row * TILE, TILE, TILE);
     ctx.fillStyle = (THEMES[map.theme] || THEMES.stone).pit;
     for (let row = 0; row < map.rows; row++) for (let col = 0; col < map.cols; col++) if (map.grid[row][col] === '~') ctx.fillRect(col * TILE, row * TILE, TILE, TILE);
-    ctx.fillStyle = '#5b606b';
-    for (const point of state.points) { ctx.fillStyle = point.owner === null ? '#cfd6e2' : TEAM_COLORS[point.owner].main; ctx.beginPath(); ctx.arc(point.x, point.y, RULES.pointRadius, 0, Math.PI * 2); ctx.fill(); }
+    if (detailed) {
+      for (let row = 0; row < map.rows; row++) for (let col = 0; col < map.cols; col++) {
+        const cell = map.grid[row][col]; if (cell !== '1' && cell !== '2') continue;
+        ctx.fillStyle = TEAM_COLORS[cell === '1' ? 0 : 1].main; ctx.globalAlpha = .28; ctx.fillRect(col * TILE, row * TILE, TILE, TILE); ctx.globalAlpha = 1;
+      }
+    }
+    for (const point of state.points) {
+      ctx.fillStyle = point.owner === null ? '#cfd6e2' : TEAM_COLORS[point.owner].main;
+      if (detailed) ctx.globalAlpha = .55;
+      ctx.beginPath(); ctx.arc(point.x, point.y, RULES.pointRadius, 0, Math.PI * 2); ctx.fill(); ctx.globalAlpha = 1;
+      if (!detailed) continue;
+      // Capture progress: a ring that fills in the colour of the team taking it (+100 Amber, -100 Cyan).
+      const progress = point.progress || 0;
+      if (progress) { ctx.strokeStyle = TEAM_COLORS[progress > 0 ? 0 : 1].main; ctx.lineWidth = 22; ctx.beginPath(); ctx.arc(point.x, point.y, RULES.pointRadius + 16, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * Math.abs(progress) / 100); ctx.stroke(); }
+      ctx.fillStyle = '#ffffff'; ctx.font = 'bold 110px Inter, system-ui, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText(point.id, point.x, point.y - 18);
+      const counts = point.counts || [0, 0];
+      if (counts[0] || counts[1]) { ctx.font = 'bold 60px Inter, system-ui, sans-serif'; ctx.fillStyle = TEAM_COLORS[0].light; ctx.fillText(String(counts[0]), point.x - 50, point.y + 70); ctx.fillStyle = '#ffffff'; ctx.fillText('v', point.x, point.y + 70); ctx.fillStyle = TEAM_COLORS[1].light; ctx.fillText(String(counts[1]), point.x + 50, point.y + 70); }
+    }
     const viewer = localId !== null ? state.players[localId] : null;
     for (const player of state.players) {
       if (!player.alive || player.cloakTicks > 0 && viewer && player.team !== viewer.team) continue;
       ctx.fillStyle = player.id === localId ? '#ffffff' : TEAM_COLORS[player.team].light;
       ctx.beginPath(); ctx.arc(player.x, player.y, player.id === localId ? 34 : 24, 0, Math.PI * 2); ctx.fill();
+      // On the big map you are an arrow pointing where you aim.
+      if (detailed && player.id === localId) { const a = player.aim || 0; ctx.beginPath(); ctx.moveTo(player.x + Math.cos(a) * 80, player.y + Math.sin(a) * 80); ctx.lineTo(player.x + Math.cos(a + 2.5) * 40, player.y + Math.sin(a + 2.5) * 40); ctx.lineTo(player.x + Math.cos(a - 2.5) * 40, player.y + Math.sin(a - 2.5) * 40); ctx.closePath(); ctx.fill(); }
     }
   }
 }

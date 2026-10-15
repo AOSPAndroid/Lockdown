@@ -72,7 +72,7 @@ keyboard; the **Keys: WASD / ZQSD** buttons at the bottom of the menu switch it 
 Controls: **WASD** move, **mouse** aim, **left click** attack (hold to charge, let go early for a fake
 charge), **right click** class
 ability (Striker Boost, Guardian shield, Recon cloak), **Space** dash, **1–4**, **Q** or the **wheel** (down: next, up: previous) switch slot,
-**I** inventory, **B** equipment in base, **Tab** scoreboard, **F** full screen (locks the mouse to the game),
+**I** inventory, **B** equipment in base, **Tab** scoreboard, **M** map, **O** full screen (locks the mouse to the game),
 **Esc** menu.
 
 Views: the 3D view is the default; `?quality=low` turns off shadows and glow for slower machines,

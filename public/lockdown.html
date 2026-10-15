@@ -33,6 +33,7 @@
         <div class="ld-dojo-actions"><button type="button" id="ld-dojo-spar" aria-pressed="false">Sparring: off</button><button type="button" id="ld-dojo-reset">Reset</button></div>
       </section>
       <canvas class="ld-minimap" id="ld-minimap" width="216" height="132" aria-hidden="true"></canvas>
+      <div class="ld-bigmap" id="ld-bigmap" hidden><canvas id="ld-bigmap-canvas" width="1600" height="980" aria-label="Map of the arena"></canvas><p>Map · <kbd>M</kbd> to close</p></div>
       <ol class="ld-feed" id="ld-feed"></ol>
       <div class="ld-bottom">
         <div class="ld-vitals">
@@ -125,8 +126,8 @@
       </div>
       <section class="ld-controls" aria-label="Controls">
         <span class="ld-layout" role="group" aria-label="Movement keys">Keys <button type="button" data-layout="wasd">WASD</button><button type="button" data-layout="zqsd">ZQSD (AZERTY)</button></span>
-        <span class="ld-layout"><button type="button" id="ld-fullscreen" aria-pressed="false">Full screen</button> <kbd>F</kbd></span>
-        <span><kbd data-keylabel="WASD">WASD</kbd> move</span><span><kbd>Mouse</kbd> aim</span><span><kbd>LMB</kbd> attack · hold to charge</span><span><kbd>RMB</kbd> class ability (Guardian: hold to shield)</span><span><kbd>Space</kbd> dash</span><span><kbd>1–4</kbd> / <kbd data-keylabel="Q">Q</kbd> / wheel slots</span><span><kbd>F</kbd> full screen (locks the mouse)</span><span><kbd>I</kbd> inventory (drag to reorder)</span><span><kbd>B</kbd> loadout (in base)</span><span><kbd>Tab</kbd> scoreboard</span><span><kbd>Esc</kbd> menu</span>
+        <span class="ld-layout"><button type="button" id="ld-fullscreen" aria-pressed="false">Full screen</button> <kbd>O</kbd></span>
+        <span><kbd data-keylabel="WASD">WASD</kbd> move</span><span><kbd>Mouse</kbd> aim</span><span><kbd>LMB</kbd> attack · hold to charge</span><span><kbd>RMB</kbd> class ability (Guardian: hold to shield)</span><span><kbd>Space</kbd> dash</span><span><kbd>1–4</kbd> / <kbd data-keylabel="Q">Q</kbd> / wheel slots</span><span><kbd>M</kbd> map</span><span><kbd>O</kbd> full screen (locks the mouse)</span><span><kbd>I</kbd> inventory (drag to reorder)</span><span><kbd>B</kbd> loadout (in base)</span><span><kbd>Tab</kbd> scoreboard</span><span><kbd>Esc</kbd> menu</span>
       </section>
     </section>
   </main>
