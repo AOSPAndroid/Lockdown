@@ -1148,3 +1148,27 @@ test('a gun click fires once; only a deliberate held charge let go early fires a
   assert.equal(shots(FIGHT.feint.gunHold - 4), 1);
   assert.equal(shots(FIGHT.feint.gunHold + 10), 2, 'a held charge let go early is a fake charge: a second, normal shot');
 });
+
+test('guns cannot shoot and run for free: a shot slows you, backing away from your aim is slower, and hits are lighter', () => {
+  const { GUN } = L;
+  assert.ok(WEAPONS.blaster.damage < 9 && WEAPONS.rifle.damage < 18, 'gun damage is down');
+  const distance = (fire, dir) => {
+    const fight = duel({ gap: 600, a: { cls: 'recon', weapons: ['blaster', null, null, null], slot: 0, aim: 0 } });
+    if (fire) run(fight.state, 1, () => ({ 0: { attack: true, aim: 0 } }));
+    const x0 = fight.me.x;
+    run(fight.state, 24, () => ({ 0: { [dir]: true, aim: 0 } }));
+    return Math.abs(fight.me.x - x0);
+  };
+  assert.ok(distance(true, 'right') < distance(false, 'right') * .7, 'just after a shot you move slowly');
+  // Backing off (aiming right, running left) is slower than closing in, for a while after a shot.
+  const settle = Math.max(GUN.settleTicks, WEAPONS.blaster.interval);
+  const away = dir => {
+    const fight = duel({ gap: 600, a: { cls: 'recon', weapons: ['blaster', null, null, null], slot: 0, aim: 0 } });
+    run(fight.state, 1, () => ({ 0: { attack: true, aim: 0 } }));
+    run(fight.state, settle + 2, () => ({ 0: { aim: 0 } }));
+    const x0 = fight.me.x; run(fight.state, 30, () => ({ 0: { [dir]: true, aim: 0 } }));
+    return Math.abs(fight.me.x - x0);
+  };
+  assert.ok(away('left') < away('right') * .8, 'backpedalling while shooting is slower');
+  assert.ok(Math.abs(distance(false, 'left') - distance(false, 'right')) < 1, 'a knight who has not fired moves freely');
+});

@@ -41,6 +41,11 @@ const critical = move => Object.freeze({ ...move, damage: Math.round(move.damage
  * big round touching them is a graze (AIM.shot). */
 export const AIM = Object.freeze({ arc: 1.2, power: .3, min: .6, max: 1.3,
   shot: Object.freeze({ clean: .4, offCentre: .9, graze: .6 }) });
+/** Guns against shoot-and-run. Every gun's normal shot deals `damage` of its written damage (to the nearest whole
+ * point); charge attacks keep theirs. After a shot you move at `settleSpeed` for at least `settleTicks` (longer
+ * for slow guns: their whole interval), and for `backpedalTicks` after a shot, moving away from where you aim
+ * costs up to `backpedal` of your speed: a gunner running from a sword while shooting back gets caught. */
+export const GUN = Object.freeze({ damage: .9, settleTicks: 24, settleSpeed: .45, backpedalTicks: 240, backpedal: .2 });
 export const aimFactor = arc => Math.min(AIM.max, Math.max(AIM.min, (AIM.arc / arc) ** AIM.power));
 const cuts = (cut, ...steps) => Object.freeze(steps.map(move => Object.freeze({ ...move, arc: Math.round(move.arc * CUTS[cut].arc * 100) / 100, push: Math.round(move.push * CUTS[cut].push), reach: Math.round(move.reach * (CUTS[cut].reach || 1)) })));
 
@@ -290,7 +295,8 @@ const withMoves = (id, combo) => Object.freeze(combo.map((move, i) => {
   return Object.freeze({ ...move, kind, arc, reach: Math.round(move.reach * (rule.reach ?? 1)),
     damage: Math.round(move.damage * aimFactor(arc) * (rule.stroke ?? 1)), strokes: rule.strokes || 1, push: Math.round(move.push * (rule.push ?? 1)) });
 }));
-export const WEAPONS = Object.freeze(Object.fromEntries(Object.entries(WEAPON_LIST).map(([id, weapon]) => [id, weapon.family === 'blade' ? Object.freeze({ ...weapon, combo: withMoves(id, weapon.combo) }) : weapon])));
+const gunShot = weapon => Object.freeze({ ...weapon, damage: Math.max(1, Math.round(weapon.damage * GUN.damage)) });
+export const WEAPONS = Object.freeze(Object.fromEntries(Object.entries(WEAPON_LIST).map(([id, weapon]) => [id, weapon.family === 'blade' ? Object.freeze({ ...weapon, combo: withMoves(id, weapon.combo) }) : weapon.family === 'gun' ? gunShot(weapon) : weapon])));
 export const WEAPON_IDS = Object.freeze(Object.keys(WEAPONS));
 /** How hard a weapon is to aim, for the Armory: a sword by its cuts' average aim factor, a gun by how forgiving its
  * rounds are (pellets, spray, a big round) against how much each single shot has to count. */

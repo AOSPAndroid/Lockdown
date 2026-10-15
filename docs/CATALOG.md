@@ -557,7 +557,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Pulse Blaster `blaster`
 
 - **Does:** Reliable three-shot gun. Charge: a big bolt that pierces every knight in its path.
-- **Stats:** Blaster · 3-round clip, 9 damage · aim medium · difficulty ★ · good: Reliable three-shot clip; Charge: a bolt that pierces everyone in line · bad: No special strength
+- **Stats:** Blaster · 3-round clip, 8 damage · aim medium · difficulty ★ · good: Reliable three-shot clip; Charge: a bolt that pierces everyone in line · bad: No special strength
 - **Looks:** A chunky brass pistol with a stubby barrel, a blue energy cell on top and a rounded grip; the friendly standard sidearm.
 - **Size:** ≈ 0.5 from grip to muzzle, a fat body ≈ 0.25 tall
 - **Make:** `models/weapons/blaster.glb`, icon `icon_weapon_blaster.png`
@@ -565,7 +565,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Ripple Caster `pulsar`
 
 - **Does:** Slow waves that widen as they travel and pass through knights. Charge: one huge wave.
-- **Stats:** Pulsar · 3-round clip, 8 damage · aim easy · difficulty ★ · good: Wide waves are easy to land and pass through knights · bad: Low damage; Slow and short ranged
+- **Stats:** Pulsar · 3-round clip, 7 damage · aim easy · difficulty ★ · good: Wide waves are easy to land and pass through knights · bad: Low damage; Slow and short ranged
 - **Looks:** A wide-mouthed pulsar with a ringed barrel that flares like a trumpet and a glowing blue coil in the middle.
 - **Size:** ≈ 0.5 from grip to muzzle, a fat body ≈ 0.25 tall
 - **Make:** `models/weapons/pulsar.glb`, icon `icon_weapon_pulsar.png`
@@ -573,7 +573,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Ricochet Coil `alchemer`
 
 - **Does:** Bolts that bounce off walls. Charge: four shocking bolts that bounce twice.
-- **Stats:** Ricochet · 3-round clip, 9 damage · aim medium · difficulty ★★★ · good: Bolts bounce off walls: hit around corners; Charge: four shocking bolts · bad: Bank shots take practice
+- **Stats:** Ricochet · 3-round clip, 8 damage · aim medium · difficulty ★★★ · good: Bolts bounce off walls: hit around corners; Charge: four shocking bolts · bad: Bank shots take practice
 - **Looks:** A ricochet coil gun: copper coils wound round the barrel, a glass bulb of green liquid on top and a bent spout muzzle.
 - **Size:** ≈ 0.5 from grip to muzzle, a fat body ≈ 0.25 tall
 - **Make:** `models/weapons/alchemer.glb`, icon `icon_weapon_alchemer.png`
@@ -605,7 +605,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Iron Peacemaker `peacemaker`
 
 - **Does:** A heavy revolver: six hard-hitting shots with a kick, but a slower trigger and reload. Charge: fan six heavy rounds.
-- **Stats:** Heavy six-shooter · 6-round clip, 8 damage · aim medium · difficulty ★★ · good: Hardest-hitting six-shooter, with knockback; Very accurate · bad: Slower trigger and reload
+- **Stats:** Heavy six-shooter · 6-round clip, 7 damage · aim medium · difficulty ★★ · good: Hardest-hitting six-shooter, with knockback; Very accurate · bad: Slower trigger and reload
 - **Looks:** A big heavy revolver: a thick iron barrel with a top rib, a massive six-chamber cylinder, a heavy hammer and a steel-capped grip.
 - **Size:** ≈ 0.5 from grip to muzzle, a fat body ≈ 0.25 tall
 - **Make:** `models/weapons/peacemaker.glb`, icon `icon_weapon_peacemaker.png`
@@ -613,7 +613,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Tether Catalyst `catalyzer`
 
 - **Does:** Shots stick up to three charges on a knight. Charge: a detonator that blows them all at once.
-- **Stats:** Catalyzer · 3-round clip, 8 damage · aim medium · difficulty ★★★ · good: Stack charges, then detonate them for a huge hit · bad: Weak until you detonate; Needs a follow-up shot
+- **Stats:** Catalyzer · 3-round clip, 7 damage · aim medium · difficulty ★★★ · good: Stack charges, then detonate them for a huge hit · bad: Weak until you detonate; Needs a follow-up shot
 - **Looks:** A tether catalyst: a stubby launcher with a red glass chamber of fizzing charges and a three-pronged claw muzzle.
 - **Size:** ≈ 0.5 from grip to muzzle, a fat body ≈ 0.25 tall
 - **Make:** `models/weapons/catalyzer.glb`, icon `icon_weapon_catalyzer.png`
@@ -621,7 +621,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Thunder Hand-cannon `magnus`
 
 - **Does:** Two heavy rounds with big knockback. Charge: a round that explodes on impact.
-- **Stats:** Hand-cannon · 2-round clip, 16 damage · aim hard · difficulty ★★ · good: Heavy rounds with big knockback; Up to +40% damage at long range; Charge: explosive round · bad: Two-round clip, slow reload
+- **Stats:** Hand-cannon · 2-round clip, 14 damage · aim hard · difficulty ★★ · good: Heavy rounds with big knockback; Up to +40% damage at long range; Charge: explosive round · bad: Two-round clip, slow reload
 - **Looks:** A thunder hand-cannon: a huge revolver with a thick barrel, a big cylinder and a gold lightning emblem; heavy and loud.
 - **Size:** big: ≈ 0.65 from grip to muzzle, body ≈ 0.3 tall
 - **Make:** `models/weapons/magnus.glb`, icon `icon_weapon_magnus.png`
@@ -629,7 +629,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Longshot Rifle `rifle`
 
 - **Does:** A single tiny, very fast round with a long reload: up to 60% more damage at long range. Hard to land, punishing when it does. Charge: a piercing rail shot.
-- **Stats:** Long rifle · 1-round clip, 18 damage · aim hard · difficulty ★★★ · good: Up to +60% damage at long range; Very fast, accurate round; Charge: piercing rail shot · bad: One round, long reload; Tiny bullet: hard to hit
+- **Stats:** Long rifle · 1-round clip, 16 damage · aim hard · difficulty ★★★ · good: Up to +60% damage at long range; Very fast, accurate round; Charge: piercing rail shot · bad: One round, long reload; Tiny bullet: hard to hit
 - **Looks:** A long precision rifle: a slim long barrel, a brass scope, a wooden stock and a small bipod folded under the barrel.
 - **Size:** long: ≈ 1.0 from grip to muzzle
 - **Make:** `models/weapons/rifle.glb`, icon `icon_weapon_rifle.png`
@@ -637,7 +637,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Winter Repeater `frostgun`
 
 - **Does:** Every round chills; three chills freeze. Charge: a piercing bolt that freezes on the spot.
-- **Stats:** Frost blaster · element: chill · 3-round clip, 7 damage · aim medium · difficulty ★ · good: Every round chills; three freeze; Charge freezes on the spot · bad: Lower damage per round
+- **Stats:** Frost blaster · element: chill · 3-round clip, 6 damage · aim medium · difficulty ★ · good: Every round chills; three freeze; Charge freezes on the spot · bad: Lower damage per round
 - **Looks:** A winter repeater: a white-and-blue pistol with an ice crystal chamber, frost on the barrel and a snowflake emblem.
 - **Size:** ≈ 0.5 from grip to muzzle, a fat body ≈ 0.25 tall
 - **Make:** `models/weapons/frostgun.glb`, icon `icon_weapon_frostgun.png`
@@ -645,7 +645,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Ember Caster `embercaster`
 
 - **Does:** Fire waves that may ignite (25%) every knight they pass. Charge: a huge wave that sets all of them alight.
-- **Stats:** Fire pulsar · element: burn · 3-round clip, 7 damage · aim easy · difficulty ★ · good: Fire waves are easy to land; Charge always burns everyone it passes · bad: Short range, low damage
+- **Stats:** Fire pulsar · element: burn · 3-round clip, 6 damage · aim easy · difficulty ★ · good: Fire waves are easy to land; Charge always burns everyone it passes · bad: Short range, low damage
 - **Looks:** A fire pulsar: a black iron flared barrel with glowing orange vents and a small furnace chamber.
 - **Size:** ≈ 0.5 from grip to muzzle, a fat body ≈ 0.25 tall
 - **Make:** `models/weapons/embercaster.glb`, icon `icon_weapon_embercaster.png`
@@ -661,7 +661,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Viper Spitter `viper`
 
 - **Does:** Rounds that may poison (40%): poisoned knights hit softer and cannot heal. Charge: a fan of five venom bolts.
-- **Stats:** Toxic blaster · element: poison · 3-round clip, 10 damage · aim medium · difficulty ★★ · good: Poison stops healing and weakens hits; Charge: a fan of venom bolts · bad: Poison is random on normal shots
+- **Stats:** Toxic blaster · element: poison · 3-round clip, 9 damage · aim medium · difficulty ★★ · good: Poison stops healing and weakens hits; Charge: a fan of venom bolts · bad: Poison is random on normal shots
 - **Looks:** A toxic blaster shaped like a snake head: green scales, two fang prongs at the muzzle and a glowing green venom vial.
 - **Size:** ≈ 0.5 from grip to muzzle, a fat body ≈ 0.25 tall
 - **Make:** `models/weapons/viper.glb`, icon `icon_weapon_viper.png`
@@ -669,7 +669,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Grim Hand-cannon `grimcannon`
 
 - **Does:** Heavy rounds that may curse (30%). Charge: a blast that curses everyone it catches.
-- **Stats:** Curse hand-cannon · element: curse · 2-round clip, 14 damage · aim hard · difficulty ★★ · good: Heavy rounds that may curse; Up to +40% damage at long range; Charge: a cursing explosion · bad: Two-round clip, slow reload
+- **Stats:** Curse hand-cannon · element: curse · 2-round clip, 13 damage · aim hard · difficulty ★★ · good: Heavy rounds that may curse; Up to +40% damage at long range; Charge: a cursing explosion · bad: Two-round clip, slow reload
 - **Looks:** A cursed hand-cannon: a dark iron barrel shaped like a gaping skull, violet runes and purple smoke curling from the muzzle.
 - **Size:** big: ≈ 0.65 from grip to muzzle, body ≈ 0.3 tall
 - **Make:** `models/weapons/grimcannon.glb`, icon `icon_weapon_grimcannon.png`
@@ -677,7 +677,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Iron Scattergun `scatter`
 
 - **Does:** Six pellets in a wide fan: brutal up close, useless far away. Charge: a single heavy slug that knocks knights flying.
-- **Stats:** Shotgun · 2-round clip, 6 pellets × 6 damage · aim easy · difficulty ★★ · good: Six pellets: huge damage point blank; Charge: a slug that knocks knights flying · bad: Almost no damage at range; Two-shell clip
+- **Stats:** Shotgun · 2-round clip, 6 pellets × 5 damage · aim easy · difficulty ★★ · good: Six pellets: huge damage point blank; Charge: a slug that knocks knights flying · bad: Almost no damage at range; Two-shell clip
 - **Looks:** An iron scattergun: a short, very wide double barrel, a pump grip and a riveted iron body; built for close quarters.
 - **Size:** big: ≈ 0.65 from grip to muzzle, body ≈ 0.3 tall
 - **Make:** `models/weapons/scatter.glb`, icon `icon_weapon_scatter.png`
@@ -685,7 +685,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Northstar `polaris`
 
 - **Does:** Widening waves that pass through knights and bounce once off walls. Charge: a huge wave that bounces twice.
-- **Stats:** Pulsar · 3-round clip, 8 damage · aim easy · difficulty ★★ · good: Waves pierce knights and bounce off walls · bad: Low damage per wave; Bank shots take practice
+- **Stats:** Pulsar · 3-round clip, 7 damage · aim easy · difficulty ★★ · good: Waves pierce knights and bounce off walls · bad: Low damage per wave; Bank shots take practice
 - **Looks:** A star pulsar: a ringed barrel ending in a star-shaped emitter with a pale yellow glowing core and blue fins.
 - **Size:** ≈ 0.5 from grip to muzzle, a fat body ≈ 0.25 tall
 - **Make:** `models/weapons/polaris.glb`, icon `icon_weapon_polaris.png`
@@ -693,7 +693,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Rift Repeater `riftlocker`
 
 - **Does:** Slow violet bolts that pierce every knight in line. Charge: a stream of six piercing bolts.
-- **Stats:** Rift gun · 3-round clip, 8 damage · aim medium · difficulty ★★ · good: Bolts pierce every knight in line; Charge: six piercing bolts · bad: Slow bolts are easy to dodge
+- **Stats:** Rift gun · 3-round clip, 7 damage · aim medium · difficulty ★★ · good: Bolts pierce every knight in line; Charge: six piercing bolts · bad: Slow bolts are easy to dodge
 - **Looks:** A rift repeater: an angular black-and-violet gun with a floating purple crystal in an open frame where the barrel should be.
 - **Size:** ≈ 0.5 from grip to muzzle, a fat body ≈ 0.25 tall
 - **Make:** `models/weapons/riftlocker.glb`, icon `icon_weapon_riftlocker.png`

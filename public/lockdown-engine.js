@@ -3,10 +3,10 @@
  * Up to 4v4; empty seats are filled by bots. Teams score every five seconds by
  * the points they hold; first to 500 (or the leader at the time limit) wins. */
 import { MAPS, MAP_IDS, TILE, isWall, isBlocked, wallAt, levelAt, levelCell, levelOk, canStep, shotBlocked } from './lockdown-maps.js';
-import { WEAPONS, WEAPON_IDS, MOVESETS, MOVE_KINDS, AIM, aimFactor, aimRating, CRITICAL, WEAPON_NOTES, CUTS, DEFAULT_LOADOUTS, SLOT_COUNT, STATUS, STATUS_IDS, GUARD, BLADE, BLOOM, FIGHT } from './lockdown-weapons.js';
+import { WEAPONS, WEAPON_IDS, MOVESETS, MOVE_KINDS, AIM, aimFactor, aimRating, CRITICAL, WEAPON_NOTES, CUTS, DEFAULT_LOADOUTS, SLOT_COUNT, STATUS, STATUS_IDS, GUARD, BLADE, BLOOM, FIGHT, GUN } from './lockdown-weapons.js';
 import { ARMORS, ARMOR_IDS, HELMETS, PANTS, SHOES, GEAR, GEAR_SLOTS, combineGear } from './lockdown-equipment.js';
 
-export { MAPS, MAP_IDS, TILE, BLOOM, FIGHT, WEAPONS, WEAPON_IDS, MOVESETS, MOVE_KINDS, AIM, aimFactor, aimRating, CRITICAL, WEAPON_NOTES, CUTS, DEFAULT_LOADOUTS, SLOT_COUNT, STATUS, STATUS_IDS, GUARD, BLADE, ARMORS, ARMOR_IDS, HELMETS, PANTS, SHOES, GEAR, GEAR_SLOTS, combineGear };
+export { MAPS, MAP_IDS, TILE, BLOOM, FIGHT, GUN, WEAPONS, WEAPON_IDS, MOVESETS, MOVE_KINDS, AIM, aimFactor, aimRating, CRITICAL, WEAPON_NOTES, CUTS, DEFAULT_LOADOUTS, SLOT_COUNT, STATUS, STATUS_IDS, GUARD, BLADE, ARMORS, ARMOR_IDS, HELMETS, PANTS, SHOES, GEAR, GEAR_SLOTS, combineGear };
 export const TICK_RATE = 120;
 const DT = 1 / TICK_RATE;
 export const TEAM_SIZE = 4;
@@ -910,7 +910,7 @@ function tickWeapon(state, player, input, previous) {
   if (player.bloom > 0) player.bloom = Math.max(0, player.bloom - BLOOM.settlePerSecond / TICK_RATE);
   // Guns reload on their own: after a short pause or when empty, even holstered.
   for (const id of Object.keys(player.clips)) {
-    const gun = WEAPONS[id]; player.sinceShot[id] = (player.sinceShot[id] || 0) + 1;
+    const gun = WEAPONS[id]; player.sinceShot[id] = (player.sinceShot[id] ?? 1e6) + 1; // never fired: long ago
     if (player.reloadTicks[id] > 0) { if (--player.reloadTicks[id] === 0) { player.clips[id] = gun.clip; emit(state, 'reloaded', { playerId: player.id, weapon: id }); } }
     else if (player.clips[id] < gun.clip && (player.clips[id] === 0 || player.sinceShot[id] >= gun.reloadDelay)) player.reloadTicks[id] = gun.reload;
   }
@@ -1032,7 +1032,7 @@ function moveScale(player, weapon) {
   if (player.action === 'spin') return weapon.charge.speed;
   if (player.guarding) return GUARD.speed;
   if (player.charging) return weapon.family === 'bomb' ? .55 : .7;
-  if (player.fireCooldown > 0 && weapon.family === 'gun') return .45 * reelSlow(player);
+  if (weapon.family === 'gun' && (player.fireCooldown > 0 || (player.sinceShot?.[weapon.id] ?? Infinity) < Math.max(GUN.settleTicks, weapon.interval))) return GUN.settleSpeed * reelSlow(player);
   return reelSlow(player);
 }
 const reelSlow = player => player.reelTicks > 0 ? FIGHT.reel.slow : 1;
@@ -1098,7 +1098,9 @@ function tickPlayer(state, player, input) {
   let mx = (input.right ? 1 : 0) - (input.left ? 1 : 0), my = (input.down ? 1 : 0) - (input.up ? 1 : 0);
   const length = Math.hypot(mx, my); if (length > 0) { mx /= length; my /= length; }
   const chill = player.status.chill > 0 ? 1 - STATUS.chill.slowPerStack * Math.max(1, player.chillStacks) : 1;
-  const speed = cls.speed * outfitOf(player).speedMultiplier * moveScale(player, weapon) * chill * (player.dashTicks > 0 ? ABILITIES.dash.speed : 1);
+  // Backing away from your aim with a gun you just fired is slower: no free shoot-and-run.
+  const backing = weapon.family === 'gun' && length > 0 && (player.sinceShot?.[weapon.id] ?? Infinity) < GUN.backpedalTicks ? Math.max(0, -(mx * Math.cos(player.aim) + my * Math.sin(player.aim))) : 0;
+  const speed = cls.speed * outfitOf(player).speedMultiplier * moveScale(player, weapon) * chill * (player.dashTicks > 0 ? ABILITIES.dash.speed : 1) * (1 - GUN.backpedal * backing);
   const blend = 1 - Math.exp(-18 * DT);
   player.vx += (mx * speed - player.vx) * blend; player.vy += (my * speed - player.vy) * blend;
   moveBody(map, player, (player.vx + player.pushX) * DT, (player.vy + player.pushY) * DT);
