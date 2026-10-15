@@ -1,0 +1,3017 @@
+{
+  "icons": 109,
+  "counts": {
+    "helmet": 14,
+    "armor": 16,
+    "pants": 12,
+    "shoes": 12,
+    "weapon": 48,
+    "class": 3,
+    "ability": 4
+  },
+  "errors": [],
+  "camera": [
+    8,
+    7.5,
+    -6
+  ],
+  "projection": "orthographic",
+  "worldUp": [
+    0,
+    1,
+    0
+  ],
+  "displayRotationDegrees": {
+    "blade": [
+      0,
+      0,
+      58
+    ],
+    "otherItems": [
+      0,
+      0,
+      0
+    ]
+  },
+  "outlineSettings": {
+    "renderPixels": 384,
+    "maxFilterPixels": 7,
+    "blurPixels": 1.1,
+    "opacity": 0.82,
+    "color": [
+      18,
+      29,
+      42
+    ]
+  },
+  "lighting": "shared top-left warm key, cool fill and soft bounce",
+  "lights": [
+    {
+      "position": [
+        7,
+        8,
+        1
+      ],
+      "power": 950,
+      "role": "key (projects to screen top-left)"
+    },
+    {
+      "position": [
+        -3,
+        4,
+        -6
+      ],
+      "power": 500,
+      "role": "cool fill"
+    },
+    {
+      "position": [
+        -4,
+        -3,
+        2
+      ],
+      "power": 160,
+      "role": "warm bounce"
+    }
+  ],
+  "outline": "soft dark silhouette, applied identically at 4x before downsampling",
+  "resolution": [
+    96,
+    96
+  ],
+  "sampling": "384x384, 64 Cycles samples, Lanczos downsampling",
+  "records": [
+    {
+      "key": "icon_helmet_none",
+      "slot": "helmet",
+      "id": "none",
+      "sources": {
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3"
+      },
+      "uniformScale": 3.9904980699814323,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "67210756d5788ab99e091a1bd1e75c86083d5320bf08c0bbb42ac73b5699356d",
+      "alphaBounds": [
+        22,
+        17,
+        73,
+        73
+      ],
+      "transparentPixels": 7063
+    },
+    {
+      "key": "icon_helmet_sallet",
+      "slot": "helmet",
+      "id": "sallet",
+      "sources": {
+        "helmet/sallet.glb": "9bb2cd46af323a2142e57052bbbbdeef3b04123be8bd68d44f1c925a74f437ef",
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3"
+      },
+      "uniformScale": 2.8885834631121416,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "2f68740448aabea45ebf8eec7b916cea7db35a80c85c937a0a1ff31985a168f4",
+      "alphaBounds": [
+        14,
+        15,
+        71,
+        84
+      ],
+      "transparentPixels": 6834
+    },
+    {
+      "key": "icon_helmet_visor",
+      "slot": "helmet",
+      "id": "visor",
+      "sources": {
+        "helmet/visor.glb": "826f44f29a095c1543ee359663073b9d545ecf93b739f156ac1da340d0fab320",
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3"
+      },
+      "uniformScale": 3.1128408881292065,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "34c5a18fb1e55095c148b34d452b0a6c9b10783cb273fbda08a1253ca2457a63",
+      "alphaBounds": [
+        21,
+        11,
+        74,
+        79
+      ],
+      "transparentPixels": 6906
+    },
+    {
+      "key": "icon_helmet_horned",
+      "slot": "helmet",
+      "id": "horned",
+      "sources": {
+        "helmet/horned.glb": "a46e989368a12c2682f4938d45dd54a4e569abca99add6fa6e6b374c87e91b87",
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3"
+      },
+      "uniformScale": 2.980079030731554,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "a219f8b0d35634f38f6ea63a817969540a8d395333d3380b74d0c73932c29789",
+      "alphaBounds": [
+        13,
+        20,
+        74,
+        82
+      ],
+      "transparentPixels": 6705
+    },
+    {
+      "key": "icon_helmet_hood",
+      "slot": "helmet",
+      "id": "hood",
+      "sources": {
+        "helmet/hood.glb": "3cbfec21e7ebad77f695eddc3a9e1a6d906358913def01a46a945cf51d88f5eb",
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3"
+      },
+      "uniformScale": 3.132224498641796,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "9fab49aa8fe52b614ec937b30321c426f46779fbafe1ccb1b5d5c9e630c7b561",
+      "alphaBounds": [
+        19,
+        17,
+        75,
+        85
+      ],
+      "transparentPixels": 6578
+    },
+    {
+      "key": "icon_helmet_lampcap",
+      "slot": "helmet",
+      "id": "lampcap",
+      "sources": {
+        "helmet/lampcap.glb": "1fe43020f1ac92ba2925f513c861f2dc32e6eb147a134cb1861a3b52406f32c6",
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3"
+      },
+      "uniformScale": 3.3753919169161133,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "33209d0cc1c011310fa6aa3659b2240e6088bb018fe9dff1291fedcd7677af5c",
+      "alphaBounds": [
+        18,
+        16,
+        76,
+        79
+      ],
+      "transparentPixels": 6576
+    },
+    {
+      "key": "icon_helmet_feather",
+      "slot": "helmet",
+      "id": "feather",
+      "sources": {
+        "helmet/feather.glb": "3069065c7ae9e958453e8ca822442c63e90f6fd071d16ec0c1262a197d64c3dc",
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3"
+      },
+      "uniformScale": 2.6202506274937236,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "bbc619abba11380285aeb7a1b09cc7ed46f344dd0fefdec30394f4783f2277de",
+      "alphaBounds": [
+        19,
+        14,
+        68,
+        81
+      ],
+      "transparentPixels": 7235
+    },
+    {
+      "key": "icon_helmet_bucket",
+      "slot": "helmet",
+      "id": "bucket",
+      "sources": {
+        "helmet/bucket.glb": "bd5fc5fa5c818a8d7f2aec757f8203603b6424a4284cbe6d8f419b8c87c369e4",
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3"
+      },
+      "uniformScale": 3.551496761090618,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "6cf213eb6954967b6915191d3fe844f286fd43f7c959c8052b8de56ebea51b80",
+      "alphaBounds": [
+        21,
+        17,
+        75,
+        80
+      ],
+      "transparentPixels": 6185
+    },
+    {
+      "key": "icon_helmet_circlet",
+      "slot": "helmet",
+      "id": "circlet",
+      "sources": {
+        "helmet/circlet.glb": "ddc48d9a03b711e411033d946f00a6c2290c750766fadc0e02b95535d89f8f84",
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3"
+      },
+      "uniformScale": 3.450825823054338,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "62b0e594cf1bac9276866ec78d3d345cc66a4e7c6335be204321ce087eda65c5",
+      "alphaBounds": [
+        17,
+        10,
+        80,
+        78
+      ],
+      "transparentPixels": 6384
+    },
+    {
+      "key": "icon_helmet_cobalt",
+      "slot": "helmet",
+      "id": "cobalt",
+      "sources": {
+        "helmet/cobalt.glb": "e0a6fbcf58941f0c156a3e9ee19d1bda4bf5fe1c33ba2e3a73a7b3517810512e",
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3"
+      },
+      "uniformScale": 2.7981348162322948,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "65ec770c21fa18a254283cebbef62112cc91a9cea5753f33b376883e971bb571",
+      "alphaBounds": [
+        17,
+        14,
+        70,
+        84
+      ],
+      "transparentPixels": 6925
+    },
+    {
+      "key": "icon_helmet_wolver",
+      "slot": "helmet",
+      "id": "wolver",
+      "sources": {
+        "helmet/wolver.glb": "c4e188fe7c97890c9ecb4ded4474a9f440c61fad20a3114d424380c8f72b3e3f",
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3"
+      },
+      "uniformScale": 2.6906692564429915,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "f7761f605f642c690ee6a083e9bfd7e38a23d115e9f985f6498b861e31befb16",
+      "alphaBounds": [
+        28,
+        12,
+        79,
+        79
+      ],
+      "transparentPixels": 6845
+    },
+    {
+      "key": "icon_helmet_demo",
+      "slot": "helmet",
+      "id": "demo",
+      "sources": {
+        "helmet/demo.glb": "8669b6db2a3f5b55e7c8d29a94158f58f0434ca27cd4350efa2b16e5120628d1",
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3"
+      },
+      "uniformScale": 3.197076877043312,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "9dbb705223826982f1e932b5f3eb40b8bba3d8c2485b8c54559190f7f8650d26",
+      "alphaBounds": [
+        21,
+        15,
+        82,
+        78
+      ],
+      "transparentPixels": 6691
+    },
+    {
+      "key": "icon_helmet_seraph",
+      "slot": "helmet",
+      "id": "seraph",
+      "sources": {
+        "helmet/seraph.glb": "92af1ea4f9918e586a29a62809a78937b8895e71624d0e375047f2a6f55b8591",
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3"
+      },
+      "uniformScale": 3.1557591139346073,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "79b4cf13d10bbc93079e0a21a0026540dd80ac10d485bb9f69c21c23472e9504",
+      "alphaBounds": [
+        16,
+        8,
+        86,
+        79
+      ],
+      "transparentPixels": 5948
+    },
+    {
+      "key": "icon_helmet_goggles",
+      "slot": "helmet",
+      "id": "goggles",
+      "sources": {
+        "helmet/goggles.glb": "82f624d0174736df37489fef01a6913dfe64a3afa4d4a0b5ac74dea3d3e80b95",
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3"
+      },
+      "uniformScale": 3.4434701861283203,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "16fb5267a2b3594860a02a0ff9c6a7daeb9f6633f00dd7b521f388b6b2b77ff4",
+      "alphaBounds": [
+        18,
+        17,
+        77,
+        78
+      ],
+      "transparentPixels": 6515
+    },
+    {
+      "key": "icon_armor_none",
+      "slot": "armor",
+      "id": "none",
+      "sources": {
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3"
+      },
+      "uniformScale": 2.6636228854668933,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "6219db0d8eb82752635905268e7db5878031ff789e648e7c54ff1ac9ac2b6ecc",
+      "alphaBounds": [
+        15,
+        14,
+        81,
+        86
+      ],
+      "transparentPixels": 5967
+    },
+    {
+      "key": "icon_armor_scout",
+      "slot": "armor",
+      "id": "scout",
+      "sources": {
+        "armor/scout.glb": "bab9355bc7eba49934d0aafe1cbba114111f58bbd2901fe588e7d23b473bfd6b",
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3"
+      },
+      "uniformScale": 2.36719725977804,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "1d009cc622e25c35927defe08232fd5cd09a578d43cfb1278b035e3cbe9cbabe",
+      "alphaBounds": [
+        9,
+        9,
+        88,
+        88
+      ],
+      "transparentPixels": 5703
+    },
+    {
+      "key": "icon_armor_ballistic",
+      "slot": "armor",
+      "id": "ballistic",
+      "sources": {
+        "armor/ballistic.glb": "090d41655468c462e0e4df64f5a81f0dedf40365a53278e01ef7d81154b2cebd",
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3"
+      },
+      "uniformScale": 2.0903322327665967,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "4e6da291bdb3c7a8ece72326aa9d16e8aa84b75399295349d88d3d8984834f36",
+      "alphaBounds": [
+        9,
+        14,
+        88,
+        81
+      ],
+      "transparentPixels": 6310
+    },
+    {
+      "key": "icon_armor_duelist",
+      "slot": "armor",
+      "id": "duelist",
+      "sources": {
+        "armor/duelist.glb": "06cf282ff98d03c05443295b1f0a4aaa973600cc4cca160ab2f5998db9c2aee4",
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3"
+      },
+      "uniformScale": 2.2113991381129128,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "26b364ae70e879befbb348e172bff5df56bd84313c4a014da37ea06a23c6fff4",
+      "alphaBounds": [
+        8,
+        14,
+        90,
+        81
+      ],
+      "transparentPixels": 6040
+    },
+    {
+      "key": "icon_armor_heavy",
+      "slot": "armor",
+      "id": "heavy",
+      "sources": {
+        "armor/heavy.glb": "66c533ea9ae84fcce0dd38ee5decdf3a015afdcaca3c3708fd5451f29b05426d",
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3"
+      },
+      "uniformScale": 2.047531896451627,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "a92530c3b624424cfb545ee934f82925b4d9254f5da9d266f1bdeed7998d1334",
+      "alphaBounds": [
+        10,
+        15,
+        88,
+        81
+      ],
+      "transparentPixels": 6227
+    },
+    {
+      "key": "icon_armor_gunslinger",
+      "slot": "armor",
+      "id": "gunslinger",
+      "sources": {
+        "armor/gunslinger.glb": "b0c25fe7202d7284f8ef295f7fd874220cb3b717b5e70d81135259f24d9e681f",
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3"
+      },
+      "uniformScale": 2.4266933973484113,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "533881501cdd993e00080b8e18386ec622e4c8a5bfef323f729253303b3be69f",
+      "alphaBounds": [
+        8,
+        9,
+        89,
+        82
+      ],
+      "transparentPixels": 5690
+    },
+    {
+      "key": "icon_armor_fencer",
+      "slot": "armor",
+      "id": "fencer",
+      "sources": {
+        "armor/fencer.glb": "5a478d316968d76aa911fb6180265062e46b782bc44a1665cb5f78c783f5905c",
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3"
+      },
+      "uniformScale": 2.4266933973484113,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "f1a4124ee95d7cca65b16839f8c532abf8d5e455177614d0342fa1df6f5b6ed0",
+      "alphaBounds": [
+        8,
+        11,
+        89,
+        84
+      ],
+      "transparentPixels": 5846
+    },
+    {
+      "key": "icon_armor_windrunner",
+      "slot": "armor",
+      "id": "windrunner",
+      "sources": {
+        "armor/windrunner.glb": "2b95b3fda06b219bd60163067e908cad580c39708ffc4789c16372b08ecda86a",
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3"
+      },
+      "uniformScale": 2.422145436456878,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "04f4e735eb70b555736d8579b293ee1d90182fc3747e1314526e84612c1cdd09",
+      "alphaBounds": [
+        8,
+        14,
+        88,
+        87
+      ],
+      "transparentPixels": 5662
+    },
+    {
+      "key": "icon_armor_juggernaut",
+      "slot": "armor",
+      "id": "juggernaut",
+      "sources": {
+        "armor/juggernaut.glb": "d545925f4c5729aac9e9f52075622739cfc7feb59965862c388bc14a21cf8b61",
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3"
+      },
+      "uniformScale": 1.7140394040315912,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "d9902ed85789d3ad9332f6d639218f342b69bf7bddcc74f00fe62dc79da957b2",
+      "alphaBounds": [
+        12,
+        8,
+        89,
+        86
+      ],
+      "transparentPixels": 6549
+    },
+    {
+      "key": "icon_armor_bombardier",
+      "slot": "armor",
+      "id": "bombardier",
+      "sources": {
+        "armor/bombardier.glb": "ccc2fe08723e977d9310d93bb67d636b2f9fc58bf23509c81c44eb3ec47c804d",
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3"
+      },
+      "uniformScale": 2.4266933973484113,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "7fe0beab9037bab71bf06210f5d66a9ffb15e28d749ca0a3b1021087a73be675",
+      "alphaBounds": [
+        8,
+        11,
+        89,
+        84
+      ],
+      "transparentPixels": 5608
+    },
+    {
+      "key": "icon_armor_berserker",
+      "slot": "armor",
+      "id": "berserker",
+      "sources": {
+        "armor/berserker.glb": "5f1efa05447a1dfcc2ce39afc2d611b20bafa8369671bb2d03762dbb728308aa",
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3"
+      },
+      "uniformScale": 2.067070832514894,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "de221dd8085521440c0a05253e84f2fdd46fe2006dd76c31aa37ce5d7a609cab",
+      "alphaBounds": [
+        7,
+        15,
+        88,
+        82
+      ],
+      "transparentPixels": 6335
+    },
+    {
+      "key": "icon_armor_mirrorweave",
+      "slot": "armor",
+      "id": "mirrorweave",
+      "sources": {
+        "armor/mirrorweave.glb": "90ac5e1793bff47e70aae6ce4d1a0aef7d2a07820ca160edb813d996a91396a0",
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3"
+      },
+      "uniformScale": 2.1116137556308314,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "75a9ea86daae68248118b426fb0684bfe68bea0efe3e4f8a318027ccfa90ac5f",
+      "alphaBounds": [
+        7,
+        16,
+        90,
+        82
+      ],
+      "transparentPixels": 6223
+    },
+    {
+      "key": "icon_armor_medic",
+      "slot": "armor",
+      "id": "medic",
+      "sources": {
+        "armor/medic.glb": "40b2f7e5ed60a475a0191f650fb685c136c1f84742017cf443f82fc7819f4987",
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3"
+      },
+      "uniformScale": 2.4266933973484113,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "a418afb8dfe87bd6d28a84ef53dffaa07dbae682541c6f72bdf51991f6445db7",
+      "alphaBounds": [
+        8,
+        11,
+        89,
+        84
+      ],
+      "transparentPixels": 5617
+    },
+    {
+      "key": "icon_armor_cobalt",
+      "slot": "armor",
+      "id": "cobalt",
+      "sources": {
+        "armor/cobalt.glb": "d6c4f274e8686cd4483ad1a70cca4523e67c97aac059d23114bea733317014b0",
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3"
+      },
+      "uniformScale": 2.0450394885518977,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "b0fd117e300ee03895e3e0d40c6e969a3fd9fe820b778c967d0d19431b55158f",
+      "alphaBounds": [
+        8,
+        14,
+        89,
+        82
+      ],
+      "transparentPixels": 6220
+    },
+    {
+      "key": "icon_armor_vog",
+      "slot": "armor",
+      "id": "vog",
+      "sources": {
+        "armor/vog.glb": "464420216eedd601d2511ecfde4bf049e61973971e91fea06c1169a636198ffc",
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3"
+      },
+      "uniformScale": 2.062868221831013,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "2c6f2071870c919a4fb18a5292cb0d3aa67687bcbd1a5d252b77af1e79f9c4ac",
+      "alphaBounds": [
+        7,
+        12,
+        87,
+        83
+      ],
+      "transparentPixels": 6292
+    },
+    {
+      "key": "icon_armor_clockwork",
+      "slot": "armor",
+      "id": "clockwork",
+      "sources": {
+        "armor/clockwork.glb": "45b4346cb78ce2e40d3b5352b3ea532b62846eb75d5e2bdc408ecfc53b0d8eb4",
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3"
+      },
+      "uniformScale": 2.232558002927291,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "0f251d8d14725a33e11d3c48570d1e5f0b92a2b40e8923037d5edd27edc35300",
+      "alphaBounds": [
+        8,
+        14,
+        87,
+        82
+      ],
+      "transparentPixels": 6170
+    },
+    {
+      "key": "icon_pants_none",
+      "slot": "pants",
+      "id": "none",
+      "sources": {
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3"
+      },
+      "uniformScale": 3.0827951434301912,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "414476ea492705ed8d5ef7b4e6b10dcc4127f6fa149cfad781be4625073980d9",
+      "alphaBounds": [
+        28,
+        6,
+        69,
+        85
+      ],
+      "transparentPixels": 6560
+    },
+    {
+      "key": "icon_pants_greaves",
+      "slot": "pants",
+      "id": "greaves",
+      "sources": {
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3",
+        "pants/greaves.glb": "bc428030084489ec6f2b5fb3cd740e0e3170f6c7aab0b68b07178c68e26d64ea"
+      },
+      "uniformScale": 2.8044871631322206,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "a24e2eb2d675e7da102c90e3ac08efe0b929efef0b0eec34d50ed8f910bed5c8",
+      "alphaBounds": [
+        26,
+        7,
+        73,
+        86
+      ],
+      "transparentPixels": 6237
+    },
+    {
+      "key": "icon_pants_leggings",
+      "slot": "pants",
+      "id": "leggings",
+      "sources": {
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3",
+        "pants/leggings.glb": "0d73b49c0ec661838f1c5130f6ab852c65e7be0fb55fc6071da5f619679efb8a"
+      },
+      "uniformScale": 2.8044871631322206,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "7eba13f9a6e6e98a21cd2d3a92e16e3cad0986abfc6ed3ce3f117050209f7238",
+      "alphaBounds": [
+        26,
+        7,
+        73,
+        86
+      ],
+      "transparentPixels": 6230
+    },
+    {
+      "key": "icon_pants_chausses",
+      "slot": "pants",
+      "id": "chausses",
+      "sources": {
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3",
+        "pants/chausses.glb": "731e749897ea17fca569edfae5c262c90c2da691fa90af96444badb85844cd5c"
+      },
+      "uniformScale": 2.8044871631322206,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "f9436ced36a281d142b26817b7fdc2f56fb0371d818f12d1308ee79bda702772",
+      "alphaBounds": [
+        26,
+        7,
+        73,
+        86
+      ],
+      "transparentPixels": 6227
+    },
+    {
+      "key": "icon_pants_breeches",
+      "slot": "pants",
+      "id": "breeches",
+      "sources": {
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3",
+        "pants/breeches.glb": "b4d47c4a6d262b4b8cd0cd348f3aae03ecb41b27317d671c4c974bbec74c626f"
+      },
+      "uniformScale": 2.8044871631322206,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "82570085c7e0e4d11bd33fb4af467836099237d5f6a20a6f6c234ad028f66849",
+      "alphaBounds": [
+        26,
+        7,
+        73,
+        86
+      ],
+      "transparentPixels": 6237
+    },
+    {
+      "key": "icon_pants_sapper",
+      "slot": "pants",
+      "id": "sapper",
+      "sources": {
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3",
+        "pants/sapper.glb": "c475f2d9f5aab8161a5da1f34a1d173cc2f1a9fe9d341fe1d9e4e9815efced40"
+      },
+      "uniformScale": 2.8044871631322206,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "63b9a4ff48bef9fd9115e2c9ca3b501104e95c91baa0df1ecdd2c21086bcaaeb",
+      "alphaBounds": [
+        26,
+        7,
+        72,
+        86
+      ],
+      "transparentPixels": 6236
+    },
+    {
+      "key": "icon_pants_cargo",
+      "slot": "pants",
+      "id": "cargo",
+      "sources": {
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3",
+        "pants/cargo.glb": "29a5ef2302b18d1370d6010f1057d013fdb53eab6b11908b4279b3e69a10e75f"
+      },
+      "uniformScale": 2.8044871631322206,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "10438d030f0f5506a2fc34b76134a12b8a3bcff8a0f7843c3c38b19d69c59a00",
+      "alphaBounds": [
+        26,
+        7,
+        73,
+        86
+      ],
+      "transparentPixels": 6249
+    },
+    {
+      "key": "icon_pants_cobalt",
+      "slot": "pants",
+      "id": "cobalt",
+      "sources": {
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3",
+        "pants/cobalt.glb": "49bc69a5600b91ff1606ab5f7ba9fd4c205cf60ceca9f443e3a69ab12aefd2b7"
+      },
+      "uniformScale": 2.717039796716701,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "fbaa4ac3a4275d2a302d6036f4929e3d5eb9df6913b40a5ba8346de12ac79945",
+      "alphaBounds": [
+        26,
+        7,
+        73,
+        86
+      ],
+      "transparentPixels": 6203
+    },
+    {
+      "key": "icon_pants_wolver",
+      "slot": "pants",
+      "id": "wolver",
+      "sources": {
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3",
+        "pants/wolver.glb": "d2cddfd1e931229faae656b496eb5843fac53ad43d5a4fbcc73e43a025ca8f70"
+      },
+      "uniformScale": 2.8044871631322206,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "ad27b8608e17f9dd5323517cfba7629d2560917325d07bcfaab9afcf31faff78",
+      "alphaBounds": [
+        26,
+        7,
+        73,
+        86
+      ],
+      "transparentPixels": 6228
+    },
+    {
+      "key": "icon_pants_demo",
+      "slot": "pants",
+      "id": "demo",
+      "sources": {
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3",
+        "pants/demo.glb": "3da9a0ddbe156028434c9a8b678a76f92a5c7c24ef3a6c30df3af810c5c70ca6"
+      },
+      "uniformScale": 2.8044871631322206,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "9f494879402b112b7fb87b98c0d1f99bbdec1eba2b2a24575a0a7ae3ee89060f",
+      "alphaBounds": [
+        26,
+        7,
+        73,
+        86
+      ],
+      "transparentPixels": 6236
+    },
+    {
+      "key": "icon_pants_seraph",
+      "slot": "pants",
+      "id": "seraph",
+      "sources": {
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3",
+        "pants/seraph.glb": "df9f86a40f2be2e09914dc3b1b8f9b72d988cd9376e80dfe1f809fcc6458b456"
+      },
+      "uniformScale": 2.8044871631322206,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "2161d6163774869b9cd20aa106ead6a51f26994eeb8c2ebc429398d1ecc01a04",
+      "alphaBounds": [
+        26,
+        7,
+        73,
+        86
+      ],
+      "transparentPixels": 6206
+    },
+    {
+      "key": "icon_pants_kilt",
+      "slot": "pants",
+      "id": "kilt",
+      "sources": {
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3",
+        "pants/kilt.glb": "2c685c09eceaa62f34d238c992648ca4f12b944f7029cde4d79aafef4ac2668a"
+      },
+      "uniformScale": 2.8044871631322206,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "b8b43a9affbf4533da7c0aea1cd2708943a4e43836fa25c666e73bc1a0cf96fc",
+      "alphaBounds": [
+        24,
+        7,
+        73,
+        86
+      ],
+      "transparentPixels": 6181
+    },
+    {
+      "key": "icon_shoes_none",
+      "slot": "shoes",
+      "id": "none",
+      "sources": {
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3"
+      },
+      "uniformScale": 4.291060755155751,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "f868ec75b061829aeee1a1cf71e53261b645804388084b9f04a6f909be275b4e",
+      "alphaBounds": [
+        6,
+        18,
+        90,
+        79
+      ],
+      "transparentPixels": 5977
+    },
+    {
+      "key": "icon_shoes_sneakers",
+      "slot": "shoes",
+      "id": "sneakers",
+      "sources": {
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3",
+        "shoes/sneakers.glb": "b912da3ec03f6b6e6fddbb37ca6632631fd8abf54c5b9a656be11909f36d5561"
+      },
+      "uniformScale": 3.8338657436176202,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "5e653ee5093127ed4b6447ba416325d236df768c1ff7902b899369e7f42a837a",
+      "alphaBounds": [
+        7,
+        21,
+        89,
+        79
+      ],
+      "transparentPixels": 6172
+    },
+    {
+      "key": "icon_shoes_sabatons",
+      "slot": "shoes",
+      "id": "sabatons",
+      "sources": {
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3",
+        "shoes/sabatons.glb": "3ecbd85e089ee1a77668f2c25a3548497a033a9bd8fa15c19b788ca53696cab1"
+      },
+      "uniformScale": 3.743315341875304,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "4b445584e15d817769c13588e796f0f5fe703c6094101755a564af2bb2475c78",
+      "alphaBounds": [
+        7,
+        21,
+        89,
+        79
+      ],
+      "transparentPixels": 6217
+    },
+    {
+      "key": "icon_shoes_dashboots",
+      "slot": "shoes",
+      "id": "dashboots",
+      "sources": {
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3",
+        "shoes/dashboots.glb": "700ddaf8e9b2128e6387790a892f1720be16460c4f19794a82a3da7007fd8845"
+      },
+      "uniformScale": 3.4797016903620226,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "72adb5667bea647ae3619d3ac6b8424ce001c1f26ee3dedca98bfaa4d2b4ca7f",
+      "alphaBounds": [
+        7,
+        15,
+        89,
+        81
+      ],
+      "transparentPixels": 6178
+    },
+    {
+      "key": "icon_shoes_spurs",
+      "slot": "shoes",
+      "id": "spurs",
+      "sources": {
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3",
+        "shoes/spurs.glb": "20286b1368ad3bb4283f176bdae2515091fb7cd023557da9cc9c95d8f35556f4"
+      },
+      "uniformScale": 3.5912782759324875,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "92fd54d503d9a2b05ada08505c7689d86b6f90e6e0b2e9c29c0222e6bcd356b7",
+      "alphaBounds": [
+        7,
+        24,
+        84,
+        79
+      ],
+      "transparentPixels": 6419
+    },
+    {
+      "key": "icon_shoes_treads",
+      "slot": "shoes",
+      "id": "treads",
+      "sources": {
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3",
+        "shoes/treads.glb": "c6535a709095ae9674ac014908a12dc17e7e0b554ec0209c1f777d919e3744cd"
+      },
+      "uniformScale": 3.7053374732203674,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "57e5d7f30634aa793d3f7844141718d1b9e6027b440d20481d76b6a7f64639f6",
+      "alphaBounds": [
+        7,
+        21,
+        89,
+        79
+      ],
+      "transparentPixels": 6183
+    },
+    {
+      "key": "icon_shoes_clogs",
+      "slot": "shoes",
+      "id": "clogs",
+      "sources": {
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3",
+        "shoes/clogs.glb": "ad49ec8fbd2621054b67a1dc4835f667c5c5af906982452772b96738d3923213"
+      },
+      "uniformScale": 3.2171579961657475,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "f1a63545d912625b6a0cff589f267730cbf9d0942165d59de28f96bd72a8ec63",
+      "alphaBounds": [
+        6,
+        21,
+        90,
+        77
+      ],
+      "transparentPixels": 6236
+    },
+    {
+      "key": "icon_shoes_sandals",
+      "slot": "shoes",
+      "id": "sandals",
+      "sources": {
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3",
+        "shoes/sandals.glb": "51cf93c3c1b800e386e519984923e912cc704713cd9fa7cf9389d5b5349d4015"
+      },
+      "uniformScale": 3.8585208522009573,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "05badc128e1257fc56e4b910e71d6c4015743824ee0075fdc52993e30719912e",
+      "alphaBounds": [
+        7,
+        20,
+        89,
+        79
+      ],
+      "transparentPixels": 6187
+    },
+    {
+      "key": "icon_shoes_striders",
+      "slot": "shoes",
+      "id": "striders",
+      "sources": {
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3",
+        "shoes/striders.glb": "83bd3b29e871a9e44587f30c2df2e7524afabc1d33ee594ae87465204211418e"
+      },
+      "uniformScale": 3.847915616767229,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "638a7d6aca6e26a579ede3b89d992816cfa04905027e7424a86fd1aebb10f6bb",
+      "alphaBounds": [
+        7,
+        21,
+        89,
+        79
+      ],
+      "transparentPixels": 6147
+    },
+    {
+      "key": "icon_shoes_magma",
+      "slot": "shoes",
+      "id": "magma",
+      "sources": {
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3",
+        "shoes/magma.glb": "fe2f315c7553788d138e1eb10f7dc2d5c4a27312ee9a1079b5209da7c416eef0"
+      },
+      "uniformScale": 3.6923077370489645,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "20c01a6c53405494ea2d3b13db19d2cf0d71499f3a50edc3f5beb322c7ba6684",
+      "alphaBounds": [
+        7,
+        22,
+        89,
+        79
+      ],
+      "transparentPixels": 6208
+    },
+    {
+      "key": "icon_shoes_hover",
+      "slot": "shoes",
+      "id": "hover",
+      "sources": {
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3",
+        "shoes/hover.glb": "3d1f4d65935a4f83ecb9a49d2562bf198814c9999e81ea30b23caca9f11e322c"
+      },
+      "uniformScale": 3.6537623772218937,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "84f820decfce192f2882019a374fcffcf29048127a1e0ee721274c9c0dcfdb87",
+      "alphaBounds": [
+        8,
+        22,
+        88,
+        78
+      ],
+      "transparentPixels": 6344
+    },
+    {
+      "key": "icon_shoes_quicksilver",
+      "slot": "shoes",
+      "id": "quicksilver",
+      "sources": {
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3",
+        "shoes/quicksilver.glb": "6897d6a8b4ef03b66c98ca15b708e187373f8656afc5a84b9048cc76d910b116"
+      },
+      "uniformScale": 3.847915616767229,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "1d128bae2dd9993632788892ff86cb9242e1815e199011d746e8d699b62a304d",
+      "alphaBounds": [
+        7,
+        20,
+        89,
+        79
+      ],
+      "transparentPixels": 6155
+    },
+    {
+      "key": "icon_weapon_brand",
+      "slot": "weapon",
+      "id": "brand",
+      "family": "blade",
+      "sources": {
+        "weapons/brand.glb": "bc7c5717f2a6b2ccfdc094e7ee3e8e8d514e602f1c6e15854d5c143e82808c5b"
+      },
+      "uniformScale": 3.7524083114960534,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "5e9ae25f5ab6f64c7ad5455448237a49a3d7cd7bddd8b9e1e839d34b35768547",
+      "alphaBounds": [
+        23,
+        13,
+        81,
+        87
+      ],
+      "transparentPixels": 7760
+    },
+    {
+      "key": "icon_weapon_cleaver",
+      "slot": "weapon",
+      "id": "cleaver",
+      "family": "blade",
+      "sources": {
+        "weapons/cleaver.glb": "e00d8fe266ad89091289fb6663fafc780047dfc8d76eaacab767aa9e8dd164ae"
+      },
+      "uniformScale": 3.110400609682475,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "3609845fabe5ecd41cbb0dd9ed26797d4f04504d8e8a5a8e0b323fe7a40e3bd7",
+      "alphaBounds": [
+        16,
+        13,
+        82,
+        88
+      ],
+      "transparentPixels": 7480
+    },
+    {
+      "key": "icon_weapon_rapier",
+      "slot": "weapon",
+      "id": "rapier",
+      "family": "blade",
+      "sources": {
+        "weapons/rapier.glb": "bb6514efcf74b6283b0f46e84ff81bffc891eca36af28fe9ca1833df876e7610"
+      },
+      "uniformScale": 3.445579778509019,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "3b9834b396bad392b6a311053613017d3260f6bd08a2e10c7ba4d90cd67cc5a4",
+      "alphaBounds": [
+        16,
+        8,
+        78,
+        88
+      ],
+      "transparentPixels": 7774
+    },
+    {
+      "key": "icon_weapon_thorn",
+      "slot": "weapon",
+      "id": "thorn",
+      "family": "blade",
+      "sources": {
+        "weapons/thorn.glb": "0825d289262c85d056d12739532ca949ef35b35a3fe01aae482592eac4e6a345"
+      },
+      "uniformScale": 3.6960989670520292,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "62212fd4f1e9a891d6bc68a0b9262ee1169cc25077184307a344694d20c8eadb",
+      "alphaBounds": [
+        17,
+        14,
+        81,
+        88
+      ],
+      "transparentPixels": 7678
+    },
+    {
+      "key": "icon_weapon_greatblade",
+      "slot": "weapon",
+      "id": "greatblade",
+      "family": "blade",
+      "sources": {
+        "weapons/greatblade.glb": "0b42e5a4a67efa392247d9382c68fb8e6e938b14594b27b8daea07ce0ed41d90"
+      },
+      "uniformScale": 3.0869707545566816,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "5edcd555bb04e4b0f670bbd447d7a90fe366773bb6a313a6f2090661ae285751",
+      "alphaBounds": [
+        22,
+        12,
+        82,
+        88
+      ],
+      "transparentPixels": 7653
+    },
+    {
+      "key": "icon_weapon_spur",
+      "slot": "weapon",
+      "id": "spur",
+      "family": "blade",
+      "sources": {
+        "weapons/spur.glb": "dc964b5a2dd5cf352cc600928d89e440d5c93467ecb6de9d913b57d65da5a196"
+      },
+      "uniformScale": 4.462569429199429,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "20b74088fec3be5eb2e77a68746839de4694d261a01b468aa1baa82ef4809304",
+      "alphaBounds": [
+        13,
+        7,
+        83,
+        88
+      ],
+      "transparentPixels": 7329
+    },
+    {
+      "key": "icon_weapon_frostbite",
+      "slot": "weapon",
+      "id": "frostbite",
+      "family": "blade",
+      "sources": {
+        "weapons/frostbite.glb": "9c932e24d4dcf5c372c237e3c940b1c05c2f37fae79ca5b4bf5a3f3a1b7976f7"
+      },
+      "uniformScale": 3.804836012122592,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "e93e5282ae84f2ffdd2423818880526302ef659c066bbca4ba393d5a23a2edfd",
+      "alphaBounds": [
+        22,
+        12,
+        81,
+        88
+      ],
+      "transparentPixels": 7695
+    },
+    {
+      "key": "icon_weapon_blazebrand",
+      "slot": "weapon",
+      "id": "blazebrand",
+      "family": "blade",
+      "sources": {
+        "weapons/blazebrand.glb": "cdd1858a21af8a9f81de550940de7138cfdcf6d539775483c329f90758a6a908"
+      },
+      "uniformScale": 3.788695682065695,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "dae757d40c8d1c7acebf4174e248df1364cff95cab8a1029e49e474df817a45d",
+      "alphaBounds": [
+        20,
+        10,
+        83,
+        88
+      ],
+      "transparentPixels": 7697
+    },
+    {
+      "key": "icon_weapon_voltedge",
+      "slot": "weapon",
+      "id": "voltedge",
+      "family": "blade",
+      "sources": {
+        "weapons/voltedge.glb": "277a4a4870a81f5496b15f6bf368ff900ee9fa91a383963a1cc22e690f572acc"
+      },
+      "uniformScale": 4.5615887825947805,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "048970b49ed3875b2d4edc7cc8d14a366dd4b09dd4938e2d6aa9c9a56248daf7",
+      "alphaBounds": [
+        21,
+        11,
+        81,
+        88
+      ],
+      "transparentPixels": 7557
+    },
+    {
+      "key": "icon_weapon_sickle",
+      "slot": "weapon",
+      "id": "sickle",
+      "family": "blade",
+      "sources": {
+        "weapons/sickle.glb": "7b9be29b432778751cee2c2bae6b06a366352673752f856967ebb8d1d8a74e06"
+      },
+      "uniformScale": 3.7308430496502756,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "bf52cbdfd1a223e835674fb2f9453554e8107ef837c11ff3ed00b342497553c5",
+      "alphaBounds": [
+        10,
+        6,
+        83,
+        88
+      ],
+      "transparentPixels": 7733
+    },
+    {
+      "key": "icon_weapon_hexblade",
+      "slot": "weapon",
+      "id": "hexblade",
+      "family": "blade",
+      "sources": {
+        "weapons/hexblade.glb": "860f00a8d648ce69327ddd89fbc5b5c1129b6e518c9f2dabf42925b1e15d5c1e"
+      },
+      "uniformScale": 3.038495148544617,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "6030883789febd80f8451c0eaff66a3506f27d4115851420a3a3e3617de737bc",
+      "alphaBounds": [
+        22,
+        12,
+        81,
+        87
+      ],
+      "transparentPixels": 7690
+    },
+    {
+      "key": "icon_weapon_maul",
+      "slot": "weapon",
+      "id": "maul",
+      "family": "blade",
+      "sources": {
+        "weapons/maul.glb": "c06a6be464432eb8eeadadd8761407dccf8372ad7178b84ccf63aa4ddda8f7a1"
+      },
+      "uniformScale": 2.5803518210547876,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "3eaaff49665cd93b9afe581ec1f3da1e10fe262f4597a8317c3ef98b7f6dda49",
+      "alphaBounds": [
+        13,
+        9,
+        84,
+        88
+      ],
+      "transparentPixels": 6168
+    },
+    {
+      "key": "icon_weapon_avenger",
+      "slot": "weapon",
+      "id": "avenger",
+      "family": "blade",
+      "sources": {
+        "weapons/avenger.glb": "2409856e042920e1075f5fcd779076ab3ff94e756eb05ac9b062047c84469b1d"
+      },
+      "uniformScale": 3.87039367121041,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "b41a775db3d03b59cbcef8223724c47254471df7bc87a549d08af4d652f1d41f",
+      "alphaBounds": [
+        17,
+        10,
+        77,
+        88
+      ],
+      "transparentPixels": 7603
+    },
+    {
+      "key": "icon_weapon_leviathan",
+      "slot": "weapon",
+      "id": "leviathan",
+      "family": "blade",
+      "sources": {
+        "weapons/leviathan.glb": "381e6173767302e069ac45a650f9a554158c922ced1e58335c535a8b83aa4b7a"
+      },
+      "uniformScale": 3.3679452873037996,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "b3396b698dfa55749a1a37485b328e4f072f281435618bc7186186bafb64e0f0",
+      "alphaBounds": [
+        12,
+        7,
+        80,
+        88
+      ],
+      "transparentPixels": 7895
+    },
+    {
+      "key": "icon_weapon_troika",
+      "slot": "weapon",
+      "id": "troika",
+      "family": "blade",
+      "sources": {
+        "weapons/troika.glb": "6c7963c9b8e180e30563232ab7e6884e276ba9e7e2a03bcf829bf917e6fc5d00"
+      },
+      "uniformScale": 3.1270745292776563,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "f04e7c233126d885f6b2564ba1fbd5f329678a21b4437551c7afbb96e5c789f3",
+      "alphaBounds": [
+        18,
+        11,
+        82,
+        88
+      ],
+      "transparentPixels": 7536
+    },
+    {
+      "key": "icon_weapon_sabre",
+      "slot": "weapon",
+      "id": "sabre",
+      "family": "blade",
+      "sources": {
+        "weapons/sabre.glb": "26e3b1b729175e2dbdc035ea1b9976f571abf2e3bcaf39078fb7474f7828b167"
+      },
+      "uniformScale": 3.802095572620851,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "a913f19851b139e1d7167ba39112b956c6c86f50c3af7a2e1082be0f5eb3e64a",
+      "alphaBounds": [
+        10,
+        7,
+        81,
+        88
+      ],
+      "transparentPixels": 7567
+    },
+    {
+      "key": "icon_weapon_flamesabre",
+      "slot": "weapon",
+      "id": "flamesabre",
+      "family": "blade",
+      "sources": {
+        "weapons/flamesabre.glb": "70a3fd0bff36556fc7377de26cd6eac3ea45855b8578251ab761d3216fcaa607"
+      },
+      "uniformScale": 3.802095572620851,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "0d51a721c927e5bf8c4bd16c9e4d73fa5e9eb640465efe49fca01a234e3939cd",
+      "alphaBounds": [
+        10,
+        7,
+        81,
+        88
+      ],
+      "transparentPixels": 7567
+    },
+    {
+      "key": "icon_weapon_frostsabre",
+      "slot": "weapon",
+      "id": "frostsabre",
+      "family": "blade",
+      "sources": {
+        "weapons/frostsabre.glb": "b4103d38f7b167ac345024a6aa4c66a121a52695c72e1f1a3b7f9a214a86fcf9"
+      },
+      "uniformScale": 3.738812283479921,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "18c6702b55d351f77abd934a37034cbe25fbc3d6a84e6b6b117e60673ba2e6dc",
+      "alphaBounds": [
+        11,
+        8,
+        80,
+        88
+      ],
+      "transparentPixels": 7519
+    },
+    {
+      "key": "icon_weapon_stormsabre",
+      "slot": "weapon",
+      "id": "stormsabre",
+      "family": "blade",
+      "sources": {
+        "weapons/stormsabre.glb": "8718a0aaf88b4c1eb2ae12fb0b51e9f44d681e4f38f850d4e8d3c5d563052e04"
+      },
+      "uniformScale": 3.783244469097858,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "d7ace43f09b832afd0a184f4943f434417c261ed23e996ac27dd566ba2092ff3",
+      "alphaBounds": [
+        10,
+        7,
+        80,
+        87
+      ],
+      "transparentPixels": 7581
+    },
+    {
+      "key": "icon_weapon_katana",
+      "slot": "weapon",
+      "id": "katana",
+      "family": "blade",
+      "sources": {
+        "weapons/katana.glb": "c2a09476a0245e97b0fd55cc5ce779451effa6a3160c76aa5f42c77f14c13c10"
+      },
+      "uniformScale": 3.33713734427145,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "cbc25d5cbc65c7a6140e568458528dea624f6dcfdf5fa17b6e1624287f3c7db8",
+      "alphaBounds": [
+        13,
+        7,
+        82,
+        88
+      ],
+      "transparentPixels": 7931
+    },
+    {
+      "key": "icon_weapon_blaster",
+      "slot": "weapon",
+      "id": "blaster",
+      "family": "gun",
+      "sources": {
+        "weapons/blaster.glb": "842c502e6e22ac183fb753776f95c7d3d67afec32dacc0b823ba4226c2804552"
+      },
+      "uniformScale": 3.809869351453895,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "7befb77e7dd1ab47a857c56b640eea5f4229a70a298aa835349c07cc816932b1",
+      "alphaBounds": [
+        10,
+        9,
+        86,
+        84
+      ],
+      "transparentPixels": 6105
+    },
+    {
+      "key": "icon_weapon_pulsar",
+      "slot": "weapon",
+      "id": "pulsar",
+      "family": "gun",
+      "sources": {
+        "weapons/pulsar.glb": "28879d79ff5942bfcbff77994c6c959bd1e9f87304e34820ffe0690251e7dc8d"
+      },
+      "uniformScale": 3.9113433035510425,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "8edd812515c0781d61a46d73c07ca9832bbf02af57c71c9d2b03bf28725ca5d9",
+      "alphaBounds": [
+        7,
+        10,
+        88,
+        84
+      ],
+      "transparentPixels": 6068
+    },
+    {
+      "key": "icon_weapon_alchemer",
+      "slot": "weapon",
+      "id": "alchemer",
+      "family": "gun",
+      "sources": {
+        "weapons/alchemer.glb": "c776e846444dee4d4388a2e9d81388f16829dc4cce7ac80b7c5357cd8ca12ecf"
+      },
+      "uniformScale": 4.113413223955979,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "b66ada1b5945ad325c0b0e19cac7814163666d1696acf63103d61885216f7438",
+      "alphaBounds": [
+        8,
+        13,
+        88,
+        85
+      ],
+      "transparentPixels": 6186
+    },
+    {
+      "key": "icon_weapon_autogun",
+      "slot": "weapon",
+      "id": "autogun",
+      "family": "gun",
+      "sources": {
+        "weapons/autogun.glb": "a6ec2dd482e28c41f6238a51c6684dd8c9ee3b62323d86c0bcaba2d365db8d63"
+      },
+      "uniformScale": 4.082426602529964,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "c3ff9e96efaae45df52b9066e0efa7f4db4325e011170772463bea36576b2dc1",
+      "alphaBounds": [
+        9,
+        12,
+        88,
+        82
+      ],
+      "transparentPixels": 6131
+    },
+    {
+      "key": "icon_weapon_sixgun",
+      "slot": "weapon",
+      "id": "sixgun",
+      "family": "gun",
+      "sources": {
+        "weapons/sixgun.glb": "3e96ccadff05ba6432d67156d9b3d45e50a905359971b01ef3482b3e8a43f2bd"
+      },
+      "uniformScale": 3.9325846229917585,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "10a385b92ffdaf96e5f807909b44b04295c055815274d1e568aad601c65a14ad",
+      "alphaBounds": [
+        6,
+        11,
+        82,
+        87
+      ],
+      "transparentPixels": 6509
+    },
+    {
+      "key": "icon_weapon_embersixgun",
+      "slot": "weapon",
+      "id": "embersixgun",
+      "family": "gun",
+      "sources": {
+        "weapons/embersixgun.glb": "70669bdf79c174d1017938660094b64fc52ce5384bf00147d6ffca52aa522c0e"
+      },
+      "uniformScale": 3.9325846229917585,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "aa3a1edbea4ac56ea60e4104d2df8e4686beaf0bebb4bdf242d9a8f262ea0616",
+      "alphaBounds": [
+        6,
+        11,
+        82,
+        87
+      ],
+      "transparentPixels": 6509
+    },
+    {
+      "key": "icon_weapon_peacemaker",
+      "slot": "weapon",
+      "id": "peacemaker",
+      "family": "gun",
+      "sources": {
+        "weapons/peacemaker.glb": "c17c791e9792475109d68460e4d9bd315c33f626dd21b02373ab39d589ebb2a2"
+      },
+      "uniformScale": 3.586677998473609,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "8342065499bd9a011644242940c0f2bc56ee9e77719190c21b9786b749edcc52",
+      "alphaBounds": [
+        7,
+        11,
+        79,
+        87
+      ],
+      "transparentPixels": 6572
+    },
+    {
+      "key": "icon_weapon_catalyzer",
+      "slot": "weapon",
+      "id": "catalyzer",
+      "family": "gun",
+      "sources": {
+        "weapons/catalyzer.glb": "1938315e9a6970e04dc145df215e99c812f61fc2131108b3d664ab24eb68448c"
+      },
+      "uniformScale": 3.9763704942677403,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "aa89e226574d03221d0451556690a2e06164690e69548995bc93a3b840819c49",
+      "alphaBounds": [
+        11,
+        14,
+        88,
+        83
+      ],
+      "transparentPixels": 6292
+    },
+    {
+      "key": "icon_weapon_magnus",
+      "slot": "weapon",
+      "id": "magnus",
+      "family": "gun",
+      "sources": {
+        "weapons/magnus.glb": "b77dfde56345497036a5e8110e049276eba06826d136e866d7f3650403d5dded"
+      },
+      "uniformScale": 3.0719719903502525,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "5e0953173f07dc1a980a947f8ada101346ee6f893bc7f51cf58d2ce746f958a4",
+      "alphaBounds": [
+        6,
+        15,
+        81,
+        87
+      ],
+      "transparentPixels": 6816
+    },
+    {
+      "key": "icon_weapon_rifle",
+      "slot": "weapon",
+      "id": "rifle",
+      "family": "gun",
+      "sources": {
+        "weapons/rifle.glb": "02be04e22464755c91c12f42524a20ae5a70b49f6cc9cfbef084ff8a31197a93"
+      },
+      "uniformScale": 1.9661713842473818,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "bfa6f725d69b7c478b3b1a19c4c68530d563d33f6111ff665867334bc66e1f8e",
+      "alphaBounds": [
+        8,
+        10,
+        75,
+        85
+      ],
+      "transparentPixels": 7586
+    },
+    {
+      "key": "icon_weapon_frostgun",
+      "slot": "weapon",
+      "id": "frostgun",
+      "family": "gun",
+      "sources": {
+        "weapons/frostgun.glb": "a37205005f049ced306fc4db793241b89080467e8e06fa5e09d58a46d74932c5"
+      },
+      "uniformScale": 4.15923992854252,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "079f91a491b6556580fd329b09fe3804300b0b0621e26be5c978ba7d554476fb",
+      "alphaBounds": [
+        8,
+        11,
+        88,
+        83
+      ],
+      "transparentPixels": 6226
+    },
+    {
+      "key": "icon_weapon_embercaster",
+      "slot": "weapon",
+      "id": "embercaster",
+      "family": "gun",
+      "sources": {
+        "weapons/embercaster.glb": "35d1930a133848441a86d58dbd24d6dafca021a8cd6bb18cce79aa509e56abae"
+      },
+      "uniformScale": 3.9113433035510425,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "0d49af1f98fbd09196f2a739dd08014b134cf98bf774bf37bacc3b05c5fe5fbb",
+      "alphaBounds": [
+        7,
+        10,
+        88,
+        84
+      ],
+      "transparentPixels": 6055
+    },
+    {
+      "key": "icon_weapon_voltneedle",
+      "slot": "weapon",
+      "id": "voltneedle",
+      "family": "gun",
+      "sources": {
+        "weapons/voltneedle.glb": "b1d589504a606c06081bbebdfbf757b5c2ae1648e8d9197891f0991a36a77e60"
+      },
+      "uniformScale": 4.082426602529964,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "a43b3cf5fc8119fe87e421bf42e5e08c4812b0805bbf07636e4ff26be125c710",
+      "alphaBounds": [
+        9,
+        12,
+        88,
+        82
+      ],
+      "transparentPixels": 6131
+    },
+    {
+      "key": "icon_weapon_viper",
+      "slot": "weapon",
+      "id": "viper",
+      "family": "gun",
+      "sources": {
+        "weapons/viper.glb": "b0aa2dc05f969db5eb31c9c9684f6cdb5567890f5068aa48be817f140218dbd4"
+      },
+      "uniformScale": 4.012228210605724,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "fb77e21a757f9eba49acced27c0612abf7cf6e8c965fe6f66b3f8b38cf785c44",
+      "alphaBounds": [
+        6,
+        12,
+        88,
+        83
+      ],
+      "transparentPixels": 5864
+    },
+    {
+      "key": "icon_weapon_grimcannon",
+      "slot": "weapon",
+      "id": "grimcannon",
+      "family": "gun",
+      "sources": {
+        "weapons/grimcannon.glb": "050660c76181618f0f1474d4787da29f9eb220f7cfd4670f58e28bc65f89a670"
+      },
+      "uniformScale": 3.1536029428935572,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "e4eea3971c9d13958987a5d70ebee6ed9bf4ad3bc84632345f55a299087c9a9f",
+      "alphaBounds": [
+        7,
+        7,
+        89,
+        87
+      ],
+      "transparentPixels": 5955
+    },
+    {
+      "key": "icon_weapon_scatter",
+      "slot": "weapon",
+      "id": "scatter",
+      "family": "gun",
+      "sources": {
+        "weapons/scatter.glb": "aa61c4e9bf1d92d7172b8c1d33c6f3726cf2f95107ef89627fb20352f7eadebd"
+      },
+      "uniformScale": 3.116189470247021,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "a16cc11d42156a033c6654e92e66bf805839545dc80e80dfd2172c75fc255550",
+      "alphaBounds": [
+        6,
+        8,
+        89,
+        83
+      ],
+      "transparentPixels": 5988
+    },
+    {
+      "key": "icon_weapon_polaris",
+      "slot": "weapon",
+      "id": "polaris",
+      "family": "gun",
+      "sources": {
+        "weapons/polaris.glb": "b315adb859f26fbc78eb19f657bbcbec287f0f3b70afac7f41baf814a5709407"
+      },
+      "uniformScale": 3.5112885210179545,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "2852cd89c5194b473be524986b564cf13c6d6a2cc367068eea2703be7429ff26",
+      "alphaBounds": [
+        9,
+        17,
+        86,
+        85
+      ],
+      "transparentPixels": 6458
+    },
+    {
+      "key": "icon_weapon_riftlocker",
+      "slot": "weapon",
+      "id": "riftlocker",
+      "family": "gun",
+      "sources": {
+        "weapons/riftlocker.glb": "aa08ab829a6b339485a2ac35fa2e8db815ff32002d044d4ceaa57e2cd1cc9b85"
+      },
+      "uniformScale": 3.9817979399739225,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "efd112360e27b156c53aca11156bc926e7f291dab0f312818754024399d7ec5f",
+      "alphaBounds": [
+        7,
+        10,
+        88,
+        81
+      ],
+      "transparentPixels": 6162
+    },
+    {
+      "key": "icon_weapon_blast",
+      "slot": "weapon",
+      "id": "blast",
+      "family": "bomb",
+      "sources": {
+        "weapons/blast.glb": "325cc39956e99489b32b3b6fc584c02c4d5e03372087e2ae43ac10efbff3cdb7"
+      },
+      "uniformScale": 3.6952796099500347,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "07cd399896050a58aa967de3d4133a3da97208afb3d2f151f21dbc7cdb12dd4e",
+      "alphaBounds": [
+        22,
+        18,
+        74,
+        73
+      ],
+      "transparentPixels": 6974
+    },
+    {
+      "key": "icon_weapon_haze",
+      "slot": "weapon",
+      "id": "haze",
+      "family": "bomb",
+      "sources": {
+        "weapons/haze.glb": "9943c7dad9c27226f082300acdfb38f712c9832283a4c075177e9f91a35ca4c8"
+      },
+      "uniformScale": 3.8025570455091886,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "310cee62dce1e0ab3005631e3abaccdd252752c9ff10a914503b395dcca769e5",
+      "alphaBounds": [
+        22,
+        18,
+        74,
+        74
+      ],
+      "transparentPixels": 7051
+    },
+    {
+      "key": "icon_weapon_frost",
+      "slot": "weapon",
+      "id": "frost",
+      "family": "bomb",
+      "sources": {
+        "weapons/frost.glb": "def5be382a0ea753c59658f9e6eb56ac35e44b85ff0c3301a7870c15d1185faa"
+      },
+      "uniformScale": 3.784711254135779,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "61ea243760e035d20cde861435fc739a0a03cac7b78d0d51caa9eab1c78d6d3e",
+      "alphaBounds": [
+        23,
+        18,
+        74,
+        73
+      ],
+      "transparentPixels": 7020
+    },
+    {
+      "key": "icon_weapon_venom",
+      "slot": "weapon",
+      "id": "venom",
+      "family": "bomb",
+      "sources": {
+        "weapons/venom.glb": "9d2bc40fa65f1785ada7b2bb755330d27a2f89382bd252e5b2a13434e8dfa0a9"
+      },
+      "uniformScale": 3.7324046487548017,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "51097170db5c43dc5e290d31d2ce526f71858103db2d370b6fca3efe029b5c17",
+      "alphaBounds": [
+        24,
+        18,
+        74,
+        72
+      ],
+      "transparentPixels": 7081
+    },
+    {
+      "key": "icon_weapon_storm",
+      "slot": "weapon",
+      "id": "storm",
+      "family": "bomb",
+      "sources": {
+        "weapons/storm.glb": "3febb0148d2e2441d421b65aa9698b11985b6026b21585ea137d2b26aecf29a9"
+      },
+      "uniformScale": 3.8068584577785507,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "9c9cc9c0a841fef96f728900751f5d19f33c28f4a7f91ad58b46158ebae0d32b",
+      "alphaBounds": [
+        19,
+        18,
+        74,
+        74
+      ],
+      "transparentPixels": 6911
+    },
+    {
+      "key": "icon_weapon_hex",
+      "slot": "weapon",
+      "id": "hex",
+      "family": "bomb",
+      "sources": {
+        "weapons/hex.glb": "52054b311d5269e10922aabd99bcede27be3816fdc12dca717c2bd230d139ff9"
+      },
+      "uniformScale": 3.6766663962461577,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "d2d08fc8c5d36f5953c5723c47bf264463aad06fa2c578f381b02937516bc37c",
+      "alphaBounds": [
+        22,
+        18,
+        76,
+        72
+      ],
+      "transparentPixels": 7142
+    },
+    {
+      "key": "icon_weapon_shard",
+      "slot": "weapon",
+      "id": "shard",
+      "family": "bomb",
+      "sources": {
+        "weapons/shard.glb": "92be42648304c596fc6bdca3d31a821aefdda7b8067e6933a265252f8f8a1693"
+      },
+      "uniformScale": 3.9252842795633818,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "3fb57c071f3b1c686a3493d0e490e2e067d07bef400a1e855cd63122847425d7",
+      "alphaBounds": [
+        21,
+        17,
+        75,
+        72
+      ],
+      "transparentPixels": 7227
+    },
+    {
+      "key": "icon_weapon_vortex",
+      "slot": "weapon",
+      "id": "vortex",
+      "family": "bomb",
+      "sources": {
+        "weapons/vortex.glb": "bb284e4ec97b0531ffa922cf58d6a977d0ec0e5330e96112002e0ca778653cd5"
+      },
+      "uniformScale": 3.6479867895400373,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "a319732352bd5e328c28e692bce0400b41ae8a9ceb5af84c84c653cc4b2bd590",
+      "alphaBounds": [
+        23,
+        19,
+        73,
+        73
+      ],
+      "transparentPixels": 7133
+    },
+    {
+      "key": "icon_weapon_nitro",
+      "slot": "weapon",
+      "id": "nitro",
+      "family": "bomb",
+      "sources": {
+        "weapons/nitro.glb": "0439dd1a913ab27cb417693c555506725e7815234620010ad1d55c8d37b67c90"
+      },
+      "uniformScale": 2.6171437497802796,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "a6d447bb4babb6114027684d791879a4009e8f437872cbfd6bc912fa942d0422",
+      "alphaBounds": [
+        19,
+        15,
+        77,
+        83
+      ],
+      "transparentPixels": 5588
+    },
+    {
+      "key": "icon_weapon_spark",
+      "slot": "weapon",
+      "id": "spark",
+      "family": "bomb",
+      "sources": {
+        "weapons/spark.glb": "89dc2077823e4e14508c372214263907832344ba984a040a991ddf7d2702a20d"
+      },
+      "uniformScale": 4.095163898383806,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "7e7813e0441a978b67dc0fdba959f7c2a2b5d8aba9c03e42d427bcfef99e78e1",
+      "alphaBounds": [
+        23,
+        17,
+        73,
+        83
+      ],
+      "transparentPixels": 6447
+    },
+    {
+      "key": "icon_class_striker",
+      "slot": "class",
+      "id": "striker",
+      "sources": {
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3"
+      },
+      "uniformScale": 1.3036902811492157,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "71631a8f2ac56df730d41df897a8628068caaae0fdb2662523f633e17af2d7ae",
+      "alphaBounds": [
+        27,
+        10,
+        69,
+        89
+      ],
+      "transparentPixels": 7015
+    },
+    {
+      "key": "icon_class_guardian",
+      "slot": "class",
+      "id": "guardian",
+      "sources": {
+        "class/guardian.glb": "d1f83ded36b2a3c2a7e1d5784dda51da16a2fc8f5f208e32e55fdd5a98879715"
+      },
+      "uniformScale": 1.731030845805442,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "2d19a9172a89a166ad70fa03d480194598a33650a6ae420759b09a3ed15982e6",
+      "alphaBounds": [
+        26,
+        18,
+        67,
+        77
+      ],
+      "transparentPixels": 7314
+    },
+    {
+      "key": "icon_class_recon",
+      "slot": "class",
+      "id": "recon",
+      "sources": {
+        "class/recon.glb": "5acefbb23b693eb64e35977290de53d320d83565532f0dcb8179fc638d2a746d"
+      },
+      "uniformScale": 5.3891061167797085,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "9d17fa29ab15f9125a5c40ac56e26b66c0b529e6b326ede16b7481f4cf7d2b4f",
+      "alphaBounds": [
+        22,
+        17,
+        70,
+        77
+      ],
+      "transparentPixels": 6977
+    },
+    {
+      "key": "icon_ability_dash",
+      "slot": "ability",
+      "id": "dash",
+      "sources": {
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3"
+      },
+      "uniformScale": 2.10723134125965,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "f6440a594d6b91dce20a7bf3af5c6dde841a9960cf86c9bd38fd99c7b609bae2",
+      "alphaBounds": [
+        20,
+        10,
+        76,
+        89
+      ],
+      "transparentPixels": 6943
+    },
+    {
+      "key": "icon_ability_bubble",
+      "slot": "ability",
+      "id": "bubble",
+      "sources": {
+        "class/guardian.glb": "d1f83ded36b2a3c2a7e1d5784dda51da16a2fc8f5f208e32e55fdd5a98879715"
+      },
+      "uniformScale": 1.5257918732513864,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "561362a13e73c52fdd7c12c0f985d0c6b6f9ceeb3f81bf19970133dc961c748f",
+      "alphaBounds": [
+        20,
+        17,
+        73,
+        79
+      ],
+      "transparentPixels": 6672
+    },
+    {
+      "key": "icon_ability_heal",
+      "slot": "ability",
+      "id": "heal",
+      "sources": {
+        "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3"
+      },
+      "uniformScale": 3.98936185143184,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "4f19ebed8ac716f26291e0267f7ae46619e1ce0c89bc2b002beb53c0e79ef820",
+      "alphaBounds": [
+        22,
+        17,
+        76,
+        88
+      ],
+      "transparentPixels": 6649
+    },
+    {
+      "key": "icon_ability_cloak",
+      "slot": "ability",
+      "id": "cloak",
+      "sources": {
+        "class/recon.glb": "5acefbb23b693eb64e35977290de53d320d83565532f0dcb8179fc638d2a746d"
+      },
+      "uniformScale": 3.915745675402699,
+      "camera": [
+        8,
+        7.5,
+        -6
+      ],
+      "size": [
+        96,
+        96
+      ],
+      "imageSha256": "3596bb1e7e84209921c5e33dbbc1df98136fceb88ef8e208116c43a5621d0edd",
+      "alphaBounds": [
+        27,
+        18,
+        69,
+        78
+      ],
+      "transparentPixels": 7205
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+106/106 sprites present in public/art/lockdown/ (matching icon_).
+ERROR icon_class_striker.png: size 96x96; must be 64x64 or 2x (128x128)
+ERROR icon_class_guardian.png: size 96x96; must be 64x64 or 2x (128x128)
+ERROR icon_class_recon.png: size 96x96; must be 64x64 or 2x (128x128)
+
+3 errors: fix them before handing the art over.

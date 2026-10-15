@@ -1,0 +1,1449 @@
+{
+  "manifestPreview": false,
+  "loadoutThumbnailRefresh": "Normal weapon reselection after image loading; initial cache behavior documented in README",
+  "url": "http://localhost:3006/lockdown.html?solo=1&dojo=1&quality=low",
+  "viewport": {
+    "width": 1600,
+    "height": 1050
+  },
+  "requestedIcons": 109,
+  "loadedIcons": [
+    {
+      "key": "icon_helmet_sallet",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_helmet_sallet.png"
+    },
+    {
+      "key": "icon_helmet_visor",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_helmet_visor.png"
+    },
+    {
+      "key": "icon_helmet_horned",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_helmet_horned.png"
+    },
+    {
+      "key": "icon_helmet_hood",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_helmet_hood.png"
+    },
+    {
+      "key": "icon_helmet_lampcap",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_helmet_lampcap.png"
+    },
+    {
+      "key": "icon_helmet_feather",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_helmet_feather.png"
+    },
+    {
+      "key": "icon_helmet_bucket",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_helmet_bucket.png"
+    },
+    {
+      "key": "icon_helmet_circlet",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_helmet_circlet.png"
+    },
+    {
+      "key": "icon_helmet_cobalt",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_helmet_cobalt.png"
+    },
+    {
+      "key": "icon_helmet_wolver",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_helmet_wolver.png"
+    },
+    {
+      "key": "icon_helmet_demo",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_helmet_demo.png"
+    },
+    {
+      "key": "icon_helmet_seraph",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_helmet_seraph.png"
+    },
+    {
+      "key": "icon_helmet_goggles",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_helmet_goggles.png"
+    },
+    {
+      "key": "icon_armor_none",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_armor_none.png"
+    },
+    {
+      "key": "icon_armor_scout",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_armor_scout.png"
+    },
+    {
+      "key": "icon_armor_ballistic",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_armor_ballistic.png"
+    },
+    {
+      "key": "icon_armor_duelist",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_armor_duelist.png"
+    },
+    {
+      "key": "icon_armor_heavy",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_armor_heavy.png"
+    },
+    {
+      "key": "icon_armor_gunslinger",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_armor_gunslinger.png"
+    },
+    {
+      "key": "icon_armor_fencer",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_armor_fencer.png"
+    },
+    {
+      "key": "icon_armor_windrunner",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_armor_windrunner.png"
+    },
+    {
+      "key": "icon_armor_juggernaut",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_armor_juggernaut.png"
+    },
+    {
+      "key": "icon_armor_bombardier",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_armor_bombardier.png"
+    },
+    {
+      "key": "icon_armor_berserker",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_armor_berserker.png"
+    },
+    {
+      "key": "icon_armor_mirrorweave",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_armor_mirrorweave.png"
+    },
+    {
+      "key": "icon_armor_medic",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_armor_medic.png"
+    },
+    {
+      "key": "icon_armor_cobalt",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_armor_cobalt.png"
+    },
+    {
+      "key": "icon_armor_vog",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_armor_vog.png"
+    },
+    {
+      "key": "icon_armor_clockwork",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_armor_clockwork.png"
+    },
+    {
+      "key": "icon_pants_greaves",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_pants_greaves.png"
+    },
+    {
+      "key": "icon_pants_leggings",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_pants_leggings.png"
+    },
+    {
+      "key": "icon_pants_chausses",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_pants_chausses.png"
+    },
+    {
+      "key": "icon_pants_breeches",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_pants_breeches.png"
+    },
+    {
+      "key": "icon_pants_sapper",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_pants_sapper.png"
+    },
+    {
+      "key": "icon_pants_cargo",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_pants_cargo.png"
+    },
+    {
+      "key": "icon_pants_cobalt",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_pants_cobalt.png"
+    },
+    {
+      "key": "icon_pants_wolver",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_pants_wolver.png"
+    },
+    {
+      "key": "icon_pants_demo",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_pants_demo.png"
+    },
+    {
+      "key": "icon_pants_seraph",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_pants_seraph.png"
+    },
+    {
+      "key": "icon_pants_kilt",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_pants_kilt.png"
+    },
+    {
+      "key": "icon_shoes_sneakers",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_shoes_sneakers.png"
+    },
+    {
+      "key": "icon_shoes_sabatons",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_shoes_sabatons.png"
+    },
+    {
+      "key": "icon_shoes_dashboots",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_shoes_dashboots.png"
+    },
+    {
+      "key": "icon_shoes_spurs",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_shoes_spurs.png"
+    },
+    {
+      "key": "icon_shoes_treads",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_shoes_treads.png"
+    },
+    {
+      "key": "icon_shoes_clogs",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_shoes_clogs.png"
+    },
+    {
+      "key": "icon_shoes_sandals",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_shoes_sandals.png"
+    },
+    {
+      "key": "icon_shoes_striders",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_shoes_striders.png"
+    },
+    {
+      "key": "icon_shoes_magma",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_shoes_magma.png"
+    },
+    {
+      "key": "icon_shoes_hover",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_shoes_hover.png"
+    },
+    {
+      "key": "icon_shoes_quicksilver",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_shoes_quicksilver.png"
+    },
+    {
+      "key": "icon_weapon_brand",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_brand.png"
+    },
+    {
+      "key": "icon_weapon_cleaver",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_cleaver.png"
+    },
+    {
+      "key": "icon_weapon_rapier",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_rapier.png"
+    },
+    {
+      "key": "icon_weapon_thorn",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_thorn.png"
+    },
+    {
+      "key": "icon_weapon_greatblade",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_greatblade.png"
+    },
+    {
+      "key": "icon_weapon_spur",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_spur.png"
+    },
+    {
+      "key": "icon_weapon_frostbite",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_frostbite.png"
+    },
+    {
+      "key": "icon_weapon_blazebrand",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_blazebrand.png"
+    },
+    {
+      "key": "icon_weapon_voltedge",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_voltedge.png"
+    },
+    {
+      "key": "icon_weapon_sickle",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_sickle.png"
+    },
+    {
+      "key": "icon_weapon_hexblade",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_hexblade.png"
+    },
+    {
+      "key": "icon_weapon_maul",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_maul.png"
+    },
+    {
+      "key": "icon_weapon_avenger",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_avenger.png"
+    },
+    {
+      "key": "icon_weapon_leviathan",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_leviathan.png"
+    },
+    {
+      "key": "icon_weapon_troika",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_troika.png"
+    },
+    {
+      "key": "icon_weapon_sabre",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_sabre.png"
+    },
+    {
+      "key": "icon_weapon_flamesabre",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_flamesabre.png"
+    },
+    {
+      "key": "icon_weapon_frostsabre",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_frostsabre.png"
+    },
+    {
+      "key": "icon_weapon_stormsabre",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_stormsabre.png"
+    },
+    {
+      "key": "icon_weapon_katana",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_katana.png"
+    },
+    {
+      "key": "icon_weapon_blaster",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_blaster.png"
+    },
+    {
+      "key": "icon_weapon_pulsar",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_pulsar.png"
+    },
+    {
+      "key": "icon_weapon_alchemer",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_alchemer.png"
+    },
+    {
+      "key": "icon_weapon_autogun",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_autogun.png"
+    },
+    {
+      "key": "icon_weapon_sixgun",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_sixgun.png"
+    },
+    {
+      "key": "icon_weapon_embersixgun",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_embersixgun.png"
+    },
+    {
+      "key": "icon_weapon_peacemaker",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_peacemaker.png"
+    },
+    {
+      "key": "icon_weapon_catalyzer",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_catalyzer.png"
+    },
+    {
+      "key": "icon_weapon_magnus",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_magnus.png"
+    },
+    {
+      "key": "icon_weapon_rifle",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_rifle.png"
+    },
+    {
+      "key": "icon_weapon_frostgun",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_frostgun.png"
+    },
+    {
+      "key": "icon_weapon_embercaster",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_embercaster.png"
+    },
+    {
+      "key": "icon_weapon_voltneedle",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_voltneedle.png"
+    },
+    {
+      "key": "icon_weapon_viper",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_viper.png"
+    },
+    {
+      "key": "icon_weapon_grimcannon",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_grimcannon.png"
+    },
+    {
+      "key": "icon_weapon_scatter",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_scatter.png"
+    },
+    {
+      "key": "icon_weapon_polaris",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_polaris.png"
+    },
+    {
+      "key": "icon_weapon_riftlocker",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_riftlocker.png"
+    },
+    {
+      "key": "icon_weapon_blast",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_blast.png"
+    },
+    {
+      "key": "icon_weapon_haze",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_haze.png"
+    },
+    {
+      "key": "icon_weapon_frost",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_frost.png"
+    },
+    {
+      "key": "icon_weapon_venom",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_venom.png"
+    },
+    {
+      "key": "icon_weapon_storm",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_storm.png"
+    },
+    {
+      "key": "icon_weapon_hex",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_hex.png"
+    },
+    {
+      "key": "icon_weapon_shard",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_shard.png"
+    },
+    {
+      "key": "icon_weapon_vortex",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_vortex.png"
+    },
+    {
+      "key": "icon_weapon_nitro",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_nitro.png"
+    },
+    {
+      "key": "icon_weapon_spark",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_weapon_spark.png"
+    },
+    {
+      "key": "icon_ability_dash",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_ability_dash.png"
+    },
+    {
+      "key": "icon_ability_bubble",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_ability_bubble.png"
+    },
+    {
+      "key": "icon_ability_heal",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_ability_heal.png"
+    },
+    {
+      "key": "icon_ability_cloak",
+      "width": 96,
+      "height": 96,
+      "src": "http://localhost:3006/art/lockdown/icon_ability_cloak.png"
+    }
+  ],
+  "unavailableIcons": [
+    {
+      "key": "icon_helmet_none",
+      "reason": "Original manifest has no registration for this bare-frame icon"
+    },
+    {
+      "key": "icon_pants_none",
+      "reason": "Original manifest has no registration for this bare-frame icon"
+    },
+    {
+      "key": "icon_shoes_none",
+      "reason": "Original manifest has no registration for this bare-frame icon"
+    },
+    {
+      "key": "icon_class_striker",
+      "reason": "Original manifest accepts only 64/128 px; indexer omits requested 96 px file"
+    },
+    {
+      "key": "icon_class_guardian",
+      "reason": "Original manifest accepts only 64/128 px; indexer omits requested 96 px file"
+    },
+    {
+      "key": "icon_class_recon",
+      "reason": "Original manifest accepts only 64/128 px; indexer omits requested 96 px file"
+    }
+  ],
+  "errors": [],
+  "warnings": [],
+  "captures": [
+    {
+      "file": "menu-helmet.jpg",
+      "images": [
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_helmet_sallet.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_helmet_visor.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_helmet_horned.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_helmet_hood.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_helmet_lampcap.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_helmet_feather.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_helmet_bucket.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_helmet_circlet.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_helmet_cobalt.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_helmet_wolver.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_helmet_demo.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_helmet_seraph.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_helmet_goggles.png",
+          "width": 96,
+          "height": 96
+        }
+      ]
+    },
+    {
+      "file": "menu-armor.jpg",
+      "images": [
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_armor_none.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_armor_scout.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_armor_ballistic.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_armor_duelist.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_armor_heavy.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_armor_gunslinger.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_armor_fencer.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_armor_windrunner.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_armor_juggernaut.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_armor_bombardier.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_armor_berserker.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_armor_mirrorweave.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_armor_medic.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_armor_cobalt.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_armor_vog.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_armor_clockwork.png",
+          "width": 96,
+          "height": 96
+        }
+      ]
+    },
+    {
+      "file": "menu-pants.jpg",
+      "images": [
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_pants_greaves.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_pants_leggings.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_pants_chausses.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_pants_breeches.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_pants_sapper.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_pants_cargo.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_pants_cobalt.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_pants_wolver.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_pants_demo.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_pants_seraph.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_pants_kilt.png",
+          "width": 96,
+          "height": 96
+        }
+      ]
+    },
+    {
+      "file": "menu-shoes.jpg",
+      "images": [
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_shoes_sneakers.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_shoes_sabatons.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_shoes_dashboots.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_shoes_spurs.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_shoes_treads.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_shoes_clogs.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_shoes_sandals.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_shoes_striders.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_shoes_magma.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_shoes_hover.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_shoes_quicksilver.png",
+          "width": 96,
+          "height": 96
+        }
+      ]
+    },
+    {
+      "file": "menu-classes.jpg",
+      "images": []
+    },
+    {
+      "file": "armory-blade.jpg",
+      "images": [
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_brand.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_cleaver.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_rapier.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_thorn.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_greatblade.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_spur.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_frostbite.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_blazebrand.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_voltedge.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_sickle.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_hexblade.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_maul.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_avenger.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_leviathan.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_troika.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_sabre.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_flamesabre.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_frostsabre.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_stormsabre.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_katana.png",
+          "width": 96,
+          "height": 96
+        }
+      ]
+    },
+    {
+      "file": "armory-blade-last.jpg",
+      "images": [
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_brand.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_cleaver.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_rapier.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_thorn.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_greatblade.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_spur.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_frostbite.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_blazebrand.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_voltedge.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_sickle.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_hexblade.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_maul.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_avenger.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_leviathan.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_troika.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_sabre.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_flamesabre.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_frostsabre.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_stormsabre.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_katana.png",
+          "width": 96,
+          "height": 96
+        }
+      ]
+    },
+    {
+      "file": "armory-gun.jpg",
+      "images": [
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_blaster.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_pulsar.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_alchemer.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_autogun.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_sixgun.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_embersixgun.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_peacemaker.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_catalyzer.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_magnus.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_rifle.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_frostgun.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_embercaster.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_voltneedle.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_viper.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_grimcannon.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_scatter.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_polaris.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_riftlocker.png",
+          "width": 96,
+          "height": 96
+        }
+      ]
+    },
+    {
+      "file": "armory-gun-last.jpg",
+      "images": [
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_blaster.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_pulsar.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_alchemer.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_autogun.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_sixgun.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_embersixgun.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_peacemaker.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_catalyzer.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_magnus.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_rifle.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_frostgun.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_embercaster.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_voltneedle.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_viper.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_grimcannon.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_scatter.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_polaris.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_riftlocker.png",
+          "width": 96,
+          "height": 96
+        }
+      ]
+    },
+    {
+      "file": "armory-bomb.jpg",
+      "images": [
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_blast.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_haze.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_frost.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_venom.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_storm.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_hex.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_shard.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_vortex.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_nitro.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_spark.png",
+          "width": 96,
+          "height": 96
+        }
+      ]
+    },
+    {
+      "file": "armory-bomb-last.jpg",
+      "images": [
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_blast.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_haze.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_frost.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_venom.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_storm.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_hex.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_shard.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_vortex.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_nitro.png",
+          "width": 96,
+          "height": 96
+        },
+        {
+          "src": "http://localhost:3006/art/lockdown/icon_weapon_spark.png",
+          "width": 96,
+          "height": 96
+        }
+      ]
+    }
+  ]
+}
