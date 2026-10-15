@@ -35,7 +35,7 @@ export const CRITICAL = 1.5;
 const critical = move => Object.freeze({ ...move, damage: Math.round(move.damage * CRITICAL), critical: true });
 const cuts = (cut, ...steps) => Object.freeze(steps.map(move => Object.freeze({ ...move, arc: Math.round(move.arc * CUTS[cut].arc * 100) / 100, damage: Math.round(move.damage * CUTS[cut].damage), push: Math.round(move.push * CUTS[cut].push), reach: Math.round(move.reach * (CUTS[cut].reach || 1)) })));
 
-export const WEAPONS = Object.freeze({
+const WEAPON_LIST = {
   // ---------- blades ----------
   brand: Object.freeze({ id: 'brand', family: 'blade', cut: 'balanced', type: 'Normal sword', name: 'Knight Brand', chargeTicks: 108,
     combo: cuts('balanced', step(14, 5, 5, 11, 70, 1.8, 120, 12, 10), step(19, 7, 6, 14, 74, 2.0, 170, 15, 20), step(27, 9, 7, 20, 78, 2.3, 260, 20, 30)),
@@ -234,14 +234,53 @@ export const WEAPONS = Object.freeze({
     description: 'A huge bomb: the slowest charge and fuse, the biggest blast in the game.' }),
   spark: Object.freeze({ id: 'spark', family: 'bomb', type: 'Flash bomb', name: 'Storm Flash', chargeTicks: 70, element: 'shock', fuse: 36, radius: 90, damage: 12, push: 120, stun: 48, status: 'shock', chance: 1,
     description: 'Charges fast and flashes almost at once: little damage, but a long stun and a shock.' }),
+};
+
+/** How each cut moves: the hit sweep, the slash and the animation all follow it.
+ *  sweep  a horizontal cut; cuts in a row alternate (right to left, then back left to right from where it ended)
+ *  rise   a diagonal cut from low on one side to high on the other
+ *  chop   an overhead blow straight down: a narrow line in front
+ *  thrust a straight stab: the narrowest line and the longest reach
+ *  spin   a full turn with the blade out, hitting everything around */
+export const MOVE_KINDS = Object.freeze({
+  sweep: Object.freeze({ label: 'sweep' }),
+  rise: Object.freeze({ label: 'rising cut', arc: .8 }),
+  chop: Object.freeze({ label: 'overhead chop', fixedArc: .6, reach: 1.05 }),
+  thrust: Object.freeze({ label: 'thrust', fixedArc: .35, reach: 1.2 }),
+  spin: Object.freeze({ label: 'spin', fixedArc: Math.PI * 2, reach: .9 }),
 });
+/** Every sword type has its own combo. Elemental variants of one type (the four sabres) share it. */
+export const MOVESETS = Object.freeze({
+  brand: ['sweep', 'sweep', 'chop'],                 // the knight's classic: forehand, backhand, overhead
+  thorn: ['sweep', 'sweep', 'rise'],                 // two wide sweeps and a rising cut that throws them up and back
+  frostbite: ['sweep', 'rise', 'thrust'],            // cut, rising cut, a piercing critical thrust
+  blazebrand: ['rise', 'sweep', 'chop'],             // rising flame, a sweep, a critical overhead blaze
+  avenger: ['thrust', 'sweep', 'chop'],              // a lance-like jab, a sweep, a critical judgement from above
+  sickle: ['sweep', 'sweep', 'spin'],                // hooking reaps that end in a whirling reap
+  sabre: ['sweep', 'sweep', 'spin'], flamesabre: ['sweep', 'sweep', 'spin'], frostsabre: ['sweep', 'sweep', 'spin'], stormsabre: ['sweep', 'sweep', 'spin'], // fencing sabres: wide sweeps and a spin that throws everyone back
+  katana: ['sweep', 'rise', 'thrust'],               // a fast draw-cut, a rising cut, a critical dashing thrust
+  rapier: ['thrust', 'thrust', 'sweep', 'thrust'],   // fencing jabs, a flick, and a deep lunge
+  leviathan: ['sweep', 'thrust', 'chop'],            // a long sweep, a long thrust, a crashing chop
+  spur: ['sweep', 'sweep', 'sweep', 'spin'],         // quick slashes into a spin
+  voltedge: ['sweep', 'sweep', 'rise', 'spin'],      // quick slashes, a rising arc, a crackling spin
+  cleaver: ['chop', 'sweep'],                        // a heavy chop, then the momentum blow spins round
+  greatblade: ['rise', 'sweep'],                     // a heavy rising cut, then the momentum blow
+  hexblade: ['sweep', 'sweep'],                      // a heavy sweep, then the momentum blow
+  troika: ['sweep', 'sweep', 'chop'],                // two heavy sweeps and a crushing overhead
+  maul: ['sweep', 'chop'],                           // a swing, then the overhead smash that shakes the ground
+});
+const withMoves = (id, combo) => Object.freeze(combo.map((move, i) => {
+  const kind = MOVESETS[id]?.[i] || 'sweep', rule = MOVE_KINDS[kind];
+  return Object.freeze({ ...move, kind, arc: rule.fixedArc ?? Math.round(move.arc * (rule.arc ?? 1) * 100) / 100, reach: Math.round(move.reach * (rule.reach ?? 1)) });
+}));
+export const WEAPONS = Object.freeze(Object.fromEntries(Object.entries(WEAPON_LIST).map(([id, weapon]) => [id, weapon.family === 'blade' ? Object.freeze({ ...weapon, combo: withMoves(id, weapon.combo) }) : weapon])));
 export const WEAPON_IDS = Object.freeze(Object.keys(WEAPONS));
 
 /** Armory notes: what each weapon is good and bad at, and how hard it is to use well (1 easy, 3 hard). */
 const note = (difficulty, pros, cons) => Object.freeze({ difficulty, pros: Object.freeze(pros), cons: Object.freeze(cons) });
 export const WEAPON_NOTES = Object.freeze({
   brand: note(1, ['Reliable three-cut combo', 'Charge lunges in and sets a burning burst'], ['No special strength']),
-  cleaver: note(2, ['Second blow spins round on the first one\'s momentum: fast and brutal', 'Not interrupted when hit mid-swing', 'Charge: leaping ground slam'], ['Very slow first wind-up', 'Missing the second blow leaves you spun round and wide open']),
+  cleaver: note(2, ['Second blow spins round on the first one\'s momentum: fast and brutal', 'Not interrupted when hit mid-swing', 'Charge: leaping ground slam'], ['Missing the second blow leaves you spun round and wide open']),
   rapier: note(3, ['Fastest cuts, long narrow reach', 'Sweet spot: +40% at the tip of its reach'], ['Narrow arc misses moving targets', 'Low damage up close']),
   thorn: note(1, ['Steady combo', 'Charge sprays poison thorns'], ['Thorns are short range']),
   greatblade: note(2, ['Second blow spins round on momentum for huge damage', 'Not interrupted when hit', 'Charge: a long shadow wave that drags knights'], ['Slow first swing', 'Missing the second blow is punished hard']),

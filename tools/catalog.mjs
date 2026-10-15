@@ -3,7 +3,7 @@
  * to make. Generated from the game data and public/lockdown-looks.js, so it never drifts from the game.
  *   node tools/catalog.mjs */
 import { writeFileSync } from 'node:fs';
-import { WEAPONS, WEAPON_NOTES, CUTS, CLASSES, ABILITIES } from '../public/lockdown-engine.js';
+import { WEAPONS, WEAPON_NOTES, CUTS, MOVE_KINDS, CLASSES, ABILITIES } from '../public/lockdown-engine.js';
 import { HELMETS, ARMORS, PANTS, SHOES, PERK_IDS } from '../public/lockdown-equipment.js';
 import { BODY_LOOK, CLASS_LOOKS, GEAR_LOOKS, WEAPON_LOOKS } from '../public/lockdown-looks.js';
 
@@ -48,7 +48,7 @@ function size(weapon) {
 function weaponStats(weapon) {
   const notes = WEAPON_NOTES[weapon.id];
   const facts = [weapon.type, weapon.element ? `element: ${weapon.element}` : null, weapon.heavy ? 'heavy (unflinching)' : null];
-  if (weapon.family === 'blade') facts.push(`${CUTS[weapon.cut].label.toLowerCase()} cut, ${weapon.combo.length}-cut combo (${weapon.combo.map(step => step.damage).join(' / ')} damage)`);
+  if (weapon.family === 'blade') facts.push(`${CUTS[weapon.cut].label.toLowerCase()} cut, ${weapon.combo.length}-cut combo: ${weapon.combo.map(step => MOVE_KINDS[step.kind].label).join(' → ')} (${weapon.combo.map(step => step.damage).join(' / ')} damage)`);
   if (weapon.family === 'gun') facts.push(`${weapon.clip}-round clip, ${weapon.pellets ? `${weapon.pellets} pellets × ${weapon.damage}` : weapon.damage} damage`);
   if (weapon.family === 'bomb') facts.push(weapon.cloud ? `${weapon.cloud.status} cloud` : `${weapon.damage} damage blast`);
   return `${facts.filter(Boolean).join(' · ')} · difficulty ${'★'.repeat(notes?.difficulty || 1)}${notes ? ` · good: ${notes.pros.join('; ')} · bad: ${notes.cons.join('; ')}` : ''}`;

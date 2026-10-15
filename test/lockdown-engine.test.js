@@ -989,3 +989,25 @@ test('against spam: opening cuts stun briefly, the finisher is committal, and a 
   assert.equal(parry.foe.guardHp, GUARD.max, 'the shield takes nothing');
   assert.ok(parry.me.stunTicks > 0 && parry.me.parriedTicks > 0, 'the attacker is stunned and left open');
 });
+
+test('every sword type has its own combo, and the blade path is coherent from one cut to the next', () => {
+  const { MOVESETS, MOVE_KINDS } = L;
+  // Different families move differently.
+  const shape = id => WEAPONS[id].combo.map(move => move.kind).join(',');
+  assert.notEqual(shape('sabre'), shape('katana')); assert.notEqual(shape('katana'), shape('brand')); assert.notEqual(shape('brand'), shape('rapier'));
+  for (const id of L.WEAPON_IDS.filter(id => WEAPONS[id].family === 'blade')) for (const move of WEAPONS[id].combo) assert.ok(MOVE_KINDS[move.kind], `${id}: a known kind of cut`);
+  assert.equal(shape('sabre'), shape('flamesabre'), 'elemental variants of one type share its combo');
+  // The blade path: a forehand opener from the sword side, then each sweep back from where the last one ended.
+  const { state } = duel({ gap: 50, a: { cls: 'recon' }, b: { hp: 1e4, maxHp: 1e4 } });
+  run(state, 150, t => ({ 0: { attack: t % 4 === 0 } }));
+  const cuts = events(state, 'swing').slice(0, 3).map(event => `${event.kind}:${event.dir}`);
+  assert.deepEqual(cuts, ['sweep:-1', 'sweep:1', 'chop:-1'], 'Knight Brand: right to left, back left to right, then down from overhead');
+  // A spin hits all the way round: the sabre's finisher catches someone behind you.
+  const spin = duel({ gap: 50, a: { cls: 'recon', weapons: ['sabre', null, null, null] }, b: { hp: 1e4, maxHp: 1e4 } });
+  let t = 0; while (spin.me.comboStep < 2 && t++ < 400) run(spin.state, 1, () => ({ 0: { attack: t % 4 === 0 } }));
+  Object.assign(spin.foe, { x: spin.me.x - 50, y: spin.me.y, stunTicks: 0 });
+  const before = spin.foe.hp;
+  run(spin.state, 60, k => ({ 0: { attack: k === 0, aim: 0 } }));
+  assert.ok(events(spin.state, 'swing').some(event => event.kind === 'spin'), 'the finisher is a spin');
+  assert.ok(spin.foe.hp < before, 'and it hits behind you');
+});

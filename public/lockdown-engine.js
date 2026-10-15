@@ -3,10 +3,10 @@
  * Up to 4v4; empty seats are filled by bots. Teams score every five seconds by
  * the points they hold; first to 500 (or the leader at the time limit) wins. */
 import { MAPS, MAP_IDS, TILE, isWall, isBlocked, wallAt, levelAt, levelCell, levelOk, canStep, shotBlocked } from './lockdown-maps.js';
-import { WEAPONS, WEAPON_IDS, WEAPON_NOTES, CUTS, DEFAULT_LOADOUTS, SLOT_COUNT, STATUS, STATUS_IDS, GUARD, BLADE, BLOOM, FIGHT } from './lockdown-weapons.js';
+import { WEAPONS, WEAPON_IDS, MOVESETS, MOVE_KINDS, WEAPON_NOTES, CUTS, DEFAULT_LOADOUTS, SLOT_COUNT, STATUS, STATUS_IDS, GUARD, BLADE, BLOOM, FIGHT } from './lockdown-weapons.js';
 import { ARMORS, ARMOR_IDS, HELMETS, PANTS, SHOES, GEAR, GEAR_SLOTS, combineGear } from './lockdown-equipment.js';
 
-export { MAPS, MAP_IDS, TILE, BLOOM, FIGHT, WEAPONS, WEAPON_IDS, WEAPON_NOTES, CUTS, DEFAULT_LOADOUTS, SLOT_COUNT, STATUS, STATUS_IDS, GUARD, BLADE, ARMORS, ARMOR_IDS, HELMETS, PANTS, SHOES, GEAR, GEAR_SLOTS, combineGear };
+export { MAPS, MAP_IDS, TILE, BLOOM, FIGHT, WEAPONS, WEAPON_IDS, MOVESETS, MOVE_KINDS, WEAPON_NOTES, CUTS, DEFAULT_LOADOUTS, SLOT_COUNT, STATUS, STATUS_IDS, GUARD, BLADE, ARMORS, ARMOR_IDS, HELMETS, PANTS, SHOES, GEAR, GEAR_SLOTS, combineGear };
 export const TICK_RATE = 120;
 const DT = 1 / TICK_RATE;
 export const TEAM_SIZE = 4;
@@ -756,13 +756,17 @@ function startSwing(state, player, weapon) {
   const move = weapon.combo[player.comboStep];
   breakCloak(state, player);
   const finisher = weapon.combo.length > 1 && player.comboStep === weapon.combo.length - 1;
+  // The blade moves like a real one: an opener starts from the sword side (right), and a sweep, rising cut or
+  // spin sets off from wherever the last cut left the blade, back the other way (dir -1 runs right to left).
+  // Chops and thrusts come down or out in front and leave the blade back on the sword side.
+  const kind = move.kind || 'sweep', side = player.comboStep === 0 ? 1 : player.bladeSide ?? 1;
+  const dir = kind === 'chop' || kind === 'thrust' ? -1 : side < 0 ? 1 : -1;
+  player.bladeSide = kind === 'sweep' || kind === 'rise' ? dir : 1;
   const speed = bladeSpeed(player), startup = Math.max(2, Math.round(move.startup / speed)), active = Math.max(2, Math.round(move.active / speed)), recovery = Math.max(2, Math.round(move.recovery / speed * (finisher ? BLADE.finisherRecovery : 1)));
   Object.assign(player, { action: 'swing', actionTotal: startup + active + recovery, actionTicks: startup + active + recovery, hitIds: [], bufferAttack: false, whiffed: false,
-    // A combo alternates like a real blade: the opener is a forehand from the sword side (right to left), the next
-    // cut comes back from where it ended (left to right), and so on.
-    swingAim: player.aim, swingDir: player.comboStep % 2 ? 1 : -1, swingId: (player.swingId || 0) + 1, swingReach: move.reach, swingArc: move.arc,
+    swingAim: player.aim, swingDir: dir, swingKind: kind, swingId: (player.swingId || 0) + 1, swingReach: move.reach, swingArc: move.arc,
     swingStartup: startup, swingActive: active, swingRecovery: recovery, swingDamage: move.damage * bladePower(player), swingMomentum: !!move.momentum, swingCritical: !!move.critical, swingFinisher: finisher });
-  emit(state, 'swing', { playerId: player.id, weapon: weapon.id, step: player.comboStep, x: player.x, y: player.y, angle: player.aim, dir: player.swingDir, arc: move.arc, reach: move.reach, startup, active, momentum: !!move.momentum, critical: !!move.critical });
+  emit(state, 'swing', { playerId: player.id, weapon: weapon.id, step: player.comboStep, x: player.x, y: player.y, angle: player.aim, dir: player.swingDir, kind, arc: move.arc, reach: move.reach, startup, active, momentum: !!move.momentum, critical: !!move.critical });
 }
 function startCharge(state, player, weapon) {
   const charge = weapon.charge;
