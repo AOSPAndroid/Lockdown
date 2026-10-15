@@ -87,7 +87,7 @@ class ModelLibrary {
 const CALLOUTS = Object.freeze({
   counter: ['COUNTER', '#ffb347', 'target'], riposte: ['RIPOSTE', '#ffe680', 'target'], perfectDodge: ['PERFECT', '#9ff0ff', 'player'],
   clash: ['CLASH', '#ffffff', 'player'], steady: ['STEADY', '#c9d6ff', 'player'], interrupt: ['INTERRUPTED', '#ff8a7a', 'player'],
-  whiff: ['MISS', '#b8b8b8', 'player'], punish: ['PUNISH', '#ff7a4a', 'target'], clean: ['CLEAN', '#ffffff', 'target'], graze: ['GRAZE', '#9a9a9a', 'target'], combo: ['COMBO', '#ffd34a', 'target'], feinted: ['FEINT', '#c9a2ff', 'target'], critical: ['CRITICAL', '#ff5a5a', 'target'], parry: ['PARRY', '#9fd8ff', 'player'],
+  whiff: ['MISS', '#b8b8b8', 'player'], punish: ['PUNISH', '#ff7a4a', 'target'], clean: ['CLEAN', '#ffffff', 'target'], graze: ['GRAZE', '#9a9a9a', 'target'], combo: ['COMBO', '#ffd34a', 'target'], feinted: ['FEINT', '#c9a2ff', 'target'], multiBlast: ['BLAST', '#ff9a4a', 'player'], zoneBreak: ['ZONE CRACKED', '#ffb347', 'player'], critical: ['CRITICAL', '#ff5a5a', 'target'], parry: ['PARRY', '#9fd8ff', 'player'],
   followUp: ['FOLLOW-UP', '#ffcf4a', 'target'], reel: ['REELING', '#ffe08a', 'target'], sweetSpot: ['TIP', '#ffe680', 'target'], ambush: ['AMBUSH', '#d29bff', 'target'],
   guardBreak: ['GUARD BREAK', '#ffffff', 'player'], evade: ['DODGE', '#ffffff', 'player'],
 });
@@ -1323,7 +1323,7 @@ export class Lockdown3DRenderer {
       if (event.type === 'chargeRelease') { this.ringEffect(at(event.x, event.y, .06), 1.4, '#ffd36b', 380, now); this.burst(at(event.x, event.y, KNIGHT * .5), '#ffe9a8', 1.3, 300, now, true); }
       if (event.type === 'clash') { this.burst(at(event.x, event.y, .5), '#ffffff', .9, 220, now, true); this.shakeNear(event.x, event.y, 4); }
       if (CALLOUTS[event.type] && mine && !(event.type === 'interrupt' && event.by === 'clash')) {
-        const [label, color, on] = CALLOUTS[event.type], who = on === 'target' ? event.targetId : event.playerId, text = event.type === 'combo' ? `${label} ×${event.hits}` : label;
+        const [label, color, on] = CALLOUTS[event.type], who = on === 'target' ? event.targetId : event.playerId, text = event.type === 'combo' || event.type === 'multiBlast' ? `${label} ×${event.hits}` : label;
         const live = this.texts.filter(t => t.callout && t.playerId === who && now - t.born < t.life), row = live.length;
         // A fast gun lands a clean shot several times a second: one CLEAN on screen at a time.
         if (!live.some(t => t.text === text)) this.texts.push({ x: event.x, y: event.y, lift: KNIGHT + .55, text, color, born: now, life: 650, size: 13, rise: 14, callout: true, playerId: who, row });

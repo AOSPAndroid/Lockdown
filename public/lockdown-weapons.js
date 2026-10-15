@@ -230,19 +230,19 @@ const WEAPON_LIST = {
   // ---------- bombs ----------
   blast: Object.freeze({ id: 'blast', family: 'bomb', type: 'Blast bomb', name: 'Cannonball Bomb', chargeTicks: 60, fuse: 72, radius: 100, damage: 30, push: 340, stun: 20,
     description: 'Charges fast. A big knockback blast after a short fuse.' }),
-  haze: Object.freeze({ id: 'haze', family: 'bomb', type: 'Haze bomb', name: 'Ember Haze', chargeTicks: 120, element: 'burn', fuse: 24, radius: 0, damage: 0, push: 0,
+  haze: Object.freeze({ id: 'haze', family: 'bomb', type: 'Haze bomb', name: 'Ember Haze', chargeTicks: 96, element: 'burn', fuse: 24, radius: 0, damage: 0, push: 0,
     cloud: Object.freeze({ radius: 92, ticks: 480, status: 'burn' }), description: 'Leaves a cloud that sets enemies on fire.' }),
-  frost: Object.freeze({ id: 'frost', family: 'bomb', type: 'Haze bomb', name: 'Frost Haze', chargeTicks: 120, element: 'freeze', fuse: 24, radius: 0, damage: 0, push: 0,
+  frost: Object.freeze({ id: 'frost', family: 'bomb', type: 'Haze bomb', name: 'Frost Haze', chargeTicks: 96, element: 'freeze', fuse: 24, radius: 0, damage: 0, push: 0,
     cloud: Object.freeze({ radius: 92, ticks: 480, status: 'freeze' }), description: 'Leaves a cloud that freezes enemies solid.' }),
-  venom: Object.freeze({ id: 'venom', family: 'bomb', type: 'Haze bomb', name: 'Venom Veil', chargeTicks: 120, fuse: 24, radius: 0, damage: 0, push: 0, element: 'poison',
+  venom: Object.freeze({ id: 'venom', family: 'bomb', type: 'Haze bomb', name: 'Venom Veil', chargeTicks: 96, fuse: 24, radius: 0, damage: 0, push: 0, element: 'poison',
     cloud: Object.freeze({ radius: 92, ticks: 480, status: 'poison' }), description: 'Leaves a cloud that poisons enemies: they hit softer and cannot heal.' }),
-  storm: Object.freeze({ id: 'storm', family: 'bomb', type: 'Haze bomb', name: 'Storm Haze', chargeTicks: 120, fuse: 24, radius: 0, damage: 0, push: 0, element: 'shock',
+  storm: Object.freeze({ id: 'storm', family: 'bomb', type: 'Haze bomb', name: 'Storm Haze', chargeTicks: 96, fuse: 24, radius: 0, damage: 0, push: 0, element: 'shock',
     cloud: Object.freeze({ radius: 92, ticks: 480, status: 'shock' }), description: 'Leaves a crackling cloud that shocks enemies over and over.' }),
-  hex: Object.freeze({ id: 'hex', family: 'bomb', type: 'Haze bomb', name: 'Hex Haze', chargeTicks: 120, fuse: 24, radius: 0, damage: 0, push: 0, element: 'curse',
+  hex: Object.freeze({ id: 'hex', family: 'bomb', type: 'Haze bomb', name: 'Hex Haze', chargeTicks: 96, fuse: 24, radius: 0, damage: 0, push: 0, element: 'curse',
     cloud: Object.freeze({ radius: 92, ticks: 480, status: 'curse' }), description: 'Leaves a cloud that curses enemies: no dash and no class ability.' }),
-  shard: Object.freeze({ id: 'shard', family: 'bomb', type: 'Shard bomb', name: 'Shard Burst', chargeTicks: 120, fuse: 84, radius: 40, damage: 10, push: 120, stun: 10,
+  shard: Object.freeze({ id: 'shard', family: 'bomb', type: 'Shard bomb', name: 'Shard Burst', chargeTicks: 96, fuse: 84, radius: 40, damage: 10, push: 120, stun: 10,
     shards: Object.freeze({ count: 8, damage: 14, speed: 520, range: 230, size: 5, push: 120 }), description: 'Bursts into eight shards that cut across the point.' }),
-  vortex: Object.freeze({ id: 'vortex', family: 'bomb', type: 'Vortex bomb', name: 'Vortex Bomb', chargeTicks: 150, fuse: 60, radius: 110, damage: 22, push: 320, stun: 20,
+  vortex: Object.freeze({ id: 'vortex', family: 'bomb', type: 'Vortex bomb', name: 'Vortex Bomb', chargeTicks: 120, fuse: 60, radius: 110, damage: 22, push: 320, stun: 20,
     pull: Object.freeze({ ticks: 180, radius: 150, speed: 260 }), description: 'Pulls every enemy in range to its centre and holds them, then blasts them apart.' }),
   nitro: Object.freeze({ id: 'nitro', family: 'bomb', type: 'Blast bomb', name: 'Nitro Colossus', chargeTicks: 180, fuse: 96, radius: 150, damage: 46, push: 460, stun: 30,
     description: 'A huge bomb: the slowest charge and fuse, the biggest blast in the game.' }),
@@ -455,6 +455,10 @@ export const FIGHT = Object.freeze({
   // an ordinary click never fires twice.
   feint: Object.freeze({ minHold: 10, gunHold: 36, window: 60, damage: 1.25, stun: 1.5 }),
 });
+/** Bombs. A bomb charge is not dropped when you are hit (you still take the hit and flinch). A blast that catches
+ * several knights hits each harder (`crowd` per extra knight, up to `crowdMax`). A bomb going off on a zone knocks
+ * the other team's hold on it back by `zoneBreak` (of 100): bombs crack zones. */
+export const BOMB = Object.freeze({ crowd: .15, crowdMax: .45, zoneBreak: 25 });
 export const BLOOM = Object.freeze({ perShot: .07, max: .32, settlePerSecond: .3 });
 
 /** Four free inventory slots: any weapon in any slot (four swords is fine), or hearts, or nothing.

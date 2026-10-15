@@ -3,10 +3,10 @@
  * Up to 4v4; empty seats are filled by bots. Teams score every five seconds by
  * the points they hold; first to 500 (or the leader at the time limit) wins. */
 import { MAPS, MAP_IDS, TILE, isWall, isBlocked, wallAt, levelAt, levelCell, levelOk, canStep, shotBlocked } from './lockdown-maps.js';
-import { WEAPONS, WEAPON_IDS, MOVESETS, MOVE_KINDS, AIM, aimFactor, aimRating, CRITICAL, WEAPON_NOTES, CUTS, DEFAULT_LOADOUTS, SLOT_COUNT, STATUS, STATUS_IDS, GUARD, BLADE, BLOOM, FIGHT, GUN } from './lockdown-weapons.js';
+import { WEAPONS, WEAPON_IDS, MOVESETS, MOVE_KINDS, AIM, aimFactor, aimRating, CRITICAL, WEAPON_NOTES, CUTS, DEFAULT_LOADOUTS, SLOT_COUNT, STATUS, STATUS_IDS, GUARD, BLADE, BLOOM, FIGHT, GUN, BOMB } from './lockdown-weapons.js';
 import { ARMORS, ARMOR_IDS, HELMETS, PANTS, SHOES, GEAR, GEAR_SLOTS, combineGear } from './lockdown-equipment.js';
 
-export { MAPS, MAP_IDS, TILE, BLOOM, FIGHT, GUN, WEAPONS, WEAPON_IDS, MOVESETS, MOVE_KINDS, AIM, aimFactor, aimRating, CRITICAL, WEAPON_NOTES, CUTS, DEFAULT_LOADOUTS, SLOT_COUNT, STATUS, STATUS_IDS, GUARD, BLADE, ARMORS, ARMOR_IDS, HELMETS, PANTS, SHOES, GEAR, GEAR_SLOTS, combineGear };
+export { MAPS, MAP_IDS, TILE, BLOOM, FIGHT, GUN, BOMB, WEAPONS, WEAPON_IDS, MOVESETS, MOVE_KINDS, AIM, aimFactor, aimRating, CRITICAL, WEAPON_NOTES, CUTS, DEFAULT_LOADOUTS, SLOT_COUNT, STATUS, STATUS_IDS, GUARD, BLADE, ARMORS, ARMOR_IDS, HELMETS, PANTS, SHOES, GEAR, GEAR_SLOTS, combineGear };
 export const TICK_RATE = 120;
 const DT = 1 / TICK_RATE;
 export const TEAM_SIZE = 4;
@@ -598,7 +598,7 @@ function damage(state, attacker, target, amount, { push = 0, angle = 0, stun = 1
   target.pushX = Math.cos(angle) * shove; target.pushY = Math.sin(angle) * shove; target.lastHurtTick = state.tick;
   if (target.status.freeze > 0) { target.status.freeze = 0; target.freezeImmune = STATUS.freeze.immuneTicks; emit(state, 'thaw', { playerId: target.id }); }
   if (target.cloakTicks > 0) { target.cloakTicks = 0; emit(state, 'uncloak', { playerId: target.id }); }
-  if (target.charging) { target.charging = false; target.chargeTicks = 0; }
+  if (target.charging && currentWeapon(target).family !== 'bomb') { target.charging = false; target.chargeTicks = 0; } // a bomb charge holds
   if (hitStop) { target.hitStop = Math.max(target.hitStop, hitStop); if (attacker) attacker.hitStop = Math.max(attacker.hitStop, hitStop); }
   if (attacker) attacker.damage += total;
   emit(state, 'damage', { playerId: attacker?.id ?? null, targetId: target.id, amount: total, kind, x: target.x, y: target.y, hp: Math.max(0, target.hp) });
@@ -751,10 +751,14 @@ function bladeContacts(state, player, reach, from, to, amount, options) {
 }
 function radialHit(state, owner, team, center, radius, amount, options = {}) {
   const map = MAPS[state.mapId];
-  for (const target of state.players) {
-    if (!target.alive || target.team === team || dist(target, center) > radius + RULES.radius || !lineOfSight(map, center, target)) continue;
-    damage(state, owner, target, amount, { angle: Math.atan2(target.y - center.y, target.x - center.x), source: center, ...options });
+  const caught = state.players.filter(target => target.alive && target.team !== team && dist(target, center) <= radius + RULES.radius && lineOfSight(map, center, target));
+  // A bomb that catches several knights hits each of them harder.
+  let crowd = 1;
+  if (options.kind === 'bomb' && caught.length > 1) {
+    crowd = 1 + Math.min(BOMB.crowdMax, BOMB.crowd * (caught.length - 1));
+    emit(state, 'multiBlast', { playerId: owner?.id ?? null, x: center.x, y: center.y, hits: caught.length });
   }
+  for (const target of caught) damage(state, owner, target, amount * crowd, { angle: Math.atan2(target.y - center.y, target.x - center.x), source: center, ...options });
 }
 function spawnShot(state, player, weapon, spec, angle) {
   const speed = spec.speed, size = spec.size || 5;
@@ -783,6 +787,15 @@ function plantBomb(state, player, weapon) {
 function explode(state, bomb) {
   const weapon = WEAPONS[bomb.weapon], owner = state.players[bomb.ownerId];
   emit(state, 'explosion', { playerId: bomb.ownerId, weapon: bomb.weapon, x: bomb.x, y: bomb.y, radius: weapon.cloud ? weapon.cloud.radius : weapon.radius });
+  // Zone breaker: a bomb on a zone knocks the other team's hold on it (or their capture under way) back.
+  for (const point of state.points) {
+    if (dist(point, bomb) > RULES.pointRadius) continue;
+    const theirs = bomb.team === 0 ? -1 : 1; // the sign of the other team's progress
+    if (Math.sign(point.progress) !== theirs) continue;
+    point.progress = theirs > 0 ? Math.max(0, point.progress - BOMB.zoneBreak) : Math.min(0, point.progress + BOMB.zoneBreak);
+    emit(state, 'zoneBreak', { playerId: bomb.ownerId, pointId: point.id, x: point.x, y: point.y, progress: point.progress });
+    if (point.progress === 0 && point.owner === 1 - bomb.team) { point.owner = null; emit(state, 'pointNeutral', { pointId: point.id, team: bomb.team }); }
+  }
   if (weapon.cloud) { state.clouds.push({ id: state.nextId++, ownerId: bomb.ownerId, team: bomb.team, weapon: weapon.id, x: bomb.x, y: bomb.y, radius: weapon.cloud.radius, ticks: weapon.cloud.ticks, total: weapon.cloud.ticks, status: weapon.cloud.status }); return; }
   if (weapon.radius) radialHit(state, owner, bomb.team, bomb, weapon.radius, weapon.damage * bombPower(owner), { push: weapon.push, stun: weapon.stun ?? 20, kind: 'bomb', damageFamily: 'bomb', status: weapon.status, chance: weapon.chance });
   if (weapon.shards) {
@@ -905,7 +918,7 @@ function queueCut(state, player) {
   if (!player.whiffed) player.bufferAttack = true;
 }
 function tickWeapon(state, player, input, previous) {
-  const weapon = currentWeapon(player), pressed = input.attack && !previous.attack, released = !input.attack && previous.attack;
+  const weapon = currentWeapon(player), pressed = input.attack && !previous.attack;
   player.fireCooldown = Math.max(0, player.fireCooldown - 1);
   if (player.bloom > 0) player.bloom = Math.max(0, player.bloom - BLOOM.settlePerSecond / TICK_RATE);
   // Guns reload on their own: after a short pause or when empty, even holstered.
@@ -939,7 +952,8 @@ function tickWeapon(state, player, input, previous) {
   if (input.attack && (player.charging || !pressed && weapon.family !== 'bomb')) { if (!player.charging) { player.charging = true; player.chargeTicks = 0; } player.chargeTicks++; }
   if (weapon.family === 'bomb' && pressed) { player.charging = true; player.chargeTicks = 0; }
   let feint = false;
-  if (released && player.charging) {
+  // Letting go ends a charge, even a release made while stunned (the edge itself was missed then).
+  if (player.charging && !input.attack) {
     const held = player.chargeTicks, full = held >= chargeTicksFor(player, weapon);
     player.charging = false; player.chargeTicks = 0;
     if (full) { startCharge(state, player, weapon); return; }

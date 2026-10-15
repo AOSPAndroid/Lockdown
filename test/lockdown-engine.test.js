@@ -1170,3 +1170,35 @@ test('guns cannot shoot and run for free: slowed while shooting, full speed once
   const x0 = steady.me.x; run(steady.state, 48, k => ({ 0: { right: true, attack: k % WEAPONS.blaster.interval === 0, aim: 0 } }));
   assert.ok(Math.abs(steady.me.x - x0) < free * 2 * .6, 'shooting on the run is slow');
 });
+
+test('bombs: the charge holds through hits, a crowded blast hits harder, and a bomb cracks a held zone', () => {
+  const { BOMB } = L;
+  // A bomber who is shot keeps charging.
+  const hold = duel({ gap: 200, a: { cls: 'recon', weapons: ['nitro', null, null, null], slot: 0 }, b: { weapons: ['blaster', null, null, null], slot: 0 } });
+  run(hold.state, 30, () => ({ 0: { attack: true }, 4: { attack: true, aim: Math.PI } }));
+  assert.ok(hold.me.hp < hold.me.maxHp, 'the bomber was hit');
+  assert.ok(hold.me.charging && hold.me.chargeTicks > 0, 'and is still charging');
+  // Let go while stunned: the charge still ends.
+  hold.me.stunTicks = 20;
+  run(hold.state, 40, () => ({ 0: { attack: false } }));
+  assert.equal(hold.me.charging, false, 'no stuck charge after a release during a stun');
+  // Two knights in one blast each take more than one alone.
+  const blastOn = count => {
+    const fight = duel({ gap: 400, b: { hp: 1e4, maxHp: 1e4, domeHp: 0, domeBroken: true } });
+    const extra = fight.state.players[5];
+    if (count > 1) Object.assign(extra, { alive: true, hp: 1e4, maxHp: 1e4, x: fight.foe.x + 20, y: fight.foe.y, respawnTicks: 0, shieldTicks: 0, domeHp: 0, domeBroken: true });
+    fight.state.bombs.push({ id: 999, ownerId: 0, team: fight.me.team, weapon: 'blast', x: fight.foe.x, y: fight.foe.y, fuse: 1, total: 1, phase: 'fuse', pullTicks: 0 });
+    run(fight.state, 3);
+    return { lost: 1e4 - fight.foe.hp, multi: events(fight.state, 'multiBlast') };
+  };
+  const alone = blastOn(1), pair = blastOn(2);
+  assert.ok(Math.abs(pair.lost / alone.lost - (1 + BOMB.crowd)) < .05, `crowd bonus (${alone.lost} vs ${pair.lost})`);
+  assert.equal(pair.multi[0]?.hits, 2);
+  // A bomb going off on a zone the other team holds knocks their hold back.
+  const zone = duel({ gap: 400 });
+  const point = zone.state.points[0]; Object.assign(point, { owner: 1, progress: -100 });
+  zone.state.bombs.push({ id: 998, ownerId: 0, team: 0, weapon: 'blast', x: point.x, y: point.y, fuse: 1, total: 1, phase: 'fuse', pullTicks: 0 });
+  run(zone.state, 3);
+  assert.equal(point.progress, -100 + BOMB.zoneBreak);
+  assert.equal(events(zone.state, 'zoneBreak').length, 1);
+});
