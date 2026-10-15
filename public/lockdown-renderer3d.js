@@ -917,7 +917,7 @@ export class Lockdown3DRenderer {
         overhand: [K(sgn * .7, 2.7, 1, 1.2, .9, .1), K(sgn * .1, 1.55, .1, .15, .9, -.16, .03), K(-sgn * .55, .75, .25, -.55, .9, -.22, .06)],
         chop: [K(.1, 2.9, .7, 1.5, 1.45, .12), K(0, 1.55, .05, .05, 1.45, -.2, .04), K(-.05, .7, .15, -.6, 1.45, -.3, .1)],
         thrust: [K(.25, 1.15, 1.9, .05, 1.45, .08), K(0, 1.5, 0, 0, 1.45, -.26), K(0, 1.55, 0, .02, 1.45, -.3)],
-        spin: [K(sgn * .6, 1.45, .5, .15, 0, .05), K(0, 1.5, .05, 0, 0, -.06), K(0, 1.5, .05, 0, 0, -.08)],
+        spin: [K(sgn * .15, 1.45, .5, .15, 0, .05), K(0, 1.5, .05, 0, 0, -.06), K(0, 1.5, .05, 0, 0, -.08)],
       };
       const [W, C, F] = KEYS[kind] || KEYS.sweep, G = { ...SWORD_GUARD, yaw: .15, roll: 0, lean: 0, drop: 0 };
       const mix = (a, b, t) => Object.fromEntries(Object.keys(a).map(key => [key, lerp(a[key], b[key] ?? a[key], t)]));
@@ -951,17 +951,29 @@ export class Lockdown3DRenderer {
       // Across the body the shoulder only turns so far before the forearm would go through the chest: the torso
       // twist carries the rest of the wind-up and the elbow opens up.
       const cross = Math.max(0, -yaw * .7), spill = Math.max(0, cross - .3);
-      // A heavy sword's momentum blow turns the knight round: back to the target through the wind-up, then round
-      // with the blade. A spin turns a full circle through the cut, the blade held out.
-      if (player.swingMomentum && elapsed < startup + active) facing += dir * Math.PI * (elapsed < startup ? easeOut(elapsed / startup) : 1 + easeOut((elapsed - startup) / active));
-      else if (kind === 'spin' && elapsed >= startup && elapsed < startup + active) facing += dir * Math.PI * 2 * easeOut((elapsed - startup) / active);
+      // A heavy sword's momentum blow whirls the knight right round in the wind-up, so the cut itself comes in front,
+      // where it hits. A spin coils away in the wind-up (the game's spin starts behind the knight), turns a full circle
+      // at an even pace through the cut, the blade held out, exactly as the hit sweeps round, then settles forward.
+      if (player.swingMomentum && elapsed < startup) facing += dir * Math.PI * 2 * ease(elapsed / startup);
+      else if (kind === 'spin') {
+        if (elapsed < startup) facing -= dir * Math.PI * easeOut(elapsed / startup);
+        else if (elapsed < startup + active) facing += dir * Math.PI * (2 * Math.min(1, (elapsed - startup + 1) / active) - 1);
+        else facing += dir * Math.PI * (1 + easeOut(Math.min(1, (elapsed - startup - active) / Math.max(1, (total - startup - active) * .5))));
+      }
       twist = -yaw * .42 + spill * .9; arm[1] = Math.max(-1.2, Math.min(-yaw * .8, .4)); arm[0] -= spill * .4; elbow *= 1 - .6 * Math.min(1, cross / .8); snap = true;
     } else if (action === 'lunge' || action === 'lungeBurst') {
       arm = [-.05, 0, 1.5]; elbow = .05; pitch = 0; body.z -= .32; snap = true;
       T.leg_L = [0, 0, .75]; T.shin_L = [0, 0, -.25]; T.foot_L = [0, 0, -.5]; T.leg_R = [0, 0, -.55]; T.shin_R = [0, 0, -.5]; T.foot_R = [0, 0, .5];
       T.arm_L = [.2, 0, -.6]; T.forearm_L = [0, 0, .4];
     } else if (action === 'spin') {
-      twist = (now / 55) % (Math.PI * 2); arm = [-.05, 0, 1.45]; elbow = .1; pitch = 0; snap = true;
+      // The charged spin turns the whole knight with the blade held out, one turn per turn of the hit, in step with it
+      // (the game's blade starts each turn at the aim and sweeps round counter to the clock); it ends facing the aim.
+      const perTurn = weapon?.charge?.ticksPerTurn || 18, spun = total - (player.actionTicks || 0);
+      // (−.25: the blade held out sits a little ahead of where the knight faces.)
+      const turns = player.chargeMoveTicks || 0, aim = player.swingAim ?? facing;
+      if (spun < turns) facing = aim + Math.PI * 2 * ((spun % perTurn) + .5) / perTurn - .25;
+      else facing = aim - (Math.PI / perTurn + .25) * (1 - easeOut(Math.min(1, (spun - turns) / 6))); // eases back onto the aim
+      arm = [-.05, 0, 1.45]; elbow = .1; pitch = 0; snap = true;
       for (const side of ['L', 'R']) { T[`leg_${side}`][2] += .25; T[`shin_${side}`] = [0, 0, -.5]; }
     } else if (action === 'slam') {
       const rising = player.actionTicks > total - (player.chargeMoveTicks || 0);
