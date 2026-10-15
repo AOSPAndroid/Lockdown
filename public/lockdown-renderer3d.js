@@ -12,7 +12,7 @@ import { RenderPass } from './vendor/three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from './vendor/three/addons/postprocessing/UnrealBloomPass.js';
 import { OutputPass } from './vendor/three/addons/postprocessing/OutputPass.js';
 import { MAPS, TILE, isWall, levelCell, levelAt, STAIRS } from './lockdown-maps.js';
-import { WEAPONS, RULES, GUARD, ABILITIES, STATUS_IDS, TICK_RATE, chargeTicksFor } from './lockdown-engine.js';
+import { WEAPONS, MOVE_KINDS, RULES, GUARD, ABILITIES, STATUS_IDS, TICK_RATE, chargeTicksFor } from './lockdown-engine.js';
 import { TEAM_COLORS } from './lockdown-renderer.js';
 import { RIG, RIG_PARTS, GEAR_PARTS, GRIP, SHIELDS, skeletonParts } from './lockdown-skeleton.js';
 export { RIG_PARTS };
@@ -859,6 +859,7 @@ export class Lockdown3DRenderer {
       const POSES = {
         sweep: [{ yaw: from, armZ: 1.35, elbow: 1.05, pitch: .25, lean: 0 }, { yaw: to, armZ: 1.45, elbow: .08, pitch: -.05, lean: -.12 }],
         rise: [{ yaw: side * .8, armZ: .2, elbow: .6, pitch: -.9, lean: .04 }, { yaw: wide * .8, armZ: 2.3, elbow: .12, pitch: .6, lean: .06 }],
+        overhand: [{ yaw: side, armZ: 2.65, elbow: .95, pitch: 1.05, lean: .1 }, { yaw: wide, armZ: .7, elbow: .06, pitch: -.45, lean: -.22 }],
         chop: [{ yaw: .12, armZ: 2.85, elbow: .45, pitch: 1.15, lean: .12 }, { yaw: 0, armZ: .6, elbow: .05, pitch: -.55, lean: -.3 }],
         thrust: [{ yaw: .2, armZ: 1.2, elbow: 1.75, pitch: .1, lean: .08 }, { yaw: 0, armZ: 1.5, elbow: 0, pitch: 0, lean: -.28 }],
         spin: [{ yaw: side * .6, armZ: 1.4, elbow: .45, pitch: .1, lean: .05 }, { yaw: side * .6, armZ: 1.45, elbow: .04, pitch: 0, lean: -.08 }],
@@ -875,6 +876,7 @@ export class Lockdown3DRenderer {
         yaw = lerp(W.yaw, E.yaw, p); arm = [-.05, 0, lerp(W.armZ, E.armZ, p) + (kind === 'sweep' ? -.12 * Math.sin(p * Math.PI) : 0)];
         elbow = lerp(W.elbow, E.elbow, Math.min(1, p * 1.6)); pitch = lerp(W.pitch, E.pitch, p); body.z += lerp(W.lean, E.lean, p);
         if (kind === 'thrust') { T.leg_L[2] += .45 * p; T.shin_L[2] -= .35 * p; T.leg_R[2] -= .3 * p; } // step into the stab
+        if (kind === 'overhand') { body.y -= .03 * p; T.leg_L[2] += .2 * p; T.shin_L[2] -= .25 * p; } // weight onto the front foot
         if (kind === 'chop') { body.y -= .05 * p; T.leg_L[2] += .3 * p; T.shin_L[2] -= .4 * p; T.shin_R[2] -= .3 * p; } // drop into the blow
       }
       else {
@@ -1384,8 +1386,8 @@ export class KnightPreview {
       let t = ticks, side = 1;
       for (const [step, move] of weapon.combo.entries()) {
         // The same blade path as the engine: sweeps, rising cuts and spins set off from where the blade is.
-        const kind = move.kind || 'sweep', dir = kind === 'chop' || kind === 'thrust' ? -1 : side < 0 ? 1 : -1;
-        side = kind === 'sweep' || kind === 'rise' ? dir : 1;
+        const kind = move.kind || 'sweep', dir = MOVE_KINDS[kind].straight ? -1 : side < 0 ? 1 : -1;
+        side = MOVE_KINDS[kind].alternates ? dir : 1;
         const total = move.startup + move.active + move.recovery;
         if (t < total) { Object.assign(p, { action: 'swing', actionTotal: total, actionTicks: Math.max(1, Math.ceil(total - t)), swingStartup: move.startup, swingActive: move.active, swingDir: dir, swingKind: kind, swingId: demo.start + step, swingMomentum: !!move.momentum, swingArc: move.arc, swingAim: 0 }); return; }
         t -= total;

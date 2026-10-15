@@ -760,8 +760,8 @@ function startSwing(state, player, weapon) {
   // spin sets off from wherever the last cut left the blade, back the other way (dir -1 runs right to left).
   // Chops and thrusts come down or out in front and leave the blade back on the sword side.
   const kind = move.kind || 'sweep', side = player.comboStep === 0 ? 1 : player.bladeSide ?? 1;
-  const dir = kind === 'chop' || kind === 'thrust' ? -1 : side < 0 ? 1 : -1;
-  player.bladeSide = kind === 'sweep' || kind === 'rise' ? dir : 1;
+  const dir = MOVE_KINDS[kind].straight ? -1 : side < 0 ? 1 : -1;
+  player.bladeSide = MOVE_KINDS[kind].alternates ? dir : 1;
   const speed = bladeSpeed(player), startup = Math.max(2, Math.round(move.startup / speed)), active = Math.max(2, Math.round(move.active / speed)), recovery = Math.max(2, Math.round(move.recovery / speed * (finisher ? BLADE.finisherRecovery : 1)));
   Object.assign(player, { action: 'swing', actionTotal: startup + active + recovery, actionTicks: startup + active + recovery, hitIds: [], bufferAttack: false, whiffed: false,
     swingAim: player.aim, swingDir: dir, swingKind: kind, swingId: (player.swingId || 0) + 1, swingReach: move.reach, swingArc: move.arc,

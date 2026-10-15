@@ -175,7 +175,7 @@ test('armor protects health after defenses, preserves poison/mark multipliers, a
   assert.equal(guarded.foe.guardHp, L.GUARD.max - L.WEAPONS.blaster.damage, 'armor does not protect shield stamina');
   const swordGuard = duel({ weapon: 'brand', armor: 'heavy', gap: 50 });
   Object.assign(swordGuard.foe, { domeHp: 0, domeBroken: true });
-  run(swordGuard.state, L.GUARD.raiseTicks + 1, () => ({ 4: { ability: true } }));
+  run(swordGuard.state, L.GUARD.raiseTicks + L.FIGHT.parry.window + 1, () => ({ 4: { ability: true } }));
   run(swordGuard.state, 40, tick => ({ 0: { attack: tick === 0 }, 4: { ability: true } }));
   assert.equal(swordGuard.foe.hp, 500);
   assert.equal(swordGuard.foe.guardHp, L.GUARD.max - L.WEAPONS.brand.combo[0].damage * L.CLASSES.striker.bladeDamage * L.GUARD.bladeScale, 'armor leaves sword class power and shield wear intact');

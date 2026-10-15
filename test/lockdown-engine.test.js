@@ -983,7 +983,9 @@ test('against spam: opening cuts stun briefly, the finisher is committal, and a 
   assert.ok(events(last.state, 'counter').some(event => event.targetId === last.me.id), 'hitting a knight in their finisher recovery is a counter');
   // Parry: a shield raised just before the cut lands turns it aside.
   const parry = duel({ gap: 50, a: { cls: 'recon' }, b: { cls: 'guardian' } });
-  const lands = brand[0].startup + Math.ceil(brand[0].active / 2);
+  // When the opening cut lands, measured without a shield: a narrow cut reaches someone straight ahead sooner.
+  const dry = duel({ gap: 50, a: { cls: 'recon' }, b: { cls: 'guardian' } });
+  let lands = 0; while (!dry.me.hitIds.length && lands < 60) { run(dry.state, 1, () => ({ 0: { attack: lands === 0 } })); lands++; }
   run(parry.state, lands + 4, k => ({ 0: { attack: k === 0 }, 4: { ability: k >= lands - GUARD.raiseTicks - 2 } }));
   assert.equal(events(parry.state, 'parry').length, 1, 'parried');
   assert.equal(parry.foe.guardHp, GUARD.max, 'the shield takes nothing');
@@ -1001,7 +1003,8 @@ test('every sword type has its own combo, and the blade path is coherent from on
   const { state } = duel({ gap: 50, a: { cls: 'recon' }, b: { hp: 1e4, maxHp: 1e4 } });
   run(state, 150, t => ({ 0: { attack: t % 4 === 0 } }));
   const cuts = events(state, 'swing').slice(0, 3).map(event => `${event.kind}:${event.dir}`);
-  assert.deepEqual(cuts, ['sweep:-1', 'sweep:1', 'chop:-1'], 'Knight Brand: right to left, back left to right, then down from overhead');
+  assert.deepEqual(cuts, ['overhand:-1', 'overhand:1', 'chop:-1'], 'Knight Brand: down off the right shoulder, down off the left, then straight down from overhead');
+  for (const move of WEAPONS.brand.combo) assert.ok(move.arc < 1, 'the brandish line cuts narrow');
   // A spin hits all the way round: the sabre's finisher catches someone behind you.
   const spin = duel({ gap: 50, a: { cls: 'recon', weapons: ['sabre', null, null, null] }, b: { hp: 1e4, maxHp: 1e4 } });
   let t = 0; while (spin.me.comboStep < 2 && t++ < 400) run(spin.state, 1, () => ({ 0: { attack: t % 4 === 0 } }));

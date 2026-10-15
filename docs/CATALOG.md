@@ -395,7 +395,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Knight Brand `brand`
 
 - **Does:** Balanced three-cut combo. Charge: lunge forward and end in a burning burst.
-- **Stats:** Normal sword · balanced cut, 3-cut combo: sweep → sweep → overhead chop (15 / 21 / 30 damage) · difficulty ★ · good: Reliable three-cut combo; Charge lunges in and sets a burning burst · bad: No special strength
+- **Stats:** Normal sword · balanced cut, 3-cut combo: overhand strike → overhand strike → overhead chop (17 / 24 / 30 damage) · difficulty ★ · good: Reliable three-cut combo of narrow overhand strikes that hit hard; Charge lunges in and sets a burning burst · bad: Narrow: aim it, or it misses
 - **Looks:** A classic knight's broadsword: a straight polished blade with a fuller, a gold cross-guard with round ends and a red gem in the pommel. The reliable starter.
 - **Size:** ≈ 0.75 from grip to tip (just over half the knight's height), blade ≈ 0.12 wide, guard ≈ 0.24 across
 - **Make:** `models/weapons/brand.glb`, icon `icon_weapon_brand.png`
@@ -443,7 +443,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Frostbite Edge `frostbite`
 
 - **Does:** Every cut chills: three chills freeze a knight solid. Charge: lunge into a freezing burst.
-- **Stats:** Frost sword · element: chill · balanced cut, 3-cut combo: sweep → rising cut → thrust (13 / 17 / 35 damage) · difficulty ★★ · good: Every cut chills; the third freezes; Charge ends in a freezing burst · bad: Slightly weaker cuts; Freeze breaks on the next hit
+- **Stats:** Frost sword · element: chill · balanced cut, 3-cut combo: overhand strike → overhand strike → overhead chop (15 / 20 / 35 damage) · difficulty ★★ · good: Every cut chills; the third freezes; Charge ends in a freezing burst · bad: Slightly weaker cuts; Freeze breaks on the next hit
 - **Looks:** A blade of blue ice with frost crystals on the edge, a silver guard rimed with frost and a pale blue glowing core.
 - **Size:** ≈ 0.75 from grip to tip (just over half the knight's height), blade ≈ 0.12 wide, guard ≈ 0.24 across
 - **Make:** `models/weapons/frostbite.glb`, icon `icon_weapon_frostbite.png`
@@ -451,7 +451,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Blazebrand `blazebrand`
 
 - **Does:** Cuts may set knights on fire (30%). Charge: a rolling wall of flame that always burns.
-- **Stats:** Fire sword · element: burn · precise cut, 3-cut combo: rising cut → sweep → overhead chop (16 / 20 / 43 damage) · difficulty ★ · good: Cuts may set knights on fire; Charge: a wall of fire · bad: Burn is random on normal cuts
+- **Stats:** Fire sword · element: burn · precise cut, 3-cut combo: overhand strike → overhand strike → overhead chop (18 / 23 / 43 damage) · difficulty ★ · good: Cuts may set knights on fire; Charge: a wall of fire · bad: Burn is random on normal cuts
 - **Looks:** A sword of living flame: a red-hot orange blade with flickering fire along the edge, a blackened iron guard.
 - **Size:** ≈ 0.75 from grip to tip (just over half the knight's height), blade ≈ 0.12 wide, guard ≈ 0.24 across
 - **Make:** `models/weapons/blazebrand.glb`, icon `icon_weapon_blazebrand.png`
