@@ -1,0 +1,11 @@
+{
+  "base": "33d40fa",
+  "preservedOriginalTriangles": 1214,
+  "repaintedBackCapTriangles": 22,
+  "missingOriginalFrontOrMountTriangles": 0,
+  "sharedPaintAtlasUnchanged": true,
+  "nodeNamesPivotsHierarchyUnchanged": true,
+  "newTriangles": 1476,
+  "beforeSha256": "89996b87191dce73d8dff5c14d4dffc0fdab20d3338203ecff9e22fce0dd5bf2",
+  "afterSha256": "d1f83ded36b2a3c2a7e1d5784dda51da16a2fc8f5f208e32e55fdd5a98879715"
+}

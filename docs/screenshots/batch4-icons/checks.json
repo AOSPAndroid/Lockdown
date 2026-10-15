@@ -1,0 +1,36 @@
+{
+  "baseMain": "33d40fa2731e218a4c054c1c9611b185615e48f1",
+  "models": {
+    "count": 111,
+    "errors": 0,
+    "warnings": 0,
+    "coreSkeletonUnchanged": true
+  },
+  "icons": {
+    "count": 109,
+    "size": [
+      96,
+      96
+    ],
+    "format": "RGBA PNG",
+    "artCheckerErrors": 0,
+    "allExpectedIconsIndexed": true,
+    "sourceAndImageHashesCurrent": true
+  },
+  "tests": {
+    "passed": 96,
+    "failed": 0
+  },
+  "runtime": {
+    "iconsLoaded": 109,
+    "browserErrors": 0,
+    "browserWarnings": 0,
+    "previewOverrides": false
+  },
+  "guardianMotion": {
+    "samples": 539,
+    "pairsChecked": 51226,
+    "intersections": 0
+  },
+  "knownClientIssue": "Cold-load weapon-slot thumbnails can retain placeholders; normal weapon reselection refreshes them. See README."
+}

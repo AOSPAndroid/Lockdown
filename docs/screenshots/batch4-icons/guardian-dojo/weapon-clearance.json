@@ -1,0 +1,14 @@
+{
+  "items": [
+    "blaster",
+    "brand"
+  ],
+  "samples": 539,
+  "pairs_checked": 51226,
+  "surface_intersections": [],
+  "momentum": {},
+  "excludedContacts": [
+    "right fist attachment",
+    "grip contact with right wrist socket/core and bracer"
+  ]
+}
