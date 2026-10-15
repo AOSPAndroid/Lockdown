@@ -133,7 +133,7 @@ function rememberAuthoritativeSetup(me) {
 const held = new Set();      // logical keys currently down
 const pressed = new Set();   // edges seen since the last sample, so quick taps are never lost
 const mouse = { x: 0, y: 0, inside: false, left: false, right: false };
-let aim = 0, wheelSwap = false;
+let aim = 0, wheelSum = 0, wheelAt = -1e9, wheelUsed = false;
 const KEY_BINDINGS = {
   KeyW: 'up', ArrowUp: 'up', KeyS: 'down', ArrowDown: 'down', KeyA: 'left', ArrowLeft: 'left', KeyD: 'right', ArrowRight: 'right',
   Space: 'dash', ShiftLeft: 'dash', Digit1: 'slot1', Digit2: 'slot2', Digit3: 'slot3', Digit4: 'slot4', KeyQ: 'swap',
@@ -165,6 +165,7 @@ addEventListener('keydown', event => {
   if (event.code === 'Escape' && armory.open) { event.preventDefault(); closeArmory(); return; }
   if (event.code === 'Escape' || event.code === 'KeyP') { event.preventDefault(); toggleMenu(); return; }
   if (event.code === 'Tab') { event.preventDefault(); showBoard(true); return; }
+  if (event.code === 'KeyF' && !event.repeat) { event.preventDefault(); toggleFullscreen(); return; }
   if (gameKey(event) === 'i' && !event.repeat && !menuOpen) { event.preventDefault(); toggleInventory(); return; }
   if (event.code === 'Escape' && inventoryOpen) { event.preventDefault(); toggleInventory(false); return; }
   if (event.code === 'KeyB' && !event.repeat && !menuOpen) {
@@ -182,11 +183,12 @@ addEventListener('keydown', event => {
 addEventListener('keyup', event => { if (event.code === 'Tab') showBoard(false); const control = bindingFor(event); if (control) release(control); });
 addEventListener('blur', () => { held.clear(); mouse.left = mouse.right = false; showBoard(false); });
 canvas.addEventListener('contextmenu', event => event.preventDefault());
-canvas.addEventListener('pointermove', event => { mouse.x = event.offsetX; mouse.y = event.offsetY; mouse.inside = true; });
+canvas.addEventListener('pointermove', event => { if (mouseLocked()) return; mouse.x = event.offsetX; mouse.y = event.offsetY; mouse.inside = true; });
 canvas.addEventListener('pointerdown', event => {
   enableAudio();
   canvas.focus();
-  mouse.x = event.offsetX; mouse.y = event.offsetY;
+  if (!mouseLocked()) { mouse.x = event.offsetX; mouse.y = event.offsetY; }
+  lockMouse();
   if (event.button === 0) { mouse.left = true; press('attack'); }
   if (event.button === 2) { mouse.right = true; press('ability'); }
   canvas.setPointerCapture?.(event.pointerId);
@@ -195,7 +197,53 @@ canvas.addEventListener('pointerup', event => {
   if (event.button === 0) { mouse.left = false; release('attack'); }
   if (event.button === 2) { mouse.right = false; release('ability'); }
 });
-canvas.addEventListener('wheel', event => { event.preventDefault(); if (Math.abs(event.deltaY) > 4) wheelSwap = true; }, { passive: false });
+// The wheel: down for the next slot, up for the previous one, skipping empty slots and stopping at the ends.
+// One scroll gesture is one step: the burst of events a smooth wheel or a trackpad sends for one notch or flick
+// (events less than 0.2 s apart) moves one slot.
+canvas.addEventListener('wheel', event => {
+  event.preventDefault();
+  const now = performance.now();
+  if (now - wheelAt > 200) { wheelSum = 0; wheelUsed = false; }
+  wheelAt = now;
+  if (wheelUsed) return;
+  wheelSum += event.deltaMode === 1 ? event.deltaY * 33 : event.deltaY;
+  if (Math.abs(wheelSum) < 20) return;
+  const dir = Math.sign(wheelSum); wheelUsed = true;
+  const me = viewState()?.players[localId ?? -1]; if (!me) return;
+  const filled = index => me.weapons[index] || me.hearts?.[index] > 0;
+  for (let index = (me.pendingSlot ?? me.slot) + dir; index >= 0 && index < SLOT_COUNT; index += dir) if (filled(index)) { pressed.add(`slot${index + 1}`); return; } // a single press: a wheel never lets go
+}, { passive: false });
+
+// ---------- full screen and mouse lock ----------
+// Full screen (F or the menu button): the game fills the screen, and while you play the mouse is locked to it,
+// so it can never wander off the window or onto another monitor. The game's own reticle follows the mouse
+// inside the screen; menus and the inventory free it, going back to the fight locks it again.
+let fullscreenWanted = false;
+const mouseLocked = () => document.pointerLockElement === canvas;
+function lockMouse() {
+  if (!fullscreenWanted || menuOpen || inventoryOpen || mouseLocked() || !canvas.requestPointerLock) return;
+  try { canvas.requestPointerLock()?.catch?.(() => {}); } catch {}
+}
+function unlockMouse() { if (mouseLocked()) document.exitPointerLock(); }
+async function toggleFullscreen(on = !fullscreenWanted) {
+  fullscreenWanted = on;
+  try {
+    if (on && !document.fullscreenElement) await document.documentElement.requestFullscreen?.({ navigationUI: 'hide' });
+    if (!on && document.fullscreenElement) await document.exitFullscreen();
+  } catch { fullscreenWanted = !!document.fullscreenElement; }
+  if (fullscreenWanted) lockMouse(); else unlockMouse();
+  refreshFullscreenButton();
+}
+function refreshFullscreenButton() { const button = $('ld-fullscreen'); if (button) { button.setAttribute('aria-pressed', String(fullscreenWanted)); button.textContent = fullscreenWanted ? 'Leave full screen' : 'Full screen'; } }
+$('ld-fullscreen')?.addEventListener('click', () => toggleFullscreen());
+document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement && fullscreenWanted) { fullscreenWanted = false; unlockMouse(); } refreshFullscreenButton(); });
+// The browser hands the mouse back on Esc: take that as opening the menu.
+document.addEventListener('pointerlockchange', () => { if (mouseLocked()) mouse.inside = true; else if (fullscreenWanted && !menuOpen && !inventoryOpen) toggleMenu(true); });
+addEventListener('mousemove', event => {
+  if (!mouseLocked()) return;
+  const rect = canvas.getBoundingClientRect();
+  mouse.x = Math.min(rect.width - 1, Math.max(0, mouse.x + event.movementX)); mouse.y = Math.min(rect.height - 1, Math.max(0, mouse.y + event.movementY));
+});
 
 function updateAim() {
   const me = viewState()?.players[localId ?? -1];
@@ -212,8 +260,7 @@ function sampleInput(consume) {
   for (const key of INPUT_KEYS) input[key] = held.has(key) || pressed.has(key);
   // With the inventory open the mouse drags items, so clicks never attack.
   if (inventoryOpen) input.attack = input.ability = false;
-  if (wheelSwap) input.swap = true;
-  if (consume) { pressed.clear(); wheelSwap = false; }
+  if (consume) pressed.clear();
   return input;
 }
 let lastSent = 0, lastSentKey = '';
@@ -463,7 +510,7 @@ function toggleMenu(force) {
   if (state && state.phase === 'lobby') menuOpen = true;
   app.dataset.menu = menuOpen ? 'open' : 'closed';
   held.clear(); pressed.clear(); mouse.left = mouse.right = false;
-  if (!menuOpen) canvas.focus();
+  if (!menuOpen) { canvas.focus(); lockMouse(); } else unlockMouse();
   renderMenu();
 }
 function buildMenu() {
@@ -661,7 +708,7 @@ let inventoryOpen = false, dragFrom = null;
 function toggleInventory(force) {
   inventoryOpen = typeof force === 'boolean' ? force : !inventoryOpen;
   $('ld-inventory').hidden = !inventoryOpen; dragFrom = null;
-  if (inventoryOpen) { held.delete('attack'); held.delete('ability'); renderInventory(); } else canvas.focus();
+  if (inventoryOpen) { held.delete('attack'); held.delete('ability'); unlockMouse(); renderInventory(); } else { canvas.focus(); lockMouse(); }
 }
 function reorder(from, to) {
   if (from === to) return;
@@ -936,6 +983,8 @@ setupPreview();
 refreshKeyLabels();
 refreshIcons();
 if (solo) soloCreate(); else connect();
+// ?debug=1: the live state and the view for test scripts (nothing changes without it).
+if (params.get('debug') === '1') window.lockdownDebug = { get state() { return state; }, get localId() { return localId; }, scene };
 if (dojo) setupDojoPanel();
 app.dataset.menu = 'open';
 renderMenu();

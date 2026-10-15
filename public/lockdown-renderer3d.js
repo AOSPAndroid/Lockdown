@@ -43,6 +43,8 @@ const LONG_GUNS = new Set(['rifle', 'magnus', 'grimcannon', 'scatter']);
 /** Switching weapons: put the old one away, reach for the new one, pull it out, all in DRAW_MS. Attacking
  * meanwhile skips straight to the attack (the switch itself is instant in the game). */
 const DRAW_MS = 260, DRAW = Object.freeze({ away: .3, grab: .45 });
+/** Holstered weapons ride a little smaller than in hand, so a full loadout doesn't swamp the knight. */
+const HOLSTER_SCALE = .7;
 const TRAIL_POINTS = 64;    // samples in the Striker's neon trail // pieces of the charge ring, filled one by one
 const KNIGHT_SCALE = 1.4;   // chunky, readable knights
 
@@ -1018,7 +1020,7 @@ export class Lockdown3DRenderer {
     if (view.loadoutKey !== key) {
       view.loadoutKey = key;
       for (const [id, model] of view.models) if (!loadout.includes(id)) { model.parent?.remove(model); view.models.delete(id); }
-      for (const id of loadout) if (!view.models.has(id)) { const model = this.makeWeapon(id); view.models.set(id, model); model.traverse(node => { if (node.material) view.materials.push(node.material); }); }
+      for (const id of loadout) if (!view.models.has(id)) { const model = this.makeWeapon(id); model.userData.baseScale = model.scale.x; view.models.set(id, model); model.traverse(node => { if (node.material) view.materials.push(node.material); }); }
       const taken = new Set(); view.sockets = {};
       for (const id of loadout) {
         const family = WEAPONS[id]?.family, kind = family === 'gun' ? (LONG_GUNS.has(id) ? 'long' : 'pistol') : family === 'bomb' ? 'bomb' : 'blade';
@@ -1039,12 +1041,12 @@ export class Lockdown3DRenderer {
     for (const [id, model] of view.models) {
       if (id === inHand) {
         if (model.parent !== view.hand) view.hand.add(model);
-        model.position.set(0, 0, 0); model.quaternion.identity(); view.weapon = model;
+        model.position.set(0, 0, 0); model.quaternion.identity(); model.scale.setScalar(model.userData.baseScale); view.weapon = model;
       } else {
         const socket = HOLSTERS[view.sockets[id]], part = view.parts[socket.part] || view.body;
         if (model.parent !== part || model.userData.socket !== view.sockets[id]) {
           part.add(model); model.userData.socket = view.sockets[id];
-          model.position.set(...socket.at); model.quaternion.setFromUnitVectors(new THREE.Vector3(1, 0, 0), new THREE.Vector3(...socket.dir).normalize());
+          model.position.set(...socket.at); model.quaternion.setFromUnitVectors(new THREE.Vector3(1, 0, 0), new THREE.Vector3(...socket.dir).normalize()); model.scale.setScalar(model.userData.baseScale * HOLSTER_SCALE);
         }
       }
     }

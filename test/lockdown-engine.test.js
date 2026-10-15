@@ -1135,3 +1135,16 @@ test('a weapon switch pressed mid-swing is remembered and happens the moment the
   assert.equal(me.slot, 1, 'switched as soon as the swing was over');
   assert.equal(events(state, 'swapWeapon').at(-1).from, me.weapons[0]);
 });
+
+test('a gun click fires once; only a deliberate held charge let go early fires a fake-charge shot', () => {
+  const { FIGHT } = L;
+  const shots = holdTicks => {
+    const fight = duel({ gap: 300, a: { cls: 'recon', weapons: ['blaster', null, null, null], slot: 0 } });
+    run(fight.state, holdTicks, () => ({ 0: { attack: true } }));
+    run(fight.state, 30, () => ({ 0: { attack: false } }));
+    return events(fight.state, 'shot').length;
+  };
+  assert.equal(shots(15), 1, 'an ordinary click (an eighth of a second) is one shot');
+  assert.equal(shots(FIGHT.feint.gunHold - 4), 1);
+  assert.equal(shots(FIGHT.feint.gunHold + 10), 2, 'a held charge let go early is a fake charge: a second, normal shot');
+});

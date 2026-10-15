@@ -944,7 +944,7 @@ function tickWeapon(state, player, input, previous) {
     player.charging = false; player.chargeTicks = 0;
     if (full) { startCharge(state, player, weapon); return; }
     // A fake charge: shown long enough to bait, then let go early for a normal attack straight away.
-    if (weapon.family === 'bomb' || held < FIGHT.feint.minHold) return;
+    if (weapon.family === 'bomb' || held < (weapon.family === 'gun' ? FIGHT.feint.gunHold : FIGHT.feint.minHold)) return;
     feint = true; player.feintTicks = FIGHT.feint.window; player.feintFrom = state.tick - held;
     emit(state, 'feint', { playerId: player.id, x: player.x, y: player.y, weapon: weapon.id });
   }
@@ -1384,6 +1384,11 @@ function botInput(state, bot) {
     if (heartSlot >= 0 && bot.hp < bot.maxHp * .45 && canHeal(bot)) slot = heartSlot;
     if (slot >= 0 && slot !== bot.slot && bot.actionTicks === 0 && !bot.charging) input[`slot${slot + 1}`] = !bot.previousInput[`slot${slot + 1}`];
     const weapon = currentWeapon(bot);
+    // Gunners lead a moving target (better bots lead it better) instead of shooting where it was.
+    if (weapon.family === 'gun') {
+      const lead = d / weapon.speed * (brain.skill ?? .5) * 1.4;
+      bot.aim = Math.atan2(target.y + target.vy * lead - bot.y, target.x + target.vx * lead - bot.x) + (random(state) - .5) * .12; input.aim = bot.aim;
+    }
     if (weapon === HANDS) { if (bot.slot === heartSlot) input.attack = !bot.previousInput.attack; }
     else {
     // Bombs always charge; blades and guns mostly tap, sometimes commit to a full charge.
@@ -1416,6 +1421,14 @@ function botInput(state, bot) {
     const ideal = weapon.family === 'blade' || brain.style === 'melee' ? 45 : weapon.family === 'gun' ? 220 : 40;
     const toward = Math.atan2(target.y - bot.y, target.x - bot.x);
     moveAngle = d > ideal + 30 ? stepToward(map, bot, target) : d < ideal - 30 ? toward + Math.PI : toward + brain.strafe * Math.PI / 2;
+    // A gunner by a zone its team does not safely hold keeps its range only as far as the zone allows: it steps
+    // back onto the zone, and strafes rather than backing off it (otherwise a 1v1 gunner never scores).
+    const zone = weapon.family === 'gun' ? state.points.find(point => dist(point, bot) < RULES.pointRadius * 2 && !(point.owner === bot.team && !point.counts?.[1 - bot.team])) : null;
+    if (zone) {
+      const edge = RULES.pointRadius * .8;
+      if (dist(zone, bot) > edge) moveAngle = stepToward(map, bot, zone);
+      else if (d < ideal - 30 && dist(zone, { x: bot.x - Math.cos(toward) * 40, y: bot.y - Math.sin(toward) * 40 }) > edge) moveAngle = toward + brain.strafe * Math.PI / 2;
+    }
     // Abilities.
     // Strikers hold Boost to close in, saving the last of the meter.
     if (bot.cls === 'striker' && d > 140 && (bot.boosting || bot.boostMeter > ABILITIES.dash.meter * .5)) input.ability = true;

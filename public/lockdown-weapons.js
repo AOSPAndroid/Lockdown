@@ -445,7 +445,9 @@ export const FIGHT = Object.freeze({
   // it, and a normal attack comes out at once (the next cut of the combo, or a shot). If the knight you baited
   // dashed away from the charge meanwhile, the feint's first hit within `window` ticks lands `damage` harder and
   // stuns `stun` longer: their dash is spent.
-  feint: Object.freeze({ minHold: 10, window: 60, damage: 1.25, stun: 1.5 }),
+  // A gun starts charging the moment its shot is out, so its fake charge needs a deliberate hold (`gunHold`):
+  // an ordinary click never fires twice.
+  feint: Object.freeze({ minHold: 10, gunHold: 36, window: 60, damage: 1.25, stun: 1.5 }),
 });
 export const BLOOM = Object.freeze({ perShot: .07, max: .32, settlePerSecond: .3 });
 
