@@ -8466,51 +8466,6 @@
   "description": "Low broad neutral crystal core at the centre of a control point, upright in the ¾ view; the game colours its light by owner."
  },
  {
-  "key": "icon_helmet_none",
-  "file": "icon_helmet_none.png",
-  "group": "icons",
-  "size": [
-   48,
-   48
-  ],
-  "anchor": [
-   24,
-   24
-  ],
-  "frames": 1,
-  "description": "Bare head equipment icon: the bare frame's own head. Clear silhouette on a transparent background."
- },
- {
-  "key": "icon_pants_none",
-  "file": "icon_pants_none.png",
-  "group": "icons",
-  "size": [
-   48,
-   48
-  ],
-  "anchor": [
-   24,
-   24
-  ],
-  "frames": 1,
-  "description": "Bare legs equipment icon: the bare frame's own leg plates. Clear silhouette on a transparent background."
- },
- {
-  "key": "icon_shoes_none",
-  "file": "icon_shoes_none.png",
-  "group": "icons",
-  "size": [
-   48,
-   48
-  ],
-  "anchor": [
-   24,
-   24
-  ],
-  "frames": 1,
-  "description": "Bare feet equipment icon: the bare frame's own feet. Clear silhouette on a transparent background."
- },
- {
   "key": "icon_armor_none",
   "file": "icon_armor_none.png",
   "group": "icons",
@@ -8755,12 +8710,12 @@
   "file": "icon_class_striker.png",
   "group": "icons",
   "size": [
-   48,
-   48
+   64,
+   64
   ],
   "anchor": [
-   24,
-   24
+   32,
+   32
   ],
   "frames": 1,
   "description": "Striker class emblem for the lobby and scoreboard."
@@ -8770,12 +8725,12 @@
   "file": "icon_class_guardian.png",
   "group": "icons",
   "size": [
-   48,
-   48
+   64,
+   64
   ],
   "anchor": [
-   24,
-   24
+   32,
+   32
   ],
   "frames": 1,
   "description": "Guardian class emblem for the lobby and scoreboard."
@@ -8785,12 +8740,12 @@
   "file": "icon_class_recon.png",
   "group": "icons",
   "size": [
-   48,
-   48
+   64,
+   64
   ],
   "anchor": [
-   24,
-   24
+   32,
+   32
   ],
   "frames": 1,
   "description": "Recon class emblem for the lobby and scoreboard."

@@ -29,17 +29,24 @@ The existing back cap now uses the painted blue atlas swatch, with gold and silv
 - `guardian-dojo/` contains 23 native screenshots: front/back, idle, walking, running, dashing, the full Brand combo, Blaster shooting/reload, charge and guarding. Gear and actions use normal controls; the inspection camera changes framing only.
 - [Weapon clearance](guardian-dojo/weapon-clearance.json): 539 native poses and 51,226 weapon/body/gear comparisons, no intersections. Intended fist and grip/socket contact is excluded.
 
-## Menu registration and verification
+## Menu loading limitations — code intentionally unchanged
 
-Three bare-frame icons were absent from the asset manifest, and class-icon entries expected 64/128-pixel files. The asset declarations now register those three `none` icons and use the same logical 48×48 / 2× PNG contract for class icons as other menu icons. The index and standalone kit manifest/checklist are regenerated. Gameplay, the renderer and client behavior are unchanged.
+Per the user's instruction, JavaScript and the standalone kit declarations/checklist match branch base `33d40fa`. All 109 delivered icons remain at the requested 96×96; the artwork and contact sheets are unchanged.
 
-- [Runtime menu validation](menu-validation.json): all 109 icons load at 96×96; gear grids, classes and all 48 Armory cards use their images; no browser errors or warnings.
+Six icons cannot currently load through the unmodified manifest:
+
+- `icon_class_striker.png`, `icon_class_guardian.png`, `icon_class_recon.png`: the manifest accepts 64×64 or 128×128. Its indexer omits these requested 96×96 PNGs, so class buttons show glyph fallbacks.
+- `icon_helmet_none.png`, `icon_pants_none.png`, `icon_shoes_none.png`: the manifest has no entries for these bare-frame icons. Their buttons also show glyph fallbacks. `icon_armor_none.png` is already registered and works.
+
+These are documented integration limitations for a later code pass; no manual index override or resized class files are supplied. The regenerated asset index follows the original manifest.
+
+- [Runtime menu validation](menu-validation.json): 103 icons load at 96×96; the six unavailable keys and their causes are recorded. No browser errors or warnings. Menu screenshots show the actual unmodified manifest, including its fallback glyphs.
 - [Helmet menu](menu-helmet.jpg) · [Armour](menu-armor.jpg) · [Pants](menu-pants.jpg) · [Shoes/classes](menu-classes.jpg).
-- [All swords](armory-blade-last.jpg) · [Guns](armory-gun-last.jpg) · [Bombs](armory-bomb-last.jpg).
+- [All swords](armory-blade-last.jpg) · [Guns](armory-gun-last.jpg) · [Bombs](armory-bomb-last.jpg): all 48 weapon icons load correctly.
 - Model index: 111 models, no errors. [Official glTF and contract validation](validation.json): 0 errors and 0 warnings.
-- Icon art checker: 109/109 present, no errors. Every expected icon is listed in the regenerated asset index.
+- Image checks: all 109 PNGs pass the requested 96×96 RGBA, transparency, margin and source-hash checks. The legacy icon art checker finds all 106 icons it knows about, but reports **three class-size errors**; the three unregistered bare-frame icons are not checked by that tool. [Checker output](icon-checker.txt).
 - `npm test`: 96 passed, 0 failed. [Check summary](checks.json).
 
 ## Existing client issue for a later pass
 
-On a cold page load, the loadout's three weapon-slot buttons can retain glyph placeholders after images finish loading. Armory cards, gear and classes load correctly. Reselecting a weapon refreshes its loadout thumbnail; the menu screenshots use that normal selection flow. [Initial state](loadout-cache-initial.jpg). `renderMenu()` caches loadout buttons by `id:editable`; `refreshIcons()` does not invalidate those buttons. This client cache behavior is recorded here for a code pass.
+On a cold page load, the loadout's three weapon-slot buttons can retain glyph placeholders after images finish loading. Registered Armory and gear icons load correctly; the six manifest limitations above are separate. Reselecting a weapon refreshes its loadout thumbnail; the menu screenshots use that normal selection flow. [Initial state](loadout-cache-initial.jpg). `renderMenu()` caches loadout buttons by `id:editable`; `refreshIcons()` does not invalidate those buttons. This client cache behavior is recorded here for a code pass.

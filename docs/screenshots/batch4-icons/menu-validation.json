@@ -6,13 +6,8 @@
     "width": 1600,
     "height": 1050
   },
+  "requestedIcons": 109,
   "loadedIcons": [
-    {
-      "key": "icon_helmet_none",
-      "width": 96,
-      "height": 96,
-      "src": "http://localhost:3006/art/lockdown/icon_helmet_none.png"
-    },
     {
       "key": "icon_helmet_sallet",
       "width": 96,
@@ -188,12 +183,6 @@
       "src": "http://localhost:3006/art/lockdown/icon_armor_clockwork.png"
     },
     {
-      "key": "icon_pants_none",
-      "width": 96,
-      "height": 96,
-      "src": "http://localhost:3006/art/lockdown/icon_pants_none.png"
-    },
-    {
       "key": "icon_pants_greaves",
       "width": 96,
       "height": 96,
@@ -258,12 +247,6 @@
       "width": 96,
       "height": 96,
       "src": "http://localhost:3006/art/lockdown/icon_pants_kilt.png"
-    },
-    {
-      "key": "icon_shoes_none",
-      "width": 96,
-      "height": 96,
-      "src": "http://localhost:3006/art/lockdown/icon_shoes_none.png"
     },
     {
       "key": "icon_shoes_sneakers",
@@ -620,24 +603,6 @@
       "src": "http://localhost:3006/art/lockdown/icon_weapon_spark.png"
     },
     {
-      "key": "icon_class_striker",
-      "width": 96,
-      "height": 96,
-      "src": "http://localhost:3006/art/lockdown/icon_class_striker.png"
-    },
-    {
-      "key": "icon_class_guardian",
-      "width": 96,
-      "height": 96,
-      "src": "http://localhost:3006/art/lockdown/icon_class_guardian.png"
-    },
-    {
-      "key": "icon_class_recon",
-      "width": 96,
-      "height": 96,
-      "src": "http://localhost:3006/art/lockdown/icon_class_recon.png"
-    },
-    {
       "key": "icon_ability_dash",
       "width": 96,
       "height": 96,
@@ -662,17 +627,38 @@
       "src": "http://localhost:3006/art/lockdown/icon_ability_cloak.png"
     }
   ],
+  "unavailableIcons": [
+    {
+      "key": "icon_helmet_none",
+      "reason": "Original manifest has no registration for this bare-frame icon"
+    },
+    {
+      "key": "icon_pants_none",
+      "reason": "Original manifest has no registration for this bare-frame icon"
+    },
+    {
+      "key": "icon_shoes_none",
+      "reason": "Original manifest has no registration for this bare-frame icon"
+    },
+    {
+      "key": "icon_class_striker",
+      "reason": "Original manifest accepts only 64/128 px; indexer omits requested 96 px file"
+    },
+    {
+      "key": "icon_class_guardian",
+      "reason": "Original manifest accepts only 64/128 px; indexer omits requested 96 px file"
+    },
+    {
+      "key": "icon_class_recon",
+      "reason": "Original manifest accepts only 64/128 px; indexer omits requested 96 px file"
+    }
+  ],
   "errors": [],
   "warnings": [],
   "captures": [
     {
       "file": "menu-helmet.jpg",
       "images": [
-        {
-          "src": "http://localhost:3006/art/lockdown/icon_helmet_none.png",
-          "width": 96,
-          "height": 96
-        },
         {
           "src": "http://localhost:3006/art/lockdown/icon_helmet_sallet.png",
           "width": 96,
@@ -829,11 +815,6 @@
       "file": "menu-pants.jpg",
       "images": [
         {
-          "src": "http://localhost:3006/art/lockdown/icon_pants_none.png",
-          "width": 96,
-          "height": 96
-        },
-        {
           "src": "http://localhost:3006/art/lockdown/icon_pants_greaves.png",
           "width": 96,
           "height": 96
@@ -894,11 +875,6 @@
       "file": "menu-shoes.jpg",
       "images": [
         {
-          "src": "http://localhost:3006/art/lockdown/icon_shoes_none.png",
-          "width": 96,
-          "height": 96
-        },
-        {
           "src": "http://localhost:3006/art/lockdown/icon_shoes_sneakers.png",
           "width": 96,
           "height": 96
@@ -957,23 +933,7 @@
     },
     {
       "file": "menu-classes.jpg",
-      "images": [
-        {
-          "src": "http://localhost:3006/art/lockdown/icon_class_striker.png",
-          "width": 96,
-          "height": 96
-        },
-        {
-          "src": "http://localhost:3006/art/lockdown/icon_class_guardian.png",
-          "width": 96,
-          "height": 96
-        },
-        {
-          "src": "http://localhost:3006/art/lockdown/icon_class_recon.png",
-          "width": 96,
-          "height": 96
-        }
-      ]
+      "images": []
     },
     {
       "file": "armory-blade.jpg",

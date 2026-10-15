@@ -13,24 +13,65 @@
       96
     ],
     "format": "RGBA PNG",
-    "artCheckerErrors": 0,
-    "allExpectedIconsIndexed": true,
-    "sourceAndImageHashesCurrent": true
+    "artCheckerErrors": 3,
+    "allExpectedIconsIndexed": false,
+    "sourceAndImageHashesCurrent": true,
+    "artCheckerRegisteredIcons": 106,
+    "unregisteredBareFrameIcons": [
+      "icon_helmet_none",
+      "icon_pants_none",
+      "icon_shoes_none"
+    ],
+    "unindexedIcons": [
+      "icon_helmet_none",
+      "icon_pants_none",
+      "icon_shoes_none",
+      "icon_class_striker",
+      "icon_class_guardian",
+      "icon_class_recon"
+    ]
   },
   "tests": {
     "passed": 96,
     "failed": 0
   },
   "runtime": {
-    "iconsLoaded": 109,
+    "iconsLoaded": 103,
     "browserErrors": 0,
     "browserWarnings": 0,
-    "previewOverrides": false
+    "previewOverrides": false,
+    "unavailableIcons": [
+      {
+        "key": "icon_helmet_none",
+        "reason": "Original manifest has no registration for this bare-frame icon"
+      },
+      {
+        "key": "icon_pants_none",
+        "reason": "Original manifest has no registration for this bare-frame icon"
+      },
+      {
+        "key": "icon_shoes_none",
+        "reason": "Original manifest has no registration for this bare-frame icon"
+      },
+      {
+        "key": "icon_class_striker",
+        "reason": "Original manifest accepts only 64/128 px; indexer omits requested 96 px file"
+      },
+      {
+        "key": "icon_class_guardian",
+        "reason": "Original manifest accepts only 64/128 px; indexer omits requested 96 px file"
+      },
+      {
+        "key": "icon_class_recon",
+        "reason": "Original manifest accepts only 64/128 px; indexer omits requested 96 px file"
+      }
+    ]
   },
   "guardianMotion": {
     "samples": 539,
     "pairsChecked": 51226,
     "intersections": 0
   },
-  "knownClientIssue": "Cold-load weapon-slot thumbnails can retain placeholders; normal weapon reselection refreshes them. See README."
+  "knownClientIssue": "Cold-load weapon-slot thumbnails can retain placeholders; normal weapon reselection refreshes them. See README.",
+  "sourceAndKitUnchangedFromBranchBase": true
 }
