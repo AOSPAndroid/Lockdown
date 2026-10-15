@@ -1,5 +1,10 @@
 {
-  "files": [],
+  "files": [
+    "fx/blast.png",
+    "fx/flash.png",
+    "fx/slash.png",
+    "fx/spark.png"
+  ],
   "models": [
     "armor/ballistic.glb",
     "armor/berserker.glb",

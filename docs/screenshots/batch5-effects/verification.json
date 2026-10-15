@@ -1,0 +1,22 @@
+{
+  "baseStep": "5144045",
+  "all124ModelsUnchanged": true,
+  "sourceHashesMatchAllCaptures": true,
+  "normalAndChargedGuns": 18,
+  "bombsPlanted": 10,
+  "nativeSoloCaptures": 58,
+  "nativeDojoCaptures": 5,
+  "runtimeTexturesObserved": [
+    "blast.png",
+    "flash.png",
+    "slash.png",
+    "spark.png"
+  ],
+  "brandCutDirections": [
+    -1,
+    1,
+    -1
+  ],
+  "firstShotFlashToPosedMuzzleDistance": 0.4224014785240525,
+  "codeFilesChanged": []
+}
