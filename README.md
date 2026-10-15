@@ -76,12 +76,13 @@ ability (Striker Boost, Guardian shield, Recon cloak), **Space** dash, **1–4**
 **Esc** menu.
 
 Views: the 3D view is the default; `?quality=low` turns off shadows and glow for slower machines,
-`?view=2d` plays the original flat view.
+`?view=2d` plays the original flat view, and `?hitboxes=1` draws the real hit areas (bodies, sword arcs while
+they can hit, rounds, bomb blasts) over the 3D view.
 
 ## How it plays
 
 See [docs/GAMEPLAY.md](docs/GAMEPLAY.md) and the [weapons audit](docs/WEAPONS-AUDIT.md): classes, gear, weapons and their traits, the fighting rules
-(combos and perfect combos, aim, fake charges, interrupts, counters, perfect dodges, clashes, Spiral
+(combos and perfect combos, aim, hitboxes, fake charges, interrupts, counters, perfect dodges, clashes, Spiral
 Knights-style cancels), statuses, hearts, the modes and the eight arenas.
 
 ## Look and art

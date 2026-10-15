@@ -783,7 +783,10 @@ function bladeContacts(state, player, reach, from, to, amount, options) {
 }
 function radialHit(state, owner, team, center, radius, amount, options = {}) {
   const map = MAPS[state.mapId];
-  const caught = state.players.filter(target => target.alive && target.team !== team && dist(target, center) <= radius + RULES.radius && lineOfSight(map, center, target));
+  // A blade's slam or burst stays on the swinger's floor, like its cuts; a blast carries over a ledge.
+  const level = options.damageFamily === 'blade' ? levelAt(map, (owner || center).x, (owner || center).y) : null;
+  const caught = state.players.filter(target => target.alive && target.team !== team && dist(target, center) <= radius + RULES.radius && lineOfSight(map, center, target)
+    && (level === null || Math.abs(levelAt(map, target.x, target.y) - level) <= .5));
   // A bomb that catches several knights hits each of them harder.
   let crowd = 1;
   if (options.kind === 'bomb' && caught.length > 1) {
@@ -1157,6 +1160,23 @@ function tickPlayer(state, player, input) {
 
 /** Flinch follows the round's weight: light rapid-fire rounds barely flinch, heavy rounds stagger. */
 const shotStun = shot => Math.round(Math.min(8, 3 + shot.damage * .3));
+/** Knights don't settle inside each other: two bodies more than half overlapped ease apart a little each tick, so
+ * neither hides the other and one cut can't find two knights in one spot. It is soft (slower than walking), so it
+ * never body-blocks: you still walk or dash straight through a knight, and nobody is shoved off a zone. */
+const SEPARATE = Object.freeze({ share: .1, max: .6 });
+function separateKnights(state) {
+  const map = MAPS[state.mapId], bodies = state.players.filter(player => player.alive), reach = RULES.radius;
+  for (let i = 0; i < bodies.length; i++) for (let j = i + 1; j < bodies.length; j++) {
+    const a = bodies[i], b = bodies[j], d = dist(a, b);
+    if (d >= reach || !sameFloor(map, a, b)) continue;
+    // A Dojo dummy on its mark holds still: the other knight steps aside.
+    const angle = d > .01 ? Math.atan2(b.y - a.y, b.x - a.x) : (a.id - b.id) * 2.4, step = Math.min(SEPARATE.max, (reach - d) * SEPARATE.share);
+    const holdA = a.dummy === 'still', holdB = b.dummy === 'still';
+    if (holdA && holdB) continue;
+    if (!holdA) moveBody(map, a, -Math.cos(angle) * step * (holdB ? 2 : 1), -Math.sin(angle) * step * (holdB ? 2 : 1));
+    if (!holdB) moveBody(map, b, Math.cos(angle) * step * (holdA ? 2 : 1), Math.sin(angle) * step * (holdA ? 2 : 1));
+  }
+}
 function tickProjectiles(state) {
   const map = MAPS[state.mapId], survivors = [];
   for (const shot of state.projectiles) {
@@ -1181,12 +1201,18 @@ function tickProjectiles(state) {
       }
       // Base barriers stop rounds going in or out.
       if (baseCell(map, nx, ny) !== baseCell(map, shot.x, shot.y)) { emit(state, 'barrier', { x: nx, y: ny, team: (baseCell(map, nx, ny) || baseCell(map, shot.x, shot.y)) === '1' ? 0 : 1 }); if (shot.kind === 'explosive') explodeShot(state, shot); alive = false; break; }
+      const px = shot.x, py = shot.y;
       shot.x = nx; shot.y = ny;
       // Enemy domes stop rounds at their edge.
       const dome = state.players.find(guard => guard.team !== shot.team && domeUp(guard) && dist(guard, shot) <= GUARD.radius && dist(guard, { x: shot.x - shot.vx * DT, y: shot.y - shot.vy * DT }) > GUARD.radius - 2);
       if (dome) { hitGuard(state, dome, shot.damage, shot.kind, state.players[shot.ownerId], 0, 0, 0); alive = false; break; }
-      for (const target of state.players) {
-        if (!target.alive || target.team === shot.team || dist(target, shot) > RULES.radius + shot.size) continue;
+      // Contact along the whole step (not just where it ends), nearest first: a knight pressed against the muzzle is
+      // hit, and a round that overlaps two knights hits the one it reaches first.
+      const sx = nx - px, sy = ny - py, span = sx * sx + sy * sy || 1, reach = RULES.radius + shot.size, along = target => clamp(((target.x - px) * sx + (target.y - py) * sy) / span, 0, 1);
+      const off = target => Math.hypot(px + sx * along(target) - target.x, py + sy * along(target) - target.y);
+      const entry = target => along(target) - Math.sqrt(Math.max(0, reach * reach - off(target) ** 2) / span); // where the round first touches the body
+      const touching = state.players.filter(target => target.alive && target.team !== shot.team && off(target) <= reach).sort((a, b) => entry(a) - entry(b));
+      for (const target of touching) {
         // Shadow waves carry knights along with them.
         if (shot.carry && !guardUp(target)) moveBody(map, target, shot.vx * DT / steps * .8, shot.vy * DT / steps * .8);
         if (shot.hitIds.includes(target.id)) continue;
@@ -1325,6 +1351,7 @@ export function step(state, rawInputs = []) {
     return state;
   }
   for (const player of state.players) tickPlayer(state, player, inputs[player.id]);
+  separateKnights(state);
   tickProjectiles(state); tickBombs(state); tickClouds(state); tickPickups(state);
   if (isDojo(state)) return state;
   tickPoints(state);

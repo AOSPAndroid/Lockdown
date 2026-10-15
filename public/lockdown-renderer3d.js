@@ -251,6 +251,20 @@ class Builder {
 }
 /** A flat sector of a ring in the floor plane (angles are world headings: 0 east, π/2 south). */
 /** A flat ring segment; u runs along the arc from `from` to `to` (or back, with `flip`), v from the inner edge out. */
+/** How much longer a sword is drawn in hand so its tip reaches where its cuts hit. A cut hits a knight whose body
+ * the blade's reach touches (the engine's swing reach, from the knight's centre); fully extended, the hand holds the
+ * grip about ARM_REACH from the centre. Each sword is sized between the average and the longest reach of its cuts
+ * (spins aside), a little short of it so the slash trail, not the steel, marks the very edge. Stretched along the blade, thickened less. */
+const ARM_REACH = 12, TIP_SLACK = 6, BLADE_FIX = .5;
+function bladeReachScale(model, id) {
+  const weapon = WEAPONS[id]; if (weapon?.family !== 'blade') return 1;
+  const cuts = weapon.combo.filter(move => move.kind !== 'spin'); if (!cuts.length) return 1;
+  const reach = (cuts.reduce((sum, move) => sum + move.reach, 0) / cuts.length + Math.max(...cuts.map(move => move.reach))) / 2;
+  model.updateMatrixWorld(true);
+  const tipX = new THREE.Box3().setFromObject(model).max.x, length = tipX * KNIGHT_SCALE / U; // grip to tip, in engine units
+  model.userData.tipX = tipX / model.scale.x; // the tip along +X, in the model's own units
+  return length > 1 ? Math.min(1.6, Math.max(1, (reach - TIP_SLACK - ARM_REACH) / length)) : 1;
+}
 function arcGeometry(inner, outer, from, to, segments = 24, flip = false) {
   const position = [], index = [], uv = [];
   for (let i = 0; i <= segments; i++) {
@@ -293,7 +307,7 @@ export class Lockdown3DRenderer {
     this.knights = new Map(); this.shots = new Map(); this.bombs = new Map(); this.hearts = new Map(); this.clouds = new Map();
     this.effects = []; this.texts = []; this.seenEvents = new Set(); this.eventOrder = []; this.localId = null; this.shake = 0;
     this.camera = { x: 0, y: 0, zoom: 1 }; // kept for callers that read it
-    this.raycaster = new THREE.Raycaster();
+    this.raycaster = new THREE.Raycaster(); this.tipPoint = new THREE.Vector3();
     this.models = new ModelLibrary();
     // Glow: lamps, crystals, shots, team rings and slashes bloom softly, as in Spiral Knights.
     if (this.quality === 'high') {
@@ -897,7 +911,7 @@ export class Lockdown3DRenderer {
       // blow (-); drop: the knees bending.
       const K = (yaw, armZ, elbow, pitch, roll = 0, lean = 0, drop = 0) => ({ yaw, armZ, elbow, pitch, roll, lean, drop });
       const KEYS = {
-        sweep: [K(sgn * hw * 1.05, 1.3, 1.2, .35, 0, .06), K(0, 1.45, .12, .05, 0, -.14, .02), K(-sgn * hw * 1.1, 1.25, .35, -.1, 0, -.1, .02)],
+        sweep: [K(sgn * hw * .8, 1.3, 1.2, .35, 0, .06), K(0, 1.45, .12, .05, 0, -.14, .02), K(-sgn * hw * 1.1, 1.25, .35, -.1, 0, -.1, .02)],
         flurry: [K(sgn * .7, 1.35, 1, .3, 0, .04), K(0, 1.45, .12, .05, 0, -.12), K(-sgn * .75, 1.3, .3, -.05, 0, -.1)],
         rise: [K(sgn * hw * .8, .15, .5, -1, -.4, .02, .04), K(0, 1.3, .15, .2, -.4, -.08), K(-sgn * hw * .7, 2.4, .3, 1, -.4, .04)],
         overhand: [K(sgn * .7, 2.7, 1, 1.2, .9, .1), K(sgn * .1, 1.55, .1, .15, .9, -.16, .03), K(-sgn * .55, .75, .25, -.55, .9, -.22, .06)],
@@ -1047,7 +1061,7 @@ export class Lockdown3DRenderer {
       for (const carrier of view.carriers?.values() || []) carrier.parent?.remove(carrier);
       view.carriers = new Map();
       for (const [id, model] of view.models) if (!loadout.includes(id)) { model.parent?.remove(model); view.models.delete(id); }
-      for (const id of loadout) if (!view.models.has(id)) { const model = this.makeWeapon(id); model.userData.baseScale = model.scale.x; view.models.set(id, model); model.traverse(node => { if (node.material) view.materials.push(node.material); }); }
+      for (const id of loadout) if (!view.models.has(id)) { const model = this.makeWeapon(id); model.userData.baseScale = model.scale.x; model.userData.reachScale = bladeReachScale(model, id); view.models.set(id, model); model.traverse(node => { if (node.material) view.materials.push(node.material); }); }
       const taken = new Set(); view.sockets = {};
       for (const id of loadout) {
         const family = WEAPONS[id]?.family, kind = family === 'gun' ? (LONG_GUNS.has(id) ? 'long' : 'pistol') : family === 'bomb' ? 'bomb' : 'blade';
@@ -1081,7 +1095,9 @@ export class Lockdown3DRenderer {
     for (const [id, model] of view.models) {
       if (id === inHand) {
         if (model.parent !== view.hand) view.hand.add(model);
-        model.position.set(0, 0, 0); model.quaternion.identity(); model.scale.setScalar(model.userData.baseScale); view.weapon = model;
+        // In hand a sword is drawn at its reach (see bladeReachScale); holstered it keeps its catalogue size.
+        const base = model.userData.baseScale, grow = model.userData.reachScale || 1;
+        model.position.set(0, 0, 0); model.quaternion.identity(); model.scale.set(base * grow, base * Math.sqrt(grow), base * Math.sqrt(grow)); view.weapon = model;
       } else {
         const socket = HOLSTERS[view.sockets[id]], part = view.parts[socket.part] || view.body;
         if (model.parent !== part || model.userData.socket !== view.sockets[id]) {
@@ -1130,6 +1146,11 @@ export class Lockdown3DRenderer {
       if (view.lens) view.lens.material.emissiveIntensity = player.cloakTicks > 0 ? 4 + Math.sin(now / 60) : 1.6;
     }
     view.group.rotation.y = -facing;
+    // Keep the blade on the cut: while a cut can hit, turn the knight the little it takes for the drawn blade to sit
+    // where the game's sweep is this tick, so a knight the steel passes through is a knight that gets hit.
+    const fix = this.bladeOnCut?.(view, player) ?? null; // the Armory preview turns its knight itself
+    view.swingFix = fix === null ? (view.swingFix || 0) * .8 : fix;
+    if (Math.abs(view.swingFix) > .002) view.group.rotation.y = -(facing + view.swingFix);
     // Cloak, spawn shield and hit flash.
     const cloaked = player.cloakTicks > 0, alpha = cloaked ? .3 : 1;
     for (const material of view.materials) { if (material.blending === THREE.AdditiveBlending) continue; if (material.transparent !== (alpha < 1)) { material.transparent = alpha < 1; material.needsUpdate = true; } material.opacity = alpha; }
@@ -1137,6 +1158,25 @@ export class Lockdown3DRenderer {
     if (hit !== view.hit) { view.hit = hit; view.body.traverse(node => { if (node.isMesh && node.material.emissive) { if (hit) { node.material.userData.saved ??= [node.material.emissive.clone(), node.material.emissiveIntensity]; node.material.emissive.set('#ffffff'); node.material.emissiveIntensity = .9; } else if (node.material.userData.saved) { node.material.emissive.copy(node.material.userData.saved[0]); node.material.emissiveIntensity = node.material.userData.saved[1]; } } }); }
     view.ring.material.opacity = player.id === viewer ? 1 : .8;
     view.group.visible = true;
+  }
+
+  /** The turn (radians) that puts the drawn blade tip on the engine's sweep this tick, or null outside a cut's hit
+   * ticks. Small and capped: the animation already carries the blade close; this only trims the rest. A blade held
+   * up (an overhead chop's top, a thrust's draw) points nowhere on the floor and is left alone. */
+  bladeOnCut(view, player) {
+    const elapsed = player.actionTotal - player.actionTicks, model = view.weapon;
+    if (player.action !== 'swing' || !model || elapsed < player.swingStartup || elapsed >= player.swingStartup + player.swingActive) return null;
+    const active = player.swingActive, k = Math.min(1, (elapsed - player.swingStartup + 1) / active), dir = player.swingDir || 1, arc = player.swingArc;
+    const start = player.swingAim - dir * arc / 2;
+    // A flurry sweeps across and straight back, like the engine's two strokes.
+    const flurry = player.swingKind === 'flurry', half = Math.ceil(active / 2) / active;
+    const along = flurry ? (k <= half ? k / half : 1 - (k - half) / (1 - half)) : k, goal = player.swingKind === 'spin' ? start + dir * Math.PI * 2 * k : start + dir * arc * along;
+    view.group.updateMatrixWorld(true);
+    const tip = model.localToWorld(this.tipPoint.set(model.userData.tipX ?? .7, 0, 0)), centre = view.group.position;
+    const dx = tip.x - centre.x, dy = tip.z - centre.z, out = Math.hypot(dx, dy) / U;
+    const weight = Math.max(0, Math.min(1, (out - 30) / 20)); if (!weight) return 0;
+    const error = Math.atan2(Math.sin(goal - Math.atan2(dy, dx)), Math.cos(goal - Math.atan2(dy, dx)));
+    return Math.max(-BLADE_FIX, Math.min(BLADE_FIX, error)) * weight;
   }
 
   // ---------- frame ----------
@@ -1356,7 +1396,7 @@ export class Lockdown3DRenderer {
         this.texts.push({ x: event.x, y: event.y, lift: KNIGHT + .1, text: String(event.amount), color: event.kind === 'burn' ? STATUS_COLOR.burn : event.kind === 'shock' || event.kind === 'chain' ? STATUS_COLOR.shock : '#ffffff', born: now, life: 700, size: 15, rise: 30 });
         this.burst(at(event.x, event.y, .5), '#ffffff', .5, 160, now, false, 'spark');
         if (event.targetId === this.localId) this.shake = Math.max(this.shake, Math.min(8, 2 + event.amount / 5));
-      } else if (event.type === 'explosion') { this.burst(at(event.x, event.y, .3), event.burst ? '#ffcf8a' : '#ffb347', (event.radius || 60) * U * 2, 420, now, true, 'blast'); this.shakeNear(event.x, event.y, 6); }
+      } else if (event.type === 'explosion') { this.burst(at(event.x, event.y, .3), event.burst ? '#ffcf8a' : '#ffb347', (event.radius || 60) * U * 2, 420, now, true, 'blast'); if (event.radius) this.ringEffect(at(event.x, event.y, .05), event.radius * U, '#ffb347', 360, now); this.shakeNear(event.x, event.y, 6); }
       else if (event.type === 'slam') { this.ringEffect(at(event.x, event.y, .05), (event.radius || 80) * U, '#ffe0a0', 420, now); this.shakeNear(event.x, event.y, 7); }
       else if (event.type === 'shot') {
         // The shooter's arm and barrel kick; the flash comes out of the gun's muzzle node (see flushFlashes).
@@ -1402,10 +1442,11 @@ export class Lockdown3DRenderer {
     sprite.position.copy(position); sprite.scale.setScalar(size * .4);
     this.addEffect(sprite, now, life, t => { sprite.scale.setScalar(size * (.4 + t * (big ? 1.2 : .6))); sprite.material.opacity = 1 - t; });
   }
+  /** A shock ring on the floor: it snaps out to the hit radius in the first moments (the hit lands at once), then fades. */
   ringEffect(position, radius, tint, life, now) {
     const mesh = new THREE.Mesh(arcGeometry(.85, 1, 0, Math.PI * 2, 48), new THREE.MeshBasicMaterial({ color: tint, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending }));
     mesh.position.copy(position);
-    this.addEffect(mesh, now, life, t => { mesh.scale.setScalar(radius * (.3 + .7 * t)); mesh.material.opacity = 1 - t; });
+    this.addEffect(mesh, now, life, t => { const k = Math.min(1, t / .2); mesh.scale.setScalar(radius * (.55 + .45 * (1 - (1 - k) ** 2))); mesh.material.opacity = (1 - t) ** 1.5; });
   }
   beam(from, to, tint, life, now) {
     const geometry = new THREE.BufferGeometry().setFromPoints([from, to]), line = new THREE.Line(geometry, new THREE.LineBasicMaterial({ color: tint, transparent: true }));
@@ -1454,10 +1495,35 @@ export class Lockdown3DRenderer {
   }
 
   // ---------- 2D overlay: names, health, numbers, callouts, crosshair ----------
+  /** ?hitboxes=1: what the engine really tests, drawn at blade height (where the slash trail is): bodies (white
+   * rings), a cut's arc while it can hit (red; a body touching it is hit), rounds (yellow), bombs' blast (orange). */
+  drawHitboxes(state, map) {
+    const ctx = this.ctx;
+    const ring = (x, y, radius, from = 0, to = Math.PI * 2, centre = false) => {
+      const height = levelAt(map, x, y) * STOREY + KNIGHT * .4, steps = Math.max(8, Math.ceil((to - from) * 12));
+      ctx.beginPath(); if (centre) { const c = this.project(x, y, height); ctx.moveTo(c.x, c.y); }
+      for (let i = 0; i <= steps; i++) { const a = from + (to - from) * i / steps, p = this.project(x + Math.cos(a) * radius, y + Math.sin(a) * radius, height); if (i || centre) ctx.lineTo(p.x, p.y); else ctx.moveTo(p.x, p.y); }
+      if (centre) ctx.closePath();
+    };
+    ctx.lineWidth = 1.5;
+    for (const player of state.players) {
+      if (!player.alive) continue;
+      ring(player.x, player.y, RULES.radius); ctx.strokeStyle = 'rgba(255,255,255,.9)'; ctx.stroke();
+      const elapsed = player.actionTotal - player.actionTicks;
+      if (player.action === 'swing' && elapsed >= player.swingStartup && elapsed < player.swingStartup + player.swingActive) {
+        const half = player.swingArc / 2;
+        ring(player.x, player.y, player.swingReach, player.swingAim - half, player.swingAim + half, true);
+        ctx.fillStyle = 'rgba(255,60,60,.25)'; ctx.fill(); ctx.strokeStyle = 'rgba(255,80,80,.9)'; ctx.stroke();
+      }
+    }
+    for (const shot of state.projectiles) { ring(shot.x, shot.y, shot.size); ctx.strokeStyle = 'rgba(255,230,80,.95)'; ctx.stroke(); }
+    for (const bomb of state.bombs) { const radius = WEAPONS[bomb.weapon]?.radius || WEAPONS[bomb.weapon]?.cloud?.radius; if (!radius) continue; ring(bomb.x, bomb.y, radius); ctx.strokeStyle = 'rgba(255,150,60,.8)'; ctx.stroke(); }
+  }
   drawOverlay(state, map, now, local, pointer) {
     const ctx = this.ctx, canvas = this.overlayCanvas, ratio = canvas.width / Math.max(1, canvas.getBoundingClientRect().width);
     ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, canvas.width, canvas.height); ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
     const viewerTeam = local?.team ?? null;
+    if (this.hitboxes) this.drawHitboxes(state, map);
     for (const player of state.players) {
       const view = this.knights.get(player.id); if (!player.alive || !view?.group.visible) continue;
       const ground = levelAt(map, player.x, player.y) * STOREY, head = this.project(player.x, player.y, ground + KNIGHT + .25);

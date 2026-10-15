@@ -22,7 +22,7 @@ const step = (damage, startup, active, recovery, reach, arc, push, stun, lunge) 
  * Balanced sits between. Thrusts keep the narrow line they are written with. Applied to every step's arc,
  * push and reach below; the damage follows from the final arc (see AIM). */
 export const CUTS = Object.freeze({
-  precise: Object.freeze({ arc: .55, push: .4, reach: 1.25, label: 'Precise', note: 'narrow but long cut that hits hard and barely pushes: aim it, and stay on them' }),
+  precise: Object.freeze({ arc: .55, push: .4, reach: 1.15, label: 'Precise', note: 'narrow but long cut that hits hard and barely pushes: aim it, and stay on them' }),
   balanced: Object.freeze({ arc: .75, push: 1, label: 'Balanced', note: 'medium cut, medium damage' }),
   sweeping: Object.freeze({ arc: 1, push: 3, reel: true, label: 'Sweeping', note: 'wide cut that hits lighter but knocks the enemy back reeling: follow up with a heavy sword, or switch to a gun and shoot them out of reach' }),
   thrust: Object.freeze({ arc: 1, push: .5, label: 'Thrust', note: 'a straight, narrow line with a sweet spot at the tip, little knockback' }),
@@ -265,7 +265,7 @@ export const MOVE_KINDS = Object.freeze({
   // Two quick strokes in one press, there and back: each deals 60% of the cut, so both must land to pay.
   flurry: Object.freeze({ label: 'flurry', fixedArc: .9, strokes: 2, stroke: .6, returns: true }),
   chop: Object.freeze({ label: 'overhead chop', fixedArc: .6, reach: 1.05, straight: true }),
-  thrust: Object.freeze({ label: 'thrust', fixedArc: .35, reach: 1.2, straight: true }),
+  thrust: Object.freeze({ label: 'thrust', fixedArc: .35, reach: 1.1, straight: true }),
   spin: Object.freeze({ label: 'spin', fixedArc: Math.PI * 2, reach: .9 }),
 });
 /** Every sword type has its own combo. Elemental variants of one type (the four sabres) share it. */

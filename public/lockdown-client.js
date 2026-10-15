@@ -998,6 +998,8 @@ setupPreview();
 refreshKeyLabels();
 refreshIcons();
 if (solo) soloCreate(); else connect();
+// ?hitboxes=1: draw the real hit areas over the 3D view.
+if (params.get('hitboxes') === '1') scene.hitboxes = true;
 // ?debug=1: the live state and the view for test scripts (nothing changes without it).
 if (params.get('debug') === '1') window.lockdownDebug = { get state() { return state; }, get localId() { return localId; }, scene };
 if (dojo) setupDojoPanel();
