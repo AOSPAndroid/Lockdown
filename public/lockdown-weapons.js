@@ -30,7 +30,8 @@ export const CUTS = Object.freeze({
 /** A heavy sword's second blow: after a normal first cut, it carries the momentum through a half turn (back to
  * the target, then round with the blade), so it winds up fast, cuts a narrower arc and lands far harder, but a miss leaves you spun round and wide open (see BLADE.momentumWhiff). */
 const momentum = move => Object.freeze({ ...move, arc: Math.round(move.arc * .7 * 100) / 100, momentum: true });
-/** The last cut of the katana's and the elemental swords' three-cut combo is a critical: it lands half again as hard. */
+/** The last cut of the katana's and the elemental swords' three-cut combo is a critical: on a perfect combo (see
+ * BLADE.combo) it lands half again as hard; otherwise it lands as a plain cut. */
 export const CRITICAL = 1.5;
 const critical = move => Object.freeze({ ...move, damage: Math.round(move.damage * CRITICAL), critical: true });
 /** Aim pays. The harder a weapon is to land, the harder it hits; the easier, the lighter. A cut's damage is its
@@ -256,15 +257,19 @@ export const MOVE_KINDS = Object.freeze({
   // From above one shoulder, down across the body: narrow, so it hits harder (AIM) and pushes less. The next one comes
   // down from the other shoulder.
   overhand: Object.freeze({ label: 'overhand strike', fixedArc: .8, reach: 1.05, push: .75, alternates: true }),
+  // Two quick strokes in one press, there and back: each deals 60% of the cut, so both must land to pay.
+  flurry: Object.freeze({ label: 'flurry', fixedArc: .9, strokes: 2, stroke: .6, returns: true }),
   chop: Object.freeze({ label: 'overhead chop', fixedArc: .6, reach: 1.05, straight: true }),
   thrust: Object.freeze({ label: 'thrust', fixedArc: .35, reach: 1.2, straight: true }),
   spin: Object.freeze({ label: 'spin', fixedArc: Math.PI * 2, reach: .9 }),
 });
 /** Every sword type has its own combo. Elemental variants of one type (the four sabres) share it. */
 export const MOVESETS = Object.freeze({
-  // The brandish line (Knight Brand and its fire and ice forms): narrow overhand strikes off alternate shoulders,
-  // then straight down from overhead (a critical on the elemental ones).
-  brand: ['overhand', 'overhand', 'chop'], blazebrand: ['overhand', 'overhand', 'chop'], frostbite: ['overhand', 'overhand', 'chop'],
+  // The brandish line (Knight Brand and its fire and ice forms): narrow overhand strikes and chops, each with its
+  // own string (a critical finisher on the elemental ones).
+  brand: ['overhand', 'overhand', 'chop'],          // off the right shoulder, off the left, straight down
+  frostbite: ['overhand', 'rise', 'thrust'],         // an overhand, a rising cut, a critical ice-piercing thrust
+  blazebrand: ['rise', 'flurry', 'chop'],            // a rising flame, a quick double strike, a critical blaze from overhead
   thorn: ['sweep', 'sweep', 'rise'],                 // two wide sweeps and a rising cut that throws them up and back
   avenger: ['thrust', 'sweep', 'chop'],              // a lance-like jab, a sweep, a critical judgement from above
   sickle: ['sweep', 'sweep', 'spin'],                // hooking reaps that end in a whirling reap
@@ -283,7 +288,7 @@ export const MOVESETS = Object.freeze({
 const withMoves = (id, combo) => Object.freeze(combo.map((move, i) => {
   const kind = MOVESETS[id]?.[i] || 'sweep', rule = MOVE_KINDS[kind], arc = rule.fixedArc ?? Math.round(move.arc * (rule.arc ?? 1) * 100) / 100;
   return Object.freeze({ ...move, kind, arc, reach: Math.round(move.reach * (rule.reach ?? 1)),
-    damage: Math.round(move.damage * aimFactor(arc)), push: Math.round(move.push * (rule.push ?? 1)) });
+    damage: Math.round(move.damage * aimFactor(arc) * (rule.stroke ?? 1)), strokes: rule.strokes || 1, push: Math.round(move.push * (rule.push ?? 1)) });
 }));
 export const WEAPONS = Object.freeze(Object.fromEntries(Object.entries(WEAPON_LIST).map(([id, weapon]) => [id, weapon.family === 'blade' ? Object.freeze({ ...weapon, combo: withMoves(id, weapon.combo) }) : weapon])));
 export const WEAPON_IDS = Object.freeze(Object.keys(WEAPONS));
@@ -379,6 +384,12 @@ export const GUARD = Object.freeze({ raiseTicks: 6, max: 60, regenPerSecond: 15,
  * animation cancel), and a queued press may start the next cut once this fraction of
  * the recovery has passed (the last cut of a combo always recovers fully unless cancelled). */
 export const BLADE = Object.freeze({ comboCancel: .4, comboWindow: 36, hitStop: 4,
+  // A perfect combo: every cut before the finisher landed solidly (no graze, not blocked) on the same knight. The
+  // finisher then hits `perCut` harder for every cut before it (a three-cut combo +30%, four +45%); a critical
+  // finisher (katana, elemental swords) crits instead, +50%, and lands as a plain cut without the perfect chain. A miss, a
+  // graze, a block, switching target or cancelling breaks the chain; openers stun only briefly, so a sharp
+  // knight can dash out between cuts.
+  combo: Object.freeze({ perCut: .15 }),
   // Commitment: a cut that hits nothing (a whiff) recovers twice its recovery longer (at least `whiffMin`
   // ticks), cannot chain into the next cut and drops the combo, and you barely move meanwhile, so swinging
   // at air leaves you wide open (a hit on a whiffed knight is a punish, see FIGHT).

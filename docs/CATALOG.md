@@ -443,7 +443,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Frostbite Edge `frostbite`
 
 - **Does:** Every cut chills: three chills freeze a knight solid. Charge: lunge into a freezing burst.
-- **Stats:** Frost sword · element: chill · balanced cut, 3-cut combo: overhand strike → overhand strike → overhead chop (14 / 17 / 39 damage) · aim hard · difficulty ★★ · good: Every cut chills; the third freezes; Charge ends in a freezing burst · bad: Slightly weaker cuts; Freeze breaks on the next hit
+- **Stats:** Frost sword · element: chill · balanced cut, 3-cut combo: overhand strike → rising cut → thrust (14 / 15 / 42 damage) · aim hard · difficulty ★★ · good: Every cut chills; the third freezes; Charge ends in a freezing burst · bad: Slightly weaker cuts; Freeze breaks on the next hit
 - **Looks:** A blade of blue ice with frost crystals on the edge, a silver guard rimed with frost and a pale blue glowing core.
 - **Size:** ≈ 0.75 from grip to tip (just over half the knight's height), blade ≈ 0.12 wide, guard ≈ 0.24 across
 - **Make:** `models/weapons/frostbite.glb`, icon `icon_weapon_frostbite.png`
@@ -451,7 +451,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 ### Blazebrand `blazebrand`
 
 - **Does:** Cuts may set knights on fire (30%). Charge: a rolling wall of flame that always burns.
-- **Stats:** Fire sword · element: burn · precise cut, 3-cut combo: overhand strike → overhand strike → overhead chop (15 / 19 / 44 damage) · aim hard · difficulty ★ · good: Cuts may set knights on fire; Charge: a wall of fire · bad: Burn is random on normal cuts
+- **Stats:** Fire sword · element: burn · precise cut, 3-cut combo: rising cut → flurry → overhead chop (15 / 2×11 / 44 damage) · aim hard · difficulty ★ · good: Cuts may set knights on fire; Charge: a wall of fire · bad: Burn is random on normal cuts
 - **Looks:** A sword of living flame: a red-hot orange blade with flickering fire along the edge, a blackened iron guard.
 - **Size:** ≈ 0.75 from grip to tip (just over half the knight's height), blade ≈ 0.12 wide, guard ≈ 0.24 across
 - **Make:** `models/weapons/blazebrand.glb`, icon `icon_weapon_blazebrand.png`

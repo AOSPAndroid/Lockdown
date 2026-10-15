@@ -30,7 +30,7 @@ const STATUS_COLORS = Object.freeze({ burn: '#ff8a3d', poison: '#7bd65a', shock:
 const CALLOUTS = Object.freeze({
   counter: ['COUNTER', '#ffb347', 'target'], riposte: ['RIPOSTE', '#ffe680', 'target'], perfectDodge: ['PERFECT', '#9ff0ff', 'player'],
   clash: ['CLASH', '#ffffff', 'player'], steady: ['STEADY', '#c9d6ff', 'player'], interrupt: ['INTERRUPTED', '#ff8a7a', 'player'],
-  whiff: ['MISS', '#b8b8b8', 'player'], clean: ['CLEAN', '#ffffff', 'target'], graze: ['GRAZE', '#9a9a9a', 'target'], sweetSpot: ['TIP', '#ffe680', 'target'], ambush: ['AMBUSH', '#d29bff', 'target'],
+  whiff: ['MISS', '#b8b8b8', 'player'], clean: ['CLEAN', '#ffffff', 'target'], graze: ['GRAZE', '#9a9a9a', 'target'], combo: ['COMBO', '#ffd34a', 'target'], sweetSpot: ['TIP', '#ffe680', 'target'], ambush: ['AMBUSH', '#d29bff', 'target'],
 });
 /** A weapon's element colour (glow on the blade or muzzle, tint on its shots). */
 const FLAT_EFFECTS = new Set(['slash', 'spinTurn', 'slam', 'dust', 'vortexOpen', 'explosion', 'heal', 'capture', 'pop', 'kill']);
@@ -390,7 +390,12 @@ export class LockdownRenderer {
       if (state.tick - event.tick > 30) continue;
       const add = (type, life, extra) => this.effects.push({ type, born: now, life, ...extra });
       // Swings carry their exact arc, reach and timing, so the drawn sweep is the hitbox.
-      if (event.type === 'swing') add('slash', (event.startup + event.active) * TICK_MS + 140, { playerId: event.playerId, angle: event.angle, dir: event.dir, arc: event.arc, reach: event.reach, delay: event.startup * TICK_MS, sweep: event.active * TICK_MS });
+      if (event.type === 'swing') {
+        // A flurry draws two trails: across, then straight back.
+        const half = event.strokes > 1 ? Math.ceil(event.active / 2) : event.active;
+        add('slash', (event.startup + half) * TICK_MS + 140, { playerId: event.playerId, angle: event.angle, dir: event.dir, arc: event.arc, reach: event.reach, delay: event.startup * TICK_MS, sweep: half * TICK_MS });
+        if (half < event.active) add('slash', (event.startup + event.active) * TICK_MS + 140, { playerId: event.playerId, angle: event.angle, dir: -event.dir, arc: event.arc, reach: event.reach, delay: (event.startup + half) * TICK_MS, sweep: (event.active - half) * TICK_MS });
+      }
       else if (event.type === 'spinTurn') add('spinTurn', 18 * TICK_MS + 60, { playerId: event.playerId, reach: event.reach });
       else if (event.type === 'slam') { add('slam', 420, { x: event.x, y: event.y, radius: event.radius }); this.bump(event.x, event.y, 7); }
       else if (event.type === 'shot') add('muzzle', 90, { x: event.x, y: event.y, angle: event.angle, playerId: event.playerId });
@@ -405,7 +410,7 @@ export class LockdownRenderer {
       else if (event.type === 'evade') add('evade', 500, { x: event.x, y: event.y });
       else if (CALLOUTS[event.type]) {
         // Fight callouts only for fights the viewer is part of, so a crowded point stays readable.
-        const [text, color, on] = CALLOUTS[event.type], who = on === 'target' ? event.targetId : event.playerId;
+        const [label, color, on] = CALLOUTS[event.type], who = on === 'target' ? event.targetId : event.playerId, text = event.type === 'combo' ? `${label} ×${event.hits}` : label;
         const live = this.effects.filter(effect => effect.type === 'callout' && effect.playerId === who && now - effect.born < effect.life), row = live.length;
         const shown = (event.playerId === this.localId || event.targetId === this.localId) && !(event.type === 'interrupt' && event.by === 'clash') && !live.some(effect => effect.text === text);
         if (shown) add('callout', 650, { x: event.x, y: event.y, text, color, playerId: who, row });

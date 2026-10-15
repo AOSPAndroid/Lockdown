@@ -67,7 +67,7 @@ class ModelLibrary {
 const CALLOUTS = Object.freeze({
   counter: ['COUNTER', '#ffb347', 'target'], riposte: ['RIPOSTE', '#ffe680', 'target'], perfectDodge: ['PERFECT', '#9ff0ff', 'player'],
   clash: ['CLASH', '#ffffff', 'player'], steady: ['STEADY', '#c9d6ff', 'player'], interrupt: ['INTERRUPTED', '#ff8a7a', 'player'],
-  whiff: ['MISS', '#b8b8b8', 'player'], punish: ['PUNISH', '#ff7a4a', 'target'], clean: ['CLEAN', '#ffffff', 'target'], graze: ['GRAZE', '#9a9a9a', 'target'], critical: ['CRITICAL', '#ff5a5a', 'target'], parry: ['PARRY', '#9fd8ff', 'player'],
+  whiff: ['MISS', '#b8b8b8', 'player'], punish: ['PUNISH', '#ff7a4a', 'target'], clean: ['CLEAN', '#ffffff', 'target'], graze: ['GRAZE', '#9a9a9a', 'target'], combo: ['COMBO', '#ffd34a', 'target'], critical: ['CRITICAL', '#ff5a5a', 'target'], parry: ['PARRY', '#9fd8ff', 'player'],
   followUp: ['FOLLOW-UP', '#ffcf4a', 'target'], reel: ['REELING', '#ffe08a', 'target'], sweetSpot: ['TIP', '#ffe680', 'target'], ambush: ['AMBUSH', '#d29bff', 'target'],
   guardBreak: ['GUARD BREAK', '#ffffff', 'player'], evade: ['DODGE', '#ffffff', 'player'],
 });
@@ -860,6 +860,7 @@ export class Lockdown3DRenderer {
         sweep: [{ yaw: from, armZ: 1.35, elbow: 1.05, pitch: .25, lean: 0 }, { yaw: to, armZ: 1.45, elbow: .08, pitch: -.05, lean: -.12 }],
         rise: [{ yaw: side * .8, armZ: .2, elbow: .6, pitch: -.9, lean: .04 }, { yaw: wide * .8, armZ: 2.3, elbow: .12, pitch: .6, lean: .06 }],
         overhand: [{ yaw: side, armZ: 2.65, elbow: .95, pitch: 1.05, lean: .1 }, { yaw: wide, armZ: .7, elbow: .06, pitch: -.45, lean: -.22 }],
+        flurry: [{ yaw: side, armZ: 1.75, elbow: .85, pitch: .55, lean: .04 }, { yaw: wide, armZ: 1.15, elbow: .1, pitch: -.25, lean: -.16 }],
         chop: [{ yaw: .12, armZ: 2.85, elbow: .45, pitch: 1.15, lean: .12 }, { yaw: 0, armZ: .6, elbow: .05, pitch: -.55, lean: -.3 }],
         thrust: [{ yaw: .2, armZ: 1.2, elbow: 1.75, pitch: .1, lean: .08 }, { yaw: 0, armZ: 1.5, elbow: 0, pitch: 0, lean: -.28 }],
         spin: [{ yaw: side * .6, armZ: 1.4, elbow: .45, pitch: .1, lean: .05 }, { yaw: side * .6, armZ: 1.45, elbow: .04, pitch: 0, lean: -.08 }],
@@ -872,7 +873,8 @@ export class Lockdown3DRenderer {
       const start = view.swingStart || { yaw: 0, armZ: .5, elbow: .5, pitch: -.2 };
       if (elapsed < startup) { const w = easeOut(elapsed / startup); yaw = lerp(start.yaw, W.yaw, w); arm = [-.05, 0, lerp(start.armZ, W.armZ, w)]; elbow = lerp(start.elbow, W.elbow, w); pitch = lerp(start.pitch, W.pitch, w); body.z += W.lean * w; }
       else if (elapsed < startup + active) {
-        const p = easeOut((elapsed - startup) / active);
+        // A flurry cuts across in the first half of the active ticks and straight back in the second.
+        const raw = (elapsed - startup) / active, back = kind === 'flurry' && raw >= .5, p = kind === 'flurry' ? easeOut(back ? 2 - raw * 2 : raw * 2) : easeOut(raw);
         yaw = lerp(W.yaw, E.yaw, p); arm = [-.05, 0, lerp(W.armZ, E.armZ, p) + (kind === 'sweep' ? -.12 * Math.sin(p * Math.PI) : 0)];
         elbow = lerp(W.elbow, E.elbow, Math.min(1, p * 1.6)); pitch = lerp(W.pitch, E.pitch, p); body.z += lerp(W.lean, E.lean, p);
         if (kind === 'thrust') { T.leg_L[2] += .45 * p; T.shin_L[2] -= .35 * p; T.leg_R[2] -= .3 * p; } // step into the stab
@@ -881,7 +883,8 @@ export class Lockdown3DRenderer {
       }
       else {
         const q = ease(Math.min(1, (elapsed - startup - active) / Math.max(1, total - startup - active)));
-        yaw = lerp(E.yaw, REST.yaw, q); arm = [-.05, 0, lerp(E.armZ, REST.armZ, q)]; elbow = lerp(E.elbow, REST.elbow, q); pitch = lerp(E.pitch, REST.pitch, q); body.z += E.lean * (1 - q);
+        const F = kind === 'flurry' ? W : E; // a flurry finishes back where it started
+        yaw = lerp(F.yaw, REST.yaw, q); arm = [-.05, 0, lerp(F.armZ, REST.armZ, q)]; elbow = lerp(F.elbow, REST.elbow, q); pitch = lerp(F.pitch, REST.pitch, q); body.z += F.lean * (1 - q);
         // A miss throws you off balance: the blade drags low past the body, the knight stumbles forward.
         if (player.whiffed) { const off = Math.sin(Math.min(1, q * 1.4) * Math.PI); body.z -= .3 * off; body.y -= .04 * off; arm[2] -= .6 * off; pitch -= .5 * off; T.head[2] += .15 * off; T.leg_L[2] += .45 * off; T.shin_L[2] -= .55 * off; T.leg_R[2] -= .25 * off; }
       }
@@ -1240,7 +1243,7 @@ export class Lockdown3DRenderer {
       if (event.type === 'chargeRelease') { this.ringEffect(at(event.x, event.y, .06), 1.4, '#ffd36b', 380, now); this.burst(at(event.x, event.y, KNIGHT * .5), '#ffe9a8', 1.3, 300, now, true); }
       if (event.type === 'clash') { this.burst(at(event.x, event.y, .5), '#ffffff', .9, 220, now, true); this.shakeNear(event.x, event.y, 4); }
       if (CALLOUTS[event.type] && mine && !(event.type === 'interrupt' && event.by === 'clash')) {
-        const [text, color, on] = CALLOUTS[event.type], who = on === 'target' ? event.targetId : event.playerId;
+        const [label, color, on] = CALLOUTS[event.type], who = on === 'target' ? event.targetId : event.playerId, text = event.type === 'combo' ? `${label} ×${event.hits}` : label;
         const live = this.texts.filter(t => t.callout && t.playerId === who && now - t.born < t.life), row = live.length;
         // A fast gun lands a clean shot several times a second: one CLEAN on screen at a time.
         if (!live.some(t => t.text === text)) this.texts.push({ x: event.x, y: event.y, lift: KNIGHT + .55, text, color, born: now, life: 650, size: 13, rise: 14, callout: true, playerId: who, row });
@@ -1266,6 +1269,13 @@ export class Lockdown3DRenderer {
   }
   /** The swept arc of a sword cut: it appears where the blade is, in the exact arc and reach of the hit. */
   slashEffect(state, event, now) {
+    // A flurry draws two trails: across, then straight back.
+    if (event.strokes > 1) {
+      const half = Math.ceil(event.active / 2);
+      this.slashEffect(state, { ...event, strokes: 1, active: half }, now);
+      this.slashEffect(state, { ...event, strokes: 1, startup: event.startup + half, active: event.active - half, dir: -event.dir }, now);
+      return;
+    }
     const owner = state.players[event.playerId], map = MAPS[state.mapId]; if (!owner || !map) return;
     const reach = (event.reach || 70) * U, start = event.angle - event.dir * event.arc / 2, delay = (event.startup || 0) * 1000 / 120, sweep = Math.max(1, (event.active || 1) * 1000 / 120);
     const material = new THREE.MeshBasicMaterial({ color: event.critical ? '#ff6a5a' : '#ffffff', transparent: true, opacity: 0, depthWrite: false, side: THREE.DoubleSide, blending: THREE.AdditiveBlending });
@@ -1388,7 +1398,7 @@ export class KnightPreview {
       for (const [step, move] of weapon.combo.entries()) {
         // The same blade path as the engine: sweeps, rising cuts and spins set off from where the blade is.
         const kind = move.kind || 'sweep', dir = MOVE_KINDS[kind].straight ? -1 : side < 0 ? 1 : -1;
-        side = MOVE_KINDS[kind].alternates ? dir : 1;
+        side = MOVE_KINDS[kind].returns ? -dir : MOVE_KINDS[kind].alternates ? dir : 1;
         const total = move.startup + move.active + move.recovery;
         if (t < total) { Object.assign(p, { action: 'swing', actionTotal: total, actionTicks: Math.max(1, Math.ceil(total - t)), swingStartup: move.startup, swingActive: move.active, swingDir: dir, swingKind: kind, swingId: demo.start + step, swingMomentum: !!move.momentum, swingArc: move.arc, swingAim: 0 }); return; }
         t -= total;

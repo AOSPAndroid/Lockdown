@@ -3,10 +3,10 @@
  * Up to 4v4; empty seats are filled by bots. Teams score every five seconds by
  * the points they hold; first to 500 (or the leader at the time limit) wins. */
 import { MAPS, MAP_IDS, TILE, isWall, isBlocked, wallAt, levelAt, levelCell, levelOk, canStep, shotBlocked } from './lockdown-maps.js';
-import { WEAPONS, WEAPON_IDS, MOVESETS, MOVE_KINDS, AIM, aimFactor, aimRating, WEAPON_NOTES, CUTS, DEFAULT_LOADOUTS, SLOT_COUNT, STATUS, STATUS_IDS, GUARD, BLADE, BLOOM, FIGHT } from './lockdown-weapons.js';
+import { WEAPONS, WEAPON_IDS, MOVESETS, MOVE_KINDS, AIM, aimFactor, aimRating, CRITICAL, WEAPON_NOTES, CUTS, DEFAULT_LOADOUTS, SLOT_COUNT, STATUS, STATUS_IDS, GUARD, BLADE, BLOOM, FIGHT } from './lockdown-weapons.js';
 import { ARMORS, ARMOR_IDS, HELMETS, PANTS, SHOES, GEAR, GEAR_SLOTS, combineGear } from './lockdown-equipment.js';
 
-export { MAPS, MAP_IDS, TILE, BLOOM, FIGHT, WEAPONS, WEAPON_IDS, MOVESETS, MOVE_KINDS, AIM, aimFactor, aimRating, WEAPON_NOTES, CUTS, DEFAULT_LOADOUTS, SLOT_COUNT, STATUS, STATUS_IDS, GUARD, BLADE, ARMORS, ARMOR_IDS, HELMETS, PANTS, SHOES, GEAR, GEAR_SLOTS, combineGear };
+export { MAPS, MAP_IDS, TILE, BLOOM, FIGHT, WEAPONS, WEAPON_IDS, MOVESETS, MOVE_KINDS, AIM, aimFactor, aimRating, CRITICAL, WEAPON_NOTES, CUTS, DEFAULT_LOADOUTS, SLOT_COUNT, STATUS, STATUS_IDS, GUARD, BLADE, ARMORS, ARMOR_IDS, HELMETS, PANTS, SHOES, GEAR, GEAR_SLOTS, combineGear };
 export const TICK_RATE = 120;
 const DT = 1 / TICK_RATE;
 export const TEAM_SIZE = 4;
@@ -689,21 +689,34 @@ function bladeContacts(state, player, reach, from, to, amount, options) {
       if (result !== 'attacker') return; // our cut was knocked aside
     }
     player.hitIds.push(target.id);
-    if (options.kind === 'blade' && player.swingCritical) emit(state, 'critical', { playerId: player.id, targetId: target.id, x: target.x, y: target.y });
     // Precise blades reward spacing: the tip of the reach (the sweet spot) hits harder.
     const { sweetSpot, ...rest } = options;
     const tip = sweetSpot && d >= reach * sweetSpot.from;
     if (tip) emit(state, 'sweetSpot', { playerId: player.id, targetId: target.id, x: target.x, y: target.y });
     // Aim: how far off the middle of the cut the target stood, as a share of the half-arc.
-    let aimed = 1;
+    let aimed = 1, grazed = false;
     if (options.kind === 'blade') {
+      player.swingHits = (player.swingHits || 0) + 1;
       const share = Math.abs(bearing - player.swingAim) / (player.swingArc / 2 + pad);
+      grazed = share > BLADE.graze.beyond;
       const sharp = WEAPONS[options.weapon]?.aim; // the katana rewards and punishes aim harder
       if (share <= BLADE.clean.within) { aimed = sharp?.clean ?? 1; emit(state, 'clean', { playerId: player.id, targetId: target.id, x: target.x, y: target.y }); }
       else if (share > BLADE.graze.beyond) { aimed = sharp?.graze ?? BLADE.graze.damage; emit(state, 'graze', { playerId: player.id, targetId: target.id, x: target.x, y: target.y }); }
       else aimed = BLADE.offCentre;
     }
-    damage(state, player, target, (tip ? amount * sweetSpot.bonus : amount) * aimed, { angle: Math.atan2(target.y - player.y, target.x - player.x), damageFamily: 'blade', ...rest });
+    // A perfect combo: the finisher lands on the knight every cut before it landed on, all of them solid.
+    const chain = options.kind === 'blade' ? player.chain : null;
+    let combo = 1;
+    // The katana's and the elemental swords' finisher is a critical only then; otherwise it lands as a plain cut.
+    if (chain && player.swingFinisher) {
+      const perfect = !grazed && chain.target === target.id && chain.count === player.comboStep;
+      if (perfect && player.swingCritical) emit(state, 'critical', { playerId: player.id, targetId: target.id, x: target.x, y: target.y });
+      else if (perfect) { combo = 1 + BLADE.combo.perCut * player.comboStep; emit(state, 'combo', { playerId: player.id, targetId: target.id, x: target.x, y: target.y, hits: player.comboStep + 1, bonus: combo }); }
+      else if (player.swingCritical) combo = 1 / CRITICAL;
+    }
+    const landed = damage(state, player, target, (tip ? amount * sweetSpot.bonus : amount) * aimed * combo, { angle: Math.atan2(target.y - player.y, target.x - player.x), damageFamily: 'blade', ...rest });
+    // Each solid cut on the same knight extends the chain once; anything else leaves it short.
+    if (chain && landed && !grazed && chain.counted !== player.swingId && (chain.target < 0 || chain.target === target.id) && chain.count === player.comboStep) Object.assign(chain, { target: target.id, count: chain.count + 1, counted: player.swingId });
   }
 }
 function radialHit(state, owner, team, center, radius, amount, options = {}) {
@@ -762,12 +775,13 @@ function startSwing(state, player, weapon) {
   // Chops and thrusts come down or out in front and leave the blade back on the sword side.
   const kind = move.kind || 'sweep', side = player.comboStep === 0 ? 1 : player.bladeSide ?? 1;
   const dir = MOVE_KINDS[kind].straight ? -1 : side < 0 ? 1 : -1;
-  player.bladeSide = MOVE_KINDS[kind].alternates ? dir : 1;
+  player.bladeSide = MOVE_KINDS[kind].returns ? -dir : MOVE_KINDS[kind].alternates ? dir : 1;
+  if (player.comboStep === 0) player.chain = { target: -1, count: 0, counted: 0 }; // a fresh string
   const speed = bladeSpeed(player), startup = Math.max(2, Math.round(move.startup / speed)), active = Math.max(2, Math.round(move.active / speed)), recovery = Math.max(2, Math.round(move.recovery / speed * (finisher ? BLADE.finisherRecovery : 1)));
-  Object.assign(player, { action: 'swing', actionTotal: startup + active + recovery, actionTicks: startup + active + recovery, hitIds: [], bufferAttack: false, whiffed: false,
+  Object.assign(player, { action: 'swing', actionTotal: startup + active + recovery, actionTicks: startup + active + recovery, hitIds: [], swingHits: 0, bufferAttack: false, whiffed: false,
     swingAim: player.aim, swingDir: dir, swingKind: kind, swingId: (player.swingId || 0) + 1, swingReach: move.reach, swingArc: move.arc,
     swingStartup: startup, swingActive: active, swingRecovery: recovery, swingDamage: move.damage * bladePower(player), swingMomentum: !!move.momentum, swingCritical: !!move.critical, swingFinisher: finisher });
-  emit(state, 'swing', { playerId: player.id, weapon: weapon.id, step: player.comboStep, x: player.x, y: player.y, angle: player.aim, dir: player.swingDir, kind, arc: move.arc, reach: move.reach, startup, active, momentum: !!move.momentum, critical: !!move.critical });
+  emit(state, 'swing', { playerId: player.id, weapon: weapon.id, step: player.comboStep, x: player.x, y: player.y, angle: player.aim, dir: player.swingDir, kind, arc: move.arc, reach: move.reach, startup, active, strokes: move.strokes || 1, momentum: !!move.momentum, critical: !!move.critical });
 }
 function startCharge(state, player, weapon) {
   const charge = weapon.charge;
@@ -794,16 +808,19 @@ function tickAction(state, player, weapon) {
     const move = weapon.combo[player.comboStep], startup = player.swingStartup, active = player.swingActive;
     if (elapsed < startup) moveBody(map, player, Math.cos(player.swingAim) * move.lunge / startup, Math.sin(player.swingAim) * move.lunge / startup);
     else if (elapsed < startup + active) {
-      // The blade sweeps from one side of the arc to the other across the active ticks.
-      const start = player.swingAim - player.swingDir * move.arc / 2, progress = (elapsed - startup + 1) / active;
-      bladeContacts(state, player, move.reach, start, start + player.swingDir * move.arc * progress, player.swingDamage, { push: move.push, stun: player.swingFinisher || move.critical || move.momentum ? move.stun : Math.round(move.stun * BLADE.chainStun), kind: 'blade', hitStop: move.critical ? BLADE.hitStop * 2 : BLADE.hitStop, weapon: weapon.id, status: weapon.onHit?.status, chance: weapon.onHit?.chance, sweetSpot: weapon.sweetSpot, reel: !!CUTS[weapon.cut]?.reel });
+      // The blade sweeps from one side of the arc to the other across the active ticks. A flurry sweeps across
+      // and straight back, each stroke able to hit the same knight once.
+      const start = player.swingAim - player.swingDir * move.arc / 2, k = elapsed - startup, half = (move.strokes || 1) > 1 ? Math.ceil(active / 2) : active;
+      if (k === half && half < active) player.hitIds = [];
+      const [from, to] = k < half ? [start, start + player.swingDir * move.arc * (k + 1) / half] : [start + player.swingDir * move.arc, start + player.swingDir * move.arc * (1 - (k - half + 1) / (active - half))];
+      bladeContacts(state, player, move.reach, from, to, player.swingDamage, { push: move.push, stun: player.swingFinisher || move.critical || move.momentum ? move.stun : Math.round(move.stun * BLADE.chainStun), kind: 'blade', hitStop: move.critical ? BLADE.hitStop * 2 : BLADE.hitStop, weapon: weapon.id, status: weapon.onHit?.status, chance: weapon.onHit?.chance, sweetSpot: weapon.sweetSpot, reel: !!CUTS[weapon.cut]?.reel });
       // A heavy blow that shakes the ground sends a shockwave around the impact on its first active tick.
       if (move.shockwave && elapsed === startup) {
         const wave = move.shockwave, center = { x: player.x + Math.cos(player.swingAim) * wave.offset, y: player.y + Math.sin(player.swingAim) * wave.offset };
         emit(state, 'slam', { playerId: player.id, weapon: weapon.id, x: center.x, y: center.y, radius: wave.radius });
         radialHit(state, player, player.team, center, wave.radius, player.swingDamage * wave.scale, { push: move.push * .6, stun: Math.round(move.stun * .6), kind: 'slam', damageFamily: 'blade' });
       }
-    } else if (elapsed === startup + active && !player.hitIds.length && !player.whiffed) {
+    } else if (elapsed === startup + active && !player.hitIds.length && !player.swingHits && !player.whiffed) {
       // A whiff: nothing was hit. The recovery stretches, the queued press is dropped and the combo breaks.
       const extra = Math.max(BLADE.whiffMin, Math.round(player.swingRecovery * BLADE.whiffRecovery)) * (player.swingMomentum ? BLADE.momentumWhiff : 1);
       Object.assign(player, { whiffed: true, bufferAttack: false, actionTicks: player.actionTicks + extra, actionTotal: player.actionTotal + extra, swingRecovery: player.swingRecovery + extra });

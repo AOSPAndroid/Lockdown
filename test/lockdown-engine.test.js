@@ -739,7 +739,7 @@ test('later cuts in a combo hit harder but wind up slower, lunge further and ste
   for (const id of ['brand', 'thorn', 'frostbite', 'blazebrand', 'sickle', 'rapier', 'spur', 'voltedge']) {
     const combo = WEAPONS[id].combo;
     for (let i = 1; i < combo.length; i++) {
-      assert.ok(combo[i].damage >= combo[i - 1].damage && combo[i].startup >= combo[i - 1].startup && combo[i].lunge > combo[i - 1].lunge, `${id} cut ${i + 1}`);
+      assert.ok(combo[i].damage * combo[i].strokes >= combo[i - 1].damage * combo[i - 1].strokes && combo[i].startup >= combo[i - 1].startup && combo[i].lunge > combo[i - 1].lunge, `${id} cut ${i + 1}`);
     }
     assert.ok(combo.at(-1).damage > combo[0].damage, `${id} finisher hits harder than the opener`);
   }
@@ -1034,4 +1034,43 @@ test('aim pays: narrow cuts and clean shots hit harder, wide cuts and grazes lig
   assert.ok(centre.lost > 0 && centre.clean === 1, 'through the middle: clean');
   assert.ok(edge.lost > 0 && edge.graze === 1, 'the edge of the pulse: a graze');
   assert.ok(edge.lost < centre.lost * .7, 'a graze deals much less');
+});
+
+test('a perfect combo pays: the finisher hits harder only if every cut landed on the same knight', () => {
+  const finisher = (swapTarget, weapon = 'brand') => {
+    const fight = duel({ gap: 50, a: { cls: 'recon', weapons: [weapon, null, null, null], slot: 0 }, b: { hp: 1e4, maxHp: 1e4, domeHp: 0, domeBroken: true } });
+    const other = fight.state.players[5];
+    Object.assign(other, { alive: true, hp: 1e4, maxHp: 1e4, x: fight.foe.x, y: fight.foe.y + 400, respawnTicks: 0, shieldTicks: 0, domeHp: 0, domeBroken: true });
+    let swapped = false, last = 0;
+    for (let t = 0; t < 400 && !events(fight.state, 'swing').some(event => event.step === WEAPONS[weapon].combo.length - 1 && t > last + 60); t++) {
+      // After the first cut lands, a different knight steps into its place for the rest of the string.
+      if (swapTarget && !swapped && fight.foe.hp < 1e4) { swapped = true; const spot = { x: fight.foe.x, y: fight.foe.y }; Object.assign(fight.foe, { y: fight.foe.y - 400 }); Object.assign(other, spot); }
+      const before = other.hp + fight.foe.hp;
+      run(fight.state, 1, () => ({ 0: { attack: t % 4 === 0 } }));
+      if (other.hp + fight.foe.hp < before) last = before - other.hp - fight.foe.hp;
+      if (events(fight.state, 'swing').some(event => event.step === WEAPONS[weapon].combo.length - 1)) { run(fight.state, 60); break; }
+    }
+    return { combo: events(fight.state, 'combo'), critical: events(fight.state, 'critical'), lost: 2e4 - other.hp - fight.foe.hp };
+  };
+  const perfect = finisher(false), broken = finisher(true);
+  assert.equal(perfect.combo.length, 1, 'COMBO on the finisher');
+  assert.equal(perfect.combo[0].hits, 3);
+  assert.equal(broken.combo.length, 0, 'switching target breaks the chain');
+  assert.ok(perfect.lost > broken.lost, 'the perfect string deals more');
+  // The katana's finisher is a critical only on a perfect combo.
+  assert.equal(finisher(false, 'katana').critical.length, 1);
+  assert.equal(finisher(true, 'katana').critical.length, 0);
+});
+
+test('Frostbite, Blazebrand and the Knight Brand each have their own string; a flurry hits twice', () => {
+  const shape = id => WEAPONS[id].combo.map(move => move.kind).join(',');
+  assert.equal(new Set(['brand', 'frostbite', 'blazebrand'].map(shape)).size, 3);
+  const flurry = WEAPONS.blazebrand.combo.find(move => move.kind === 'flurry');
+  assert.equal(flurry.strokes, 2);
+  const fight = duel({ gap: 50, a: { cls: 'recon', weapons: ['blazebrand', null, null, null], slot: 0 }, b: { hp: 1e4, maxHp: 1e4, domeHp: 0, domeBroken: true } });
+  let t = 0; while (fight.me.comboStep < 1 && t++ < 400) run(fight.state, 1, () => ({ 0: { attack: t % 4 === 0 } }));
+  const before = fight.foe.hp, hits = [];
+  for (let k = 0; k < 80; k++) { const hp = fight.foe.hp; run(fight.state, 1); if (fight.foe.hp < hp) hits.push(hp - fight.foe.hp); }
+  assert.ok(hits.length >= 2, `both strokes land (${hits.length})`);
+  assert.ok(before - fight.foe.hp > hits[0] * 1.5);
 });

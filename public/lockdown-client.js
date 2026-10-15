@@ -240,6 +240,7 @@ function playEvents(current) {
     const me = current.players[localId ?? -1], near = me && Number.isFinite(event.x) ? Math.max(.15, 1 - Math.hypot(event.x - me.x, event.y - me.y) / 900) : .6;
     try {
       switch (event.type) {
+        case 'combo': audio.tone(520, .16, { end: 1040, type: 'triangle', gain: .2 * near }); break;
         case 'swing': audio.noise(event.charged ? .22 : .09, { highpass: 900, lowpass: 5200, gain: .16 * near }); if (event.charged) audio.tone(180, .2, { end: 60, type: 'triangle', gain: .2 * near }); break;
         case 'shot': audio.tone(event.weapon === 'magnus' ? 220 : event.weapon === 'scatter' ? 300 : 620, event.charged ? .18 : .08, { end: 120, type: 'square', gain: .08 * near }); audio.noise(.06, { highpass: 1200, gain: .1 * near }); break;
         case 'damage': if (event.targetId === localId) audio.tone(140, .12, { end: 70, type: 'sawtooth', gain: .2 }); else if (event.playerId === localId) audio.tone(880, .05, { end: 660, type: 'triangle', gain: .12 }); break;
@@ -566,7 +567,7 @@ function weaponStats(weapon) {
   if (weapon.family === 'blade') {
     const combo = weapon.combo, time = combo.reduce((sum, move) => sum + move.startup + move.active + move.recovery, 0);
     const cut = CUTS[weapon.cut], degrees = combo.map(move => Math.round(move.arc * 180 / Math.PI));
-    return [['Aim', Engine.aimRating(weapon).note], ['Cut', `${cut.label}: ${cut.note}`], ['Combo', combo.map(move => Engine.MOVE_KINDS[move.kind]?.label || 'sweep').join(' → ')], ['Arc', `${[...new Set(degrees)].join('° / ')}°`], ['Damage per cut', combo.map(move => move.damage).join(' / ')], ['Full combo', `${combo.length} cuts in ${seconds(time)}`], ['Reach', `${Math.max(...combo.map(move => move.reach))}`], ['Charge', seconds(weapon.chargeTicks)]];
+    return [['Aim', Engine.aimRating(weapon).note], ['Cut', `${cut.label}: ${cut.note}`], ['Combo', combo.map(move => Engine.MOVE_KINDS[move.kind]?.label || 'sweep').join(' → ')], ['Arc', `${[...new Set(degrees)].join('° / ')}°`], ['Damage per cut', combo.map(move => move.strokes > 1 ? `${move.strokes}×${move.damage}` : move.damage).join(' / ')], ['Perfect combo', combo.length > 1 ? `land every cut on one knight: the last ${combo.at(-1).critical ? `is a critical, +${Math.round((Engine.CRITICAL - 1) * 100)}%` : `hits +${Math.round(Engine.BLADE.combo.perCut * (combo.length - 1) * 100)}%`}` : '—'], ['Full combo', `${combo.length} cuts in ${seconds(time)}`], ['Reach', `${Math.max(...combo.map(move => move.reach))}`], ['Charge', seconds(weapon.chargeTicks)]];
   }
   if (weapon.family === 'gun') return [['Aim', Engine.aimRating(weapon).note], ['Damage per shot', String(weapon.damage)], ['Clip', `${weapon.clip} · ${(TICK_RATE / weapon.interval).toFixed(1)} shots/s`], ['Range', String(weapon.range)], ['Reload', seconds(weapon.reload)], ['Charge', seconds(weapon.chargeTicks)]];
   return [['Blast', weapon.cloud ? `${weapon.cloud.status} cloud, ${seconds(weapon.cloud.ticks)}` : `${weapon.damage} damage`], ['Radius', String(weapon.cloud?.radius || weapon.radius)], ['Fuse', seconds(weapon.fuse)], ['Charge', seconds(weapon.chargeTicks)]];
