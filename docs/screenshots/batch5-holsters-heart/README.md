@@ -32,7 +32,7 @@ These issues are documented under the brief's asset-only rule. No JavaScript, HT
 ## Checks and evidence
 
 - `node tools/art3d-index.mjs`: **115 models, no errors**.
-- `npm test`: **107 passed, 0 failed**, [full output](tests.log).
+- `npm test`: **107 passed, 0 failed**, [full output](tests.txt).
 - Khronos glTF validator: **115 GLBs, 0 errors, 0 warnings**; new files meet the 800-triangle, one 512² texture and 600 KB limits. [Validation](validation.json).
 - Browser: **0 errors, 0 warnings**; 26 Dojo and 8 Armory screenshots.
 - All **111 existing models unchanged**, including the core skeleton and already-painted Guardian. No existing icons changed.
