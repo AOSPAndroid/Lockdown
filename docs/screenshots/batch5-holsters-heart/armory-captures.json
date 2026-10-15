@@ -1,0 +1,132 @@
+{
+  "normalPointerDrags": true,
+  "modelHashes": {
+    "knight/body.glb": "549c0f76f693b916a52f8bdd8a81c6938c9feeea68fe58edfa29e2b9cfc662d3",
+    "helmet/cobalt.glb": "e0a6fbcf58941f0c156a3e9ee19d1bda4bf5fe1c33ba2e3a73a7b3517810512e",
+    "armor/cobalt.glb": "d6c4f274e8686cd4483ad1a70cca4523e67c97aac059d23114bea733317014b0",
+    "pants/cobalt.glb": "49bc69a5600b91ff1606ab5f7ba9fd4c205cf60ceca9f443e3a69ab12aefd2b7",
+    "shoes/sabatons.glb": "3ecbd85e089ee1a77668f2c25a3548497a033a9bd8fa15c19b788ca53696cab1",
+    "weapons/brand.glb": "bc7c5717f2a6b2ccfdc094e7ee3e8e8d514e602f1c6e15854d5c143e82808c5b",
+    "weapons/katana.glb": "c2a09476a0245e97b0fd55cc5ce779451effa6a3160c76aa5f42c77f14c13c10",
+    "weapons/blaster.glb": "842c502e6e22ac183fb753776f95c7d3d67afec32dacc0b823ba4226c2804552",
+    "weapons/blast.glb": "325cc39956e99489b32b3b6fc584c02c4d5e03372087e2ae43ac10efbff3cdb7",
+    "holsters/sheath.glb": "acb53d04c3f4f4f5a9f0f4816cc2e9084140e285edac28eddbd806268e5396a0",
+    "holsters/holster.glb": "db04afd17821e48b8d9665ae3631c32d816cc9950c486cb63f86247953c0fb3b",
+    "holsters/pouch.glb": "f65ce43bf16188a74c54d180bf26952ed9e55e5a4fe6dbc26ad27042afb3108c",
+    "pickups/heart.glb": "a76c819de5394a2806d46cc9a908d33b44f2d3beb061a96c4451132eb9a7d38b"
+  },
+  "captures": [
+    {
+      "file": "armory-brand-front.jpg",
+      "weapons": [
+        "brand",
+        null,
+        null,
+        null
+      ],
+      "turn": -1.05,
+      "carriers": [
+        "brand"
+      ],
+      "modelsVersion": 115
+    },
+    {
+      "file": "armory-brand-rear.jpg",
+      "weapons": [
+        "brand",
+        null,
+        null,
+        null
+      ],
+      "turn": 2.0915932617187503,
+      "carriers": [
+        "brand"
+      ],
+      "modelsVersion": 115
+    },
+    {
+      "file": "armory-katana-front.jpg",
+      "weapons": [
+        "katana",
+        null,
+        null,
+        null
+      ],
+      "turn": -1.0499993620367365,
+      "carriers": [
+        "katana"
+      ],
+      "modelsVersion": 115
+    },
+    {
+      "file": "armory-katana-rear.jpg",
+      "weapons": [
+        "katana",
+        null,
+        null,
+        null
+      ],
+      "turn": 2.0915924348382644,
+      "carriers": [
+        "katana"
+      ],
+      "modelsVersion": 115
+    },
+    {
+      "file": "armory-blaster-front.jpg",
+      "weapons": [
+        "blaster",
+        null,
+        null,
+        null
+      ],
+      "turn": -1.0499994486943949,
+      "carriers": [
+        "blaster"
+      ],
+      "modelsVersion": 115
+    },
+    {
+      "file": "armory-blaster-rear.jpg",
+      "weapons": [
+        "blaster",
+        null,
+        null,
+        null
+      ],
+      "turn": 2.0915923481806056,
+      "carriers": [
+        "blaster"
+      ],
+      "modelsVersion": 115
+    },
+    {
+      "file": "armory-blast-front.jpg",
+      "weapons": [
+        "blast",
+        null,
+        null,
+        null
+      ],
+      "turn": -1.050000138272197,
+      "carriers": [
+        "blast"
+      ],
+      "modelsVersion": 115
+    },
+    {
+      "file": "armory-blast-rear.jpg",
+      "weapons": [
+        "blast",
+        null,
+        null,
+        null
+      ],
+      "turn": 2.091593123446554,
+      "carriers": [
+        "blast"
+      ],
+      "modelsVersion": 115
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "baseMain": "3083df6be3c27b737210278f94285d47a0938f84",
+  "existingModelsUnchanged": 111,
+  "allCaptureHashesMatch": true,
+  "nativePoseSamples": 411,
+  "attachmentMatrixMaxErrors": {
+    "brand": 3.552713678800501e-15,
+    "katana": 5.329070518200751e-15,
+    "blaster": 7.105427357601002e-15,
+    "blast": 3.552713678800501e-15
+  },
+  "browserErrors": [],
+  "browserWarnings": [],
+  "tests": {
+    "passed": 107,
+    "failed": 0
+  },
+  "codeFilesChanged": []
+}

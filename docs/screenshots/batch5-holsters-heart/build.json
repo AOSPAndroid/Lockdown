@@ -1,0 +1,57 @@
+[
+  {
+    "file": "holsters/sheath.glb",
+    "bytes": 46092,
+    "triangles": 212,
+    "texture": [
+      512,
+      512
+    ],
+    "nodes": [
+      "sheath",
+      "shell",
+      "locket",
+      "chape"
+    ]
+  },
+  {
+    "file": "holsters/holster.glb",
+    "bytes": 60940,
+    "triangles": 368,
+    "texture": [
+      512,
+      512
+    ],
+    "nodes": [
+      "holster",
+      "shell"
+    ]
+  },
+  {
+    "file": "holsters/pouch.glb",
+    "bytes": 68604,
+    "triangles": 440,
+    "texture": [
+      512,
+      512
+    ],
+    "nodes": [
+      "pouch",
+      "cage",
+      "belt_clip"
+    ]
+  },
+  {
+    "file": "pickups/heart.glb",
+    "bytes": 53392,
+    "triangles": 448,
+    "texture": [
+      512,
+      512
+    ],
+    "nodes": [
+      "heart",
+      "shell"
+    ]
+  }
+]
