@@ -1,0 +1,13 @@
+{
+  "baseStep": "ba8021c",
+  "beforeSha256": "d1f83ded36b2a3c2a7e1d5784dda51da16a2fc8f5f208e32e55fdd5a98879715",
+  "afterSha256": "b2fb8f08fd97a61698ce32f403e140e6aa7257055e7fe6c741ed98406acc1390",
+  "existingTrianglesPreserved": 1476,
+  "missingOrAlteredExistingTriangles": 0,
+  "addedRearDetailTriangles": 12,
+  "nodeNamesPivotsHierarchyUnchanged": true,
+  "materialsUnchanged": true,
+  "embeddedAtlasByteIdentical": true,
+  "addedTriangleWindingMatchesNormals": true,
+  "triangles": 1488
+}

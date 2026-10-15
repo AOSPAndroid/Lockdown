@@ -1,0 +1,8 @@
+{
+  "nativePoses": 11,
+  "pairsChecked": 282,
+  "shieldPlateIncludes": "Entire plate including front/back, straps, bracket and new paint details",
+  "intentionalAttachmentNotChecked": "Separate mount node",
+  "bodySurfaceIntersections": [],
+  "plateToForearmMatrixMaxError": 2.6645352591003757e-15
+}

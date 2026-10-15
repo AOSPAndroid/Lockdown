@@ -1,0 +1,20 @@
+{
+  "beforeSha256": "d1f83ded36b2a3c2a7e1d5784dda51da16a2fc8f5f208e32e55fdd5a98879715",
+  "afterSha256": "b2fb8f08fd97a61698ce32f403e140e6aa7257055e7fe6c741ed98406acc1390",
+  "retained": "Approved blue back cap, gold/silver rim, straps, cuffs, bracket and bolts; entire front, mount, atlas and rigid node transforms",
+  "new": "Four painted recess slots and gold registration chevron on the rear bracket; 12 triangles, no meaningful added volume",
+  "model": {
+    "file": "class/guardian.glb",
+    "bytes": 170084,
+    "triangles": 1488,
+    "texture": [
+      512,
+      512
+    ],
+    "nodes": [
+      "forearm_L",
+      "mount",
+      "plate"
+    ]
+  }
+}
