@@ -1,0 +1,513 @@
+{
+  "checks": 45,
+  "items": [
+    "blast",
+    "frost",
+    "haze",
+    "hex",
+    "nitro",
+    "shard",
+    "spark",
+    "storm",
+    "venom",
+    "vortex"
+  ],
+  "floorIssues": [],
+  "samples": [
+    {
+      "file": "blast-planted-gallery-front.jpg",
+      "id": "blast",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1,
+        1,
+        1
+      ],
+      "urgency": 0.18055555555555558
+    },
+    {
+      "file": "blast-planted-gallery-rear.jpg",
+      "id": "blast",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1,
+        1,
+        1
+      ],
+      "urgency": 0.23611111111111116
+    },
+    {
+      "file": "haze-planted-gallery-front.jpg",
+      "id": "haze",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1,
+        1,
+        1
+      ],
+      "urgency": 0.5833333333333333
+    },
+    {
+      "file": "haze-planted-gallery-rear.jpg",
+      "id": "haze",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1,
+        1,
+        1
+      ],
+      "urgency": 0.7083333333333333
+    },
+    {
+      "file": "frost-planted-gallery-front.jpg",
+      "id": "frost",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1,
+        1,
+        1
+      ],
+      "urgency": 0.5833333333333333
+    },
+    {
+      "file": "frost-planted-gallery-rear.jpg",
+      "id": "frost",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1,
+        1,
+        1
+      ],
+      "urgency": 0.7083333333333333
+    },
+    {
+      "file": "venom-planted-gallery-front.jpg",
+      "id": "venom",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1,
+        1,
+        1
+      ],
+      "urgency": 0.5416666666666667
+    },
+    {
+      "file": "venom-planted-gallery-rear.jpg",
+      "id": "venom",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1,
+        1,
+        1
+      ],
+      "urgency": 0.7083333333333333
+    },
+    {
+      "file": "storm-planted-gallery-front.jpg",
+      "id": "storm",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1,
+        1,
+        1
+      ],
+      "urgency": 0.5416666666666667
+    },
+    {
+      "file": "storm-planted-gallery-rear.jpg",
+      "id": "storm",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1,
+        1,
+        1
+      ],
+      "urgency": 0.7083333333333333
+    },
+    {
+      "file": "hex-planted-gallery-front.jpg",
+      "id": "hex",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1,
+        1,
+        1
+      ],
+      "urgency": 0.5416666666666667
+    },
+    {
+      "file": "hex-planted-gallery-rear.jpg",
+      "id": "hex",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1,
+        1,
+        1
+      ],
+      "urgency": 0.7083333333333333
+    },
+    {
+      "file": "shard-planted-gallery-front.jpg",
+      "id": "shard",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1,
+        1,
+        1
+      ],
+      "urgency": 0.15476190476190477
+    },
+    {
+      "file": "shard-planted-gallery-rear.jpg",
+      "id": "shard",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1,
+        1,
+        1
+      ],
+      "urgency": 0.20238095238095233
+    },
+    {
+      "file": "vortex-planted-gallery-front.jpg",
+      "id": "vortex",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1,
+        1,
+        1
+      ],
+      "urgency": 0.23333333333333328
+    },
+    {
+      "file": "vortex-planted-gallery-rear.jpg",
+      "id": "vortex",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1,
+        1,
+        1
+      ],
+      "urgency": 0.2833333333333333
+    },
+    {
+      "file": "nitro-gallery-front.jpg",
+      "id": "vortex",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1.0014972096653962,
+        1.0014972096653962,
+        1.0014972096653962
+      ],
+      "urgency": 1.0
+    },
+    {
+      "file": "nitro-gallery-rear.jpg",
+      "id": "vortex",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1.018757839715416,
+        1.018757839715416,
+        1.018757839715416
+      ],
+      "urgency": 1.0
+    },
+    {
+      "file": "nitro-planted-gallery-front.jpg",
+      "id": "nitro",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1,
+        1,
+        1
+      ],
+      "urgency": 0.14583333333333337
+    },
+    {
+      "file": "nitro-planted-gallery-rear.jpg",
+      "id": "nitro",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1,
+        1,
+        1
+      ],
+      "urgency": 0.1875
+    },
+    {
+      "file": "spark-gallery-front.jpg",
+      "id": "nitro",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1.1351870881953046,
+        1.1351870881953046,
+        1.1351870881953046
+      ],
+      "urgency": 0.8854166666666666
+    },
+    {
+      "file": "spark-gallery-rear.jpg",
+      "id": "nitro",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1.1473356915005681,
+        1.1473356915005681,
+        1.1473356915005681
+      ],
+      "urgency": 0.90625
+    },
+    {
+      "file": "spark-planted-gallery-front.jpg",
+      "id": "spark",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1,
+        1,
+        1
+      ],
+      "urgency": 0.38888888888888884
+    },
+    {
+      "file": "spark-planted-gallery-rear.jpg",
+      "id": "spark",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1,
+        1,
+        1
+      ],
+      "urgency": 0.5
+    },
+    {
+      "file": "blast-charge-release.jpg",
+      "id": "blast",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1,
+        1,
+        1
+      ],
+      "urgency": 0.02777777777777779
+    },
+    {
+      "file": "blast-planted-warning.jpg",
+      "id": "blast",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1.0157239169694239,
+        1.0157239169694239,
+        1.0157239169694239
+      ],
+      "urgency": 0.7916666666666666
+    },
+    {
+      "file": "haze-charge-release.jpg",
+      "id": "haze",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1,
+        1,
+        1
+      ],
+      "urgency": 0.08333333333333337
+    },
+    {
+      "file": "haze-planted-warning.jpg",
+      "id": "haze",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1.0019986312423061,
+        1.0019986312423061,
+        1.0019986312423061
+      ],
+      "urgency": 0.7916666666666666
+    },
+    {
+      "file": "frost-charge-release.jpg",
+      "id": "frost",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1,
+        1,
+        1
+      ],
+      "urgency": 0.08333333333333337
+    },
+    {
+      "file": "frost-planted-warning.jpg",
+      "id": "frost",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1.0140628284171267,
+        1.0140628284171267,
+        1.0140628284171267
+      ],
+      "urgency": 0.7916666666666666
+    },
+    {
+      "file": "venom-charge-release.jpg",
+      "id": "venom",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1,
+        1,
+        1
+      ],
+      "urgency": 0.08333333333333337
+    },
+    {
+      "file": "venom-planted-warning.jpg",
+      "id": "venom",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1.041162790178558,
+        1.041162790178558,
+        1.041162790178558
+      ],
+      "urgency": 0.7916666666666666
+    },
+    {
+      "file": "storm-charge-release.jpg",
+      "id": "storm",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1,
+        1,
+        1
+      ],
+      "urgency": 0.08333333333333337
+    },
+    {
+      "file": "storm-planted-warning.jpg",
+      "id": "storm",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1.0231156128297616,
+        1.0231156128297616,
+        1.0231156128297616
+      ],
+      "urgency": 0.7916666666666666
+    },
+    {
+      "file": "hex-charge-release.jpg",
+      "id": "hex",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1,
+        1,
+        1
+      ],
+      "urgency": 0.08333333333333337
+    },
+    {
+      "file": "hex-planted-warning.jpg",
+      "id": "hex",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1.0000000074015465,
+        1.0000000074015465,
+        1.0000000074015465
+      ],
+      "urgency": 0.7916666666666666
+    },
+    {
+      "file": "shard-charge-release.jpg",
+      "id": "shard",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1,
+        1,
+        1
+      ],
+      "urgency": 0.023809523809523836
+    },
+    {
+      "file": "shard-planted-warning.jpg",
+      "id": "shard",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1.0344599969316883,
+        1.0344599969316883,
+        1.0344599969316883
+      ],
+      "urgency": 0.7976190476190477
+    },
+    {
+      "file": "vortex-charge-release.jpg",
+      "id": "vortex",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1,
+        1,
+        1
+      ],
+      "urgency": 0.033333333333333326
+    },
+    {
+      "file": "vortex-planted-warning.jpg",
+      "id": "vortex",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1.0449746306364618,
+        1.0449746306364618,
+        1.0449746306364618
+      ],
+      "urgency": 0.8
+    },
+    {
+      "file": "vortex-guarding.jpg",
+      "id": "vortex",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1.2450527838950496,
+        1.2450527838950496,
+        1.2450527838950496
+      ],
+      "urgency": 1.0
+    },
+    {
+      "file": "nitro-charge-release.jpg",
+      "id": "nitro",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1,
+        1,
+        1
+      ],
+      "urgency": 0.02083333333333337
+    },
+    {
+      "file": "nitro-planted-warning.jpg",
+      "id": "nitro",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1.0205200943235002,
+        1.0205200943235002,
+        1.0205200943235002
+      ],
+      "urgency": 0.78125
+    },
+    {
+      "file": "spark-charge-release.jpg",
+      "id": "spark",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1,
+        1,
+        1
+      ],
+      "urgency": 0.05555555555555558
+    },
+    {
+      "file": "spark-planted-warning.jpg",
+      "id": "spark",
+      "minimumAboveFloor": 0.0,
+      "bodyScale": [
+        1.0000090951540983,
+        1.0000090951540983,
+        1.0000090951540983
+      ],
+      "urgency": 0.8055555555555556
+    }
+  ]
+}

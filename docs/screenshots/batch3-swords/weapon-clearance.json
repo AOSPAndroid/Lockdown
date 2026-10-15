@@ -1,0 +1,84 @@
+{
+  "items": [
+    "avenger",
+    "blazebrand",
+    "brand",
+    "cleaver",
+    "flamesabre",
+    "frostbite",
+    "frostsabre",
+    "greatblade",
+    "hexblade",
+    "katana",
+    "leviathan",
+    "maul",
+    "rapier",
+    "sabre",
+    "sickle",
+    "spur",
+    "stormsabre",
+    "thorn",
+    "troika",
+    "voltedge"
+  ],
+  "samples": 5592,
+  "pairs_checked": 446354,
+  "surface_intersections": [],
+  "momentum": {
+    "cleaver": {
+      "windup": {
+        "frames": 5,
+        "minFacing": -0.34982591830957094,
+        "maxFacing": 2.7874572803370263
+      },
+      "cut": {
+        "frames": 6,
+        "minFacing": 4.607999988136822,
+        "maxFacing": 5.918814978436729
+      },
+      "recovery": {
+        "frames": 10,
+        "minFacing": -0.34982591830957094,
+        "maxFacing": -0.34982591830957094
+      }
+    },
+    "greatblade": {
+      "windup": {
+        "frames": 4,
+        "minFacing": 0.283744827525017,
+        "maxFacing": 3.3762500959024697
+      },
+      "cut": {
+        "frames": 8,
+        "minFacing": 3.42533748111481,
+        "maxFacing": 6.565112083400442
+      },
+      "recovery": {
+        "frames": 8,
+        "minFacing": 0.283744827525017,
+        "maxFacing": 0.283744827525017
+      }
+    },
+    "hexblade": {
+      "windup": {
+        "frames": 5,
+        "minFacing": -0.034645535324381894,
+        "maxFacing": 3.1026376633222155
+      },
+      "cut": {
+        "frames": 6,
+        "minFacing": 3.828713486017233,
+        "maxFacing": 6.233995361421918
+      },
+      "recovery": {
+        "frames": 9,
+        "minFacing": -0.034645535324381894,
+        "maxFacing": -0.034645535324381894
+      }
+    }
+  },
+  "excludedContacts": [
+    "right fist attachment",
+    "grip contact with right wrist socket/core and bracer"
+  ]
+}
