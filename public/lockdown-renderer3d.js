@@ -27,14 +27,14 @@ const FEET_RING = .3;       // team ring radius under each knight (before scalin
 const CHARGE_SEGMENTS = 48;
 /** Holsters: where each weapon you are not holding is carried, on the rig part it rides with (`at` is the
  * grip, `dir` where the weapon points), and the arm pose that reaches it (`reach`: shoulder [roll, yaw, raise],
- * elbow, and the weapon's pitch). Swords and long guns go on the back, hilt over a shoulder; pistols hang in
- * hip holsters; bombs ride the belt. */
+ * elbow, and the weapon's pitch). Swords and long guns go on the back, hilt over a shoulder, clear of thick back plates; pistols hang in
+ * hip holsters outside the swinging hand; bombs ride the belt. */
 const HOLSTERS = Object.freeze({
-  backR: { part: 'chest', at: [-.17, .32, .12], dir: [0, -1, -.62], reach: { arm: [-.3, -.15, 2.8], elbow: 1.9, pitch: -1.95 } },
-  backL: { part: 'chest', at: [-.2, .3, -.12], dir: [0, -1, .62], reach: { arm: [-.1, .55, 2.6], elbow: 1.75, pitch: -1.95 } },
+  backR: { part: 'chest', at: [-.24, .37, .12], dir: [0, -1, -.62], reach: { arm: [-.3, -.15, 2.8], elbow: 1.9, pitch: -1.95 } },
+  backL: { part: 'chest', at: [-.27, .35, -.12], dir: [0, -1, .62], reach: { arm: [-.1, .55, 2.6], elbow: 1.75, pitch: -1.95 } },
   hipL: { part: 'hips', at: [-.02, -.02, -.17], dir: [-1, -.55, 0], reach: { arm: [0, .6, .3], elbow: .95, pitch: -1.2 } },
-  hipR: { part: 'hips', at: [.01, -.03, .16], dir: [.15, -1, 0], reach: { arm: [-.15, 0, -.1], elbow: .25, pitch: -1.55 } },
-  hipL2: { part: 'hips', at: [.01, -.03, -.16], dir: [.15, -1, 0], reach: { arm: [0, .5, .15], elbow: .7, pitch: -1.5 } },
+  hipR: { part: 'hips', at: [-.03, -.03, .195], dir: [.15, -1, 0], reach: { arm: [-.15, 0, -.1], elbow: .25, pitch: -1.55 } },
+  hipL2: { part: 'hips', at: [-.03, -.03, -.195], dir: [.15, -1, 0], reach: { arm: [0, .5, .15], elbow: .7, pitch: -1.5 } },
   beltL: { part: 'hips', at: [-.15, 0, -.09], dir: [0, 0, 1], reach: { arm: [-.1, .35, -.25], elbow: 1, pitch: -1 } },
   beltR: { part: 'hips', at: [-.15, 0, .09], dir: [0, 0, 1], reach: { arm: [-.2, -.1, -.3], elbow: 1, pitch: -1 } },
 });
@@ -1059,7 +1059,8 @@ export class Lockdown3DRenderer {
           const place = HOLSTERS[socket], dir = new THREE.Vector3(...place.dir).normalize(), sword = size && WEAPON_SIZES[size];
           carrier.quaternion.setFromUnitVectors(new THREE.Vector3(1, 0, 0), dir);
           carrier.position.set(...place.at).addScaledVector(dir, sword ? BLADE_START * HOLSTER_SCALE : 0);
-          if (sword) carrier.scale.set((sword.length - BLADE_START) / .65 * HOLSTER_SCALE, HOLSTER_SCALE, sword.width / WEAPON_SIZES.sword.width * HOLSTER_SCALE);
+          // Slim swords keep most of the width: a curved katana still sits inside.
+          if (sword) carrier.scale.set((sword.length - BLADE_START) / .65 * HOLSTER_SCALE, HOLSTER_SCALE, Math.max(.85, sword.width / WEAPON_SIZES.sword.width) * HOLSTER_SCALE);
           else carrier.scale.setScalar(HOLSTER_SCALE);
           (view.parts[place.part] || view.body).add(carrier); view.carriers.set(id, carrier);
         }

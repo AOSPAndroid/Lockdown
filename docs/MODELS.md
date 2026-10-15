@@ -124,8 +124,8 @@ drawn, so make them look right empty too.
 - **`sheath.glb`**: one sheath for every sword. Model it for the standard sword: its **opening at the
   origin**, running along **+X for 0.65** (the blade from 0.1 to 0.75 from the grip), about **0.17 wide along
   Z and 0.05 thick along Y** (the blade is 0.12 wide along Z and 0.025 thick). The game stretches it along
-  X to each sword's blade (0.5 for short swords, 0.8 for long, 0.85 for heavy) and along Z to its width (0.5×
-  for the slim long swords, 1.5× for the heavy ones), so keep fittings simple: a locket at the opening and a
+  X to each sword's blade (0.5 for short swords, 0.8 for long, 0.85 for heavy) and along Z to its width (0.85×
+  for the slim long swords, so a curved katana stays inside; 1.5× for the heavy ones), so keep fittings simple: a locket at the opening and a
   chape at the tip read well stretched.
 - **`holster.glb`**: made around the pistol template (`docs/reference/templates/gun.glb`): the same origin
   (the middle of the grip) and the gun pointing +X, wrapping the body and barrel and leaving the grip free.
