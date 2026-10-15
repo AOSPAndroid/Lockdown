@@ -758,7 +758,9 @@ function startSwing(state, player, weapon) {
   const finisher = weapon.combo.length > 1 && player.comboStep === weapon.combo.length - 1;
   const speed = bladeSpeed(player), startup = Math.max(2, Math.round(move.startup / speed)), active = Math.max(2, Math.round(move.active / speed)), recovery = Math.max(2, Math.round(move.recovery / speed * (finisher ? BLADE.finisherRecovery : 1)));
   Object.assign(player, { action: 'swing', actionTotal: startup + active + recovery, actionTicks: startup + active + recovery, hitIds: [], bufferAttack: false, whiffed: false,
-    swingAim: player.aim, swingDir: player.comboStep % 2 ? -1 : 1, swingReach: move.reach, swingArc: move.arc,
+    // A combo alternates like a real blade: the opener is a forehand from the sword side (right to left), the next
+    // cut comes back from where it ended (left to right), and so on.
+    swingAim: player.aim, swingDir: player.comboStep % 2 ? 1 : -1, swingId: (player.swingId || 0) + 1, swingReach: move.reach, swingArc: move.arc,
     swingStartup: startup, swingActive: active, swingRecovery: recovery, swingDamage: move.damage * bladePower(player), swingMomentum: !!move.momentum, swingCritical: !!move.critical, swingFinisher: finisher });
   emit(state, 'swing', { playerId: player.id, weapon: weapon.id, step: player.comboStep, x: player.x, y: player.y, angle: player.aim, dir: player.swingDir, arc: move.arc, reach: move.reach, startup, active, momentum: !!move.momentum, critical: !!move.critical });
 }

@@ -853,13 +853,18 @@ export class Lockdown3DRenderer {
       const startup = player.swingStartup || 1, active = player.swingActive || 1, dir = player.swingDir || 1, arc = player.swingArc || 1.6;
       const from = -dir * arc / 2 * 1.15, to = dir * arc / 2 * 1.1;
       let yaw;
-      if (elapsed < startup) { const w = easeOut(elapsed / startup); yaw = from * w; arm = [-.05, 0, lerp(.5, 1.35, w)]; elbow = lerp(.5, 1.05, w); pitch = lerp(-.2, .25, w); }
+      // Each wind-up starts where the blade is: from rest for an opener, from the end of the last cut in a combo,
+      // so the blade flows back and forth instead of snapping to the middle between cuts.
+      if (view.swingId !== player.swingId) { view.swingId = player.swingId; const last = view.swingPose; view.swingStart = last && now - last.at < 300 ? last : { yaw: 0, armZ: .5, elbow: .5, pitch: -.2 }; }
+      const start = view.swingStart || { yaw: 0, armZ: .5, elbow: .5, pitch: -.2 };
+      if (elapsed < startup) { const w = easeOut(elapsed / startup); yaw = lerp(start.yaw, from, w); arm = [-.05, 0, lerp(start.armZ, 1.35, w)]; elbow = lerp(start.elbow, 1.05, w); pitch = lerp(start.pitch, .25, w); }
       else if (elapsed < startup + active) { const p = easeOut((elapsed - startup) / active); yaw = lerp(from, to, p); arm = [-.05, 0, 1.45 - .12 * Math.sin(p * Math.PI)]; elbow = lerp(1.05, .08, Math.min(1, p * 1.6)); pitch = lerp(.25, -.05, p); body.z -= .12; }
       else {
         const q = ease(Math.min(1, (elapsed - startup - active) / Math.max(1, total - startup - active))); yaw = lerp(to, 0, q); arm = [-.05, 0, lerp(1.45, .5, q)]; elbow = lerp(.08, .45, q); pitch = lerp(-.05, -.5, q);
         // A miss throws you off balance: the blade drags low past the body, the knight stumbles forward.
         if (player.whiffed) { const off = Math.sin(Math.min(1, q * 1.4) * Math.PI); body.z -= .3 * off; body.y -= .04 * off; arm[2] -= .6 * off; pitch -= .5 * off; T.head[2] += .15 * off; T.leg_L[2] += .45 * off; T.shin_L[2] -= .55 * off; T.leg_R[2] -= .25 * off; }
       }
+      view.swingPose = { yaw, armZ: arm[2], elbow, pitch, at: now };
       // Across the body the shoulder only turns so far before the forearm would go through the chest: the torso
       // twist carries the rest of the wind-up and the elbow opens up.
       const cross = Math.max(0, -yaw * .7), spill = Math.max(0, cross - .28);
@@ -1359,7 +1364,7 @@ export class KnightPreview {
       let t = ticks;
       for (const [step, move] of weapon.combo.entries()) {
         const total = move.startup + move.active + move.recovery;
-        if (t < total) { Object.assign(p, { action: 'swing', actionTotal: total, actionTicks: Math.max(1, Math.ceil(total - t)), swingStartup: move.startup, swingActive: move.active, swingDir: step % 2 ? -1 : 1, swingArc: move.arc, swingAim: 0 }); return; }
+        if (t < total) { Object.assign(p, { action: 'swing', actionTotal: total, actionTicks: Math.max(1, Math.ceil(total - t)), swingStartup: move.startup, swingActive: move.active, swingDir: step % 2 ? 1 : -1, swingId: demo.start + step, swingMomentum: !!move.momentum, swingArc: move.arc, swingAim: 0 }); return; }
         t -= total;
       }
     } else if (weapon.family === 'gun') {

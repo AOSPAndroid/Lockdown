@@ -103,7 +103,9 @@ test('a blade cut lands as the arc sweeps, with knockback, stun and hit-stop; a 
   run(state, 2, t => ({ 0: { attack: t === 0 } }));
   run(state, swingTicks(first) + 8);
   assert.deepEqual(events(state, 'swing').map(event => event.step), [0, 1]);
-  assert.equal(events(state, 'swing')[1].dir, -1, 'alternate cuts sweep the other way');
+  const [opener, second] = events(state, 'swing');
+  assert.equal(opener.dir, -1, 'the opener is a forehand from the sword side (right to left)');
+  assert.equal(second.dir, 1, 'the next cut comes back the other way');
 });
 
 test('blades only hit what the sweep covers', () => {
