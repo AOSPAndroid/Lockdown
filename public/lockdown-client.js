@@ -712,8 +712,13 @@ function chooseSetup(change) {
 function refreshIcons() {
   for (const card of document.querySelectorAll('.ld-class-card')) card.querySelector('.ld-class-icon').innerHTML = iconMarkup(`icon_class_${card.dataset.cls}`, CLASS_GLYPH[card.dataset.cls]);
   for (const card of document.querySelectorAll('.ld-armor-card')) card.querySelector('.ld-armor-icon').innerHTML = gearIcon(card.dataset.slot, card.dataset.armor);
-  $('ld-weapons').dataset.key = '';
+  // Weapon slots and the Armory grid cache their markup: clear the caches so the new icons show.
+  for (const button of document.querySelectorAll('.ld-slot-button')) button.dataset.key = '';
+  const grid = $('ld-armory-grid'); if (grid) grid.dataset.key = '';
+  if (menuBuilt) renderMenu();
 }
+// Icons can finish loading before the menu (and the game state) exist; `var` so the check is safe that early.
+var menuBuilt = false;
 const inMatch = () => state?.phase === 'countdown' || state?.phase === 'fight';
 function canChangeLoadout() {
   const me = state?.players[localId ?? -1];
@@ -913,6 +918,7 @@ function overviewFocus(view, me) {
 }
 
 buildMenu();
+menuBuilt = true;
 setupPreview();
 refreshKeyLabels();
 refreshIcons();

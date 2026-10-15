@@ -1,7 +1,7 @@
 # Lockdown art brief
 
 Lockdown is a top-down team brawl in the spirit of Spiral Knights' Lockdown: up to 4v4, three control points,
-swords, guns and bombs, on six themed arenas. This brief lists all 375 sprites the game draws. Read AGENTS.md first:
+swords, guns and bombs, on six themed arenas. This brief lists all 378 sprites the game draws. Read AGENTS.md first:
 it says how to work and what quality bar the art must reach.
 
 Knight sheets: 10 columns of 64×64 frames (at 1x): columns 1–2 idle, 3–6 walk, 7–10 run.
@@ -285,6 +285,9 @@ Knight sheets: 10 columns of 64×64 frames (at 1x): columns 1–2 idle, 3–6 wa
 | `icon_shoes_magma.png` | 48×48 | 1 | 24, 24 | Magma Treads equipment icon: Thick black obsidian-soled feet with glowing orange cracks.. Clear silhouette on a transparent background. |
 | `icon_shoes_hover.png` | 48×48 | 1 | 24, 24 | Hover Boots equipment icon: Chunky silver feet with small glowing cyan thrusters under the soles (a soft glow below the feet).. Clear silhouette on a transparent background. |
 | `icon_shoes_quicksilver.png` | 48×48 | 1 | 24, 24 | Quicksilver Slippers equipment icon: Thin liquid-silver feet with a mirror sheen and little speed streaks.. Clear silhouette on a transparent background. |
+| `icon_helmet_none.png` | 48×48 | 1 | 24, 24 | Bare head icon: the bare robot frame's own head unit. Clear silhouette on a transparent background. |
+| `icon_pants_none.png` | 48×48 | 1 | 24, 24 | Bare legs icon: the bare robot frame's own leg plates. Clear silhouette on a transparent background. |
+| `icon_shoes_none.png` | 48×48 | 1 | 24, 24 | Bare feet icon: the bare robot frame's own feet. Clear silhouette on a transparent background. |
 | `icon_weapon_brand.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Knight Brand. Clear silhouette on a transparent background. |
 | `icon_weapon_cleaver.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Troll Cleaver. Clear silhouette on a transparent background. |
 | `icon_weapon_rapier.png` | 48×48 | 1 | 24, 24 | HUD/lobby icon for the Needle Rapier. Clear silhouette on a transparent background. |
@@ -349,9 +352,9 @@ Knight sheets: 10 columns of 64×64 frames (at 1x): columns 1–2 idle, 3–6 wa
 | `icon_armor_cobalt.png` | 48×48 | 1 | 24, 24 | Cobalt Mail equipment icon. Neutral clothing or armor silhouette on a transparent background. |
 | `icon_armor_vog.png` | 48×48 | 1 | 24, 24 | Vog Cub Coat equipment icon. Neutral clothing or armor silhouette on a transparent background. |
 | `icon_armor_clockwork.png` | 48×48 | 1 | 24, 24 | Clockwork Harness equipment icon. Neutral clothing or armor silhouette on a transparent background. |
-| `icon_class_striker.png` | 64×64 | 1 | 32, 32 | Striker class emblem for the lobby and scoreboard. |
-| `icon_class_guardian.png` | 64×64 | 1 | 32, 32 | Guardian class emblem for the lobby and scoreboard. |
-| `icon_class_recon.png` | 64×64 | 1 | 32, 32 | Recon class emblem for the lobby and scoreboard. |
+| `icon_class_striker.png` | 48×48 | 1 | 24, 24 | Striker class emblem for the lobby and scoreboard. |
+| `icon_class_guardian.png` | 48×48 | 1 | 24, 24 | Guardian class emblem for the lobby and scoreboard. |
+| `icon_class_recon.png` | 48×48 | 1 | 24, 24 | Recon class emblem for the lobby and scoreboard. |
 | `ui_crosshair.png` | 48×48 | 1 | 24, 24 | Aiming reticle drawn at the mouse: bold white ring with a dark outline, four short ticks and a centre dot, readable on every floor. The game draws the charge arc around it. |
 | `ui_boost_bar.png` | 48×12 | 1 | 24, 6 | Frame for the Striker nitro bar shown under the knight: a slim dark capsule with a metallic rim, empty inside (the game fills it 40 px wide, 5 px tall, centred). |
 | `icon_ability_dash.png` | 48×48 | 1 | 24, 24 | Ability icon: dash. |

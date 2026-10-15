@@ -6306,6 +6306,51 @@
   "description": "Quicksilver Slippers equipment icon: Thin liquid-silver feet with a mirror sheen and little speed streaks.. Clear silhouette on a transparent background."
  },
  {
+  "key": "icon_helmet_none",
+  "file": "icon_helmet_none.png",
+  "group": "icons",
+  "size": [
+   48,
+   48
+  ],
+  "anchor": [
+   24,
+   24
+  ],
+  "frames": 1,
+  "description": "Bare head icon: the bare robot frame's own head unit. Clear silhouette on a transparent background."
+ },
+ {
+  "key": "icon_pants_none",
+  "file": "icon_pants_none.png",
+  "group": "icons",
+  "size": [
+   48,
+   48
+  ],
+  "anchor": [
+   24,
+   24
+  ],
+  "frames": 1,
+  "description": "Bare legs icon: the bare robot frame's own leg plates. Clear silhouette on a transparent background."
+ },
+ {
+  "key": "icon_shoes_none",
+  "file": "icon_shoes_none.png",
+  "group": "icons",
+  "size": [
+   48,
+   48
+  ],
+  "anchor": [
+   24,
+   24
+  ],
+  "frames": 1,
+  "description": "Bare feet icon: the bare robot frame's own feet. Clear silhouette on a transparent background."
+ },
+ {
   "key": "weapon_brand",
   "file": "weapon_brand.png",
   "group": "weapons",
@@ -8710,12 +8755,12 @@
   "file": "icon_class_striker.png",
   "group": "icons",
   "size": [
-   64,
-   64
+   48,
+   48
   ],
   "anchor": [
-   32,
-   32
+   24,
+   24
   ],
   "frames": 1,
   "description": "Striker class emblem for the lobby and scoreboard."
@@ -8725,12 +8770,12 @@
   "file": "icon_class_guardian.png",
   "group": "icons",
   "size": [
-   64,
-   64
+   48,
+   48
   ],
   "anchor": [
-   32,
-   32
+   24,
+   24
   ],
   "frames": 1,
   "description": "Guardian class emblem for the lobby and scoreboard."
@@ -8740,12 +8785,12 @@
   "file": "icon_class_recon.png",
   "group": "icons",
   "size": [
-   64,
-   64
+   48,
+   48
   ],
   "anchor": [
-   32,
-   32
+   24,
+   24
   ],
   "frames": 1,
   "description": "Recon class emblem for the lobby and scoreboard."
