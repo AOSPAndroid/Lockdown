@@ -250,12 +250,13 @@ class Builder {
   get empty() { return !this.index.length; }
 }
 /** A flat sector of a ring in the floor plane (angles are world headings: 0 east, π/2 south). */
-function arcGeometry(inner, outer, from, to, segments = 24) {
+/** A flat ring segment; u runs along the arc from `from` to `to` (or back, with `flip`), v from the inner edge out. */
+function arcGeometry(inner, outer, from, to, segments = 24, flip = false) {
   const position = [], index = [], uv = [];
   for (let i = 0; i <= segments; i++) {
     const a = from + (to - from) * i / segments;
     position.push(Math.cos(a) * inner, 0, Math.sin(a) * inner, Math.cos(a) * outer, 0, Math.sin(a) * outer);
-    uv.push(i / segments, 0, i / segments, 1); // u along the arc, v from the inner edge out (the slash texture)
+    const u = flip ? 1 - i / segments : i / segments; uv.push(u, 0, u, 1); // u along the arc, v from the inner edge out (the slash texture)
     if (i < segments) { const k = i * 2; index.push(k, k + 1, k + 3, k, k + 3, k + 2); }
   }
   const geometry = new THREE.BufferGeometry(); geometry.setAttribute('position', new THREE.Float32BufferAttribute(position, 3)); geometry.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2)); geometry.setIndex(index); geometry.computeVertexNormals();
@@ -1162,7 +1163,8 @@ export class Lockdown3DRenderer {
     for (const barrier of this.barriers || []) { barrier.map.offset.y = -now / 2400; barrier.opacity = .7 + .15 * Math.sin(now / 420); }
     this.updatePoints(state, now);
     this.updateKnights(state, map, now, local);
-    this.updateShots(state, map);
+    this.flushFlashes(now);
+    this.updateShots(state, map, now);
     this.updateBombs(state, map, now);
     this.updatePickups(state, map, now);
     this.updateClouds(state, map, now);
@@ -1255,7 +1257,7 @@ export class Lockdown3DRenderer {
     }
     if (view.dome) { view.dome.visible = dome; if (dome) view.dome.material.opacity = .12 + .05 * Math.sin(now / 200); }
   }
-  updateShots(state, map) {
+  updateShots(state, map, now) {
     const seen = new Set();
     for (const shot of state.projectiles || []) {
       seen.add(shot.id);
@@ -1265,12 +1267,15 @@ export class Lockdown3DRenderer {
         const size = Math.max(.07, (shot.size || 5) * U * 1.3);
         // The round's model (models/projectiles/, pointing +X, made for a size-5 round) or a glowing ball.
         const model = this.models.instance(`projectiles/${PROJECTILE_MODEL[shot.kind] || 'bullet'}.glb`);
-        if (model) { model.scale.setScalar((shot.size || 5) / 5); model.rotation.y = -Math.atan2(shot.vy, shot.vx); }
+        if (model) model.scale.setScalar((shot.size || 5) / 5);
         const ball = model || new THREE.Mesh(new THREE.SphereGeometry(size, 10, 8), new THREE.MeshBasicMaterial({ color: tint.clone().lerp(colour('#ffffff'), .5) }));
         const glow = new THREE.Sprite(new THREE.SpriteMaterial({ map: this.glow, color: tint, transparent: true, opacity: .9, depthWrite: false, blending: THREE.AdditiveBlending })); glow.scale.setScalar(size * 7);
         const trail = new THREE.Sprite(new THREE.SpriteMaterial({ map: this.glow, color: tint, transparent: true, opacity: .4, depthWrite: false, blending: THREE.AdditiveBlending })); trail.scale.setScalar(size * 4);
-        view = new THREE.Group(); view.add(ball, glow); view.userData.trail = trail; this.scene.add(view, trail); this.shots.set(shot.id, view);
+        view = new THREE.Group(); view.add(ball, glow); view.userData = { trail, model }; this.scene.add(view, trail); this.shots.set(shot.id, view);
       }
+      // A round points where it flies, also after a bounce; a ricochet disc spins flat as it goes.
+      const model = view.userData.model;
+      if (model) model.rotation.y = shot.kind === 'ricochet' ? -now / 35 : -Math.atan2(shot.vy, shot.vx);
       const y = (shot.z || 0) * STOREY + KNIGHT * .45;
       view.position.set(shot.x * U, y, shot.y * U);
       view.userData.trail.position.set((shot.x - shot.vx * .03) * U, y, (shot.y - shot.vy * .03) * U);
@@ -1354,11 +1359,11 @@ export class Lockdown3DRenderer {
       } else if (event.type === 'explosion') { this.burst(at(event.x, event.y, .3), event.burst ? '#ffcf8a' : '#ffb347', (event.radius || 60) * U * 2, 420, now, true, 'blast'); this.shakeNear(event.x, event.y, 6); }
       else if (event.type === 'slam') { this.ringEffect(at(event.x, event.y, .05), (event.radius || 80) * U, '#ffe0a0', 420, now); this.shakeNear(event.x, event.y, 7); }
       else if (event.type === 'shot') {
-        // The flash comes out of the gun's muzzle node when the model has one; the shooter's arm and barrel kick.
-        const shooter = this.knights?.get(event.playerId), muzzle = shooter?.weapon?.getObjectByName?.('muzzle');
+        // The shooter's arm and barrel kick; the flash comes out of the gun's muzzle node (see flushFlashes).
+        const shooter = this.knights?.get(event.playerId);
         if (shooter) { const gun = WEAPONS[event.weapon]; shooter.recoilAt = now; shooter.recoilPower = Math.min(1.3, Math.max(.35, (gun?.damage || 8) * (gun?.pellets || 1) / 16 * .75)) * (event.charged ? 1.5 : 1); }
-        const position = muzzle ? muzzle.getWorldPosition(new THREE.Vector3()) : at(event.x + Math.cos(event.angle) * 22, event.y + Math.sin(event.angle) * 22, KNIGHT * .45);
-        this.burst(position, '#fff4c0', .45, 90, now, false, 'flash');
+        // Placed once the shooter's pose for this frame is set (render calls flushFlashes after the knights).
+        (this.pendingFlashes ||= []).push({ playerId: event.playerId, fallback: at(event.x + Math.cos(event.angle) * 22, event.y + Math.sin(event.angle) * 22, KNIGHT * .45) });
       }
       else if (event.type === 'shatter') { this.burst(at(event.x, event.y, KNIGHT * .3), '#cfefff', 1.4, 380, now, true, 'spark'); this.ringEffect(at(event.x, event.y, .06), .9, '#bfeaff', 320, now); }
       else if (event.type === 'kill') this.burst(at(event.x, event.y, .5), '#ffffff', 1.6, 500, now, true);
@@ -1380,6 +1385,15 @@ export class Lockdown3DRenderer {
       }
     }
     this.texts = this.texts.filter(t => now - t.born < t.life);
+  }
+  /** Muzzle flashes out of the gun's muzzle node as the shooter stands this frame (or in front of them). */
+  flushFlashes(now) {
+    for (const flash of this.pendingFlashes || []) {
+      const shooter = this.knights?.get(flash.playerId), muzzle = shooter?.weapon?.getObjectByName?.('muzzle');
+      if (muzzle) shooter.group.updateMatrixWorld(true);
+      this.burst(muzzle ? muzzle.getWorldPosition(new THREE.Vector3()) : flash.fallback, '#fff4c0', .45, 90, now, false, 'flash');
+    }
+    this.pendingFlashes = [];
   }
   shakeNear(x, y, amount) { const v = this.viewer; if (!v) return; const d = Math.hypot(v.x - x, v.y - y); if (d < 500) this.shake = Math.max(this.shake, amount * (1 - d / 500)); }
   addEffect(object, now, life, update) { this.scene.add(object); this.effects.push({ object, born: now, life, update }); }
@@ -1426,7 +1440,7 @@ export class Lockdown3DRenderer {
       const live = state.players[event.playerId]; if (live) mesh.position.set(live.x * U, lift, live.y * U);
       if (age < delay) { material.opacity = 0; return; }
       const progress = Math.min(1, (age - delay) / sweep), key = Math.round(progress * 20);
-      if (key !== shown) { shown = key; mesh.geometry.dispose(); const a0 = start, a1 = start + event.dir * event.arc * Math.max(.05, progress); mesh.geometry = arcGeometry(reach * .35, reach, Math.min(a0, a1), Math.max(a0, a1), 20); }
+      if (key !== shown) { shown = key; mesh.geometry.dispose(); const a0 = start, a1 = start + event.dir * event.arc * Math.max(.05, progress); mesh.geometry = arcGeometry(reach * .35, reach, Math.min(a0, a1), Math.max(a0, a1), 20, a1 < a0); } // the texture runs from where the cut started to the blade
       material.opacity = progress < 1 ? .75 : Math.max(0, .75 * (1 - (age - delay - sweep) / 160));
     });
   }
