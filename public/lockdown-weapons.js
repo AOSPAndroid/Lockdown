@@ -290,9 +290,12 @@ export const MOVESETS = Object.freeze({
   troika: ['sweep', 'sweep', 'chop'],                // two heavy sweeps and a crushing overhead
   maul: ['sweep', 'chop'],                           // a swing, then the overhead smash that shakes the ground
 });
+/** Every cut's wind-up, swing and recovery run this much longer than written: one dial for the pace of sword play. */
+export const CUT_TEMPO = 1.1;
 const withMoves = (id, combo) => Object.freeze(combo.map((move, i) => {
   const kind = MOVESETS[id]?.[i] || 'sweep', rule = MOVE_KINDS[kind], arc = rule.fixedArc ?? Math.round(move.arc * (rule.arc ?? 1) * 100) / 100;
-  return Object.freeze({ ...move, kind, arc, reach: Math.round(move.reach * (rule.reach ?? 1)),
+  const slower = ticks => Math.max(1, Math.round(ticks * CUT_TEMPO));
+  return Object.freeze({ ...move, kind, arc, reach: Math.round(move.reach * (rule.reach ?? 1)), startup: slower(move.startup), active: slower(move.active), recovery: slower(move.recovery),
     damage: Math.round(move.damage * aimFactor(arc) * (rule.stroke ?? 1)), strokes: rule.strokes || 1, push: Math.round(move.push * (rule.push ?? 1)) });
 }));
 const gunShot = weapon => Object.freeze({ ...weapon, damage: Math.max(1, Math.round(weapon.damage * GUN.damage)) });
