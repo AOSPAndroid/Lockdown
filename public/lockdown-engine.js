@@ -1098,9 +1098,7 @@ function tickPlayer(state, player, input) {
   let mx = (input.right ? 1 : 0) - (input.left ? 1 : 0), my = (input.down ? 1 : 0) - (input.up ? 1 : 0);
   const length = Math.hypot(mx, my); if (length > 0) { mx /= length; my /= length; }
   const chill = player.status.chill > 0 ? 1 - STATUS.chill.slowPerStack * Math.max(1, player.chillStacks) : 1;
-  // Backing away from your aim with a gun you just fired is slower: no free shoot-and-run.
-  const backing = weapon.family === 'gun' && length > 0 && (player.sinceShot?.[weapon.id] ?? Infinity) < GUN.backpedalTicks ? Math.max(0, -(mx * Math.cos(player.aim) + my * Math.sin(player.aim))) : 0;
-  const speed = cls.speed * outfitOf(player).speedMultiplier * moveScale(player, weapon) * chill * (player.dashTicks > 0 ? ABILITIES.dash.speed : 1) * (1 - GUN.backpedal * backing);
+  const speed = cls.speed * outfitOf(player).speedMultiplier * moveScale(player, weapon) * chill * (player.dashTicks > 0 ? ABILITIES.dash.speed : 1);
   const blend = 1 - Math.exp(-18 * DT);
   player.vx += (mx * speed - player.vx) * blend; player.vy += (my * speed - player.vy) * blend;
   moveBody(map, player, (player.vx + player.pushX) * DT, (player.vy + player.pushY) * DT);

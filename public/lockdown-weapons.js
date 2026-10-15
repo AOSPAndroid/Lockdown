@@ -42,10 +42,10 @@ const critical = move => Object.freeze({ ...move, damage: Math.round(move.damage
 export const AIM = Object.freeze({ arc: 1.2, power: .3, min: .6, max: 1.3,
   shot: Object.freeze({ clean: .4, offCentre: .9, graze: .6 }) });
 /** Guns against shoot-and-run. Every gun's normal shot deals `damage` of its written damage (to the nearest whole
- * point); charge attacks keep theirs. After a shot you move at `settleSpeed` for at least `settleTicks` (longer
- * for slow guns: their whole interval), and for `backpedalTicks` after a shot, moving away from where you aim
- * costs up to `backpedal` of your speed: a gunner running from a sword while shooting back gets caught. */
-export const GUN = Object.freeze({ damage: .9, settleTicks: 24, settleSpeed: .45, backpedalTicks: 240, backpedal: .2 });
+ * point); charge attacks keep theirs. While you are shooting you move at `settleSpeed`: each shot slows you for
+ * `settleTicks` (a slow gun for its whole interval), so firing again keeps you slow, and the moment you stop
+ * you are back to full speed. */
+export const GUN = Object.freeze({ damage: .9, settleTicks: 24, settleSpeed: .45 });
 export const aimFactor = arc => Math.min(AIM.max, Math.max(AIM.min, (AIM.arc / arc) ** AIM.power));
 const cuts = (cut, ...steps) => Object.freeze(steps.map(move => Object.freeze({ ...move, arc: Math.round(move.arc * CUTS[cut].arc * 100) / 100, push: Math.round(move.push * CUTS[cut].push), reach: Math.round(move.reach * (CUTS[cut].reach || 1)) })));
 
