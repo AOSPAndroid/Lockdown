@@ -174,7 +174,7 @@ export function reorderInventory(state, id, order) {
   if (!Array.isArray(order) || order.length !== SLOT_COUNT || [...order].sort().join() !== [...Array(SLOT_COUNT).keys()].join()) return { ok: false, error: 'Reorder the four inventory slots.' };
   player.weapons = order.map(slot => player.weapons[slot] ?? null);
   player.hearts = order.map(slot => player.hearts?.[slot] || 0);
-  player.slot = order.indexOf(player.slot);
+  player.slot = order.indexOf(player.slot); player.pendingSlot = null;
   emit(state, 'inventory', { playerId: player.id, weapons: [...player.weapons], hearts: [...player.hearts] });
   return { ok: true };
 }
@@ -212,7 +212,7 @@ export function setPlayerSetup(state, id, { team, cls, armor, helmet, pants, sho
       player.clips = Object.fromEntries(weapons.filter(isGun).map(weaponId => [weaponId, WEAPONS[weaponId].clip]));
       player.reloadTicks = {}; player.sinceShot = {};
     }
-    Object.assign(player, { slot: Math.max(0, player.weapons.findIndex(Boolean)), action: 'idle', actionTicks: 0, charging: false, chargeTicks: 0, comboStep: 0, burst: null, bufferAttack: false });
+    Object.assign(player, { slot: Math.max(0, player.weapons.findIndex(Boolean)), pendingSlot: null, action: 'idle', actionTicks: 0, charging: false, chargeTicks: 0, comboStep: 0, burst: null, bufferAttack: false });
     emit(state, 'loadoutChange', { playerId: player.id, cls: player.cls, armor: player.armor, helmet: player.helmet, pants: player.pants, shoes: player.shoes, weapons: [...player.weapons] });
   } else {
     for (const slot of GEAR_SLOTS) if (gear[slot] !== undefined) player[slot] = gear[slot];
@@ -1062,16 +1062,19 @@ function tickPlayer(state, player, input) {
     if (input.attack && !previous.attack && player.action === 'swing') queueCut(state, player);
     player.hitStop--; player.previousInput = input; return;
   }
-  // Weapon slots: 1-3 or cycle. Switching cancels a charge, never a committed swing.
-  // Weapon slots: 1-4 pick a slot; swap cycles to the next slot that holds something.
+  // Weapon slots: 1-4 pick a slot; swap cycles to the next slot that holds something. Switching cancels a
+  // charge, never a committed swing: a press while busy is remembered and the switch happens the moment you
+  // are free, so it never gets lost.
   const filled = index => player.weapons[index] || player.hearts[index] > 0;
-  const nextFilled = () => { for (let step = 1; step <= SLOT_COUNT; step++) { const index = (player.slot + step) % SLOT_COUNT; if (filled(index)) return index; } return player.slot; };
+  const from = player.pendingSlot ?? player.slot;
+  const nextFilled = () => { for (let step = 1; step <= SLOT_COUNT; step++) { const index = (from + step) % SLOT_COUNT; if (filled(index)) return index; } return from; };
   const picked = [0, 1, 2, 3].find(index => input[`slot${index + 1}`] && !previous[`slot${index + 1}`]);
-  const slot = picked !== undefined ? picked : input.swap && !previous.swap ? nextFilled() : player.slot;
+  const slot = picked !== undefined ? picked : input.swap && !previous.swap ? nextFilled() : from;
+  player.pendingSlot = slot !== player.slot ? slot : null;
   // Swap cancel: after a cut lands, switching weapons drops its recovery (a sweep into a heavy blade).
   const swapCancel = slot !== player.slot && player.action === 'swing' && player.hitIds.length > 0 && !player.whiffed;
   if (swapCancel) { cancelRecovery(state, player, 'swap'); player.cancelLag = BLADE.swapLag; }
-  if (slot !== player.slot && player.actionTicks === 0 && !player.burst) { player.slot = slot; player.charging = false; player.chargeTicks = 0; player.comboStep = 0; player.bufferAttack = false; emit(state, 'swapWeapon', { playerId: player.id, weapon: player.weapons[slot] }); }
+  if (slot !== player.slot && player.actionTicks === 0 && !player.burst) { const before = player.weapons[player.slot]; player.slot = slot; player.pendingSlot = null; player.charging = false; player.chargeTicks = 0; player.comboStep = 0; player.bufferAttack = false; emit(state, 'swapWeapon', { playerId: player.id, weapon: player.weapons[slot], from: before }); }
   if (player.stunTicks > 0 || frozen) { player.dashTicks = 0; player.boosting = false; }
   if (player.stunTicks > 0) { player.stunTicks--; player.guarding = false; tickGuard(state, player, emptyInput()); }
   else if (!frozen) { tickGuard(state, player, input); tickDash(state, player, input, previous); tickAbilities(state, player, input, previous); tickWeapon(state, player, input, previous); }

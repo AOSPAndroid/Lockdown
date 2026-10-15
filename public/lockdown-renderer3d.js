@@ -25,6 +25,24 @@ const BEVEL = .1;           // chamfer on the top edges of wall blocks
 const KNIGHT = 1.3;          // knight height as drawn
 const FEET_RING = .3;       // team ring radius under each knight (before scaling)
 const CHARGE_SEGMENTS = 48;
+/** Holsters: where each weapon you are not holding is carried, on the rig part it rides with (`at` is the
+ * grip, `dir` where the weapon points), and the arm pose that reaches it (`reach`: shoulder [roll, yaw, raise],
+ * elbow, and the weapon's pitch). Swords and long guns go on the back, hilt over a shoulder; pistols hang in
+ * hip holsters; bombs ride the belt. */
+const HOLSTERS = Object.freeze({
+  backR: { part: 'chest', at: [-.17, .32, .12], dir: [0, -1, -.62], reach: { arm: [-.3, -.15, 2.8], elbow: 1.9, pitch: -1.95 } },
+  backL: { part: 'chest', at: [-.2, .3, -.12], dir: [0, -1, .62], reach: { arm: [-.1, .55, 2.6], elbow: 1.75, pitch: -1.95 } },
+  hipL: { part: 'hips', at: [-.02, -.02, -.17], dir: [-1, -.55, 0], reach: { arm: [0, .6, .3], elbow: .95, pitch: -1.2 } },
+  hipR: { part: 'hips', at: [.01, -.03, .16], dir: [.15, -1, 0], reach: { arm: [-.15, 0, -.1], elbow: .25, pitch: -1.55 } },
+  hipL2: { part: 'hips', at: [.01, -.03, -.16], dir: [.15, -1, 0], reach: { arm: [0, .5, .15], elbow: .7, pitch: -1.5 } },
+  beltL: { part: 'hips', at: [-.15, 0, -.09], dir: [0, 0, 1], reach: { arm: [-.1, .35, -.25], elbow: 1, pitch: -1 } },
+  beltR: { part: 'hips', at: [-.15, 0, .09], dir: [0, 0, 1], reach: { arm: [-.2, -.1, -.3], elbow: 1, pitch: -1 } },
+});
+const HOLSTER_ORDER = Object.freeze({ blade: ['backR', 'backL', 'hipL'], long: ['backR', 'backL', 'hipL'], pistol: ['hipR', 'hipL2', 'beltR'], bomb: ['beltL', 'beltR', 'hipL'] });
+const LONG_GUNS = new Set(['rifle', 'magnus', 'grimcannon', 'scatter']);
+/** Switching weapons: put the old one away, reach for the new one, pull it out, all in DRAW_MS. Attacking
+ * meanwhile skips straight to the attack (the switch itself is instant in the game). */
+const DRAW_MS = 260, DRAW = Object.freeze({ away: .3, grab: .45 });
 const TRAIL_POINTS = 64;    // samples in the Striker's neon trail // pieces of the charge ring, filled one by one
 const KNIGHT_SCALE = 1.4;   // chunky, readable knights
 
@@ -920,6 +938,24 @@ export class Lockdown3DRenderer {
       else if (family === 'blade') { arm = [-.1, .7, 1.15 + tremble]; elbow = 1.15; pitch = .45; twist = -.3; T.leg_L[2] += .3; T.leg_R[2] -= .25; T.shin_L[2] -= .25; T.shin_R[2] -= .25; }
       else if (family === 'gun') arm[2] += tremble;
     }
+    // The draw: put the old weapon back in its holster, reach the new one, pull it out with a flourish (a sword
+    // comes over the shoulder and up, a gun swings up to aim) and settle into the stance.
+    if (view.draw && action === 'idle' && !player.charging) {
+      const d = view.draw, p = Math.min(1, (now - d.start) / DRAW_MS), stance = { arm: [...arm], elbow, pitch };
+      const reachOf = id => { const socket = HOLSTERS[view.sockets?.[id]]; return id && socket ? { arm: [...socket.reach.arm], elbow: socket.reach.elbow, pitch: socket.reach.pitch } : stance; };
+      const mix = (a, b, t) => ({ arm: a.arm.map((v, i) => lerp(v, b.arm[i], t)), elbow: lerp(a.elbow, b.elbow, t), pitch: lerp(a.pitch, b.pitch, t) });
+      let pose;
+      if (p < DRAW.away) pose = mix(stance, reachOf(d.from), ease(p / DRAW.away));
+      else if (p < DRAW.grab) pose = mix(reachOf(d.from), reachOf(d.to), ease((p - DRAW.away) / (DRAW.grab - DRAW.away)));
+      else {
+        const q = (p - DRAW.grab) / (1 - DRAW.grab), flourish = Math.sin(Math.PI * Math.min(1, q * 1.15)), family2 = WEAPONS[d.to]?.family;
+        pose = mix(reachOf(d.to), stance, easeOut(q));
+        if (family2 === 'blade') { pose.pitch += .9 * flourish; pose.arm[2] += .35 * flourish; }
+        else if (family2 === 'gun') { pose.arm[2] += .6 * flourish; pose.pitch += .35 * flourish; }
+      }
+      arm = pose.arm; elbow = pose.elbow; pitch = pose.pitch; snap = true;
+      twist -= .18 * Math.sin(Math.PI * p); T.head[1] -= .15 * Math.sin(Math.PI * Math.min(1, p / DRAW.grab)); // a glance at the holster
+    }
     if (player.guarding) { T.arm_L = [-.3, 0, 1.35]; T.forearm_L = [0, 0, .55]; twist -= .2; body.z += .06; }
     let dashing = false;
     if (player.dodgeTicks > 0) {
@@ -972,6 +1008,48 @@ export class Lockdown3DRenderer {
     return facing;
   }
   /** A dash afterimage: a see-through copy of the knight in its current pose, in team colour, fading out. */
+  /** Every weapon you carry is on you: the selected one in your fist, the rest in their holsters. Switching
+   * plays the draw: the old weapon goes back to its holster, the hand reaches the new one and pulls it out. */
+  updateWeapons(view, player, now) {
+    const held = player.weapons?.[player.slot] || null, loadout = (player.weapons || []).filter(Boolean);
+    view.models ||= new Map();
+    // Models for the whole loadout, and a holster for each, in loadout order.
+    const key = loadout.join('|');
+    if (view.loadoutKey !== key) {
+      view.loadoutKey = key;
+      for (const [id, model] of view.models) if (!loadout.includes(id)) { model.parent?.remove(model); view.models.delete(id); }
+      for (const id of loadout) if (!view.models.has(id)) { const model = this.makeWeapon(id); view.models.set(id, model); model.traverse(node => { if (node.material) view.materials.push(node.material); }); }
+      const taken = new Set(); view.sockets = {};
+      for (const id of loadout) {
+        const family = WEAPONS[id]?.family, kind = family === 'gun' ? (LONG_GUNS.has(id) ? 'long' : 'pistol') : family === 'bomb' ? 'bomb' : 'blade';
+        const socket = [...HOLSTER_ORDER[kind], ...Object.keys(HOLSTERS)].find(name => !taken.has(name)); taken.add(socket); view.sockets[id] = socket;
+      }
+    }
+    if (held !== view.weaponId) {
+      // From nothing in hand (a fresh knight, an empty slot), skip putting anything away.
+      const from = view.models.has(view.weaponId) ? view.weaponId : null;
+      view.draw = { from, to: held, start: from ? now : now - DRAW.away * DRAW_MS };
+      view.weaponId = held;
+    }
+    let p = view.draw ? (now - view.draw.start) / DRAW_MS : 1;
+    // Attacking, charging or guarding cuts the draw short: the new weapon is simply in hand.
+    if (view.draw && (p >= 1 || player.action !== 'idle' || player.charging || player.guarding || !player.alive)) { view.draw = null; p = 1; }
+    const inHand = !view.draw ? held : p < DRAW.away ? view.draw.from : p < DRAW.grab ? null : view.draw.to;
+    view.weapon = null;
+    for (const [id, model] of view.models) {
+      if (id === inHand) {
+        if (model.parent !== view.hand) view.hand.add(model);
+        model.position.set(0, 0, 0); model.quaternion.identity(); view.weapon = model;
+      } else {
+        const socket = HOLSTERS[view.sockets[id]], part = view.parts[socket.part] || view.body;
+        if (model.parent !== part || model.userData.socket !== view.sockets[id]) {
+          part.add(model); model.userData.socket = view.sockets[id];
+          model.position.set(...socket.at); model.quaternion.setFromUnitVectors(new THREE.Vector3(1, 0, 0), new THREE.Vector3(...socket.dir).normalize());
+        }
+      }
+    }
+    return held;
+  }
   ghost(view, player, now) {
     const tint = colour(TEAM_COLORS[player.team]?.main || '#ffffff').multiplyScalar(.55), material = new THREE.MeshBasicMaterial({ color: tint, transparent: true, opacity: .3, depthWrite: false });
     const copy = new THREE.Group(); copy.position.copy(view.group.position); copy.rotation.copy(view.group.rotation);
@@ -982,9 +1060,7 @@ export class Lockdown3DRenderer {
   updateKnight(view, player, map, now, viewer) {
     const x = player.x * U, z = player.y * U, ground = levelAt(map, player.x, player.y) * STOREY, parts = view.parts;
     view.group.position.set(x, ground, z);
-    // Weapon in hand follows the selected slot.
-    const weaponId = player.weapons?.[player.slot] || null;
-    if (weaponId !== view.weaponId) { if (view.weapon) view.hand.remove(view.weapon); view.weaponId = weaponId; view.weapon = this.makeWeapon(weaponId); view.hand.add(view.weapon); view.weapon.traverse(node => { if (node.material) view.materials.push(node.material); }); }
+    const weaponId = this.updateWeapons(view, player, now);
     const weapon = WEAPONS[weaponId], facing = this.animateKnight(view, player, weapon, now);
     const chargeLevel = player.charging && weapon ? Math.min(1, player.chargeTicks / Math.max(1, chargeTicksFor(player, weapon))) : 0;
     // A charge glows on the weapon and burns gold when it is ready; Boost leaves a streak.
@@ -1453,7 +1529,7 @@ export class KnightPreview {
   }
 }
 // The preview is a small stage of its own that reuses the arena renderer's knight, weapon and effect code.
-for (const name of ['makeKnight', 'knightKey', 'attachGear', 'knightRig', 'classMarks', 'makeWeapon', 'temporaryWeapon', 'animateKnight', 'updateKnight', 'ghost', 'addEffect', 'burst', 'updateEffects']) {
+for (const name of ['makeKnight', 'knightKey', 'attachGear', 'knightRig', 'classMarks', 'makeWeapon', 'temporaryWeapon', 'updateWeapons', 'animateKnight', 'updateKnight', 'ghost', 'addEffect', 'burst', 'updateEffects']) {
   if (!Lockdown3DRenderer.prototype[name]) throw new Error(`KnightPreview needs Lockdown3DRenderer.${name}`);
   KnightPreview.prototype[name] = Lockdown3DRenderer.prototype[name];
 }

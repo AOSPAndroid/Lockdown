@@ -1122,3 +1122,16 @@ test('1v1 and 2v2: bots fill each side to the size, the rest sit out, and the mi
   // The lobby keeps the size into the next match.
   L.resetLobby(crowd); assert.equal(crowd.teamSize, 2);
 });
+
+test('a weapon switch pressed mid-swing is remembered and happens the moment the swing ends', () => {
+  const { state, me } = duel({ gap: 300, a: { cls: 'recon' } });
+  run(state, 1, () => ({ 0: { attack: true } }));
+  assert.equal(me.action, 'swing');
+  run(state, 1, () => ({ 0: { slot2: true } })); // a whiff in the making: no swap cancel
+  assert.equal(me.slot, 0, 'still swinging');
+  assert.equal(me.pendingSlot, 1);
+  let t = 0; while (me.action === 'swing' && t++ < 400) run(state, 1);
+  run(state, 1);
+  assert.equal(me.slot, 1, 'switched as soon as the swing was over');
+  assert.equal(events(state, 'swapWeapon').at(-1).from, me.weapons[0]);
+});
