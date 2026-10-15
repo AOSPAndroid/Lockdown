@@ -67,7 +67,7 @@ class ModelLibrary {
 const CALLOUTS = Object.freeze({
   counter: ['COUNTER', '#ffb347', 'target'], riposte: ['RIPOSTE', '#ffe680', 'target'], perfectDodge: ['PERFECT', '#9ff0ff', 'player'],
   clash: ['CLASH', '#ffffff', 'player'], steady: ['STEADY', '#c9d6ff', 'player'], interrupt: ['INTERRUPTED', '#ff8a7a', 'player'],
-  whiff: ['MISS', '#b8b8b8', 'player'], punish: ['PUNISH', '#ff7a4a', 'target'], clean: ['CLEAN', '#ffffff', 'target'], graze: ['GRAZE', '#9a9a9a', 'target'], combo: ['COMBO', '#ffd34a', 'target'], critical: ['CRITICAL', '#ff5a5a', 'target'], parry: ['PARRY', '#9fd8ff', 'player'],
+  whiff: ['MISS', '#b8b8b8', 'player'], punish: ['PUNISH', '#ff7a4a', 'target'], clean: ['CLEAN', '#ffffff', 'target'], graze: ['GRAZE', '#9a9a9a', 'target'], combo: ['COMBO', '#ffd34a', 'target'], feinted: ['FEINT', '#c9a2ff', 'target'], critical: ['CRITICAL', '#ff5a5a', 'target'], parry: ['PARRY', '#9fd8ff', 'player'],
   followUp: ['FOLLOW-UP', '#ffcf4a', 'target'], reel: ['REELING', '#ffe08a', 'target'], sweetSpot: ['TIP', '#ffe680', 'target'], ambush: ['AMBUSH', '#d29bff', 'target'],
   guardBreak: ['GUARD BREAK', '#ffffff', 'player'], evade: ['DODGE', '#ffffff', 'player'],
 });
@@ -1048,7 +1048,9 @@ export class Lockdown3DRenderer {
   }
   updatePoints(state, now) {
     for (const view of this.pointViews || []) {
-      const point = state.points.find(p => p.id === view.point.id) || view.point, owner = point.owner ?? null, progress = (point.progress || 0) / 100;
+      // 1v1 and 2v2 play the middle zone alone: the other zones are hidden.
+      const live = state.points.find(p => p.id === view.point.id); view.view.visible = !!live || !state.points.length; if (!live && state.points.length) continue;
+      const point = live || view.point, owner = point.owner ?? null, progress = (point.progress || 0) / 100;
       const ownColour = owner === null ? colour('#c8d8ff') : colour(TEAM_COLORS[owner].main);
       view.crystalMat.emissive.copy(ownColour); view.crystalMat.color.copy(ownColour).lerp(colour('#ffffff'), .5);
       view.crystalGlow.material.color.copy(ownColour); view.light.color.copy(ownColour);

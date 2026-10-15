@@ -86,7 +86,7 @@ export function createServer(options = {}) {
       players: Array(Lockdown.CAPACITY).fill(null), slots: Array(Lockdown.CAPACITY).fill(null), acks: Array(Lockdown.CAPACITY).fill(-1), lastBroadcastTick: -12,
     };
   }
-  const roomSettings = room => ({ capacity: room.capacity, mapId: room.mapId, mapName: room.mapName, hostId: room.hostId });
+  const roomSettings = room => ({ capacity: room.capacity, mapId: room.mapId, mapName: room.mapName, hostId: room.hostId, teamSize: room.state.teamSize });
   const summary = room => ({ id: room.id, gameId: room.gameId, name: room.name, ...roomSettings(room), players: room.players, phase: room.state.phase, createdAt: room.createdAt });
   function reapRooms(now = Date.now()) {
     for (const [id, room] of rooms) {
@@ -219,6 +219,9 @@ export function createServer(options = {}) {
     if (!/^[A-Z0-9]{6}$/.test(roomId) || !room) { error(ws, 'This room does not exist or has expired. Go back to the start page to create a new room.'); ws.close(4404, 'Room not found'); return; }
     let id = room.slots.findIndex(slot => slot === null);
     if (id === -1) { error(ws, `This room already has ${room.capacity} players.`); ws.close(4403, 'Room full'); return; }
+    // A 1v1 or 2v2 room takes only as many people as the mode has places.
+    const size = room.state.teamSize || Lockdown.TEAM_SIZE;
+    if (room.state.players.filter(player => player.human).length >= size * 2) { error(ws, `This room is set to ${size}v${size} and is full.`); ws.close(4403, 'Room full'); return; }
     const slot = { id, ws, queue: [], buttons: neutralInput(), lastAccepted: -1, lastInputTime: performance.now(), alive: true, rateWindow: performance.now(), messages: 0 };
     room.slots[id] = slot; occupied.add(room); startTicker();
     room.players[id] = { name: `Player ${id + 1}`, connected: true, ready: false };
@@ -275,6 +278,12 @@ export function createServer(options = {}) {
         const result = Lockdown.selectMap(state, data.mapId);
         if (!result.ok) { error(ws, result.error); return; }
         room.mapId = data.mapId; room.mapName = Lockdown.MAPS[data.mapId].name; broadcast(room);
+      } else if (data.type === 'lockdown-mode') {
+        if (id !== room.hostId) { error(ws, 'Only the room host can change the mode.'); return; }
+        if (Object.keys(data).some(key => !['type', 'teamSize'].includes(key))) { error(ws, 'Choose 1v1, 2v2 or 4v4.'); return; }
+        const result = Lockdown.selectTeamSize(state, data.teamSize);
+        if (!result.ok) { error(ws, result.error); return; }
+        broadcast(room);
       } else if (data.type === 'ping') {
         if (typeof data.time !== 'number' || !Number.isFinite(data.time)) { error(ws, 'Invalid ping timestamp.'); return; }
         send(ws, { type: 'pong', time: data.time });

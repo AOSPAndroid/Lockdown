@@ -514,6 +514,13 @@ function buildMenu() {
   $('ld-armory-open').addEventListener('click', () => openArmory(null));
   $('ld-armory-close').addEventListener('click', () => closeArmory());
   for (const tab of document.querySelectorAll('[data-family]')) tab.addEventListener('click', () => { armory.family = tab.dataset.family; renderArmory(); });
+  const sizeSelect = $('ld-size');
+  for (const size of Engine.TEAM_SIZES) sizeSelect.append(new Option(`${Engine.MODE_RULES[size].label}${size === 4 ? ' · three zones' : ' · middle zone'}`, String(size)));
+  sizeSelect.addEventListener('change', () => {
+    const size = Number(sizeSelect.value);
+    if (solo) { const result = Engine.selectTeamSize(state, size); if (!result.ok) setStatus(result.error); renderMenu(); }
+    else send({ type: 'lockdown-mode', teamSize: size });
+  });
   const mapSelect = $('ld-map');
   for (const id of MAP_IDS) mapSelect.append(new Option(MAPS[id].name, id));
   mapSelect.addEventListener('change', () => {
@@ -531,8 +538,7 @@ function buildMenu() {
   $('ld-copy').addEventListener('click', async () => {
     try { await navigator.clipboard.writeText(location.href); setStatus('Invite link copied.'); } catch { setStatus(location.href, true); }
   });
-  if (!solo) { $('ld-room-box').hidden = false; $('ld-room-code').textContent = roomId; $('ld-mode').textContent = 'ONLINE ROOM · UP TO 4V4'; }
-  else $('ld-mode').textContent = 'PRACTICE · YOU + 7 BOTS';
+  if (!solo) { $('ld-room-box').hidden = false; $('ld-room-code').textContent = roomId; }
 }
 function buildGearCards() {
   const list = $('ld-armors'); list.textContent = ''; list.setAttribute('aria-label', GEAR_LABELS[gearTab]);
@@ -770,6 +776,9 @@ function renderMenu() {
   const isHost = solo || hostId === localId;
   const mapId = state?.mapId ?? soloMapId;
   $('ld-map').value = mapId; $('ld-map').disabled = !isHost || phase !== 'lobby';
+  const size = state?.teamSize || 4, sizeLabel = Engine.MODE_RULES[size].label.toUpperCase();
+  $('ld-size').value = String(size); $('ld-size').disabled = !isHost || phase !== 'lobby'; $('ld-size-field').hidden = !!dojo;
+  $('ld-mode').textContent = dojo ? 'DOJO · TRAINING' : solo ? `PRACTICE · ${sizeLabel} · YOU + ${size * 2 - 1} BOT${size * 2 - 1 === 1 ? '' : 'S'}` : `ONLINE ROOM · ${sizeLabel}`;
   $('ld-map-note').textContent = `${MAPS[mapId].description}${isHost ? '' : ' The host picks the map.'}`;
   const start = $('ld-start');
   start.textContent = phase === 'matchEnd' ? (solo ? 'New match' : 'Back to the lobby') : 'Start match';
@@ -780,7 +789,9 @@ function renderMenu() {
   $('ld-resume').textContent = dojo ? 'Train' : 'Back to the fight';
   // Roster: everyone in seat order, bots greyed.
   const roster = $('ld-roster'); roster.textContent = '';
-  for (const player of state?.players ?? []) {
+  // In the lobby, the seats the mode will play; in a match, everyone in it.
+  const seats = state?.teamSize || 4, playing = player => state.phase === 'lobby' ? player.human || state.players.filter(other => other.team === player.team && (other.human || other.id < player.id)).length < seats : !player.benched || player.human;
+  for (const player of (state?.players ?? []).filter(player => playing(player))) {
     const item = document.createElement('li');
     item.className = `t${player.team}${player.human ? '' : ' bot'}`;
     item.textContent = `${player.human ? player.name : 'Bot'}${player.id === localId ? ' (you)' : ''}${player.id === hostId && !solo ? ' ★' : ''} · ${CLASSES[player.cls].name}`;

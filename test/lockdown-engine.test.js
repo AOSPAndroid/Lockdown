@@ -1074,3 +1074,51 @@ test('Frostbite, Blazebrand and the Knight Brand each have their own string; a f
   assert.ok(hits.length >= 2, `both strokes land (${hits.length})`);
   assert.ok(before - fight.foe.hp > hits[0] * 1.5);
 });
+
+test('fake charge: let go of a charge early and a normal attack comes out; a knight who dashed away gets caught', () => {
+  const { FIGHT } = L;
+  // Hold through the first cut into a charge, let go early: the next cut comes out at once.
+  const hold = (extra, dashFoe = false) => {
+    const fight = duel({ gap: 50, a: { cls: 'recon' }, b: { hp: 1e4, maxHp: 1e4, domeHp: 0, domeBroken: true } });
+    let t = 0; while (!fight.me.charging && t++ < 300) run(fight.state, 1, () => ({ 0: { attack: true } }));
+    const swings = events(fight.state, 'swing').length, spot = { x: fight.foe.x, y: fight.foe.y };
+    run(fight.state, extra, k => ({ 0: { attack: true }, 4: { dash: dashFoe && k === 2, right: dashFoe } }));
+    if (dashFoe) Object.assign(fight.foe, spot, { stunTicks: 0 }); // they dashed off, and came back into reach
+    run(fight.state, 40, () => ({ 0: { attack: false } }));
+    return { fight, cuts: events(fight.state, 'swing').length - swings };
+  };
+  assert.equal(hold(FIGHT.feint.minHold + 10).cuts, 1, 'a feint throws a normal cut');
+  assert.equal(hold(FIGHT.feint.minHold - 5).cuts, 0, 'a twitch is not a feint');
+  const baited = hold(FIGHT.feint.minHold + 20, true).fight;
+  assert.equal(events(baited.state, 'feinted').length, 1, 'FEINT: they dashed away from a charge that never came');
+});
+
+test('1v1 and 2v2: bots fill each side to the size, the rest sit out, and the middle zone scores double', () => {
+  for (const size of [1, 2]) {
+    const state = L.createState({ mapId: 'temple', seed: 3 });
+    L.setConnected(state, 0, true, 'Ada');
+    assert.equal(L.selectTeamSize(state, size).ok, true);
+    L.startMatch(state, [0]);
+    const fighting = state.players.filter(player => !player.benched);
+    assert.equal(fighting.length, size * 2, `${size}v${size}`);
+    for (const team of [0, 1]) assert.equal(fighting.filter(player => player.team === team).length, size);
+    assert.ok(fighting.includes(state.players[0]), 'the person plays');
+    assert.ok(state.players.filter(player => player.benched).every(player => !player.alive));
+    assert.deepEqual(state.points.map(point => point.id), ['B']);
+    // Hold the middle: twice what one zone of three is worth.
+    Object.assign(state, { phase: 'fight', phaseTicks: 0 }); state.points[0].owner = 0; state.scoreTimer = 1;
+    run(state, 1);
+    assert.equal(state.scores[0], L.MODE_RULES[size].scoreTable[1]);
+    assert.ok(L.MODE_RULES[size].scoreTable[1] === L.RULES.scoreTable[1] * 2);
+    // Bots never leave the bench mid-match.
+    run(state, 600);
+    assert.ok(state.players.filter(player => player.benched).every(player => !player.alive));
+  }
+  // Too many people for the size.
+  const crowd = L.createState({ mapId: 'temple' });
+  for (const id of [0, 1, 4]) L.setConnected(crowd, id, true, `P${id}`);
+  assert.equal(L.selectTeamSize(crowd, 1).ok, false);
+  assert.equal(L.selectTeamSize(crowd, 2).ok, true);
+  // The lobby keeps the size into the next match.
+  L.resetLobby(crowd); assert.equal(crowd.teamSize, 2);
+});

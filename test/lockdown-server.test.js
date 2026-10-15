@@ -136,3 +136,23 @@ test('online rooms cannot be opened on the Dojo training map', async t => {
   const keep = await game.make({ mapId: 'keep' });
   assert.equal(keep.response.status, 201);
 });
+
+test('a host can set the room to 1v1: only two people fit, and the match is one knight a side', async t => {
+  const game = await host(t);
+  const { body } = await game.make({ name: 'Duel' });
+  const room = game.app.rooms.get(body.room.id);
+  const { peer: first } = await game.peer(body.room.id, 'Ada');
+  const { peer: second } = await game.peer(body.room.id, 'Bo');
+  await expectError(second, { type: 'lockdown-mode', teamSize: 1 }, /host/i);
+  await expectError(first, { type: 'lockdown-mode', teamSize: 3 }, /1v1, 2v2 or 4v4/);
+  first.send({ type: 'lockdown-mode', teamSize: 1 }); await flush(first);
+  assert.equal(room.state.teamSize, 1);
+  // A third person is turned away.
+  const third = new Peer(`${game.origin.replace('http:', 'ws:')}/ws?room=${body.room.id}`);
+  t.after(() => third.socket.terminate());
+  const refusal = await third.waitFor(message => message.type === 'error'); assert.match(refusal.message, /1v1 and is full/);
+  first.send({ type: 'start' }); await flush(first);
+  const fighting = room.state.players.filter(player => !player.benched);
+  assert.equal(fighting.length, 2); assert.deepEqual(fighting.map(player => player.team).sort(), [0, 1]);
+  assert.deepEqual(room.state.points.map(point => point.id), ['B']);
+});

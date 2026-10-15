@@ -441,6 +441,11 @@ export const FIGHT = Object.freeze({
   perfect: Object.freeze({ window: 90, damage: 1.3, dashRefund: .6 }),
   stagger: Object.freeze({ limit: 54, drainPerTick: .4, steadyTicks: 72 }),
   clash: Object.freeze({ push: 240, stun: 12, hitStop: 6 }),
+  // Fake charge (as in Spiral Knights PvP): let go of a charge early, after at least `minHold` ticks of showing
+  // it, and a normal attack comes out at once (the next cut of the combo, or a shot). If the knight you baited
+  // dashed away from the charge meanwhile, the feint's first hit within `window` ticks lands `damage` harder and
+  // stuns `stun` longer: their dash is spent.
+  feint: Object.freeze({ minHold: 10, window: 60, damage: 1.25, stun: 1.5 }),
 });
 export const BLOOM = Object.freeze({ perShot: .07, max: .32, settlePerSecond: .3 });
 

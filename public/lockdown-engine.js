@@ -11,6 +11,16 @@ export const TICK_RATE = 120;
 const DT = 1 / TICK_RATE;
 export const TEAM_SIZE = 4;
 export const CAPACITY = TEAM_SIZE * 2;
+/** Match sizes. 4v4 is Lockdown proper over three zones; 2v2 and 1v1 fight over the middle zone alone, which
+ * scores twice as fast so a match lasts about as long. Seats past the size sit the match out. */
+export const TEAM_SIZES = Object.freeze([1, 2, 4]);
+export const MODE_RULES = Object.freeze({
+  1: Object.freeze({ label: '1v1', points: Object.freeze(['B']), scoreTable: Object.freeze([0, 10]) }),
+  2: Object.freeze({ label: '2v2', points: Object.freeze(['B']), scoreTable: Object.freeze([0, 10]) }),
+  4: Object.freeze({ label: '4v4', points: null, scoreTable: null }),
+});
+const modeOf = state => MODE_RULES[state.teamSize] || MODE_RULES[TEAM_SIZE];
+const activePoints = (map, teamSize) => map.points.filter(point => !MODE_RULES[teamSize]?.points || MODE_RULES[teamSize].points.includes(point.id)).map(point => ({ id: point.id, x: point.x, y: point.y, progress: 0, owner: null }));
 /** `ability` is the class ability (right mouse): Striker Boost, Guardian shield (hold), Recon Cloak.
  * `dash` (Space) is the quick dash every knight has. */
 export const INPUT_KEYS = Object.freeze(['up', 'down', 'left', 'right', 'attack', 'ability', 'dash', 'slot1', 'slot2', 'slot3', 'slot4', 'swap']);
@@ -100,13 +110,14 @@ function newPlayer(id) {
   };
 }
 
-export function createState({ mapId = MAP_IDS[0], seed = 1 } = {}) {
+export function createState({ mapId = MAP_IDS[0], seed = 1, teamSize = TEAM_SIZE } = {}) {
   if (!Object.hasOwn(MAPS, mapId)) throw new RangeError('Unknown Lockdown map.');
   const map = MAPS[mapId];
+  if (map.training || !TEAM_SIZES.includes(teamSize)) teamSize = TEAM_SIZE;
   return {
-    gameId: 'lockdown', mapId, mapName: map.name, mode: map.training ? 'dojo' : 'match', tick: 0, phase: 'lobby', phaseTicks: 0, seed: seed >>> 0 || 1,
+    gameId: 'lockdown', mapId, mapName: map.name, mode: map.training ? 'dojo' : 'match', tick: 0, phase: 'lobby', phaseTicks: 0, seed: seed >>> 0 || 1, teamSize,
     scores: [0, 0], winner: null, timeLeftTicks: RULES.timeLimitTicks, scoreTimer: RULES.scoreIntervalTicks,
-    points: map.points.map(point => ({ id: point.id, x: point.x, y: point.y, progress: 0, owner: null })),
+    points: activePoints(map, teamSize),
     players: Array.from({ length: CAPACITY }, (_, id) => newPlayer(id)),
     projectiles: [], bombs: [], clouds: [], pickups: [], events: [], eventId: 0, nextId: 1,
   };
@@ -183,7 +194,7 @@ export function setPlayerSetup(state, id, { team, cls, armor, helmet, pants, sho
     weapons = normalLoadout(weapons);
   }
   if (team !== undefined && ![0, 1].includes(team)) return { ok: false, error: 'Choose a team.' };
-  if (team !== undefined && team !== player.team && state.players.filter(other => other.human && other.team === team).length >= TEAM_SIZE) return { ok: false, error: 'That team is full.' };
+  if (team !== undefined && team !== player.team && state.players.filter(other => other.human && other.team === team).length >= (state.teamSize || TEAM_SIZE)) return { ok: false, error: 'That team is full.' };
   if (team !== undefined) player.team = team;
   if (inMatch && player.alive) {
     // Swapping in base keeps your health fraction and drops any action in progress.
@@ -227,21 +238,27 @@ export function setConnected(state, id, connected, name) {
   }
   if (player.human && typeof name === 'string') player.name = name.slice(0, 24);
   // A person never lands on a team that already has four people.
-  if (joining && state.players.filter(other => other !== player && other.human && other.team === player.team).length >= TEAM_SIZE) player.team = 1 - player.team;
+  if (joining && state.players.filter(other => other !== player && other.human && other.team === player.team).length >= (state.teamSize || TEAM_SIZE)) player.team = 1 - player.team;
   if (!player.human) player.name = `Bot ${id + 1}`;
 }
 
 /** Humans keep their seats; every other seat becomes a bot, balanced to four per team. */
 export function startMatch(state, participantIds = []) {
-  const humans = new Set(participantIds);
-  for (const player of state.players) { player.human = humans.has(player.id); player.bot = !player.human; player.connected = player.human || player.connected && player.human; }
-  for (const team of [0, 1]) {
-    let count = state.players.filter(player => player.team === team).length;
-    for (const bot of state.players.filter(player => player.bot)) {
-      if (count <= TEAM_SIZE) break;
-      if (bot.team === team) { bot.team = 1 - team; count--; }
-    }
+  const humans = new Set(participantIds), size = state.teamSize || TEAM_SIZE;
+  for (const player of state.players) { player.human = humans.has(player.id); player.bot = !player.human; player.connected = player.human || player.connected && player.human; player.benched = false; }
+  // People past the mode's size on one team cross over while the other has room; any still left over watch.
+  for (const team of [0, 1]) for (const extra of state.players.filter(player => player.human && player.team === team).slice(size)) {
+    if (state.players.filter(player => player.human && player.team === 1 - team).length < size) extra.team = 1 - team;
   }
+  // Bots fill each team up to the size, keeping their own team where they can; every other seat sits out.
+  const free = state.players.filter(player => player.bot), used = new Set();
+  for (const team of [0, 1]) {
+    const people = state.players.filter(player => player.human && player.team === team);
+    for (const watcher of people.slice(size)) watcher.benched = true;
+    const picks = free.filter(bot => !used.has(bot)).sort((a, b) => (a.team !== team) - (b.team !== team)).slice(0, Math.max(0, size - people.length));
+    for (const bot of picks) { bot.team = team; used.add(bot); }
+  }
+  for (const bot of free) if (!used.has(bot)) bot.benched = true;
   Object.assign(state, { phase: 'countdown', phaseTicks: RULES.countdownTicks, scores: [0, 0], winner: null, timeLeftTicks: RULES.timeLimitTicks, scoreTimer: RULES.scoreIntervalTicks, projectiles: [], bombs: [], clouds: [], pickups: [] });
   for (const point of state.points) { point.progress = 0; point.owner = null; }
   for (const player of state.players) {
@@ -255,7 +272,7 @@ export function startMatch(state, participantIds = []) {
       for (const slot of ['helmet', 'pants', 'shoes']) { const ids = Object.keys(GEAR[slot]).filter(id => !GEAR[slot][id].walk?.length); player[slot] = ids[Math.floor(random(state) * ids.length)]; }
     }
     Object.assign(player, { kills: 0, deaths: 0, captures: 0, damage: 0, score: 0 });
-    spawn(state, player);
+    if (player.benched) Object.assign(player, { alive: false, respawnTicks: 0 }); else spawn(state, player);
   }
   if (isDojo(state)) setupDojo(state);
   emit(state, 'matchStart', { mapId: state.mapId });
@@ -293,7 +310,7 @@ export function setDojoSpar(state, on) {
 
 export function resetLobby(state) {
   const keep = state.players.map(player => ({ team: player.team, cls: player.cls, armor: player.armor, helmet: player.helmet, pants: player.pants, shoes: player.shoes, weapons: player.weapons, hearts: Array(SLOT_COUNT).fill(0), name: player.name, human: player.human, connected: player.connected }));
-  const fresh = createState({ mapId: state.mapId, seed: state.seed });
+  const fresh = createState({ mapId: state.mapId, seed: state.seed, teamSize: state.teamSize });
   Object.assign(state, fresh, { tick: state.tick, eventId: state.eventId });
   state.players.forEach((player, id) => Object.assign(player, keep[id], { bot: !keep[id].human, maxHp: maxHpFor(keep[id].cls, keep[id]), hp: maxHpFor(keep[id].cls, keep[id]) }));
   return state;
@@ -304,7 +321,16 @@ export function selectMap(state, mapId) {
   if (MAPS[mapId].training || isDojo(state)) return { ok: false, error: 'The Dojo is for solo training.' };
   if (state.phase !== 'lobby') return { ok: false, error: 'Change the map in the lobby.' };
   const map = MAPS[mapId];
-  Object.assign(state, { mapId, mapName: map.name, points: map.points.map(point => ({ id: point.id, x: point.x, y: point.y, progress: 0, owner: null })) });
+  Object.assign(state, { mapId, mapName: map.name, points: activePoints(map, state.teamSize) });
+  return { ok: true };
+}
+/** 1v1, 2v2 or 4v4, chosen in the lobby. */
+export function selectTeamSize(state, size) {
+  if (!TEAM_SIZES.includes(size)) return { ok: false, error: 'Choose 1v1, 2v2 or 4v4.' };
+  if (isDojo(state)) return { ok: false, error: 'The Dojo is for solo training.' };
+  if (state.phase !== 'lobby') return { ok: false, error: 'Change the mode in the lobby.' };
+  if (state.players.filter(player => player.human).length > size * 2) return { ok: false, error: `Too many people here for ${MODE_RULES[size].label}.` };
+  Object.assign(state, { teamSize: size, points: activePoints(MAPS[state.mapId], size) });
   return { ok: true };
 }
 
@@ -535,6 +561,10 @@ function damage(state, attacker, target, amount, { push = 0, angle = 0, stun = 1
   } else if (direct && exposed(target)) {
     total *= FIGHT.counter.damage; stun = Math.round(stun * FIGHT.counter.stun);
     emit(state, 'counter', { playerId: attacker.id, targetId: target.id, x: target.x, y: target.y });
+  } else if (direct && attacker.feintTicks > 0 && target.lastDashTick >= attacker.feintFrom) {
+    // They bit: dashed away from a charge that was never coming, and the real attack catches them.
+    total *= FIGHT.feint.damage; stun = Math.round(stun * FIGHT.feint.stun); attacker.feintTicks = 0;
+    emit(state, 'feinted', { playerId: attacker.id, targetId: target.id, x: target.x, y: target.y });
   }
   // Riposte: the first hit after a perfect dodge.
   if (direct && attacker.riposteTicks > 0) {
@@ -889,6 +919,7 @@ function tickWeapon(state, player, input, previous) {
     if (player.burst.timer-- <= 0) { fireVolley(state, player, gun, gun.charge, 1, gun.charge.spread, true); player.burst.timer = gun.charge.every; if (--player.burst.remaining <= 0) player.burst = null; }
   }
   if (player.comboWindow > 0 && --player.comboWindow === 0) player.comboStep = 0;
+  if (player.feintTicks > 0) player.feintTicks--;
   if (player.heartUse > 0) player.heartUse--;
   if (weapon === HANDS) { if (pressed) useHeart(state, player); return; }
   if (player.actionTicks > 0) {
@@ -907,13 +938,17 @@ function tickWeapon(state, player, input, previous) {
   // Holding the button charges; a full charge releases the special on let-go.
   if (input.attack && (player.charging || !pressed && weapon.family !== 'bomb')) { if (!player.charging) { player.charging = true; player.chargeTicks = 0; } player.chargeTicks++; }
   if (weapon.family === 'bomb' && pressed) { player.charging = true; player.chargeTicks = 0; }
+  let feint = false;
   if (released && player.charging) {
-    const full = player.chargeTicks >= chargeTicksFor(player, weapon);
+    const held = player.chargeTicks, full = held >= chargeTicksFor(player, weapon);
     player.charging = false; player.chargeTicks = 0;
-    if (full) startCharge(state, player, weapon);
-    return;
+    if (full) { startCharge(state, player, weapon); return; }
+    // A fake charge: shown long enough to bait, then let go early for a normal attack straight away.
+    if (weapon.family === 'bomb' || held < FIGHT.feint.minHold) return;
+    feint = true; player.feintTicks = FIGHT.feint.window; player.feintFrom = state.tick - held;
+    emit(state, 'feint', { playerId: player.id, x: player.x, y: player.y, weapon: weapon.id });
   }
-  if (!pressed || weapon.family === 'bomb') return;
+  if (!(pressed || feint) || weapon.family === 'bomb') return;
   if (weapon.family === 'blade') { startSwing(state, player, weapon); return; }
   if (player.fireCooldown > 0) return;
   if (!(player.clips[weapon.id] > 0)) { if (!(player.reloadTicks[weapon.id] > 0)) player.reloadTicks[weapon.id] = weapon.reload; emit(state, 'dryFire', { playerId: player.id, weapon: weapon.id }); return; }
@@ -939,6 +974,7 @@ function tickDash(state, player, input, previous) {
   const length = Math.hypot(dx, dy), rule = RULES.dash, outfit = outfitOf(player), weight = outfit.speedMultiplier;
   Object.assign(player, { perfectUsed: false, dodgeX: dx / length, dodgeY: dy / length, dodgeTicks: rule.ticks, dodgeStep: rule.distance * weight * weight * outfit.dashDistance / rule.ticks, evadeTicks: Math.max(player.evadeTicks, rule.evadeTicks), dashCooldown: Math.round(rule.cooldown * outfit.dashCooldown) });
   player.reelTicks = 0; // a dash shakes off a reel
+  player.lastDashTick = state.tick; // a feint can catch a knight who dashed away from a charge that never came
   emit(state, 'dodge', { playerId: player.id, x: player.x, y: player.y, angle: Math.atan2(player.dodgeY, player.dodgeX) });
 }
 function tickAbilities(state, player, input, previous) {
@@ -1212,7 +1248,7 @@ function tickPoints(state) {
   }
   if (--state.scoreTimer <= 0) {
     state.scoreTimer = RULES.scoreIntervalTicks;
-    for (const team of [0, 1]) state.scores[team] += RULES.scoreTable[Math.min(3, state.points.filter(point => point.owner === team).length)] || 0;
+    for (const team of [0, 1]) state.scores[team] += (modeOf(state).scoreTable || RULES.scoreTable)[Math.min(3, state.points.filter(point => point.owner === team).length)] || 0;
     emit(state, 'scoreTick', { scores: [...state.scores] });
   }
 }
@@ -1351,8 +1387,10 @@ function botInput(state, bot) {
     if (!bot.charging && brain.mode !== 'charge' && weapon.family !== 'bomb' && random(state) < .006) brain.mode = 'charge';
     if (weapon.family === 'bomb' || brain.mode === 'charge') {
       const full = bot.charging && bot.chargeTicks >= chargeTicksFor(bot, weapon);
-      input.attack = !full;
-      if (full) brain.mode = 'tap';
+      // Skilled bots sometimes fake it: show the charge close up, then let go early for a normal attack.
+      const feint = weapon.family !== 'bomb' && bot.charging && !full && bot.chargeTicks > FIGHT.feint.minHold * 2 && d < 110 && random(state) < (brain.skill || .5) * .03;
+      input.attack = !full && !feint;
+      if (full || feint) brain.mode = 'tap';
     } else if (weapon.family === 'blade') {
       // Swords: cut only when the target is in reach (whiffs are punished), and jump on a committed enemy.
       const reach = weapon.combo[bot.comboStep]?.reach ?? weapon.combo[0].reach, inReach = d <= reach + RULES.radius + 6;
@@ -1448,6 +1486,6 @@ function dummyInput(state, bot, input) {
 }
 
 export function getScoreboard(state) {
-  return state.players.map(player => ({ id: player.id, name: player.name, team: player.team, cls: player.cls, human: player.human, score: player.score, kills: player.kills, deaths: player.deaths, captures: player.captures, damage: Math.round(player.damage) }))
+  return state.players.filter(player => !player.benched || player.human).map(player => ({ id: player.id, name: player.name, team: player.team, cls: player.cls, human: player.human, score: player.score, kills: player.kills, deaths: player.deaths, captures: player.captures, damage: Math.round(player.damage) }))
     .sort((a, b) => a.team - b.team || b.score - a.score || b.kills - a.kills || b.damage - a.damage);
 }
