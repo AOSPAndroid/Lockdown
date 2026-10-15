@@ -1,6 +1,6 @@
 # Instructions for agents working on Lockdown
 
-Lockdown is a finished game mechanically: a 4v4 Spiral Knights-style control-point brawl with swords,
+Lockdown is a finished game mechanically: a Spiral Knights-style control-point brawl (4v4, 2v2 or 1v1) with swords,
 guns and bombs, three classes, gear, bots and online rooms. **The work now is design and assets.**
 
 ## Read first

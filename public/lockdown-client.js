@@ -778,6 +778,7 @@ function renderMenu() {
   $('ld-map').value = mapId; $('ld-map').disabled = !isHost || phase !== 'lobby';
   const size = state?.teamSize || 4, sizeLabel = Engine.MODE_RULES[size].label.toUpperCase();
   $('ld-size').value = String(size); $('ld-size').disabled = !isHost || phase !== 'lobby'; $('ld-size-field').hidden = !!dojo;
+  if (!dojo) $('ld-lede').textContent = `${size === 4 ? 'Capture and hold the three control points. Every five seconds your team scores for the points it holds' : `${Engine.MODE_RULES[size].label}: fight over the middle zone alone. Every five seconds the team holding it scores ${Engine.MODE_RULES[size].scoreTable[1]}`}: first to ${Engine.RULES.scoreToWin} wins. Bots fill every empty place. Your base heals you, and it is where you change class and equipment mid-match. Every knockout drops a heart.`;
   $('ld-mode').textContent = dojo ? 'DOJO · TRAINING' : solo ? `PRACTICE · ${sizeLabel} · YOU + ${size * 2 - 1} BOT${size * 2 - 1 === 1 ? '' : 'S'}` : `ONLINE ROOM · ${sizeLabel}`;
   $('ld-map-note').textContent = `${MAPS[mapId].description}${isHost ? '' : ' The host picks the map.'}`;
   const start = $('ld-start');

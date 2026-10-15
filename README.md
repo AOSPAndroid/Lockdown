@@ -1,12 +1,48 @@
 # Lockdown
 
-A 4v4 control-point brawl in the spirit of Spiral Knights' Lockdown, in the browser: three capture
-points, swords, guns and bombs, Striker / Guardian / Recon classes, four gear slots, a four-slot
-inventory with hearts, and bots in every empty seat. The knights are small battle robots (in the style of
-the LBX anime) built from a frame and swappable armour parts. Drawn in real 3D (three.js): chunky bevelled
-fortresses floating in the void, grand stairs to a second floor, glowing lamps and crystals.
+A control-point brawl in the spirit of Spiral Knights' Lockdown, in the browser: **4v4** over three
+capture points, or **2v2** and **1v1** over the middle one. Swords, guns and bombs, Striker / Guardian / Recon
+classes, four gear slots, a four-slot inventory with hearts, and bots in every empty place. The knights are
+small battle robots (in the style of the LBX anime) built from a frame and swappable armour parts, drawn in
+real 3D (three.js): chunky fortresses floating in the void, grand stairs to a second floor, glowing lamps and
+crystals.
 
-![Clockwork Foundry mid-fight](docs/screenshots/foundry-fight.jpg)
+![A brawl in the Clockwork Foundry](docs/screenshots/foundry-fight.jpg)
+
+## What's in it
+
+- **Modes:** 4v4 Lockdown over three zones, or 2v2 and 1v1 fought over the middle zone. Play solo against
+  bots, or open an online room for friends; bots fill every empty place.
+- **Sword fighting that rewards skill:** every sword type has its own combo (sweeps, rising cuts, overhand
+  strikes, a there-and-back flurry, overhead chops, thrusts, spins). Land every cut of a combo on the same
+  knight and the last one pays: **COMBO ×3** (+30%), or a **critical** on the katana and the elemental
+  swords. A miss drops the combo and leaves you open to a punish, and the opponent can dash out between
+  cuts.
+- **Aim pays:** narrow cuts hit harder than wide ones, a cut through the middle of a knight is **CLEAN** and
+  one that only clips them **GRAZES**. Guns too: a round through the middle hits full, a big round touching
+  with its edge grazes, so easy guns hit lighter and precise ones harder.
+- **Spiral Knights tricks:** hold attack to show a charge and let go early for a **fake charge** (a normal cut
+  that catches a knight who dashed away is a **FEINT**); cancel a landed cut with your class button or the
+  dash; sweep a knight back reeling, then boost in with a heavy sword or switch to your gun for a follow-up;
+  Guardians parry a cut with a well-timed shield.
+- **48 weapons:** 20 swords, 18 guns and 10 bombs, many with elements (fire, ice, shock, poison, curse), each
+  with a charge attack. The **Armory** shows how hard each is to aim, its combo, its perfect-combo reward and
+  a 3D preview.
+- **Your knight carries everything:** swords crossed on the back, pistols in hip holsters, bombs on the belt,
+  and switching plays a quick draw. A switch pressed mid-cut is remembered, never lost.
+- **Build your knight:** 13 helmets, 15 armours, 11 pants and 11 shoes, each trading something (speed,
+  protection, damage, healing...), on top of the class.
+- **The Dojo:** a training hall with dummies and a damage meter to try every weapon and charge.
+- **Eight arenas,** each with two floors joined by stairs; high ground shoots down, low ground hides.
+
+| | |
+|---|---|
+| ![Four sword combos: Knight Brand, Blazebrand, katana, sabre](docs/screenshots/sword-combos.gif) | ![A perfect combo in the Dojo: CLEAN, then COMBO ×3](docs/screenshots/perfect-combo.jpg) |
+| Each sword type moves its own way (half speed) | A perfect combo: every cut lands, the last one pays |
+| ![The Armory with the katana selected](docs/screenshots/armory.jpg) | ![Switching weapons: drawn from the back and the hip](docs/screenshots/weapon-swap.gif) |
+| The Armory: aim rating, combo and perfect-combo reward | Switching draws the weapon from its holster (half speed) |
+| ![A 1v1 duel at the middle zone](docs/screenshots/duel-1v1.jpg) | ![The lobby set to 1v1](docs/screenshots/lobby-1v1.jpg) |
+| 1v1 at the middle zone | Pick 1v1, 2v2 or 4v4 and the arena in the lobby |
 
 ## Play
 
@@ -22,16 +58,19 @@ npm install
 npm start
 ```
 
-Then open <http://localhost:3000>. **Play solo** starts a practice match against seven bots. **Dojo** opens a
+Then open <http://localhost:3000>. **Play solo** starts a practice match against bots (pick 1v1, 2v2 or 4v4 in
+the lobby). **Dojo** opens a
 training hall with dummies and a damage meter, where **B** changes class, gear and weapons anywhere: the
 place to try every weapon and charge attack. **Create room**
 opens an online room (1v1, 2v2 or 4v4, Amber vs Cyan); share the link or the six-letter code with
-friends on your network, who open the same address. The host picks the arena and starts the match.
+friends on your network, who open the same address. The host picks the mode and the arena and starts the
+match.
 
 **French (AZERTY) keyboards:** the game switches to **ZQSD** on its own the first time you play on an AZERTY
 keyboard; the **Keys: WASD / ZQSD** buttons at the bottom of the menu switch it by hand.
 
-Controls: **WASD** move, **mouse** aim, **left click** attack (hold to charge), **right click** class
+Controls: **WASD** move, **mouse** aim, **left click** attack (hold to charge, let go early for a fake
+charge), **right click** class
 ability (Striker Boost, Guardian shield, Recon cloak), **Space** dash, **1–4** or **Q** switch slot,
 **I** inventory, **B** equipment in base, **Tab** scoreboard, **Esc** menu.
 
@@ -41,8 +80,8 @@ Views: the 3D view is the default; `?quality=low` turns off shadows and glow for
 ## How it plays
 
 See [docs/GAMEPLAY.md](docs/GAMEPLAY.md) and the [weapons audit](docs/WEAPONS-AUDIT.md): classes, gear, weapons and their traits, the fighting rules
-(interrupts, counters, perfect dodges, clashes, Spiral Knights-style cancels), statuses, hearts and the
-eight arenas.
+(combos and perfect combos, aim, fake charges, interrupts, counters, perfect dodges, clashes, Spiral
+Knights-style cancels), statuses, hearts, the modes and the eight arenas.
 
 ## Look and art
 
