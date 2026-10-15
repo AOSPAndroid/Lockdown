@@ -1404,7 +1404,7 @@ export class KnightPreview {
     this.view.group.rotation.y = -1.05 + .35 * Math.sin(now / 2600) * idle + this.turn;
     // Frame the whole knight and a raised sword.
     const fit = Math.max(1, .85 / Math.max(.4, this.camera3.aspect));
-    this.camera3.position.set(0, 1.05, 3.4 * fit); this.camera3.lookAt(0, .72, 0);
+    this.camera3.position.set(0, 1.15, 3.9 * fit); this.camera3.lookAt(0, .8, 0); // room for a bomb held overhead
     this.updateEffects(now);
     this.gl.render(this.scene, this.camera3);
   }
