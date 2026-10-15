@@ -14,7 +14,7 @@ import { OutputPass } from './vendor/three/addons/postprocessing/OutputPass.js';
 import { MAPS, TILE, isWall, levelCell, levelAt, STAIRS } from './lockdown-maps.js';
 import { WEAPONS, MOVE_KINDS, RULES, GUARD, ABILITIES, STATUS_IDS, TICK_RATE, chargeTicksFor } from './lockdown-engine.js';
 import { TEAM_COLORS } from './lockdown-renderer.js';
-import { RIG, RIG_PARTS, GEAR_PARTS, GRIP, SHIELDS, skeletonParts } from './lockdown-skeleton.js';
+import { RIG, RIG_PARTS, GEAR_PARTS, GRIP, SHIELDS, skeletonParts, WEAPON_SIZES, swordSize, BLADE_START, FX_SPRITES } from './lockdown-skeleton.js';
 export { RIG_PARTS };
 
 const U = 1 / TILE;
@@ -43,6 +43,8 @@ const LONG_GUNS = new Set(['rifle', 'magnus', 'grimcannon', 'scatter']);
 /** Switching weapons: put the old one away, reach for the new one, pull it out, all in DRAW_MS. Attacking
  * meanwhile skips straight to the attack (the switch itself is instant in the game). */
 const DRAW_MS = 260, DRAW = Object.freeze({ away: .3, grab: .45 });
+/** Which projectile model each kind of round uses (models/projectiles/); charge rounds share their family's. */
+const PROJECTILE_MODEL = Object.freeze({ bullet: 'bullet', stream: 'bullet', split: 'bullet', pulse: 'pulse', bigPulse: 'pulse', bolt: 'bolt', pierce: 'bolt', beam: 'bolt', ricochet: 'ricochet', catalyst: 'catalyst', detonator: 'catalyst', explosive: 'explosive', shard: 'shard', thorn: 'thorn', wave: 'wave' });
 /** Holstered weapons ride a little smaller than in hand, so a full loadout doesn't swamp the knight. */
 const HOLSTER_SCALE = .7;
 const TRAIL_POINTS = 64;    // samples in the Striker's neon trail // pieces of the charge ring, filled one by one
@@ -245,13 +247,14 @@ class Builder {
 }
 /** A flat sector of a ring in the floor plane (angles are world headings: 0 east, π/2 south). */
 function arcGeometry(inner, outer, from, to, segments = 24) {
-  const position = [], index = [];
+  const position = [], index = [], uv = [];
   for (let i = 0; i <= segments; i++) {
     const a = from + (to - from) * i / segments;
     position.push(Math.cos(a) * inner, 0, Math.sin(a) * inner, Math.cos(a) * outer, 0, Math.sin(a) * outer);
+    uv.push(i / segments, 0, i / segments, 1); // u along the arc, v from the inner edge out (the slash texture)
     if (i < segments) { const k = i * 2; index.push(k, k + 1, k + 3, k, k + 3, k + 2); }
   }
-  const geometry = new THREE.BufferGeometry(); geometry.setAttribute('position', new THREE.Float32BufferAttribute(position, 3)); geometry.setIndex(index); geometry.computeVertexNormals();
+  const geometry = new THREE.BufferGeometry(); geometry.setAttribute('position', new THREE.Float32BufferAttribute(position, 3)); geometry.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2)); geometry.setIndex(index); geometry.computeVertexNormals();
   return geometry;
 }
 const SIDES = [[1, 0], [-1, 0], [0, 1], [0, -1]];
@@ -272,6 +275,10 @@ export class Lockdown3DRenderer {
     this.camera3 = new THREE.PerspectiveCamera(34, 16 / 9, .5, 120);
     this.target = new THREE.Vector3(); this.cameraReady = false;
     this.glow = glowTexture();
+    // Effect sprites from the art folder (public/art/3d/fx/), where they exist; the soft glow stands in otherwise.
+    this.fx = {};
+    Lockdown3DRenderer.artIndex ||= fetch('/art/3d/index.json').then(response => response.ok ? response.json() : { files: [] }).then(data => new Set(data.files || [])).catch(() => new Set());
+    Lockdown3DRenderer.artIndex.then(files => { for (const name of FX_SPRITES) if (files.has(`fx/${name}.png`)) new THREE.TextureLoader().load(`/art/3d/fx/${name}.png`, texture => { texture.colorSpace = THREE.SRGBColorSpace; this.fx[name] = texture; }); });
     this.hemi = new THREE.HemisphereLight('#c8d4ff', '#2a2420', 1.6); this.scene.add(this.hemi);
     this.sun = new THREE.DirectionalLight('#fff3e0', 2.4); this.sun.castShadow = true;
     this.sun.shadow.mapSize.set(2048, 2048); Object.assign(this.sun.shadow.camera, { left: -16, right: 16, top: 16, bottom: -16, near: 1, far: 60 });
@@ -695,7 +702,7 @@ export class Lockdown3DRenderer {
     // Arms pitch, then yaw (so a raised arm sweeps across a swing); the rest bend in their own plane.
     for (const name of ['arm_L', 'arm_R']) if (parts[name]) parts[name].rotation.order = 'YZX';
     const boostTrail = new THREE.Sprite(new THREE.SpriteMaterial({ map: this.glow, color: '#ffd36b', transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending })); boostTrail.scale.set(2, 1, 1); boostTrail.position.set(-.6, .5, 0); group.add(boostTrail);
-    const view = { group, body, parts, hand, chargeGlow, chargeRing, chargeFloor, boostTrail, ring, weaponId: null, weapon: null, lastX: player.x, lastY: player.y, key: this.knightKey(player), materials: [], pose: {}, gait: { phase: 0, speed: 0, run: 0 } };
+    const view = { group, body, parts, hand, team, chargeGlow, chargeRing, chargeFloor, boostTrail, ring, weaponId: null, weapon: null, lastX: player.x, lastY: player.y, key: this.knightKey(player), materials: [], pose: {}, gait: { phase: 0, speed: 0, run: 0 } };
     group.traverse(node => { if (node.material) view.materials.push(node.material); });
     return view;
   }
@@ -1016,15 +1023,29 @@ export class Lockdown3DRenderer {
     const held = player.weapons?.[player.slot] || null, loadout = (player.weapons || []).filter(Boolean);
     view.models ||= new Map();
     // Models for the whole loadout, and a holster for each, in loadout order.
-    const key = loadout.join('|');
+    const key = `${loadout.join('|')}#${this.models.version}`;
     if (view.loadoutKey !== key) {
       view.loadoutKey = key;
+      for (const carrier of view.carriers?.values() || []) carrier.parent?.remove(carrier);
+      view.carriers = new Map();
       for (const [id, model] of view.models) if (!loadout.includes(id)) { model.parent?.remove(model); view.models.delete(id); }
       for (const id of loadout) if (!view.models.has(id)) { const model = this.makeWeapon(id); model.userData.baseScale = model.scale.x; view.models.set(id, model); model.traverse(node => { if (node.material) view.materials.push(node.material); }); }
       const taken = new Set(); view.sockets = {};
       for (const id of loadout) {
         const family = WEAPONS[id]?.family, kind = family === 'gun' ? (LONG_GUNS.has(id) ? 'long' : 'pistol') : family === 'bomb' ? 'bomb' : 'blade';
         const socket = [...HOLSTER_ORDER[kind], ...Object.keys(HOLSTERS)].find(name => !taken.has(name)); taken.add(socket); view.sockets[id] = socket;
+        // What it rides in (models/holsters/): a sheath stretched to the sword, a hip holster, a belt pouch. It stays
+        // on the knight when the weapon is drawn.
+        const size = family === 'blade' ? swordSize(id, WEAPONS[id].heavy) : null;
+        const carrier = this.models.instance(`holsters/${size ? 'sheath' : kind === 'pistol' ? 'holster' : kind === 'bomb' ? 'pouch' : 'none'}.glb`, view.team);
+        if (carrier) {
+          const place = HOLSTERS[socket], dir = new THREE.Vector3(...place.dir).normalize(), sword = size && WEAPON_SIZES[size];
+          carrier.quaternion.setFromUnitVectors(new THREE.Vector3(1, 0, 0), dir);
+          carrier.position.set(...place.at).addScaledVector(dir, sword ? BLADE_START * HOLSTER_SCALE : 0);
+          if (sword) carrier.scale.set((sword.length - BLADE_START) / .65 * HOLSTER_SCALE, HOLSTER_SCALE, sword.width / WEAPON_SIZES.sword.width * HOLSTER_SCALE);
+          else carrier.scale.setScalar(HOLSTER_SCALE);
+          (view.parts[place.part] || view.body).add(carrier); view.carriers.set(id, carrier);
+        }
       }
     }
     if (held !== view.weaponId) {
@@ -1217,7 +1238,10 @@ export class Lockdown3DRenderer {
       if (!view) {
         const tint = colour(shot.status ? STATUS_COLOR[shot.status] || '#ffffff' : TEAM_COLORS[shot.team]?.light || '#ffffff');
         const size = Math.max(.07, (shot.size || 5) * U * 1.3);
-        const ball = new THREE.Mesh(new THREE.SphereGeometry(size, 10, 8), new THREE.MeshBasicMaterial({ color: tint.clone().lerp(colour('#ffffff'), .5) }));
+        // The round's model (models/projectiles/, pointing +X, made for a size-5 round) or a glowing ball.
+        const model = this.models.instance(`projectiles/${PROJECTILE_MODEL[shot.kind] || 'bullet'}.glb`);
+        if (model) { model.scale.setScalar((shot.size || 5) / 5); model.rotation.y = -Math.atan2(shot.vy, shot.vx); }
+        const ball = model || new THREE.Mesh(new THREE.SphereGeometry(size, 10, 8), new THREE.MeshBasicMaterial({ color: tint.clone().lerp(colour('#ffffff'), .5) }));
         const glow = new THREE.Sprite(new THREE.SpriteMaterial({ map: this.glow, color: tint, transparent: true, opacity: .9, depthWrite: false, blending: THREE.AdditiveBlending })); glow.scale.setScalar(size * 7);
         const trail = new THREE.Sprite(new THREE.SpriteMaterial({ map: this.glow, color: tint, transparent: true, opacity: .4, depthWrite: false, blending: THREE.AdditiveBlending })); trail.scale.setScalar(size * 4);
         view = new THREE.Group(); view.add(ball, glow); view.userData.trail = trail; this.scene.add(view, trail); this.shots.set(shot.id, view);
@@ -1261,8 +1285,8 @@ export class Lockdown3DRenderer {
       seen.add(pickup.id);
       let view = this.hearts.get(pickup.id);
       if (!view) {
-        view = new THREE.Mesh(this.heartGeo ||= this.heartGeometry(), this.heartMat ||= new THREE.MeshStandardMaterial({ color: '#ff3a5a', emissive: '#ff2040', emissiveIntensity: .7, roughness: .35 }));
-        view.castShadow = true; this.scene.add(view); this.hearts.set(pickup.id, view);
+        view = this.models.instance('pickups/heart.glb') || new THREE.Mesh(this.heartGeo ||= this.heartGeometry(), this.heartMat ||= new THREE.MeshStandardMaterial({ color: '#ff3a5a', emissive: '#ff2040', emissiveIntensity: .7, roughness: .35 }));
+        view.traverse(node => { if (node.isMesh) node.castShadow = true; }); this.scene.add(view); this.hearts.set(pickup.id, view);
       }
       view.position.set(pickup.x * U, levelAt(map, pickup.x, pickup.y) * STOREY + .4 + Math.sin(now / 250 + pickup.id) * .06, pickup.y * U); view.rotation.y = now / 500 + pickup.id;
       view.visible = !(pickup.ttl < 180 && Math.floor(now / 120) % 2);
@@ -1300,16 +1324,16 @@ export class Lockdown3DRenderer {
       else if (event.type === 'damage') {
         this.flashes.set(event.targetId, now);
         this.texts.push({ x: event.x, y: event.y, lift: KNIGHT + .1, text: String(event.amount), color: event.kind === 'burn' ? STATUS_COLOR.burn : event.kind === 'shock' || event.kind === 'chain' ? STATUS_COLOR.shock : '#ffffff', born: now, life: 700, size: 15, rise: 30 });
-        this.burst(at(event.x, event.y, .5), '#ffffff', .5, 160, now);
+        this.burst(at(event.x, event.y, .5), '#ffffff', .5, 160, now, false, 'spark');
         if (event.targetId === this.localId) this.shake = Math.max(this.shake, Math.min(8, 2 + event.amount / 5));
-      } else if (event.type === 'explosion') { this.burst(at(event.x, event.y, .3), event.burst ? '#ffcf8a' : '#ffb347', (event.radius || 60) * U * 2, 420, now, true); this.shakeNear(event.x, event.y, 6); }
+      } else if (event.type === 'explosion') { this.burst(at(event.x, event.y, .3), event.burst ? '#ffcf8a' : '#ffb347', (event.radius || 60) * U * 2, 420, now, true, 'blast'); this.shakeNear(event.x, event.y, 6); }
       else if (event.type === 'slam') { this.ringEffect(at(event.x, event.y, .05), (event.radius || 80) * U, '#ffe0a0', 420, now); this.shakeNear(event.x, event.y, 7); }
       else if (event.type === 'shot') {
         // The flash comes out of the gun's muzzle node when the model has one; the shooter's arm and barrel kick.
         const shooter = this.knights?.get(event.playerId), muzzle = shooter?.weapon?.getObjectByName?.('muzzle');
         if (shooter) { const gun = WEAPONS[event.weapon]; shooter.recoilAt = now; shooter.recoilPower = Math.min(1.3, Math.max(.35, (gun?.damage || 8) * (gun?.pellets || 1) / 16 * .75)) * (event.charged ? 1.5 : 1); }
         const position = muzzle ? muzzle.getWorldPosition(new THREE.Vector3()) : at(event.x + Math.cos(event.angle) * 22, event.y + Math.sin(event.angle) * 22, KNIGHT * .45);
-        this.burst(position, '#fff4c0', .45, 90, now);
+        this.burst(position, '#fff4c0', .45, 90, now, false, 'flash');
       }
       else if (event.type === 'kill') this.burst(at(event.x, event.y, .5), '#ffffff', 1.6, 500, now, true);
       else if (event.type === 'capture') this.ringEffect(at(event.x, event.y, .05), RULES.pointRadius * U, TEAM_COLORS[event.team]?.main || '#ffffff', 900, now);
@@ -1333,8 +1357,8 @@ export class Lockdown3DRenderer {
   }
   shakeNear(x, y, amount) { const v = this.viewer; if (!v) return; const d = Math.hypot(v.x - x, v.y - y); if (d < 500) this.shake = Math.max(this.shake, amount * (1 - d / 500)); }
   addEffect(object, now, life, update) { this.scene.add(object); this.effects.push({ object, born: now, life, update }); }
-  burst(position, tint, size, life, now, big = false) {
-    const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: this.glow, color: tint, transparent: true, opacity: 1, depthWrite: false, blending: THREE.AdditiveBlending }));
+  burst(position, tint, size, life, now, big = false, kind = null) {
+    const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: (kind && this.fx?.[kind]) || this.glow, color: tint, transparent: true, opacity: 1, depthWrite: false, blending: THREE.AdditiveBlending }));
     sprite.position.copy(position); sprite.scale.setScalar(size * .4);
     this.addEffect(sprite, now, life, t => { sprite.scale.setScalar(size * (.4 + t * (big ? 1.2 : .6))); sprite.material.opacity = 1 - t; });
   }
@@ -1358,7 +1382,7 @@ export class Lockdown3DRenderer {
     }
     const owner = state.players[event.playerId], map = MAPS[state.mapId]; if (!owner || !map) return;
     const reach = (event.reach || 70) * U, start = event.angle - event.dir * event.arc / 2, delay = (event.startup || 0) * 1000 / 120, sweep = Math.max(1, (event.active || 1) * 1000 / 120);
-    const material = new THREE.MeshBasicMaterial({ color: event.critical ? '#ff6a5a' : '#ffffff', transparent: true, opacity: 0, depthWrite: false, side: THREE.DoubleSide, blending: THREE.AdditiveBlending });
+    const material = new THREE.MeshBasicMaterial({ map: this.fx?.slash || null, color: event.critical ? '#ff6a5a' : '#ffffff', transparent: true, opacity: 0, depthWrite: false, side: THREE.DoubleSide, blending: THREE.AdditiveBlending });
     const mesh = new THREE.Mesh(new THREE.BufferGeometry(), material); if (event.critical) mesh.scale.setScalar(1.15); // a critical finisher flashes red
     const lift = levelAt(map, owner.x, owner.y) * STOREY + KNIGHT * .4;
     mesh.position.set(owner.x * U, lift, owner.y * U);
@@ -1493,7 +1517,7 @@ export class KnightPreview {
           this.view.recoilAt = now; this.view.recoilPower = Math.min(1.3, Math.max(.35, (weapon.damage || 8) * (weapon.pellets || 1) / 16 * .75));
           const muzzle = this.view.weapon?.getObjectByName?.('muzzle');
           const position = muzzle ? muzzle.getWorldPosition(new THREE.Vector3()) : this.view.hand.localToWorld(new THREE.Vector3(.55, 0, 0));
-          this.burst(position, '#fff4c0', .45, 90, now);
+          this.burst(position, '#fff4c0', .45, 90, now, false, 'flash');
         }
         return;
       }

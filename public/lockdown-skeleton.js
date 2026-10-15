@@ -126,6 +126,20 @@ export const WEAPON_SIZES = Object.freeze({
   bomb: { across: .28 }, planted: { height: .4 },
 });
 
+/** Which size a sword is (a WEAPON_SIZES key); the maul is a hammer, not a blade. */
+export const swordSize = (id, heavy) => id === 'maul' ? null : ['rapier', 'leviathan', 'katana'].includes(id) ? 'long' : ['spur', 'voltedge'].includes(id) ? 'short' : heavy ? 'heavy' : 'sword';
+/** A sword's blade starts this far along +X from the grip origin (the guard sits just behind it). */
+export const BLADE_START = .1;
+/** What holstered weapons ride in (models/holsters/): a sheath, made for the standard sword (its opening at the
+ * origin, the blade's 0.65 running along +X, 0.12 wide along Z), stretched by the game to fit each sword; a hip
+ * holster made around the pistol template; a belt pouch made around the bomb template. */
+export const HOLSTER_MODELS = Object.freeze(['sheath', 'holster', 'pouch']);
+/** Projectile models (models/projectiles/): each points +X, its origin at its centre, sized for a size-5 round
+ * (about 0.13 across); the game scales it to each round's size. */
+export const PROJECTILE_MODELS = Object.freeze(['bullet', 'pulse', 'bolt', 'ricochet', 'catalyst', 'explosive', 'shard', 'thorn', 'wave']);
+/** Effect sprites (public/art/3d/fx/<name>.png): white on transparent, drawn additively and tinted by the game. */
+export const FX_SPRITES = Object.freeze(['spark', 'flash', 'blast', 'slash']);
+
 // ---------- templates: a blockout per asset type, with the node names the game animates ----------
 const blockout = material('blockout', '#c9d2dc', { metal: .1, rough: .7 });
 const blockoutDark = material('blockout_dark', '#5c6674', { metal: .1, rough: .7 });

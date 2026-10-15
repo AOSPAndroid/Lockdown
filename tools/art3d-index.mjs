@@ -10,7 +10,7 @@ import { join, resolve } from 'node:path';
 import { decodePng } from './lockdown-art-kit/png.mjs';
 import { readGlb, nodeNames, triangleCount } from './glb.mjs';
 import { WEAPONS } from '../public/lockdown-weapons.js';
-import { RIG_PARTS, GEAR_PARTS } from '../public/lockdown-skeleton.js';
+import { RIG_PARTS, GEAR_PARTS, HOLSTER_MODELS, PROJECTILE_MODELS, FX_SPRITES } from '../public/lockdown-skeleton.js';
 import { HELMETS, ARMORS, PANTS, SHOES } from '../public/lockdown-equipment.js';
 
 /** Model folders, the ids each may hold, and triangle budgets (see docs/MODELS.md). */
@@ -23,6 +23,9 @@ const MODEL_KINDS = {
   class: { ids: ['guardian', 'recon'], budget: 1500, gear: GEAR_PARTS.class },
   weapons: { ids: Object.keys(WEAPONS), budget: 1500 },
   bombs: { ids: Object.keys(WEAPONS).filter(id => WEAPONS[id].family === 'bomb'), budget: 1200 },
+  holsters: { ids: [...HOLSTER_MODELS], budget: 800 },
+  projectiles: { ids: [...PROJECTILE_MODELS], budget: 300 },
+  pickups: { ids: ['heart'], budget: 800 },
 };
 
 const dir = process.argv[2] ? resolve(process.argv[2]) : new URL('../public/art/3d/', import.meta.url).pathname;
@@ -52,7 +55,20 @@ function check(file, img, slot, normal) {
   if (best >= Math.max(4, w / 128)) problems.push(`${best + 1} identical rows: vertically smeared`);
   return problems;
 }
-for (const theme of readdirSync(dir).filter(name => statSync(join(dir, name)).isDirectory())) {
+// Effect sprites: public/art/3d/fx/<name>.png, white on transparent (drawn additively and tinted by the game). Each
+// is square, a power of two from 64 to 512, and fades out before its edges so it never shows as a square.
+for (const file of (() => { try { return readdirSync(join(dir, 'fx')); } catch { return []; } })()) {
+  const name = file.replace(/\.png$/, ''), where = `fx/${file}`;
+  if (!file.endsWith('.png') || !FX_SPRITES.includes(name)) { errors.push(`${where}: unknown effect sprite (use ${FX_SPRITES.join(', ')} as .png)`); continue; }
+  let img; try { img = decodePng(readFileSync(join(dir, 'fx', file))); } catch (problem) { errors.push(`${where}: ${problem.message}`); continue; }
+  const { width: w, height: h } = img;
+  if (w !== h || (w & (w - 1)) || w < 64 || w > 512) { errors.push(`${where}: ${w}x${h}: must be square, a power of two from 64 to 512`); continue; }
+  let edge = 0;
+  for (let i = 0; i < w; i++) for (const [x, y] of [[i, 0], [i, h - 1], [0, i], [w - 1, i]]) { const k = at(img, x, y); edge = Math.max(edge, img.data[k + 3] / 255 * Math.max(img.data[k], img.data[k + 1], img.data[k + 2])); }
+  if (edge > 12) errors.push(`${where}: its edges are not dark or transparent: it would show as a square`);
+  files.push(where);
+}
+for (const theme of readdirSync(dir).filter(name => name !== 'fx' && statSync(join(dir, name)).isDirectory())) {
   for (const file of readdirSync(join(dir, theme)).filter(name => name.endsWith('.png'))) {
     const name = file.replace(/\.png$/, ''), normal = name.endsWith('_normal'), slot = normal ? name.slice(0, -7) : name;
     if (!SLOTS.includes(slot)) { errors.push(`${theme}/${file}: unknown slot (use ${SLOTS.join(', ')}, optionally with _normal)`); continue; }

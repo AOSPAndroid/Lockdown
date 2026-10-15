@@ -18,6 +18,15 @@ All models are binary glTF (`.glb`) under `public/art/3d/models/`:
 | `shoes/` | `<id>.glb` | one per pair of shoes (not `none`) |
 | `weapons/` | `<id>.glb` | every sword, gun and bomb as held in the hand |
 | `bombs/` | `<id>.glb` | every bomb as planted on the floor |
+| `holsters/` | `sheath.glb`, `holster.glb`, `pouch.glb` | what holstered weapons ride in (see "Holsters" below) |
+| `projectiles/` | `bullet`, `pulse`, `bolt`, `ricochet`, `catalyst`, `explosive`, `shard`, `thorn`, `wave` `.glb` | the rounds in flight (see "Projectiles" below) |
+| `pickups/` | `heart.glb` | the heart a knocked-out knight drops (about 0.3 across, origin at its centre; the game bobs and spins it) |
+
+Effect sprites are PNGs in `public/art/3d/fx/`: `spark.png` (a hit), `flash.png` (a muzzle flash), `blast.png`
+(an explosion), `slash.png` (the sword trail). White on transparent (the game tints them and draws them
+additively), square, 64 to 512, fading out before the edges. `slash.png` maps along the swing: left to right
+(u) runs from where the cut starts to where it ends, bottom to top (v) from the inner edge of the arc to the
+outer edge, so make it brightest at the top right (the blade's tip at the end of the cut).
 
 After adding or changing files run `node tools/art3d-index.mjs`. It checks every model (folder, item id,
 rig parts, gear node names, triangle budget) and lists it in `public/art/3d/index.json`, which the game
@@ -106,6 +115,30 @@ as blocks on exactly these nodes: start from them.
 | Guardian shield | `shield_guardian.glb` | `forearm_L` > `plate` | raised in front when the Guardian guards |
 | Recon shield | `shield_recon.glb` | `forearm_L` > `buckler` > `lens` | the `lens` material flares while cloaked |
 
+## Holsters
+
+Holstered weapons ride on the knight at 70% of their size: swords and long guns crossed on the back (hilt
+over a shoulder), pistols on the hips, bombs on the belt. Each carrier stays on the knight when its weapon is
+drawn, so make them look right empty too.
+
+- **`sheath.glb`**: one sheath for every sword. Model it for the standard sword: its **opening at the
+  origin**, running along **+X for 0.65** (the blade from 0.1 to 0.75 from the grip), about **0.17 wide along
+  Z and 0.05 thick along Y** (the blade is 0.12 wide along Z and 0.025 thick). The game stretches it along
+  X to each sword's blade (0.5 for short swords, 0.8 for long, 0.85 for heavy) and along Z to its width (0.5×
+  for the slim long swords, 1.5× for the heavy ones), so keep fittings simple: a locket at the opening and a
+  chape at the tip read well stretched.
+- **`holster.glb`**: made around the pistol template (`docs/reference/templates/gun.glb`): the same origin
+  (the middle of the grip) and the gun pointing +X, wrapping the body and barrel and leaving the grip free.
+- **`pouch.glb`**: made around the bomb template (`templates/bomb.glb`, the bomb's body centred at 0.14 along
+  +X): a cage, net or clip that holds the bomb on the belt.
+
+## Projectiles
+
+Each points **+X**, origin at its centre, sized for a round of size 5 (about **0.13 across**; the game
+scales it to each round, and pulses grow as they fly). Bright and emissive: the game adds a glow tinted in the
+element's or the team's colour around it, so a warm white or neutral core reads best. Charged rounds reuse
+their family's model (a charged pierce uses `bolt`, a big pulse `pulse`, a shotgun spray `bullet`).
+
 ## Materials
 
 - glTF metal/rough PBR. One material per surface type (steel, leather, cloth, gem…), names that say what
@@ -135,6 +168,8 @@ as blocks on exactly these nodes: start from them.
 | pants | 2000 |
 | shoes, class piece, weapon | 1500 |
 | planted bomb | 1200 |
+| holster, sheath or pouch, heart | 800 |
+| projectile | 300 |
 
 Eight knights are on screen at once, so chunky shapes with few, well-placed bevels beat dense detail.
 
