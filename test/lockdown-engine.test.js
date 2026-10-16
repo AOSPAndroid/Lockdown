@@ -897,7 +897,7 @@ test('the off-hand cancel: the class button cancels a landed cut even when the a
 test('heavy momentum: the second blow winds up faster and hits far harder, and a miss is punished hard', () => {
   for (const id of ['cleaver', 'greatblade', 'hexblade']) {
     const [first, second] = WEAPONS[id].combo;
-    assert.ok(first.startup <= WEAPONS.brand.combo[0].startup + 1, `${id}: the first swing is a normal one`);
+    assert.ok(first.startup <= WEAPONS.brand.combo[0].startup * 1.3, `${id}: the first swing is a normal one`);
     assert.ok(second.momentum && second.damage > first.damage * 1.5, `${id}: then a heavy momentum blow`);
   }
   const land = () => {

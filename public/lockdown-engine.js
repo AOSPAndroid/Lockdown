@@ -85,7 +85,9 @@ export const maxHpFor = (cls, gear) => Math.max(40, CLASSES[cls].hp + combineGea
 export const gunPower = player => (CLASSES[player.cls]?.gunDamage || 1) * outfitOf(player).gunDamage;
 const bombPower = player => player ? (CLASSES[player.cls]?.bombDamage || 1) * outfitOf(player).bombDamage : 1;
 export const bladePower = player => (CLASSES[player.cls]?.bladeDamage || 1) * outfitOf(player).bladeDamage;
-const bladeSpeed = player => (CLASSES[player.cls]?.bladeSpeed || 1) * outfitOf(player).bladeSpeed;
+/** Swing speed from class and gear, capped so stacked bonuses (a Striker in fencing gear) can't make cuts a blur. */
+const BLADE_SPEED_MAX = 1.3;
+const bladeSpeed = player => Math.min(BLADE_SPEED_MAX, (CLASSES[player.cls]?.bladeSpeed || 1) * outfitOf(player).bladeSpeed);
 const CLASS_IDS = Object.keys(CLASSES);
 
 const clamp = (value, low, high) => Math.max(low, Math.min(high, value));

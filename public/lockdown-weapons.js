@@ -291,7 +291,7 @@ export const MOVESETS = Object.freeze({
   maul: ['sweep', 'chop'],                           // a swing, then the overhead smash that shakes the ground
 });
 /** Every cut's wind-up, swing and recovery run this much longer than written: one dial for the pace of sword play. */
-export const CUT_TEMPO = 1.1;
+export const CUT_TEMPO = 1.2;
 const withMoves = (id, combo) => Object.freeze(combo.map((move, i) => {
   const kind = MOVESETS[id]?.[i] || 'sweep', rule = MOVE_KINDS[kind], arc = rule.fixedArc ?? Math.round(move.arc * (rule.arc ?? 1) * 100) / 100;
   const slower = ticks => Math.max(1, Math.round(ticks * CUT_TEMPO));
