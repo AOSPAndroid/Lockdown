@@ -1532,11 +1532,14 @@ function botInput(state, bot) {
       if (landed) brain.runFor = bot.swingId;
       if (answer) brain.slipFor = target.swingId;
       if (!(brain.run > 0) && (landed || answer) && !bot.boostLocked && bot.boostMeter > ABILITIES.dash.meter * .2 && random(state) < (brain.skill || .5) * level.runs) { brain.run = 36; brain.runSide = random(state) < .5 ? -1 : 1; }
+      // Keep running while their cut is still live (a heavy blow winds up long), up to a second and a half.
+      const live = target.action === 'swing' && !target.whiffed && target.actionTotal - target.actionTicks < target.swingStartup + target.swingActive;
+      if (brain.run === 1 && live && (brain.ran || 0) < 180) brain.run = 2;
       if (brain.run > 0) {
-        brain.run--;
+        brain.run--; brain.ran = brain.run > 0 ? (brain.ran || 0) + 1 : 0;
         const reach = weapon.combo[0].reach + RULES.radius, out = d < reach * .85 ? .35 : d > reach * 1.3 ? -.35 : 0;
         moveAngle = toward + brain.runSide * (Math.PI / 2 + out);
-        input.ability = brain.run > 10;
+        input.ability = brain.run > 10 || live;
         if (!(target.whiffed && d <= reach)) input.attack = false; // only to punish the miss
       }
     }

@@ -290,12 +290,14 @@ export const MOVESETS = Object.freeze({
   troika: ['sweep', 'sweep', 'chop'],                // two heavy sweeps and a crushing overhead
   maul: ['sweep', 'chop'],                           // a swing, then the overhead smash that shakes the ground
 });
-/** Every cut's wind-up, swing and recovery run this much longer than written: one dial for the pace of sword play. */
-export const CUT_TEMPO = 1.2;
+/** The pace of sword play: every cut's wind-up, swing and recovery run this much longer than written. The wind-up
+ * and recovery stretch most (a readable, committed cut, about two a second as in Spiral Knights); the swing itself
+ * stays quick so the blade still snaps through. */
+export const CUT_TEMPO = Object.freeze({ startup: 2, active: 1.3, recovery: 2 });
 const withMoves = (id, combo) => Object.freeze(combo.map((move, i) => {
   const kind = MOVESETS[id]?.[i] || 'sweep', rule = MOVE_KINDS[kind], arc = rule.fixedArc ?? Math.round(move.arc * (rule.arc ?? 1) * 100) / 100;
-  const slower = ticks => Math.max(1, Math.round(ticks * CUT_TEMPO));
-  return Object.freeze({ ...move, kind, arc, reach: Math.round(move.reach * (rule.reach ?? 1)), startup: slower(move.startup), active: slower(move.active), recovery: slower(move.recovery),
+  const slower = part => Math.max(1, Math.round(move[part] * CUT_TEMPO[part]));
+  return Object.freeze({ ...move, kind, arc, reach: Math.round(move.reach * (rule.reach ?? 1)), startup: slower('startup'), active: slower('active'), recovery: slower('recovery'),
     damage: Math.round(move.damage * aimFactor(arc) * (rule.stroke ?? 1)), strokes: rule.strokes || 1, push: Math.round(move.push * (rule.push ?? 1)) });
 }));
 const gunShot = weapon => Object.freeze({ ...weapon, damage: Math.max(1, Math.round(weapon.damage * GUN.damage)) });
@@ -397,7 +399,7 @@ export const GUARD = Object.freeze({ raiseTicks: 6, max: 40, regenPerSecond: 10,
 /** Sword timing rules. Raising the shield or dodging cancels a cut's recovery (the
  * animation cancel), and a queued press may start the next cut once this fraction of
  * the recovery has passed (the last cut of a combo always recovers fully unless cancelled). */
-export const BLADE = Object.freeze({ comboCancel: .4, comboWindow: 36, hitStop: 4,
+export const BLADE = Object.freeze({ comboCancel: .7, comboWindow: 36, hitStop: 4,
   // A perfect combo: every cut before the finisher landed solidly (no graze, not blocked) on the same knight. The
   // finisher then hits `perCut` harder for every cut before it (a three-cut combo +30%, four +45%); a critical
   // finisher (katana, elemental swords) crits instead, +50%, and lands as a plain cut without the perfect chain. A miss, a

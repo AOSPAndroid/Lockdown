@@ -163,7 +163,7 @@ test('switching weapons uses 1–3 and Q, and cancels a charge', () => {
   const { state, me } = duel();
   run(state, 2, t => ({ 0: { slot3: t === 0 } })); assert.equal(me.slot, 2);
   run(state, 2, t => ({ 0: { swap: t === 0 } })); assert.equal(me.slot, 0);
-  run(state, 60, () => ({ 0: { attack: true } }));
+  run(state, swingTicks(WEAPONS[me.weapons[0]].combo[0]) + 40, () => ({ 0: { attack: true } }));
   const charged = me.chargeTicks; assert.ok(charged > 20);
   run(state, 1, () => ({ 0: { attack: true, slot2: true } }));
   assert.equal(me.slot, 1); assert.ok(me.chargeTicks <= 1, 'the old charge is dropped; holding starts a fresh one');
@@ -500,7 +500,7 @@ test('every weapon fires its charge without errors', () => {
   for (const id of L.WEAPON_IDS) {
     const { state, me } = duel({ gap: 140, a: { weapons: [id, ...L.WEAPON_IDS.filter(other => other !== id && WEAPONS[other].family !== WEAPONS[id].family).slice(0, 2)] } });
     me.clips = Object.fromEntries(me.weapons.filter(weaponId => WEAPONS[weaponId]?.family === 'gun').map(weaponId => [weaponId, WEAPONS[weaponId].clip]));
-    run(state, 140 + L.chargeTicksFor(me, WEAPONS[id]) + 3, () => ({ 0: { attack: true } }));
+    run(state, 260 + L.chargeTicksFor(me, WEAPONS[id]) + 3, () => ({ 0: { attack: true } }));
     run(state, 400);
     assert.ok(events(state, 'chargeRelease').some(event => event.weapon === id), `${id} released its charge`);
     assert.ok(state.players.every(player => Number.isFinite(player.x) && Number.isFinite(player.hp)), `${id} stays finite`);
@@ -552,7 +552,7 @@ test('animation cancels: the shield or a dodge cuts recovery short, and a queued
   assert.equal(air.me.action, 'idle'); assert.equal(air.me.comboStep, 0, 'the combo starts over');
   // Dodge cancel: a Striker's boost cuts recovery and slips away untouchable.
   const dodge = duel({ gap: 300, a: { cls: 'striker' } });
-  run(dodge.state, 20, t => ({ 0: { attack: t === 0 } }));
+  run(dodge.state, move.startup + move.active + 2, t => ({ 0: { attack: t === 0 } }));
   const startX = dodge.me.x;
   run(dodge.state, 1, () => ({ 0: { ability: true, left: true } }));
   assert.equal(dodge.me.action, 'idle'); assert.ok(dodge.me.evadeTicks > 0);
@@ -567,9 +567,10 @@ test('a dodging Striker is untouchable; swords wear shields down faster than gun
   assert.equal(me.hp, me.maxHp);
   assert.ok(events(state, 'evade').length === 1);
   const block = duel({ gap: 50, a: { cls: 'recon' }, b: { cls: 'guardian' } });
-  run(block.state, GUARD.raiseTicks + 1, () => ({ 4: { ability: true } }));
-  const shieldBefore = block.foe.guardHp;
-  run(block.state, swingTicks(WEAPONS.brand.combo[0]) + 6, t => ({ 0: { attack: t === 0 }, 4: { ability: true } }));
+  // Raise the shield so the cut meets it past the parry window but before it has grown into a dome.
+  const held = Math.round((GUARD.raiseTicks + L.FIGHT.parry.window + GUARD.expandTicks) / 2);
+  const shieldBefore = block.foe.guardHp, raiseAt = Math.max(0, WEAPONS.brand.combo[0].startup + 1 - held);
+  run(block.state, swingTicks(WEAPONS.brand.combo[0]) + 6, t => ({ 0: { attack: t === 0 }, 4: { ability: t >= raiseAt } }));
   assert.equal(block.foe.hp, block.foe.maxHp);
   assert.equal(Math.round(shieldBefore - block.foe.guardHp), Math.round(WEAPONS.brand.combo[0].damage * GUARD.bladeScale));
 });
@@ -709,8 +710,8 @@ test('fighting: a perfect dodge refunds the dash and readies a riposte', () => {
 
 test('fighting: piled-up stun turns a knight steady, so nobody can be stun-locked forever', () => {
   const { state, me, foe } = duel({ gap: 50, a: { weapons: ['brand', null, null, null] }, b: { weapons: [null, null, null, null] } });
-  foe.stagger = L.FIGHT.stagger.limit - 1;
-  run(state, 20, t => ({ 0: { attack: t === 0 } }));
+  // Stagger drains over time: keep it at the brink until the cut lands.
+  run(state, WEAPONS.brand.combo[0].startup + WEAPONS.brand.combo[0].active + 4, t => { if (!events(state, 'damage').length) foe.stagger = L.FIGHT.stagger.limit - 1; return { 0: { attack: t === 0 } }; });
   assert.equal(events(state, 'steady').length, 1);
   assert.ok(foe.steadyTicks > 0);
   foe.stunTicks = 0;

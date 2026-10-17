@@ -178,7 +178,7 @@ test('weapon traits: heavy swings are unflinching, the rapier tip hits harder, l
     assert.equal(me.action, 'swing');
     run(state, 24, t => ({ 4: { attack: t === 0, aim: Math.PI } }));
     assert.ok(me.hp < 400, `${weapon} took the round`);
-    assert.equal(me.stunTicks === 0, unflinching, weapon);
+    assert.equal(events(state, 'unflinching').length > 0, unflinching, weapon);
   }
   // Rapier sweet spot: the same thrust at the tip of its reach deals 40% more.
   const thrust = gap => { const { state, foe } = duel({ a: { cls: 'recon', weapons: ['rapier', 'blaster', 'blast', null] }, gap }); run(state, 20, t => ({ 0: { attack: t === 0 } })); return { dealt: 400 - foe.hp, tip: state.events.some(e => e.type === 'sweetSpot') }; };
@@ -192,7 +192,7 @@ test('weapon traits: heavy swings are unflinching, the rapier tip hits harder, l
   // Maul: the second blow shakes the ground and hits a second knight beside the target.
   const { state, me, foe } = duel({ a: { cls: 'guardian', weapons: ['maul', 'blaster', 'blast', null] }, gap: 60, third: {} });
   state.players[5].x = foe.x; state.players[5].y = foe.y + 60;
-  me.comboStep = 1; run(state, 60, t => ({ 0: { attack: t === 0 } }));
+  me.comboStep = 1; const blow = WEAPONS.maul.combo[1]; run(state, blow.startup + blow.active + 10, t => ({ 0: { attack: t === 0 } }));
   assert.ok(state.events.some(e => e.type === 'slam' && e.weapon === 'maul'));
   assert.ok(state.players[5].hp < 400, 'the shockwave reached the second knight');
 });
