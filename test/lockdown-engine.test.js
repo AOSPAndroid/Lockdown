@@ -1228,3 +1228,26 @@ test('bot levels: the lobby picks easy, normal or hard, and the choice carries i
   L.resetLobby(state); assert.equal(state.botLevel, 'easy');
   L.startMatch(state, []); assert.equal(L.selectBotLevel(state, 'hard').ok, false, 'not mid-match');
 });
+
+test('hit and run: a Striker sword hit refills Boost, and Striker bots Boost round their target after landing a cut', () => {
+  const rule = ABILITIES.dash;
+  const { state, me, foe } = duel({ gap: 50, a: { cls: 'striker', weapons: ['brand', null, null, null], boostMeter: 100 }, b: { hp: 400, maxHp: 400 } });
+  run(state, 30, t => ({ 0: { attack: t === 0 } }));
+  assert.ok(foe.hp < 400, 'the cut lands');
+  assert.ok(me.boostMeter >= 100 + rule.hitRefill - 2, 'and puts Boost back in the meter');
+  // A Recon's sword hit does not.
+  const recon = duel({ gap: 50, a: { cls: 'recon', weapons: ['brand', null, null, null], boostMeter: 100 } });
+  run(recon.state, 30, t => ({ 0: { attack: t === 0 } }));
+  assert.equal(recon.me.boostMeter, 100);
+  // A Hard Striker bot that lands cuts Boosts away round its target.
+  let runs = 0;
+  for (const seed of [1, 2, 3]) {
+    const s = L.createState({ mapId: 'temple', seed, botLevel: 'hard' }); L.startMatch(s, []);
+    for (const p of s.players) if (p.id !== 0 && p.id !== 4) Object.assign(p, { alive: false, respawnTicks: 1e9 });
+    const point = MAPS.temple.points[1], [a, b] = [s.players[0], s.players[4]];
+    Object.assign(a, { cls: 'striker', weapons: ['brand', null, null, null], slot: 0, x: point.x - 40, y: point.y, shieldTicks: 0 });
+    Object.assign(b, { cls: 'guardian', weapons: ['brand', null, null, null], slot: 0, x: point.x + 40, y: point.y, shieldTicks: 0, hp: 1e6, maxHp: 1e6 });
+    for (let t = 0; t < 120 * 30; t++) { L.step(s, []); if (a.brain?.run === 35) runs++; }
+  }
+  assert.ok(runs >= 3, `Striker bots hit and run (${runs} runs)`);
+});

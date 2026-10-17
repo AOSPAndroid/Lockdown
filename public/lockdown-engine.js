@@ -23,11 +23,12 @@ const modeOf = state => MODE_RULES[state.teamSize] || MODE_RULES[TEAM_SIZE];
 /** How well bots play, chosen in the lobby. skill: the range each bot's skill is drawn from; reaction: how many
  * ticks a bot's idea of where you are lags behind you; turn: how fast it can swing its aim (radians a second);
  * wobble: how far its aim drifts off; lead: how much of a moving target's travel it allows for; pause: extra time
- * between its shots (times the gun's interval); reads: how often it dodges, blocks and cancels (times a hard bot). */
+ * between its shots (times the gun's interval); reads: how often it dodges, blocks and cancels (times a hard bot);
+ * runs: how often a Striker bot hits and runs (Boosts round its target after a cut lands or as it winds up). */
 export const BOT_LEVELS = Object.freeze({
-  easy: Object.freeze({ label: 'Easy', skill: [.15, .4], reaction: 26, turn: 3, wobble: .32, lead: .1, pause: 1.2, reads: .3 }),
-  normal: Object.freeze({ label: 'Normal', skill: [.3, .6], reaction: 20, turn: 6.5, wobble: .12, lead: .65, pause: .35, reads: .65 }),
-  hard: Object.freeze({ label: 'Hard', skill: [.5, .9], reaction: 10, turn: 11, wobble: .05, lead: 1, pause: .1, reads: 1 }),
+  easy: Object.freeze({ label: 'Easy', skill: [.15, .4], reaction: 26, turn: 3, wobble: .32, lead: .1, pause: 1.2, reads: .3, runs: .3 }),
+  normal: Object.freeze({ label: 'Normal', skill: [.3, .6], reaction: 20, turn: 6.5, wobble: .12, lead: .65, pause: .35, reads: .65, runs: 1 }),
+  hard: Object.freeze({ label: 'Hard', skill: [.5, .9], reaction: 10, turn: 11, wobble: .05, lead: 1, pause: .1, reads: 1, runs: 1.3 }),
 });
 const botLevel = state => BOT_LEVELS[state.botLevel] || BOT_LEVELS.normal;
 const activePoints = (map, teamSize) => map.points.filter(point => !MODE_RULES[teamSize]?.points || MODE_RULES[teamSize].points.includes(point.id)).map(point => ({ id: point.id, x: point.x, y: point.y, progress: 0, owner: null }));
@@ -58,7 +59,7 @@ export const RULES = Object.freeze({
  * shield, and each class tilts one weapon family. Multipliers above 1 on a charge make it slower. */
 export const CLASSES = Object.freeze({
   striker: Object.freeze({ id: 'striker', name: 'Striker', hp: 100, speed: 210, bladeDamage: 1.25, bladeSpeed: 1.2, bombCharge: 1.5, ability: 'Boost',
-    perks: 'Swords +25% damage and +20% speed · slow bomb charge', description: 'The sword specialist. Hold Boost to sprint while its nitro meter lasts, to close in or get out; pressing it also cancels a cut and slips a hit.' }),
+    perks: 'Swords +25% damage and +20% speed · slow bomb charge', description: 'The sword specialist. Hold Boost to sprint while its nitro meter lasts, to close in or get out; pressing it also cancels a cut and slips a hit. Every sword hit refills some Boost: hit, Boost round them so their answer misses, hit again.' }),
   guardian: Object.freeze({ id: 'guardian', name: 'Guardian', hp: 120, speed: 190, bombCharge: .7, ability: 'Shield',
     perks: 'Most health · bombs charge 30% faster', description: 'The only knight with a shield. Hold it to raise a dome that covers teammates inside and slowly heals everyone in it. When the dome breaks you keep a small personal shield for a few hits; then it all recharges.' }),
   recon: Object.freeze({ id: 'recon', name: 'Recon', hp: 95, speed: 200, bombDamage: 1.25, bombCharge: .85, ability: 'Cloak',
@@ -67,8 +68,10 @@ export const CLASSES = Object.freeze({
 export const ABILITIES = Object.freeze({
   // Striker Boost (nitro): hold the ability to run 50% faster while the meter lasts. Letting go stops it;
   // the meter refills after a short pause. Run it dry and it locks until it is a quarter full again.
-  // Pressing it cancels a cut's recovery and gives a brief dodge.
-  dash: { meter: 3 * TICK_RATE, speed: 1.5, regenDelay: TICK_RATE, refill: 6 * TICK_RATE, relock: .25, evadeTicks: 14, pressCost: 30 },
+  // Pressing it cancels a cut's recovery and gives a brief dodge. Hit and run, as in Spiral Knights: every sword hit
+  // the Striker lands puts `hitRefill` ticks back in the meter, so cutting, boosting round and cutting again keeps
+  // going, while just holding Boost to sprint still runs it dry.
+  dash: { meter: 3 * TICK_RATE, speed: 1.5, regenDelay: TICK_RATE, refill: 6 * TICK_RATE, relock: .25, evadeTicks: 14, pressCost: 30, hitRefill: 50 },
   // Recon Cloak: the first hit within `ambushTicks` of leaving it deals `ambush` times damage and marks the target.
   cloak: { ticks: 4 * TICK_RATE, cooldown: 12 * TICK_RATE, markTicks: 5 * TICK_RATE, markBonus: .3, revealRange: 64, ambush: 2, ambushTicks: Math.round(2.5 * TICK_RATE) },
 });
@@ -622,6 +625,12 @@ function damage(state, attacker, target, amount, { push = 0, angle = 0, stun = 1
   if (target.charging && currentWeapon(target).family !== 'bomb') { target.charging = false; target.chargeTicks = 0; } // a bomb charge holds
   if (hitStop) { target.hitStop = Math.max(target.hitStop, hitStop); if (attacker) attacker.hitStop = Math.max(attacker.hitStop, hitStop); }
   if (attacker) attacker.damage += total;
+  // A Striker's sword hit fuels the Boost (hit and run).
+  if (direct && attacker.cls === 'striker' && damageFamily === 'blade') {
+    const rule = ABILITIES.dash;
+    attacker.boostMeter = Math.min(rule.meter, attacker.boostMeter + rule.hitRefill);
+    if (attacker.boostLocked && attacker.boostMeter >= rule.meter * rule.relock) attacker.boostLocked = false;
+  }
   emit(state, 'damage', { playerId: attacker?.id ?? null, targetId: target.id, amount: total, kind, x: target.x, y: target.y, hp: Math.max(0, target.hp) });
   // Elemental build-up: this hit fills the target's meter; a full one sets the effect off for sure.
   const proc = status && build > 0 ? buildUp(state, attacker, target, status, build) : false;
@@ -1514,6 +1523,22 @@ function botInput(state, bot) {
       const edge = RULES.pointRadius * .8;
       if (dist(zone, bot) > edge) moveAngle = stepToward(map, bot, zone);
       else if (d < ideal - 30 && dist(zone, { x: bot.x - Math.cos(toward) * 40, y: bot.y - Math.sin(toward) * 40 }) > edge) moveAngle = toward + brain.strafe * Math.PI / 2;
+    }
+    // Strikers hit and run, as in Spiral Knights: once a cut lands (or the target winds up an answer), Boost round
+    // it so its answer whiffs, then come back in on the miss. Better bots do it more often.
+    if (bot.cls === 'striker' && weapon.family === 'blade') {
+      const landed = bot.action === 'swing' && bot.hitIds.length > 0 && !bot.whiffed && brain.runFor !== bot.swingId;
+      const answer = target.action === 'swing' && target.actionTotal - target.actionTicks < target.swingStartup && d < target.swingReach + RULES.radius + 40 && brain.slipFor !== target.swingId;
+      if (landed) brain.runFor = bot.swingId;
+      if (answer) brain.slipFor = target.swingId;
+      if (!(brain.run > 0) && (landed || answer) && !bot.boostLocked && bot.boostMeter > ABILITIES.dash.meter * .2 && random(state) < (brain.skill || .5) * level.runs) { brain.run = 36; brain.runSide = random(state) < .5 ? -1 : 1; }
+      if (brain.run > 0) {
+        brain.run--;
+        const reach = weapon.combo[0].reach + RULES.radius, out = d < reach * .85 ? .35 : d > reach * 1.3 ? -.35 : 0;
+        moveAngle = toward + brain.runSide * (Math.PI / 2 + out);
+        input.ability = brain.run > 10;
+        if (!(target.whiffed && d <= reach)) input.attack = false; // only to punish the miss
+      }
     }
     // Abilities.
     // Strikers hold Boost to close in, saving the last of the meter.

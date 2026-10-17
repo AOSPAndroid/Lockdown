@@ -34,7 +34,7 @@ Class pieces attach like gear (both shields go on `forearm_L`; templates `templa
 
 ### Striker `striker`
 
-- **Does:** 100 HP, ability: Boost. Swords +25% damage and +20% speed · slow bomb charge. The sword specialist. Hold Boost to sprint while its nitro meter lasts, to close in or get out; pressing it also cancels a cut and slips a hit.
+- **Does:** 100 HP, ability: Boost. Swords +25% damage and +20% speed · slow bomb charge. The sword specialist. Hold Boost to sprint while its nitro meter lasts, to close in or get out; pressing it also cancels a cut and slips a hit. Every sword hit refills some Boost: hit, Boost round them so their answer misses, hit again.
 - **Looks:** No piece to model: the Striker is marked by a thin neon line in `team` colour that the game draws trailing behind the robot as it moves (longer and brighter while Boost is held).
 - **Make:** nothing (the game draws the neon line); icon only
 
