@@ -1252,3 +1252,20 @@ test('hit and run: a Striker sword hit refills Boost, and Striker bots Boost rou
   }
   assert.ok(runs >= 3, `Striker bots hit and run (${runs} runs)`);
 });
+
+test('bot classes: the lobby sets each team to a mix or one class, kept for the next match', () => {
+  const state = L.createState({ mapId: 'temple', seed: 5, teamSize: 1 });
+  L.setConnected(state, 0, true, 'Ada');
+  assert.deepEqual(state.botClasses, ['mix', 'mix']);
+  assert.equal(L.selectBotClass(state, 1, 'wizard').ok, false);
+  assert.equal(L.selectBotClass(state, 2, 'striker').ok, false);
+  assert.ok(L.selectBotClass(state, 1, 'striker').ok);
+  L.startMatch(state, [0]);
+  const foe = state.players.find(player => !player.benched && player.team === 1);
+  assert.equal(foe.cls, 'striker', 'the 1v1 opponent plays the chosen class');
+  assert.equal(L.selectBotClass(state, 1, 'recon').ok, false, 'only in the lobby');
+  L.resetLobby(state); assert.deepEqual(state.botClasses, ['mix', 'striker'], 'the choice carries into the next lobby');
+  // A mix still varies: across many bots, more than one class turns up.
+  const mixed = L.createState({ mapId: 'temple', seed: 9 }); L.startMatch(mixed, []);
+  assert.ok(new Set(mixed.players.filter(player => !player.benched).map(player => player.cls)).size > 1);
+});

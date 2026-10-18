@@ -156,3 +156,18 @@ test('a host can set the room to 1v1: only two people fit, and the match is one 
   assert.equal(fighting.length, 2); assert.deepEqual(fighting.map(player => player.team).sort(), [0, 1]);
   assert.deepEqual(room.state.points.map(point => point.id), ['B']);
 });
+
+test("the host picks each team's bot class; the match's bots play it", async t => {
+  const game = await host(t);
+  const { body } = await game.make({ name: 'Classes' });
+  const room = game.app.rooms.get(body.room.id);
+  const { peer: first } = await game.peer(body.room.id, 'Ada');
+  const { peer: second } = await game.peer(body.room.id, 'Bo');
+  await expectError(second, { type: 'lockdown-bot-class', team: 1, cls: 'recon' }, /host/i);
+  await expectError(first, { type: 'lockdown-bot-class', team: 1, cls: 'wizard' }, /Strikers, Guardians or Recons/);
+  first.send({ type: 'lockdown-bot-class', team: 1, cls: 'guardian' }); await flush(first);
+  assert.deepEqual(room.state.botClasses, ['mix', 'guardian']);
+  first.send({ type: 'start' }); await flush(first);
+  const bots = room.state.players.filter(player => player.bot && !player.benched && player.team === 1);
+  assert.ok(bots.length > 0 && bots.every(bot => bot.cls === 'guardian'));
+});

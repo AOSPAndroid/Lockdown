@@ -125,12 +125,12 @@ function newPlayer(id) {
   };
 }
 
-export function createState({ mapId = MAP_IDS[0], seed = 1, teamSize = TEAM_SIZE, botLevel = 'normal' } = {}) {
+export function createState({ mapId = MAP_IDS[0], seed = 1, teamSize = TEAM_SIZE, botLevel = 'normal', botClasses = ['mix', 'mix'] } = {}) {
   if (!Object.hasOwn(MAPS, mapId)) throw new RangeError('Unknown Lockdown map.');
   const map = MAPS[mapId];
   if (map.training || !TEAM_SIZES.includes(teamSize)) teamSize = TEAM_SIZE;
   return {
-    gameId: 'lockdown', mapId, mapName: map.name, mode: map.training ? 'dojo' : 'match', tick: 0, phase: 'lobby', phaseTicks: 0, seed: seed >>> 0 || 1, teamSize, botLevel: Object.hasOwn(BOT_LEVELS, botLevel) ? botLevel : 'normal',
+    gameId: 'lockdown', mapId, mapName: map.name, mode: map.training ? 'dojo' : 'match', tick: 0, phase: 'lobby', phaseTicks: 0, seed: seed >>> 0 || 1, teamSize, botLevel: Object.hasOwn(BOT_LEVELS, botLevel) ? botLevel : 'normal', botClasses: [0, 1].map(team => BOT_CLASS_CHOICES.includes(botClasses?.[team]) ? botClasses[team] : 'mix'),
     scores: [0, 0], winner: null, timeLeftTicks: RULES.timeLimitTicks, scoreTimer: RULES.scoreIntervalTicks,
     points: activePoints(map, teamSize),
     players: Array.from({ length: CAPACITY }, (_, id) => newPlayer(id)),
@@ -278,7 +278,8 @@ export function startMatch(state, participantIds = []) {
   for (const point of state.points) { point.progress = 0; point.owner = null; }
   for (const player of state.players) {
     if (player.bot) {
-      player.cls = CLASS_IDS[Math.floor(random(state) * CLASS_IDS.length)];
+      const pick = CLASS_IDS[Math.floor(random(state) * CLASS_IDS.length)], chosen = state.botClasses?.[player.team];
+      player.cls = CLASS_IDS.includes(chosen) ? chosen : pick; // the lobby's choice for this team's bots, or a mix
       // Bots carry one blade, one gun and one bomb from the whole armoury, elemental ones included.
       player.weapons = [...['blade', 'gun', 'bomb'].map(family => { const ids = WEAPON_IDS.filter(id => WEAPONS[id].family === family); return ids[Math.floor(random(state) * ids.length)]; }), null];
       const picks = BOT_OUTFITS[player.cls];
@@ -325,7 +326,7 @@ export function setDojoSpar(state, on) {
 
 export function resetLobby(state) {
   const keep = state.players.map(player => ({ team: player.team, cls: player.cls, armor: player.armor, helmet: player.helmet, pants: player.pants, shoes: player.shoes, weapons: player.weapons, hearts: Array(SLOT_COUNT).fill(0), name: player.name, human: player.human, connected: player.connected }));
-  const fresh = createState({ mapId: state.mapId, seed: state.seed, teamSize: state.teamSize, botLevel: state.botLevel });
+  const fresh = createState({ mapId: state.mapId, seed: state.seed, teamSize: state.teamSize, botLevel: state.botLevel, botClasses: state.botClasses });
   Object.assign(state, fresh, { tick: state.tick, eventId: state.eventId });
   state.players.forEach((player, id) => Object.assign(player, keep[id], { bot: !keep[id].human, maxHp: maxHpFor(keep[id].cls, keep[id]), hp: maxHpFor(keep[id].cls, keep[id]) }));
   return state;
@@ -344,6 +345,15 @@ export function selectBotLevel(state, level) {
   if (!Object.hasOwn(BOT_LEVELS, level)) return { ok: false, error: 'Choose easy, normal or hard bots.' };
   if (state.phase !== 'lobby') return { ok: false, error: 'Change the bots in the lobby.' };
   state.botLevel = level; return { ok: true };
+}
+/** The class each team's bots play, chosen in the lobby: 'mix' (each bot picks its own) or one class for all of them,
+ * so a 1v1 can be practised against the class you want to beat. */
+export const BOT_CLASS_CHOICES = Object.freeze(['mix', ...Object.keys(CLASSES)]);
+export function selectBotClass(state, team, cls) {
+  if (team !== 0 && team !== 1) return { ok: false, error: 'Choose Amber or Cyan.' };
+  if (!BOT_CLASS_CHOICES.includes(cls)) return { ok: false, error: 'Choose a mix, Strikers, Guardians or Recons.' };
+  if (state.phase !== 'lobby') return { ok: false, error: 'Change the bots in the lobby.' };
+  state.botClasses = state.botClasses ? [...state.botClasses] : ['mix', 'mix']; state.botClasses[team] = cls; return { ok: true };
 }
 /** 1v1, 2v2 or 4v4, chosen in the lobby. */
 export function selectTeamSize(state, size) {

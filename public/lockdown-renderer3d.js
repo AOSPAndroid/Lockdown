@@ -1031,6 +1031,21 @@ export class Lockdown3DRenderer {
     if (player.stunTicks > 0) { T.head[2] += .3 * Math.sin(now / 80); T.head[0] += .2 * Math.sin(now / 110); body.x += .08 * Math.sin(now / 150); T.arm_L = [.1, 0, 0]; }
     const flash = this.flashes?.get(player.id), hurt = flash ? Math.max(0, 1 - (now - flash) / 180) : 0;
     if (hurt) { body.z += .22 * hurt; T.head[0] -= .15 * hurt; }
+    // The finale: the winners turn to the camera and cheer, blade raised, with a little hop; the others hang their heads.
+    const fin = this.finale;
+    if (fin && fin.winner !== null && player.alive) {
+      const age = now - fin.start, settle = 1 - (1 - Math.min(1, age / 500)) ** 3;
+      if (player.team === fin.winner) {
+        facing += Math.atan2(Math.sin(Math.PI / 2 - facing), Math.cos(Math.PI / 2 - facing)) * settle;
+        arm = [-.1, 0, 2.7]; elbow = .25; pitch = 1.25; roll = 0; twist = 0; snap = false;
+        T.arm_L = [-.3, 0, 2.2 + .25 * Math.sin(age / 160)]; T.forearm_L = [0, 0, .4]; T.head[2] -= .15;
+        const hop = Math.abs(Math.sin(age / 190));
+        body.y += .07 * hop; T.leg_L[2] += .2 * hop; T.leg_R[2] += .2 * hop; T.shin_L[2] -= .3 * hop; T.shin_R[2] -= .3 * hop;
+      } else {
+        arm = [-.05, 0, .1]; elbow = .2; pitch = -1.2; roll = 0; twist = 0; snap = false;
+        T.head[2] += .45 * settle; body.z -= .12 * settle; T.arm_L = [.1, 0, -.1]; T.forearm_L = [0, 0, .2];
+      }
+    }
     T.chest[1] += twist; T.arm_R = arm; T.forearm_R = [0, 0, elbow]; T.hand_R = [roll, 0, pitch - arm[2] - elbow];
     // Keep the planted foot on the floor: solve how far the lowest sole sits above the ground from the leg angles
     // (thigh 0.215, shin 0.215, ankle to sole 0.1) and drop the body by that much. This also lowers the body in
@@ -1206,7 +1221,10 @@ export class Lockdown3DRenderer {
     if (!this.cameraReady) { this.target.copy(wanted); this.cameraReady = true; } else this.target.lerp(wanted, .14);
     const shakeX = this.shake ? (Math.random() - .5) * this.shake * .02 : 0, shakeZ = this.shake ? (Math.random() - .5) * this.shake * .02 : 0;
     this.shake = this.shake > .2 ? this.shake * .86 : 0;
-    this.camera3.position.set(this.target.x + shakeX, this.target.y + 12.6, this.target.z + 11.2 + shakeZ);
+    // The finale pushes the camera in and swings it round a little while the result shows.
+    const fin = this.finale, push = fin ? 1 - (1 - Math.min(1, (now - fin.start) / 3500)) ** 3 : 0, back = 1 - .32 * push, swing = .28 * push;
+    this.camera3.position.set(this.target.x + shakeX + Math.sin(swing) * 11.2 * back, this.target.y + 12.6 * back, this.target.z + Math.cos(swing) * 11.2 * back + shakeZ);
+    if (fin && fin.winner !== null) this.confetti(state, map, fin, now);
     this.camera3.lookAt(this.target.x + shakeX, this.target.y, this.target.z + shakeZ);
     // The sun's shadow box follows the camera target.
     this.sun.position.set(this.target.x - 7, this.target.y + 16, this.target.z - 4); this.sun.target.position.copy(this.target);
@@ -1223,6 +1241,21 @@ export class Lockdown3DRenderer {
     this.updateEffects(now);
     if (this.composer) this.composer.render(); else this.gl.render(this.scene, this.camera3);
     this.drawOverlay(state, map, now, local, pointer);
+  }
+  /** Bursts of team-coloured sparks over the winners, a few times as the finale opens. */
+  confetti(state, map, fin, now) {
+    const at = [250, 650, 1050, 1600, 2300];
+    while ((fin.fired ?? 0) < at.length && now - fin.start >= at[fin.fired ?? 0]) {
+      const team = TEAM_COLORS[fin.winner], round = fin.fired = (fin.fired ?? 0) + 1;
+      for (const player of state.players) {
+        if (!player.alive || player.team !== fin.winner) continue;
+        const ground = levelAt(map, player.x, player.y) * STOREY;
+        for (let i = 0; i < 3; i++) {
+          const angle = (round * 2.1 + i * 2.09), spread = .35 + .15 * i;
+          this.burst(new THREE.Vector3(player.x * U + Math.cos(angle) * spread, ground + KNIGHT * (1.05 + .25 * i), player.y * U + Math.sin(angle) * spread), i % 2 ? team.light : team.main, .9 + .3 * i, 700 + 150 * i, now, true, 'spark');
+        }
+      }
+    }
   }
   updatePoints(state, now) {
     for (const view of this.pointViews || []) {

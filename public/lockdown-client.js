@@ -164,6 +164,7 @@ addEventListener('keydown', event => {
   if (event.code === 'Escape' && inventoryOpen) { event.preventDefault(); toggleInventory(false); return; }
   if (event.code === 'Escape' && armory.open) { event.preventDefault(); closeArmory(); return; }
   if (event.code === 'Escape' && bigMapOpen) { event.preventDefault(); toggleBigMap(false); return; }
+  if (event.code === 'Escape' && finale && !finale.done) { event.preventDefault(); endFinale(); return; }
   if (event.code === 'Escape' || event.code === 'KeyP') { event.preventDefault(); toggleMenu(); return; }
   if (event.code === 'Tab') { event.preventDefault(); showBoard(true); return; }
   if (String(gameKey(event)).toLowerCase() === 'o' && !event.repeat) { event.preventDefault(); toggleFullscreen(); return; }
@@ -439,6 +440,7 @@ function updateHud(current) {
     $(`ld-bar${team}`).style.width = `${Math.min(100, current.scores[team] / RULES.scoreToWin * 100)}%`;
   }
   $('ld-timer').textContent = fmtTime(current.timeLeftTicks);
+  matchEndingCues(current);
   ensurePointChips(current.points);
   for (const point of current.points) {
     const { chip, fill } = pointChips.get(point.id);
@@ -494,7 +496,7 @@ function updateHud(current) {
   let text = '', sub = '';
   if (current.phase === 'countdown') { text = String(Math.ceil(current.phaseTicks / TICK_RATE)); sub = `${current.mapName} — take the points!`; }
   else if (current.phase === 'fight' && me && !me.alive) { text = `Respawn in ${Math.ceil(me.respawnTicks / TICK_RATE)}`; sub = 'Press B to change class or equipment before you return.'; }
-  else if (current.phase === 'matchEnd') { text = current.winner === null ? 'Draw' : `${TEAM_COLORS[current.winner].name} wins`; sub = `${current.scores[0]} – ${current.scores[1]}`; }
+  // (The end of the match has its own finale, below.)
   banner.hidden = !text;
   const base = me && me.alive && current.phase === 'fight' && Engine.inBase(current, me);
   $('ld-base-hint').hidden = !(base && !menuOpen) && performance.now() > baseHintFlash;
@@ -575,6 +577,17 @@ function buildMenu() {
     if (solo) { const result = Engine.selectBotLevel(state, botSelect.value); if (!result.ok) setStatus(result.error); renderMenu(); }
     else send({ type: 'lockdown-bots', level: botSelect.value });
   });
+  // Bot classes: one choice for the enemy's bots and one for your own team's (relative to the team you are on).
+  const classLabel = id => id === 'mix' ? 'Mixed classes' : `All ${CLASSES[id].name}s`;
+  for (const [selectId, side] of [['ld-foe-class', 1], ['ld-ally-class', 0]]) {
+    const select = $(selectId);
+    for (const id of Engine.BOT_CLASS_CHOICES) select.append(new Option(classLabel(id), id));
+    select.addEventListener('change', () => {
+      const myTeam = state?.players[localId ?? -1]?.team ?? setup.team ?? 0, team = side ? 1 - myTeam : myTeam;
+      if (solo) { const result = Engine.selectBotClass(state, team, select.value); if (!result.ok) setStatus(result.error); renderMenu(); }
+      else send({ type: 'lockdown-bot-class', team, cls: select.value });
+    });
+  }
   const sizeSelect = $('ld-size');
   for (const size of Engine.TEAM_SIZES) sizeSelect.append(new Option(`${Engine.MODE_RULES[size].label}${size === 4 ? ' · three zones' : ' · middle zone'}`, String(size)));
   sizeSelect.addEventListener('change', () => {
@@ -840,6 +853,11 @@ function renderMenu() {
   const size = state?.teamSize || 4, sizeLabel = Engine.MODE_RULES[size].label.toUpperCase();
   $('ld-size').value = String(size); $('ld-size').disabled = !isHost || phase !== 'lobby'; $('ld-size-field').hidden = !!dojo;
   $('ld-bots').value = state?.botLevel || 'normal'; $('ld-bots').disabled = !isHost || phase !== 'lobby'; $('ld-bots-field').hidden = !!dojo;
+  const myTeam = state?.players[localId ?? -1]?.team ?? setup.team ?? 0, botClasses = state?.botClasses || ['mix', 'mix'];
+  $('ld-foe-class').value = botClasses[1 - myTeam]; $('ld-ally-class').value = botClasses[myTeam];
+  for (const id of ['ld-foe-class', 'ld-ally-class']) $(id).disabled = !isHost || phase !== 'lobby';
+  $('ld-foe-class-field').hidden = !!dojo;
+  $('ld-ally-class-field').hidden = !!dojo || (solo && size === 1); // a solo 1v1 has no bots on your side
   if (!dojo) $('ld-lede').textContent = `${size === 4 ? 'Capture and hold the three control points. Every five seconds your team scores for the points it holds' : `${Engine.MODE_RULES[size].label}: fight over the middle zone alone. Every five seconds the team holding it scores ${Engine.MODE_RULES[size].scoreTable[1]}`}: first to ${Engine.RULES.scoreToWin} wins. Bots fill every empty place. Your base heals you, and it is where you change class and equipment mid-match. Every knockout drops a heart.`;
   $('ld-mode').textContent = dojo ? 'DOJO · TRAINING' : solo ? `PRACTICE · ${sizeLabel} · YOU + ${size * 2 - 1} BOT${size * 2 - 1 === 1 ? '' : 'S'}` : `ONLINE ROOM · ${sizeLabel}`;
   $('ld-map-note').textContent = `${MAPS[mapId].description}${isHost ? '' : ' The host picks the map.'}`;
@@ -929,13 +947,73 @@ function frame(now) {
     chargeCue(view);
     if (view.phase !== lastPhase) {
       if (view.phase === 'countdown' && lastPhase !== null) toggleMenu(false);
-      if (view.phase === 'matchEnd') toggleMenu(true);
+      if (view.phase === 'matchEnd') startFinale(view, now); // the results come after the finale
+      else if (finale) endFinale(true);
       if (view.phase === 'lobby') toggleMenu(true);
       lastPhase = view.phase; renderMenu();
     } else if (menuOpen && Math.floor(now / 250) !== Math.floor((now - elapsed) / 250)) renderMenu();
   }
   requestAnimationFrame(frame);
 }
+// ---------- the end of a match ----------
+/** Heads-up as the match nears its end: the timer pulses red in the last ten seconds (with a tick each of the last
+ * five), and a MATCH POINT badge shows while a team is one scoring tick from winning. */
+let lastTickSecond = null, matchPointTeam = null;
+function matchEndingCues(current) {
+  const fight = current.phase === 'fight', seconds = Math.ceil(current.timeLeftTicks / TICK_RATE);
+  $('ld-timer').dataset.final = String(fight && seconds <= 10);
+  if (fight && seconds <= 5 && seconds !== lastTickSecond && seconds > 0) audio.tone(880, .07, { type: 'square', gain: .08 });
+  lastTickSecond = seconds;
+  const table = Engine.MODE_RULES[current.teamSize]?.scoreTable || RULES.scoreTable, step = Math.max(...table);
+  const close = fight ? [0, 1].filter(team => current.scores[team] >= RULES.scoreToWin - step).sort((a, b) => current.scores[b] - current.scores[a])[0] ?? null : null;
+  const badge = $('ld-match-point');
+  badge.hidden = close === null;
+  if (close !== null) { badge.textContent = `MATCH POINT · ${TEAM_COLORS[close].name.toUpperCase()}`; badge.style.setProperty('--team', TEAM_COLORS[close].main); }
+  if (close !== null && close !== matchPointTeam) audio.tone(660, .25, { end: 990, type: 'triangle', gain: .14 });
+  matchPointTeam = close;
+}
+/** The finale: the match freezes, letterbox bars slide in, the result slams onto the screen in the winner's colour,
+ * the score and the top knight follow, and the camera pushes in while the winners cheer. The results come up after
+ * FINALE_MS, or at once with Esc. */
+const FINALE_MS = 4400;
+let finale = null;
+function startFinale(view, now) {
+  const me = view.players[localId ?? -1], winner = view.winner;
+  const result = winner === null ? 'draw' : me && !me.benched ? (me.team === winner ? 'win' : 'lose') : 'team';
+  const box = $('ld-finale'), team = winner === null ? null : TEAM_COLORS[winner];
+  box.classList.remove('leaving'); box.hidden = false; box.dataset.result = result;
+  box.style.setProperty('--team', team?.main || '#d9dde4'); box.style.setProperty('--team-light', team?.light || '#ffffff');
+  $('ld-finale-kicker').textContent = view.timeLeftTicks === 0 ? "TIME'S UP" : 'MATCH OVER';
+  $('ld-finale-title').textContent = result === 'win' ? 'VICTORY' : result === 'lose' ? 'DEFEAT' : result === 'draw' ? 'DRAW' : `${team.name.toUpperCase()} WINS`;
+  const mvp = Engine.getScoreboard(view).sort((a, b) => b.score - a.score || b.kills - a.kills || b.damage - a.damage)[0];
+  $('ld-finale-mvp').textContent = mvp ? `Top knight: ${mvp.name} · ${mvp.kills} KO · ${mvp.damage} damage` : '';
+  app.dataset.finale = 'true'; $('ld-banner').hidden = true; $('ld-match-point').hidden = true;
+  finale = { start: now, done: false, scores: [...view.scores], timer: setTimeout(() => endFinale(), FINALE_MS) };
+  scene.finale = { start: now, winner };
+  // The score counts up as it appears.
+  const count = () => {
+    if (!finale || finale.done) return;
+    const t = Math.min(1, Math.max(0, (performance.now() - finale.start - 1000) / 900)), ease = 1 - (1 - t) ** 3;
+    $('ld-finale-a').textContent = Math.round(finale.scores[0] * ease); $('ld-finale-c').textContent = Math.round(finale.scores[1] * ease);
+    if (t < 1) requestAnimationFrame(count);
+  };
+  requestAnimationFrame(count);
+  // A short fanfare: rising for a win, falling for a loss.
+  const notes = result === 'lose' ? [392, 330, 262] : result === 'draw' ? [392, 392, 330] : [523, 659, 784, 1046];
+  notes.forEach((frequency, i) => audio.tone(frequency, i === notes.length - 1 ? .7 : .18, { type: 'triangle', gain: .2, delay: .45 + i * .16 }));
+  held.clear(); pressed.clear(); mouse.left = mouse.right = false; unlockMouse();
+}
+function endFinale(silent = false) {
+  // Silent: a new lobby or match took over; clear everything, even after the results came up.
+  if (silent) { if (finale) clearTimeout(finale.timer); finale = null; scene.finale = null; app.dataset.finale = 'false'; $('ld-finale').hidden = true; return; }
+  if (!finale || finale.done) return;
+  clearTimeout(finale.timer); finale.done = true;
+  const box = $('ld-finale'); box.classList.add('leaving');
+  setTimeout(() => { if (finale?.done) { box.hidden = true; box.classList.remove('leaving'); } }, 450);
+  app.dataset.finale = 'false';
+  toggleMenu(true);
+}
+
 /** A bright chime the moment your charge is full, so you can release it without watching the bar. */
 let chargeWasReady = false;
 function chargeCue(current) {

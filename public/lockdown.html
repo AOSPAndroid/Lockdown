@@ -56,6 +56,7 @@
       </div>
       <div class="ld-base-hint" id="ld-base-hint" hidden><b>IN BASE</b><span>Healing</span><span><kbd>B</kbd> equipment</span><span class="ld-base-classes"><button type="button" data-base-class="striker">Striker</button><button type="button" data-base-class="guardian">Guardian</button><button type="button" data-base-class="recon">Recon</button></span></div>
       <div class="ld-banner" id="ld-banner" hidden></div>
+      <div class="ld-match-point" id="ld-match-point" hidden></div>
       <section class="ld-board" id="ld-board" hidden aria-label="Scoreboard"></section>
     </section>
 
@@ -65,6 +66,16 @@
       <div class="ld-armory-body">
         <div class="ld-armory-grid" id="ld-armory-grid"></div>
         <article class="ld-armory-detail" id="ld-armory-detail"></article>
+      </div>
+    </section>
+    <section class="ld-finale" id="ld-finale" hidden aria-live="assertive">
+      <i class="ld-finale-bar top"></i><i class="ld-finale-bar bottom"></i>
+      <div class="ld-finale-card">
+        <p class="ld-finale-kicker" id="ld-finale-kicker">MATCH OVER</p>
+        <h1 id="ld-finale-title">VICTORY</h1>
+        <p class="ld-finale-score"><span class="a" id="ld-finale-a">0</span><em>–</em><span class="c" id="ld-finale-c">0</span></p>
+        <p class="ld-finale-mvp" id="ld-finale-mvp"></p>
+        <p class="ld-finale-skip"><kbd>Esc</kbd> results</p>
       </div>
     </section>
     <section class="ld-menu" id="ld-menu" aria-labelledby="ld-menu-title">
@@ -114,6 +125,8 @@
           <h2>Match</h2>
           <label class="ld-field" id="ld-size-field">Mode<select id="ld-size"></select></label>
           <label class="ld-field" id="ld-bots-field">Bots<select id="ld-bots"></select></label>
+          <label class="ld-field" id="ld-foe-class-field">Enemy bots<select id="ld-foe-class"></select></label>
+          <label class="ld-field" id="ld-ally-class-field">Your team's bots<select id="ld-ally-class"></select></label>
           <label class="ld-field">Map<select id="ld-map"></select></label>
           <p class="ld-hint" id="ld-map-note"></p>
           <p class="ld-hint" id="ld-dojo-link"><a href="/lockdown.html?solo=1&amp;dojo=1">Try any weapon in the Dojo →</a></p>
