@@ -171,3 +171,15 @@ test("the host picks each team's bot class; the match's bots play it", async t =
   const bots = room.state.players.filter(player => player.bot && !player.benched && player.team === 1);
   assert.ok(bots.length > 0 && bots.every(bot => bot.cls === 'guardian'));
 });
+
+test('the host sets how aggressive the bots are', async t => {
+  const game = await host(t);
+  const { body } = await game.make({ name: 'Moods' });
+  const room = game.app.rooms.get(body.room.id);
+  const { peer: first } = await game.peer(body.room.id, 'Ada');
+  const { peer: second } = await game.peer(body.room.id, 'Bo');
+  await expectError(second, { type: 'lockdown-bot-aggression', aggression: 'aggressive' }, /host/i);
+  await expectError(first, { type: 'lockdown-bot-aggression', aggression: 'reckless' }, /cautious, balanced or aggressive/);
+  first.send({ type: 'lockdown-bot-aggression', aggression: 'cautious' }); await flush(first);
+  assert.equal(room.state.botAggression, 'cautious');
+});

@@ -1269,3 +1269,20 @@ test('bot classes: the lobby sets each team to a mix or one class, kept for the 
   const mixed = L.createState({ mapId: 'temple', seed: 9 }); L.startMatch(mixed, []);
   assert.ok(new Set(mixed.players.filter(player => !player.benched).map(player => player.cls)).size > 1);
 });
+
+test('bot aggression: cautious bots hang back and heal early, aggressive ones fight far more; the choice is kept', () => {
+  const state = L.createState({ mapId: 'temple', seed: 5 });
+  assert.equal(state.botAggression, 'balanced');
+  assert.equal(L.selectBotAggression(state, 'reckless').ok, false);
+  assert.ok(L.selectBotAggression(state, 'aggressive').ok);
+  L.resetLobby(state); assert.equal(state.botAggression, 'aggressive', 'kept into the next lobby');
+  const fight = mood => {
+    const s = L.createState({ mapId: 'temple', seed: 2, botAggression: mood }); L.startMatch(s, []);
+    for (let t = 0; t < 120 * 120; t++) L.step(s, []);
+    return s.players.reduce((sum, player) => sum + player.damage, 0);
+  };
+  const cautious = fight('cautious'), aggressive = fight('aggressive');
+  assert.ok(aggressive > cautious * 1.3, `aggressive bots deal far more damage (${aggressive} vs ${cautious})`);
+  assert.equal(L.selectBotAggression(state, 'cautious').ok, true);
+  L.startMatch(state, []); assert.equal(L.selectBotAggression(state, 'balanced').ok, false, 'only in the lobby');
+});

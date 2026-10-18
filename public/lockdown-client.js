@@ -577,6 +577,12 @@ function buildMenu() {
     if (solo) { const result = Engine.selectBotLevel(state, botSelect.value); if (!result.ok) setStatus(result.error); renderMenu(); }
     else send({ type: 'lockdown-bots', level: botSelect.value });
   });
+  const moodSelect = $('ld-aggression');
+  for (const [id, mood] of Object.entries(Engine.BOT_AGGRESSION)) moodSelect.append(new Option(mood.label, id));
+  moodSelect.addEventListener('change', () => {
+    if (solo) { const result = Engine.selectBotAggression(state, moodSelect.value); if (!result.ok) setStatus(result.error); renderMenu(); }
+    else send({ type: 'lockdown-bot-aggression', aggression: moodSelect.value });
+  });
   // Bot classes: one choice for the enemy's bots and one for your own team's (relative to the team you are on).
   const classLabel = id => id === 'mix' ? 'Mixed classes' : `All ${CLASSES[id].name}s`;
   for (const [selectId, side] of [['ld-foe-class', 1], ['ld-ally-class', 0]]) {
@@ -853,6 +859,7 @@ function renderMenu() {
   const size = state?.teamSize || 4, sizeLabel = Engine.MODE_RULES[size].label.toUpperCase();
   $('ld-size').value = String(size); $('ld-size').disabled = !isHost || phase !== 'lobby'; $('ld-size-field').hidden = !!dojo;
   $('ld-bots').value = state?.botLevel || 'normal'; $('ld-bots').disabled = !isHost || phase !== 'lobby'; $('ld-bots-field').hidden = !!dojo;
+  $('ld-aggression').value = state?.botAggression || 'balanced'; $('ld-aggression').disabled = !isHost || phase !== 'lobby'; $('ld-aggression-field').hidden = !!dojo;
   const myTeam = state?.players[localId ?? -1]?.team ?? setup.team ?? 0, botClasses = state?.botClasses || ['mix', 'mix'];
   $('ld-foe-class').value = botClasses[1 - myTeam]; $('ld-ally-class').value = botClasses[myTeam];
   for (const id of ['ld-foe-class', 'ld-ally-class']) $(id).disabled = !isHost || phase !== 'lobby';
