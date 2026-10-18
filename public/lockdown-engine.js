@@ -63,7 +63,8 @@ export const RULES = Object.freeze({
   captureScore: 30, neutralizeScore: 15,
   // Every knight can dash: a short burst the way you are moving, untouchable for a moment.
   // It also cancels a sword's recovery. The Striker's Boost is the long version.
-  dash: Object.freeze({ ticks: 10, distance: 110, evadeTicks: 10, cooldown: Math.round(1.25 * TICK_RATE) }),
+  // `exit`: the share of running speed you come out of it with (the rest of the glide is lost, so it stops crisply).
+  dash: Object.freeze({ ticks: 10, distance: 75, evadeTicks: 10, cooldown: Math.round(1.25 * TICK_RATE), exit: .5 }),
 });
 
 /** The three Lockdown classes, as in Spiral Knights: the class ability takes the place of the
@@ -1179,7 +1180,7 @@ function tickPlayer(state, player, input) {
   if (player.dodgeTicks > 0) {
     player.dodgeTicks--;
     moveBody(map, player, player.dodgeX * player.dodgeStep, player.dodgeY * player.dodgeStep);
-    const exitSpeed = CLASSES[player.cls].speed * outfitOf(player).speedMultiplier;
+    const exitSpeed = CLASSES[player.cls].speed * outfitOf(player).speedMultiplier * RULES.dash.exit;
     player.vx = player.dodgeX * exitSpeed; player.vy = player.dodgeY * exitSpeed;
   }
   // Movement: steering eases toward the wanted velocity; actions, shields and charging slow you.
