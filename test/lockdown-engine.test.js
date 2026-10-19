@@ -616,7 +616,7 @@ test('outfits add attack perks on top of the class: gunslinger guns, fencing swo
 
 test('outfit perks and drawbacks: speed vs swords, plate, bombs, berserk, mirrorweave, medic, clockwork', () => {
   const A = L.ARMORS;
-  // Windrunner: faster and longer dashes, softer swords.
+  // Windrunner: faster, quick-recharging dashes, softer swords.
   const wind = duel({ gap: 50, a: { cls: 'recon', armor: 'windrunner' } });
   run(wind.state, swingTicks(WEAPONS.brand.combo[0]) + 6, t => ({ 0: { attack: t === 0 } }));
   assert.equal(wind.foe.maxHp - wind.foe.hp, Math.round(WEAPONS.brand.combo[0].damage * A.windrunner.bladeDamage * (1 - A[wind.foe.armor].bladeResistance)));
@@ -1285,4 +1285,17 @@ test('bot aggression: cautious bots hang back and heal early, aggressive ones fi
   assert.ok(aggressive > cautious * 1.3, `aggressive bots deal far more damage (${aggressive} vs ${cautious})`);
   assert.equal(L.selectBotAggression(state, 'cautious').ok, true);
   L.startMatch(state, []); assert.equal(L.selectBotAggression(state, 'balanced').ok, false, 'only in the lobby');
+});
+
+test('every knight dashes the same distance, whatever the class or gear', () => {
+  const dashed = (cls, gear) => {
+    const { state, me } = duel({ gap: 300, a: { cls, ...gear } });
+    const start = me.x; run(state, 1, () => ({ 0: { dash: true, left: true } })); run(state, RULES.dash.ticks + 30);
+    return Math.round(start - me.x);
+  };
+  const plain = dashed('striker', { armor: 'none', shoes: 'none' });
+  for (const [cls, gear] of [['guardian', { armor: 'juggernaut' }], ['recon', { armor: 'scout' }], ['striker', { armor: 'windrunner', shoes: 'clogs' }], ['recon', { shoes: 'dashboots', pants: 'leggings' }]]) {
+    assert.ok(Math.abs(dashed(cls, gear) - plain) <= 2, `${cls} in ${JSON.stringify(gear)} dashes ${dashed(cls, gear)} like everyone (${plain})`);
+  }
+  assert.ok(plain < 2 * TILE, `a short dash: ${plain}`);
 });

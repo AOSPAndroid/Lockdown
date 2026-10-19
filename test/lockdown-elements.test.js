@@ -147,7 +147,7 @@ test('arenas are walls and two floors: no pits anywhere, and the old pit shoes c
   const gear = shoes => L.combineGear({ shoes });
   assert.ok(gear('striders').abilityCooldown < 1 && gear('striders').speedMultiplier > 1, 'Stride Boots: faster, quicker ability');
   assert.ok(gear('magma').statusDuration < 1 && gear('magma').bombResistance > 0, 'Magma Treads: shorter statuses, blast protection');
-  assert.ok(gear('hover').knockback < 1 && gear('hover').dashDistance > 1, 'Hover Boots: less knockback, longer dash');
+  assert.ok(gear('hover').knockback < 1, 'Hover Boots: less knockback');
   for (const shoes of Object.keys(L.SHOES)) assert.equal(gear(shoes).walk.length, 0, `${shoes} no longer walks on pits`);
   assert.ok(L.combineGear({ shoes: 'quicksilver' }).speedMultiplier > L.combineGear({ shoes: 'sneakers' }).speedMultiplier);
 });
