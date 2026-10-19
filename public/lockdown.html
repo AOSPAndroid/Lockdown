@@ -81,62 +81,78 @@
     <section class="ld-menu" id="ld-menu" aria-labelledby="ld-menu-title">
       <header class="ld-menu-head">
         <a class="ld-back" href="/" aria-label="Back to the start page">←</a>
-        <div><span class="ld-eyebrow" id="ld-mode">TEAM PVP · UP TO 4V4</span><h1 id="ld-menu-title">Lockdown</h1></div>
+        <div class="ld-title"><span class="ld-eyebrow" id="ld-mode">TEAM PVP · UP TO 4V4</span><h1 id="ld-menu-title">Lockdown</h1></div>
         <div class="ld-room" id="ld-room-box" hidden><span>ROOM</span><b id="ld-room-code">—</b><button type="button" id="ld-copy">Copy invite</button></div>
+        <div class="ld-launch">
+          <div class="ld-actions">
+            <button type="button" id="ld-resume" hidden>Back to the fight</button>
+            <button type="button" class="ld-primary" id="ld-start">Start match</button>
+          </div>
+          <p class="ld-status" id="ld-status" role="status"></p>
+        </div>
       </header>
       <p class="ld-lede" id="ld-lede">Capture and hold the three control points. Every five seconds your team scores for the points it holds: first to 500 wins. Bots fill every empty seat. Your base heals you, and it is where you change class and equipment mid-match. Every knockout drops a heart.</p>
       <section class="ld-results" id="ld-results" hidden></section>
       <p class="ld-base-note" id="ld-base-note" hidden></p>
       <div class="ld-grid">
-        <section class="ld-panel">
-          <h2>You</h2>
-          <label class="ld-field">Name<input id="ld-name" maxlength="20" autocomplete="off" spellcheck="false"></label>
-          <div class="ld-field"><span>Team</span><div class="ld-teams"><button type="button" data-team="0" class="ld-team-button ld-team0">Amber</button><button type="button" data-team="1" class="ld-team-button ld-team1">Cyan</button></div></div>
-          <div class="ld-field"><span>Class</span><div class="ld-classes" id="ld-classes"></div></div>
-          <p class="ld-class-note" id="ld-class-note"></p>
+        <section class="ld-panel ld-knight-panel" aria-labelledby="ld-knight-title">
+          <h2 id="ld-knight-title">Your knight</h2>
           <div class="ld-preview" id="ld-preview" title="Your knight: drag to turn"></div>
-        </section>
-        <section class="ld-panel ld-equipment-panel" aria-labelledby="ld-equipment-title">
-          <h2 id="ld-equipment-title">Equipment</h2>
-          <p class="ld-hint">Start as a bare robot frame, then mix a helmet, armor, pants and shoes. Every piece trades something: protection adds up (capped at 60%), speed and attack bonuses multiply.</p>
-          <div class="ld-gear-tabs" role="tablist" aria-label="Equipment slots">
-            <button type="button" role="tab" data-gear-tab="helmet">Helmet<small></small></button>
-            <button type="button" role="tab" data-gear-tab="armor">Armor<small></small></button>
-            <button type="button" role="tab" data-gear-tab="pants">Pants<small></small></button>
-            <button type="button" role="tab" data-gear-tab="shoes">Shoes<small></small></button>
+          <div class="ld-field"><span class="ld-visually-hidden">Class</span><div class="ld-classes" id="ld-classes" aria-label="Class"></div></div>
+          <p class="ld-class-note" id="ld-class-note"></p>
+          <div class="ld-who">
+            <label class="ld-field">Name<input id="ld-name" maxlength="20" autocomplete="off" spellcheck="false"></label>
+            <div class="ld-field"><span>Team</span><div class="ld-teams"><button type="button" data-team="0" class="ld-team-button ld-team0">Amber</button><button type="button" data-team="1" class="ld-team-button ld-team1">Cyan</button></div></div>
           </div>
-          <div class="ld-armors" id="ld-armors" role="group"></div>
-          <div class="ld-gear-actions"><button type="button" id="ld-gear-random">Random build</button><button type="button" id="ld-gear-clear">Take everything off</button></div>
-          <div class="ld-armor-summary-box" aria-live="polite">
-            <p id="ld-armor-summary"></p>
-            <p id="ld-armor-summary-stats"></p>
+        </section>
+        <div class="ld-column">
+          <section class="ld-panel ld-weapons-panel" aria-labelledby="ld-weapons-title">
+            <div class="ld-panel-head"><h2 id="ld-weapons-title">Weapons</h2><button type="button" class="ld-armory-open" id="ld-armory-open">Open the Armory</button></div>
+            <div class="ld-loadout" id="ld-loadout"></div>
+            <p class="ld-weapon-note" id="ld-weapon-note"></p>
+            <details class="ld-howto">
+              <summary>How to fight</summary>
+              <p class="ld-hint"><b>Slots.</b> Any weapon in any slot (four swords is fine), or leave one empty to carry hearts. Press I in a match to reorder them.</p>
+              <p class="ld-hint"><b>Charge.</b> Every weapon has a charge attack: hold the button, release when the ring is full. Let go early, once the ring shows, for a fake charge: a normal cut comes out at once, and one that catches a knight who dashed away from your charge is a FEINT.</p>
+              <p class="ld-hint"><b>Class button.</b> Right click: Striker Boost (hold to sprint while the meter lasts), Guardian Shield (hold; grows into a healing dome), Recon Cloak. Space dashes.</p>
+              <p class="ld-hint"><b>Swords reward timing.</b> Aim the middle of the cut for a clean hit. Every sword has its own combo (see the Armory); press rapidly to flow through it while your cuts land. Land every cut on the same knight and the last one pays: +30% on a three-cut combo, or a critical on the katana and the elemental swords. Narrow cuts hit harder than wide ones, and a clean hit harder than a graze. A miss drops the combo and leaves you stumbling, open to a punish.</p>
+              <p class="ld-hint"><b>Reading a fight.</b> Opening cuts only stun briefly, so a defender who reads the next cut can strike first (a counter); the last cut of a combo leaves you open for a moment. Guardians: raise the shield just as a cut lands to parry it. Watch the glow on the floor to read an enemy's cut and dodge it.</p>
+              <p class="ld-hint"><b>Combos across weapons.</b> A sweeping sword knocks the enemy back reeling and slows them. Boost in and switch to a heavier sword (1-4) for a hard follow-up, or switch to your gun and shoot them while they are out of reach: every shot lands harder until they recover or dash.</p>
+              <p class="ld-hint"><b>Off-hand cancel.</b> Right click the moment a cut lands to skip the rest of the swing, whatever your class button holds (even with Boost empty or the cloak cooling down). Strikers chain it: sweep, Boost as it lands, boost in, sweep again. Switching right after a cut lands skips its recovery.</p>
+            </details>
+          </section>
+          <section class="ld-panel ld-equipment-panel" aria-labelledby="ld-equipment-title">
+            <h2 id="ld-equipment-title">Equipment</h2>
+            <p class="ld-hint">Mix a helmet, armor, pants and shoes; every piece trades something. Protection adds up (capped at 60%), speed and attack bonuses multiply.</p>
+            <div class="ld-gear-tabs" role="tablist" aria-label="Equipment slots">
+              <button type="button" role="tab" data-gear-tab="helmet">Helmet<small></small></button>
+              <button type="button" role="tab" data-gear-tab="armor">Armor<small></small></button>
+              <button type="button" role="tab" data-gear-tab="pants">Pants<small></small></button>
+              <button type="button" role="tab" data-gear-tab="shoes">Shoes<small></small></button>
+            </div>
+            <div class="ld-armors" id="ld-armors" role="group"></div>
+            <div class="ld-gear-actions"><button type="button" id="ld-gear-random">Random build</button><button type="button" id="ld-gear-clear">Take everything off</button></div>
+            <div class="ld-armor-summary-box" aria-live="polite">
+              <p id="ld-armor-summary"></p>
+              <p id="ld-armor-summary-stats"></p>
+            </div>
+            <p class="ld-armor-key">Gun, sword and blast percentages reduce incoming damage. Speed is a change from your class's normal movement speed.</p>
+          </section>
+        </div>
+        <section class="ld-panel ld-match-panel" aria-labelledby="ld-match-title">
+          <h2 id="ld-match-title">Match</h2>
+          <div class="ld-match-fields">
+            <label class="ld-field ld-wide" id="ld-size-field">Mode<select id="ld-size"></select></label>
+            <label class="ld-field ld-wide">Map<select id="ld-map"></select></label>
+            <p class="ld-hint ld-wide" id="ld-map-note"></p>
+            <label class="ld-field" id="ld-bots-field">Bots<select id="ld-bots"></select></label>
+            <label class="ld-field" id="ld-aggression-field">Bot aggression<select id="ld-aggression"></select></label>
+            <label class="ld-field" id="ld-foe-class-field">Enemy bots<select id="ld-foe-class"></select></label>
+            <label class="ld-field" id="ld-ally-class-field">Your team's bots<select id="ld-ally-class"></select></label>
           </div>
-          <p class="ld-armor-key">Gun, sword and blast percentages reduce incoming damage. Speed is a change from your class's normal movement speed.</p>
-        </section>
-        <section class="ld-panel">
-          <h2>Weapons</h2>
-          <p class="ld-hint">Four free slots: any weapon in any slot (four swords is fine), or leave one empty to carry hearts. Every weapon has a charge attack: hold the button, release when the ring is full. Right click is your class ability: Striker Boost (hold to sprint while the meter lasts), Guardian Shield (hold; grows into a healing dome), Recon Cloak. Space dashes. Press I in a match to reorder your slots.</p>
-          <p class="ld-hint"><b>Swords reward timing.</b> Aim the middle of the cut for a clean hit. Every sword has its own combo (see the Armory); press rapidly to flow through it while your cuts land. Land every cut on the same knight and the last one pays: +30% on a three-cut combo, or a critical on the katana and the elemental swords. Narrow cuts hit harder than wide ones, and a clean hit harder than a graze. A miss drops the combo and leaves you stumbling, open to a punish. Opening cuts only stun briefly, so a defender who reads the next cut can strike first (a counter); the last cut of a combo leaves you open for a moment. Guardians: raise the shield just as a cut lands to parry it. Watch the glow on the floor to read an enemy's cut and dodge it. <b>Combos across weapons:</b> a sweeping sword knocks the enemy back reeling and slows them. Boost in and switch to a heavier sword (1-4) for a hard follow-up, or switch to your gun and shoot them while they are out of reach: every shot lands harder until they recover or dash. <b>Off-hand cancel:</b> right click the moment a cut lands to skip the rest of the swing, whatever your class button holds (even with Boost empty or the cloak cooling down). Strikers chain it: sweep, Boost as it lands, boost in, sweep again. Switching right after a cut lands skips its recovery. <b>Fake charge:</b> hold attack until the charge ring shows, then let go early: a normal cut comes out at once, and one that catches a knight who dashed away from your charge is a FEINT.</p>
-          <div class="ld-loadout" id="ld-loadout"></div>
-          <button type="button" class="ld-armory-open" id="ld-armory-open">Open the Armory</button>
-          <p class="ld-weapon-note" id="ld-weapon-note"></p>
-        </section>
-        <section class="ld-panel">
-          <h2>Match</h2>
-          <label class="ld-field" id="ld-size-field">Mode<select id="ld-size"></select></label>
-          <label class="ld-field" id="ld-bots-field">Bots<select id="ld-bots"></select></label>
-          <label class="ld-field" id="ld-aggression-field">Bot aggression<select id="ld-aggression"></select></label>
-          <label class="ld-field" id="ld-foe-class-field">Enemy bots<select id="ld-foe-class"></select></label>
-          <label class="ld-field" id="ld-ally-class-field">Your team's bots<select id="ld-ally-class"></select></label>
-          <label class="ld-field">Map<select id="ld-map"></select></label>
-          <p class="ld-hint" id="ld-map-note"></p>
-          <p class="ld-hint" id="ld-dojo-link"><a href="/lockdown.html?solo=1&amp;dojo=1">Try any weapon in the Dojo →</a></p>
+          <h3>Knights</h3>
           <ol class="ld-roster" id="ld-roster"></ol>
-          <div class="ld-actions">
-            <button type="button" class="ld-primary" id="ld-start">Start match</button>
-            <button type="button" id="ld-resume" hidden>Back to the fight</button>
-          </div>
-          <p class="ld-status" id="ld-status" role="status"></p>
+          <p class="ld-hint" id="ld-dojo-link"><a href="/lockdown.html?solo=1&amp;dojo=1">Try any weapon in the Dojo →</a></p>
         </section>
       </div>
       <section class="ld-controls" aria-label="Controls">

@@ -1061,7 +1061,7 @@ function setupDojoPanel() {
   $('ld-dojo').hidden = false;
   $('ld-mode').textContent = 'TRAINING · DUMMIES';
   $('ld-menu-title').textContent = 'Dojo';
-  $('ld-start').closest('.ld-panel').querySelector('h2').textContent = 'Training';
+  $('ld-match-title').textContent = 'Training';
   $('ld-lede').textContent = 'Try any weapon, charge attack and piece of gear on training dummies. Hold attack to charge: a gold ring fills at your feet and turns white when the charge is ready; let go to unleash it. Press B any time to change class, equipment or weapons. Dummies heal when left alone and come back after a knockout; turn on sparring to make one fight back.';
   $('ld-dojo-reset').addEventListener('click', () => { Object.assign(meter, { last: null, combo: 0, streak: 0, bestCharge: 0, total: 0, lastHitAt: 0 }); canvas.focus(); });
   $('ld-dojo-spar').addEventListener('click', event => {
