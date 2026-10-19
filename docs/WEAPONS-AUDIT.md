@@ -3,7 +3,93 @@
 All 40 weapons: 15 swords, 15 guns and 10 bombs, measured, reviewed and tuned. The game data lives in
 `public/lockdown-weapons.js`; the per-item art briefs are in [CATALOG.md](CATALOG.md).
 
-## Summary
+## Second review (October 2026)
+
+Every sword, gun and bomb re-measured after the slower sword tempo, the hitbox work and the new Striker play, then
+tuned in three short rounds. Same method as below: the lab (a standing dummy, every hit clean) and 48 fair bot
+matches (loadouts rotate; damage counted for the weapon in hand). Lab DPS for swords is a full combo by an unbuffed
+Guardian; for guns, firing as fast as allowed at three tiles.
+
+**Result.** In matches, swords now sit between **−20% and +28%** of the sword average (before: −44% to +51%), guns
+between **−20% and +22%** (before: −38% to +57%). Run-to-run noise is about ±10% (the Ember Sabre, changed once more
+after the last run, read +17% to +28% across runs).
+
+**Streamlining.**
+- One tempo layer for swords. Every cut used to pass through two (`BLADE_TEMPO` on the written timings, then
+  `CUT_TEMPO`); now `CUT_TEMPO` alone turns written timings into real ones. No timing moved by more than a tick.
+- Guns deal what the data says. The hidden `GUN.damage` ×0.9 on every normal shot is baked into the numbers.
+- One systemic fix instead of five per-weapon ones: **burn** dealt 48 over three seconds, more than three sword cuts,
+  so every fire weapon overperformed (Ember Sixgun +39%, Ember Sabre +29%, Blazebrand +25% in the lab). It now
+  deals 36.
+- Elemental variants sit just under their plain twin, with the element doing the rest (the sabres, the Brand line,
+  the six-shooters, the pulsars).
+
+**Changes.** Sword cut damage, all cuts of a combo scaled together (full-combo change): Moonlit Katana −30%, Umbral
+Greatblade −22%, Dawnbringer −20%, Ember Sabre −11% (and it now burns on the third hit, not the second), Troll Cleaver
+−10%, Knight Brand −9%, Blazebrand −5%; Gyre Spur +67%, Sanguine Sickle +42%, Needle Rapier +34%, Rime Sabre +33%,
+Volt Fang +27%, Storm Sabre +25%, Briar Blade +22%, Frostbite Edge +21%, Tri-Fang Blade +20%, Duelist Sabre +17%,
+Earthbreaker Maul +4%; Hexblade and Tidebreaker unchanged. Guns (damage per shot as dealt, and fire interval in ticks): Pulse Blaster 8 (interval 16 → 15), Ricochet Coil 8
+(18 → 17), Rattle Autogun 4 (8 → 10, charge stream 5 → 4 a round), Prairie Sixgun 5 (9 → 10), Ember Sixgun 4
+(9 → 11, burns on the fifth hit, not the fourth), Iron Peacemaker 7 → 6 (15 → 18, charge fan 9 → 6 a round), Ripple
+Caster 7 → 10, Northstar 7 → 9, Ember Caster 6 → 7, Winter Repeater 6 → 7, Longshot Rifle 16 → 18, Tether Catalyst
+7 → 9 (detonation 18 → 25 a charge); the rest are unchanged. Bombs are unchanged; the Ember Haze cloud deals less
+through the burn change.
+
+**Still bot-driven.** The Needle Rapier, Gyre Spur and Frostbite Edge sit lowest in bot hands although they lead or
+match the lab (bots rarely land the rapier's tip or a perfect Frostbite combo); the Tether Catalyst needs a detonation
+bots seldom set up. All need human playtests before any further change.
+
+| Sword | Lab DPS before → after | In match before → after |
+|---|---|---|
+| Ember Sabre `flamesabre` | 41 → 34 | +29% → **+28%** |
+| Umbral Greatblade `greatblade` | 57 → 45 | +46% → **+19%** |
+| Briar Blade `thorn` | 35 → 43 | -5% → **+11%** |
+| Moonlit Katana `katana` | 89 → 59 | +51% → **+8%** |
+| Duelist Sabre `sabre` | 31 → 34 | -3% → **+8%** |
+| Troll Cleaver `cleaver` | 48 → 43 | +22% → **+7%** |
+| Knight Brand `brand` | 50 → 46 | +29% → **+7%** |
+| Tri-Fang Blade `troika` | 38 → 46 | -6% → **+3%** |
+| Earthbreaker Maul `maul` | 50 → 51 | -4% → **+3%** |
+| Volt Fang `voltedge` | 29 → 36 | -10% → **+1%** |
+| Hexblade `hexblade` | 47 → 47 | +7% → **-1%** |
+| Tidebreaker `leviathan` | 52 → 52 | -4% → **-1%** |
+| Blazebrand `blazebrand` | 58 → 52 | +6% → **-2%** |
+| Storm Sabre `stormsabre` | 30 → 35 | -21% → **-7%** |
+| Dawnbringer `avenger` | 66 → 53 | +11% → **-8%** |
+| Sanguine Sickle `sickle` | 25 → 35 | -18% → **-10%** |
+| Rime Sabre `frostsabre` | 27 → 34 | -31% → **-11%** |
+| Frostbite Edge `frostbite` | 47 → 56 | -23% → **-18%** |
+| Gyre Spur `spur` | 26 → 43 | -44% → **-18%** |
+| Needle Rapier `rapier` | 48 → 65 | -32% → **-20%** |
+
+Spread: -44% to +51% → -20% to +28%
+
+| Gun | Lab DPS at 3 tiles before → after | In match before → after |
+|---|---|---|
+| Ember Sixgun `embersixgun` | 38 → 31 | +39% → **+22%** |
+| Iron Peacemaker `peacemaker` | 31 → 25 | +57% → **+21%** |
+| Volt Needle `voltneedle` | 30 → 28 | +28% → **+17%** |
+| Rift Repeater `riftlocker` | 24 → 24 | +18% → **+16%** |
+| Grim Hand-cannon `grimcannon` | 29 → 29 | +2% → **+8%** |
+| Rattle Autogun `autogun` | 26 → 24 | +28% → **+6%** |
+| Prairie Sixgun `sixgun` | 33 → 31 | +11% → **+6%** |
+| Longshot Rifle `rifle` | 24 → 27 | -16% → **+1%** |
+| Iron Scattergun `scatter` | 45 → 45 | -12% → **+1%** |
+| Pulse Blaster `blaster` | 32 → 32 | -15% → **+0%** |
+| Ripple Caster `pulsar` | 24 → 34 | -31% → **-4%** |
+| Thunder Hand-cannon `magnus` | 31 → 31 | -5% → **-9%** |
+| Ricochet Coil `alchemer` | 30 → 29 | -7% → **-11%** |
+| Winter Repeater `frostgun` | 24 → 28 | -13% → **-12%** |
+| Tether Catalyst `catalyzer` | 24 → 31 | -38% → **-14%** |
+| Northstar `polaris` | 24 → 30 | -18% → **-15%** |
+| Viper Spitter `viper` | 33 → 33 | -16% → **-16%** |
+| Ember Caster `embercaster` | 31 → 32 | -10% → **-20%** |
+
+Spread: -38% to +57% → -20% to +22%
+
+## First review
+
+### Summary
 
 - **Balance after tuning.** In bot matches with fair loadout rotation, swords now sit between **−20% and
   +21%** of the average sword's damage per minute held (before: −34% to +26%). Guns sit between **−35% and +32%**

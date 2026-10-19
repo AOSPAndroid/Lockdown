@@ -1152,7 +1152,7 @@ test('a gun click fires once; only a deliberate held charge let go early fires a
 
 test('guns cannot shoot and run for free: slowed while shooting, full speed once you stop, lighter hits', () => {
   const { GUN } = L;
-  assert.ok(WEAPONS.blaster.damage < 9 && WEAPONS.rifle.damage < 18, 'gun damage is down');
+  assert.ok(WEAPONS.blaster.damage < 9 && WEAPONS.peacemaker.damage < 8, 'gun damage is down');
   // Distance covered over 24 ticks of running right, after a burst of `shots` shots and then `rest` ticks.
   const ran = (shots, rest = 0) => {
     const fight = duel({ gap: 600, a: { cls: 'recon', weapons: ['blaster', null, null, null], slot: 0, aim: 0 } });
