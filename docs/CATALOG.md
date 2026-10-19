@@ -62,79 +62,79 @@ Attach to `head`; template `docs/reference/templates/helmet.glb`. Budget 2500 tr
 
 ### Sallet Helm `sallet`
 
-- **Does:** A plain steel sallet: solid all-round protection, a little heavy. (+8% vs guns, +8% vs swords, +5% vs bombs, -3% speed)
+- **Does:** A plain steel sallet that turns blades, a little heavy. (+3% vs guns, +10% vs swords, +3% vs bombs, -2% speed)
 - **Looks:** A rounded steel knight head with a narrow eye slit glowing white, a swept tail fin at the back and a `team` brow band.
 - **Make:** `models/helmet/sallet.glb`, icon `icon_helmet_sallet.png`
 
 ### Marksman Visor `visor`
 
-- **Does:** A tinted visor: guns hit 10% harder and charge 10% faster, but it leaves your head bare to blades. (-5% vs swords, +10% gun damage, -10% gun charge time)
+- **Does:** A tinted visor: guns hit harder and charge faster, but it leaves your head bare to blades. (-3% vs swords, +10% gun damage, -8% gun charge time)
 - **Looks:** A sleek sniper head: a wraparound dark visor with one big glowing cyan targeting lens, a brass sensor ear and a short antenna.
 - **Make:** `models/helmet/visor.glb`, icon `icon_helmet_visor.png`
 
 ### Horned Helm `horned`
 
-- **Does:** Swords hit 10% harder; the horns make you an easy target for guns. (-5% vs guns, +5% vs swords, +10% sword damage)
+- **Does:** Swords hit harder and the helm turns a blade, but the horns make an easy target for guns. (-3% vs guns, +5% vs swords, +10% sword damage)
 - **Looks:** A heavy iron head with two big curved horns sweeping forward, a jutting jaw guard and red glowing eyes.
 - **Make:** `models/helmet/horned.glb`, icon `icon_helmet_horned.png`
 
 ### Hexweave Hood `hood`
 
-- **Does:** Status effects last 30% less and your class ability recharges 10% faster; no protection. (-10% ability cooldown, -30% status duration)
+- **Does:** Statuses wear off faster and your class ability recharges sooner; no protection. (-15% ability cooldown, -30% status duration)
 - **Looks:** A charcoal-violet cowl-shaped head with a deep shadowed face where two violet eyes glow, and rune panel lines on the rim.
 - **Make:** `models/helmet/hood.glb`, icon `icon_helmet_hood.png`
 
 ### Sapper Lamp Cap `lampcap`
 
-- **Does:** Bombs charge 15% faster and hit 10% harder; blasts still rattle you. (+10% vs bombs, +10% bomb damage, -15% bomb charge time)
+- **Does:** Bombs charge faster and hit a little harder, with a little blast protection. (+5% vs bombs, +5% bomb damage, -15% bomb charge time)
 - **Looks:** A miner head with a big brass headlamp on the brow (warm yellow glow), a soot-dark shell and a fuse coil wrapped round it.
 - **Make:** `models/helmet/lampcap.glb`, icon `icon_helmet_lampcap.png`
 
 ### Feathered Cap `feather`
 
-- **Does:** A dashing cap: 5% faster and the dash recharges 10% sooner, at the cost of 5 health. (+5% speed, -10% dash cooldown, -5 health)
+- **Does:** A dashing cap: faster on your feet and on the dash, at the cost of a little health. (+5% speed, -10% dash cooldown, -5 health)
 - **Looks:** A light jaunty head with a green swept crest shaped like a feathered cap and a long red feather fin sweeping back.
 - **Make:** `models/helmet/feather.glb`, icon `icon_helmet_feather.png`
 
 ### Bucket Helm `bucket`
 
-- **Does:** +15 health and hard to shove, but you can barely see where you are going. (+5% vs guns, +5% vs swords, +5% vs bombs, -5% speed, +15 health, -20% knockback taken)
+- **Does:** Extra health, a little protection and hard to shove, but you can barely see where you are going. (+3% vs guns, +3% vs swords, +3% vs bombs, -3% speed, +10 health, -20% knockback taken)
 - **Looks:** A dented bucket-shaped head, two round eye holes glowing white and a hinged handle at the side: a scrapyard build.
 - **Make:** `models/helmet/bucket.glb`, icon `icon_helmet_bucket.png`
 
 ### Mender Circlet `circlet`
 
-- **Does:** All healing you receive is 25% stronger. (+25% healing received)
+- **Does:** Healing is stronger and you mend slowly out of combat; statuses fade a little faster. (-10% status duration, +25% healing received, 0.5 HP/s regeneration)
 - **Looks:** A slim white head with a thin gold circlet round the brow and a small green gem in the middle.
 - **Make:** `models/helmet/circlet.glb`, icon `icon_helmet_circlet.png`
 
 ### Cobalt Helm `cobalt`
 
-- **Does:** A deep-blue knight's helm: steady all-round protection, a touch heavy. (+6% vs guns, +6% vs swords, +6% vs bombs, -2% speed)
+- **Does:** A deep-blue knight's helm: even protection, a touch heavy. (+5% vs guns, +5% vs swords, +5% vs bombs, -1% speed)
 - **Looks:** A deep-blue cobalt knight head, broad and heavy, with a T-shaped visor glowing white, silver bolts and a short blue crest.
 - **Make:** `models/helmet/cobalt.glb`, icon `icon_helmet_cobalt.png`
 
 ### Wolver Cowl `wolver`
 
-- **Does:** A wolf-pelt cowl, ears and all: 4% faster and swords hit 5% harder, but 5% weaker to guns. (-5% vs guns, +4% speed, +5% sword damage)
+- **Does:** A wolf-pelt cowl, ears and all: a little faster and sharper with swords, a little weaker to guns. (-3% vs guns, +3% speed, +5% sword damage)
 - **Looks:** A grey wolf head: snout-shaped visor with fangs over the eyes, tall pointed ears and a fur-textured mane plate.
 - **Make:** `models/helmet/wolver.glb`, icon `icon_helmet_wolver.png`
 
 ### Volcanic Demo Helm `demo`
 
-- **Does:** A blast-scarred demolition helm: bombs hit 15% harder and blasts hurt you 10% less, but it is heavy (3% slower). (+10% vs bombs, -3% speed, +15% bomb damage)
+- **Does:** A blast-scarred demolition helm: bombs hit harder and blasts hurt you less, a touch heavy. (+10% vs bombs, -1% speed, +10% bomb damage)
 - **Looks:** A blast-scarred black demolition head with an orange-glowing grille visor, soot streaks and a little smoking exhaust on top.
 - **Make:** `models/helmet/demo.glb`, icon `icon_helmet_demo.png`
 
 ### Seraph Veil `seraph`
 
-- **Does:** A white veil under a golden halo: healing is 20% stronger and status effects 15% shorter, at the cost of 5 health. (-5 health, -15% status duration, +20% healing received)
+- **Does:** A white veil under a golden halo: a little extra health, stronger healing and much shorter statuses. (+5 health, -30% status duration, +15% healing received)
 - **Looks:** A white and gold head with a floating golden halo (soft warm glow) and two small white wing fins at the temples.
 - **Make:** `models/helmet/seraph.glb`, icon `icon_helmet_seraph.png`
 
 ### Clockwork Goggles `goggles`
 
-- **Does:** Your class ability recharges 15% faster; the lenses throw off your aim a little (guns −5%). (-5% gun damage, -15% ability cooldown)
+- **Does:** Your class ability recharges much sooner and guns charge faster, but the lenses dull your sword arm a little. (-8% gun charge time, -3% sword damage, -25% ability cooldown)
 - **Looks:** A pilot head with round amber goggle lenses pushed up on the brow, a padded leather-look crown and a ticking cog at the temple.
 - **Make:** `models/helmet/goggles.glb`, icon `icon_helmet_goggles.png`
 
@@ -144,97 +144,97 @@ Attach to `chest`, `arm_L`/`arm_R` (pauldrons), `forearm_L`/`forearm_R` (bracers
 
 ### Unarmored `none`
 
-- **Does:** The bare robot frame. Normal speed, with no damage resistance. (no stat changes)
+- **Does:** The bare robot frame: no protection, no penalties. (no stat changes)
 - **Looks:** Unarmoured: the core skeleton's own X-patterned chest and joint discs (part of the body).
 - **Make:** nothing (the bare frame's own chest plate, part of the body), icon `icon_armor_none.png`
 
 ### Scout Armor `scout`
 
-- **Does:** Light armor for faster movement and longer dashes, with modest protection. (+10% vs guns, +10% vs swords, +5% vs bombs, +15% speed)
+- **Does:** Light leathers: quick on your feet and further on the dash, with thin all-round protection. (+5% vs guns, +5% vs swords, +5% vs bombs, +7% speed)
 - **Looks:** Light tan armour: a slim chest plate with a brown strap, small rounded shoulder guards and a canister on the hip; quick and practical.
 - **Make:** `models/armor/scout.glb`, icon `icon_armor_scout.png`
 
 ### Ballistic Armor `ballistic`
 
-- **Does:** Specialized protection against guns, with a small speed cost. (+30% vs guns, +8% vs swords, +15% vs bombs, -5% speed)
+- **Does:** Layered plates against bullets; a little heavy, and blades still find the gaps. (+30% vs guns, +5% vs swords, +10% vs bombs, -4% speed)
 - **Looks:** Chunky grey-green padded plates over the chest and shoulders with a high armoured collar, like a bomb-disposal suit; bullet scuffs.
 - **Make:** `models/armor/ballistic.glb`, icon `icon_armor_ballistic.png`
 
 ### Duelist Armor `duelist`
 
-- **Does:** Specialized protection against swords, with a small speed cost. (+8% vs guns, +25% vs swords, +10% vs bombs, -5% speed)
+- **Does:** Padded mail against blades; a little heavy, and bullets still punch through. (+5% vs guns, +30% vs swords, +10% vs bombs, -4% speed)
 - **Looks:** A fitted burgundy chest with diagonal steel bands, one large swept left pauldron and a high collar; elegant and sharp.
 - **Make:** `models/armor/duelist.glb`, icon `icon_armor_duelist.png`
 
 ### Heavy Armor `heavy`
 
-- **Does:** Strong protection against direct attacks, with slower movement and shorter dashes. (+30% vs guns, +30% vs swords, +20% vs bombs, -18% speed)
+- **Does:** Thick plate against everything, at the cost of speed (and a shorter dash). (+25% vs guns, +25% vs swords, +20% vs bombs, -13% speed)
 - **Looks:** Thick steel plate: a domed chest, big rounded pauldrons and a skirt of plates; bolts everywhere.
 - **Make:** `models/armor/heavy.glb`, icon `icon_armor_heavy.png`
 
 ### Gunslinger Duster `gunslinger`
 
-- **Does:** A long riding coat for marksmen: guns hit 15% harder and charge 15% faster, with little protection. (+10% vs guns, +5% vs swords, +5% vs bombs, +15% gun damage, -15% gun charge time)
+- **Does:** A long riding coat for marksmen: guns hit harder and charge faster, with light protection. (+10% vs guns, +5% vs swords, +5% vs bombs, +10% gun damage, -10% gun charge time)
 - **Looks:** A long brown armoured duster: chest plate with a bandolier of brass shells, a wide collar and coat-tail plates behind (on `hips`).
 - **Make:** `models/armor/gunslinger.glb`, icon `icon_armor_gunslinger.png`
 
 ### Fencing Garb `fencer`
 
-- **Does:** A light padded fencing jacket: swords hit 15% harder and swing 10% faster, with little protection. (+5% vs guns, +10% vs swords, +5% vs bombs, +5% speed, +15% sword damage, +10% swing speed)
+- **Does:** A padded fencing jacket: swords hit harder and swing faster, with light protection. (+5% vs guns, +10% vs swords, +5% vs bombs, +10% sword damage, +8% swing speed)
 - **Looks:** A white padded fencing chest buttoned on one side with a red heart emblem; a slim, light silhouette.
 - **Make:** `models/armor/fencer.glb`, icon `icon_armor_fencer.png`
 
 ### Windrunner Wraps `windrunner`
 
-- **Does:** Flowing silk wraps for runners: much faster, with quicker, longer dashes, but swords hit 8% softer and they barely protect you. (+5% vs guns, +18% speed, -8% sword damage, -35% dash cooldown, +20% dash distance)
+- **Does:** Silk wraps for runners: much faster, with long, quick-recharging dashes, but no real protection and softer sword hits. (+5% vs guns, +11% speed, -8% sword damage, -20% dash cooldown)
 - **Looks:** Pale-turquoise aerodynamic plates with fin-shaped sashes trailing behind like ribbons, and wrapped forearm guards.
 - **Make:** `models/armor/windrunner.glb`, icon `icon_armor_windrunner.png`
 
 ### Juggernaut Plate `juggernaut`
 
-- **Does:** Riveted siege plate: +30 health and hard to knock back, but very slow, with short dashes and heavier swings. (+25% vs guns, +25% vs swords, +25% vs bombs, -22% speed, -10% swing speed, -30% dash distance, +30 health, -60% knockback taken)
+- **Does:** Riveted siege plate: extra health and hard to knock back, but the slowest armour, with a short dash. (+20% vs guns, +20% vs swords, +15% vs bombs, -16% speed, -20% dash distance, +20 health, -50% knockback taken)
 - **Looks:** A huge riveted dark-iron siege chest: barrel front, enormous spiked shoulder plates and a grille on the chest; the robot looks twice as wide.
 - **Make:** `models/armor/juggernaut.glb`, icon `icon_armor_juggernaut.png`
 
 ### Bombardier Apron `bombardier`
 
-- **Does:** A scorched leather apron full of fuses: bombs charge 35% faster and hit 20% harder, and blasts barely scratch you, but guns lose their edge. (+5% vs guns, +5% vs swords, +40% vs bombs, -10% gun damage, +20% bomb damage, -35% bomb charge time)
+- **Does:** A scorched apron full of fuses: bombs charge faster and hit harder, blasts barely scratch you, but guns lose their edge. (+5% vs guns, +5% vs swords, +30% vs bombs, -10% gun damage, +10% bomb damage, -20% bomb charge time)
 - **Looks:** A scorched brown blast apron over a soot-grey chest, a belt of fused bombs and a coil of fuse cable on the shoulder.
 - **Make:** `models/armor/bombardier.glb`, icon `icon_armor_bombardier.png`
 
 ### Berserker Hide `berserker`
 
-- **Does:** Bare arms and a wolf pelt: swords hit 25% harder and swing 10% faster, but bullets bite deeper. (-15% vs guns, +5% vs swords, +5% speed, +25% sword damage, +10% swing speed)
+- **Does:** Bare arms and a wolf pelt: swords hit much harder and you move a little faster, but bullets bite deeper. (-10% vs guns, +10% vs swords, +4% speed, +20% sword damage, +5% swing speed)
 - **Looks:** Dark iron bracers and a studded chest harness painted with red war stripes, a wolf-pelt mantle plate over the shoulders; a bone-white claw necklace.
 - **Make:** `models/armor/berserker.glb`, icon `icon_armor_berserker.png`
 
 ### Mirrorweave Cloak `mirrorweave`
 
-- **Does:** A shimmering cloak that sheds fire, poison, shock and frost (60% shorter) and turns some bullets, at the cost of 10 health. (+20% vs guns, +5% vs bombs, -10 health, -60% status duration)
+- **Does:** A shimmering cloak that sheds fire, poison, shock and frost and turns bullets aside, at the cost of a little health. (+20% vs guns, +10% vs bombs, -5 health, -50% status duration)
 - **Looks:** A mantle of mirror scales that catches the light (pearly blue-violet sheen) over a dark chest.
 - **Make:** `models/armor/mirrorweave.glb`, icon `icon_armor_mirrorweave.png`
 
 ### Field Medic Coat `medic`
 
-- **Does:** A white coat with a satchel of salves: hearts, base and dome heal you 50% more and you mend 3 HP a second out of combat, but every weapon hits 5% softer. (+5% vs guns, +5% vs swords, +5% vs bombs, -5% gun damage, -5% sword damage, -5% bomb damage, +50% healing received, 2 HP/s regeneration)
+- **Does:** A coat with a satchel of salves: you heal more and mend steadily out of combat, but every weapon hits a little softer. (+5% vs guns, +5% vs swords, +5% vs bombs, -5% gun damage, -5% sword damage, -5% bomb damage, +40% healing received, 2 HP/s regeneration)
 - **Looks:** A white medical chest with a red cross on the shoulder, a satchel module across the body and green glass vials at the belt.
 - **Make:** `models/armor/medic.glb`, icon `icon_armor_medic.png`
 
 ### Cobalt Mail `cobalt`
 
-- **Does:** Deep-blue knight's mail: balanced protection against everything, a little slower. (+15% vs guns, +15% vs swords, +15% vs bombs, -6% speed)
+- **Does:** Deep-blue knight's mail: even protection against everything, a little slower. (+15% vs guns, +15% vs swords, +15% vs bombs, -4% speed)
 - **Looks:** Deep-blue cobalt armour: a smooth blue chest with silver trim and a star emblem, rounded blue pauldrons and a short blue tabard plate.
 - **Make:** `models/armor/cobalt.glb`, icon `icon_armor_cobalt.png`
 
 ### Vog Cub Coat `vog`
 
-- **Does:** A shaggy coat of fireproof fur: burn, poison, shock and frost last 40% less and blasts hurt 20% less, but it is warm and slow. (+5% vs guns, +5% vs swords, +20% vs bombs, -7% speed, -40% status duration)
+- **Does:** A shaggy coat of fireproof fur: blasts hurt much less, statuses wear off fast and you are hard to shove, but it is warm and a touch slow. (+5% vs guns, +5% vs swords, +25% vs bombs, -2% speed, -15% knockback taken, -50% status duration)
 - **Looks:** A shaggy orange-and-black fur-plated coat from a volcanic bear cub: ember-glowing tips, small horns on the shoulders and a fur hood plate down the back.
 - **Make:** `models/armor/vog.glb`, icon `icon_armor_vog.png`
 
 ### Clockwork Harness `clockwork`
 
-- **Does:** A ticking brass harness: your class ability and dash recharge much faster, but your guns and swords hit 5% softer. (+5% vs guns, +5% vs swords, +5% vs bombs, -5% gun damage, -5% sword damage, -20% dash cooldown, -35% ability cooldown)
+- **Does:** A ticking brass harness: your class ability and dash recharge much faster, but guns and swords hit a little softer. (+10% vs guns, +10% vs swords, +5% vs bombs, -5% gun damage, -5% sword damage, -20% dash cooldown, -30% ability cooldown)
 - **Looks:** A brass gear harness over a dark chest: exposed turning gears, a winding key on the back and copper pipes on the shoulders.
 - **Make:** `models/armor/clockwork.glb`, icon `icon_armor_clockwork.png`
 
@@ -250,67 +250,67 @@ Attach to `hips`, `leg_L`/`leg_R` (thighs), `shin_L`/`shin_R` (knees and shins);
 
 ### Plate Greaves `greaves`
 
-- **Does:** Steel leg plates: good against swords, a little slower. (+5% vs guns, +10% vs swords, +5% vs bombs, -6% speed)
+- **Does:** Steel leg plates that turn blades, a little slower. (+3% vs guns, +10% vs swords, +3% vs bombs, -2% speed)
 - **Looks:** Steel knee guards and shin plates over the frame.
 - **Make:** `models/pants/greaves.glb`, icon `icon_pants_greaves.png`
 
 ### Runner Leggings `leggings`
 
-- **Does:** 6% faster with a 10% longer dash; no protection. (+6% speed, +10% dash distance)
+- **Does:** Light running leggings: faster, with a longer dash; no protection. (+3% speed, +10% dash distance)
 - **Looks:** Slim dark-blue runner legs with a light stripe down the side.
 - **Make:** `models/pants/leggings.glb`, icon `icon_pants_leggings.png`
 
 ### Chainmail Chausses `chausses`
 
-- **Does:** Blast protection and 20% less knockback, slightly slower. (+5% vs guns, +5% vs swords, +15% vs bombs, -3% speed, -20% knockback taken)
+- **Does:** Mail chausses: blast protection and less knockback, a little slower. (+3% vs guns, +3% vs swords, +12% vs bombs, -2% speed, -20% knockback taken)
 - **Looks:** Grey chain-link leg armour (a clear ring pattern) to the ankle.
 - **Make:** `models/pants/chausses.glb`, icon `icon_pants_chausses.png`
 
 ### Duelist Breeches `breeches`
 
-- **Does:** Swings 8% faster with light sword protection. (+5% vs swords, +8% swing speed)
+- **Does:** Swings come faster, with light sword protection. (+5% vs swords, +8% swing speed)
 - **Looks:** Cream fencing leg plates buckled below the knee with white shin guards.
 - **Make:** `models/pants/breeches.glb`, icon `icon_pants_breeches.png`
 
 ### Sapper Trousers `sapper`
 
-- **Does:** Pockets full of fuses: bombs charge 15% faster. (+5% vs bombs, -15% bomb charge time)
+- **Does:** Pockets full of fuses: bombs charge faster, with a little blast protection. (+5% vs bombs, -20% bomb charge time)
 - **Looks:** Olive utility leg plates with knee pads and a fuse pouch on the thigh.
 - **Make:** `models/pants/sapper.glb`, icon `icon_pants_sapper.png`
 
 ### Cargo Trousers `cargo`
 
-- **Does:** Spare magazines: gun charges 10% faster and guns hit 5% harder, slightly slower. (-3% speed, +5% gun damage, -10% gun charge time)
+- **Does:** Spare magazines: guns charge faster and hit a little harder. (+6% gun damage, -10% gun charge time)
 - **Looks:** Khaki leg plates with big side pockets and a holster strap on the thigh.
 - **Make:** `models/pants/cargo.glb`, icon `icon_pants_cargo.png`
 
 ### Cobalt Cuisses `cobalt`
 
-- **Does:** Blue steel thigh plates: steady all-round protection, a little slower. (+6% vs guns, +6% vs swords, +6% vs bombs, -4% speed)
+- **Does:** Blue steel thigh plates: even protection, a touch heavy. (+5% vs guns, +5% vs swords, +5% vs bombs, -1% speed)
 - **Looks:** Deep-blue cobalt thigh plates with silver bolts and blue knee guards.
 - **Make:** `models/pants/cobalt.glb`, icon `icon_pants_cobalt.png`
 
 ### Wolver Leggings `wolver`
 
-- **Does:** Fur-lined running leggings: 5% faster and swords swing 5% faster, with no protection. (+5% speed, +5% swing speed)
+- **Does:** Fur-lined running leggings: a little faster, and swords swing a little faster. (+3% speed, +5% swing speed)
 - **Looks:** Grey fur-edged runner legs with wolf-claw marks on the thighs.
 - **Make:** `models/pants/wolver.glb`, icon `icon_pants_wolver.png`
 
 ### Demo Pantaloons `demo`
 
-- **Does:** Baggy pantaloons stuffed with charges: bombs charge 10% faster and hit 5% harder, but blasts hurt you 5% more. (-5% vs bombs, +5% bomb damage, -10% bomb charge time)
+- **Does:** Baggy pantaloons stuffed with charges: bombs charge faster and hit harder, but blasts hurt you a little more. (-3% vs bombs, +10% bomb damage, -15% bomb charge time)
 - **Looks:** Bulky black leg plates stuffed with charges, orange powder stains and a stick of dynamite at the hip.
 - **Make:** `models/pants/demo.glb`, icon `icon_pants_demo.png`
 
 ### Seraph Tassets `seraph`
 
-- **Does:** White and gold tassets: you mend 1 HP a second out of combat; light, so swords hurt 5% more. (-5% vs swords, 1 HP/s regeneration)
+- **Does:** White and gold tassets: you mend out of combat and heal a little more; light, so swords hurt a little more. (-3% vs swords, +10% healing received, 1 HP/s regeneration)
 - **Looks:** White and gold tassets: layered white panels edged in gold over light legs.
 - **Make:** `models/pants/seraph.glb`, icon `icon_pants_seraph.png`
 
 ### Kilt of Fury `kilt`
 
-- **Does:** Swords hit 10% harder, but bullets find bare knees (guns hit you 10% harder). (-10% vs guns, +3% speed, +10% sword damage)
+- **Does:** Swords hit harder and you move a little faster, but bullets find bare knees. (-5% vs guns, +3% speed, +10% sword damage)
 - **Looks:** A red-and-green tartan skirt of plates with a hip pouch.
 - **Make:** `models/pants/kilt.glb`, icon `icon_pants_kilt.png`
 
@@ -326,67 +326,67 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 
 ### Sprint Sneakers `sneakers`
 
-- **Does:** 8% faster, at the cost of 5 health. (+8% speed, -5 health)
+- **Does:** Faster on your feet, at the cost of a little health. (+6% speed, -5 health)
 - **Looks:** White runner feet with a bright sole stripe.
 - **Make:** `models/shoes/sneakers.glb`, icon `icon_shoes_sneakers.png`
 
 ### Iron Sabatons `sabatons`
 
-- **Does:** Rooted to the ground: 30% less knockback and some blast protection, but 8% slower. (+10% vs bombs, -8% speed, -30% knockback taken)
+- **Does:** Rooted to the ground: much less knockback and some protection, but slower. (+3% vs guns, +5% vs swords, +10% vs bombs, -3% speed, -40% knockback taken)
 - **Looks:** Chunky segmented iron feet with pointed toes.
 - **Make:** `models/shoes/sabatons.glb`, icon `icon_shoes_sabatons.png`
 
 ### Dash Boots `dashboots`
 
-- **Does:** The dash recharges 25% faster and goes 15% further. (-25% dash cooldown, +15% dash distance)
+- **Does:** The dash recharges much sooner and goes a little further. (-30% dash cooldown, +15% dash distance)
 - **Looks:** Sleek blue feet with small silver wing fins at the ankles.
 - **Make:** `models/shoes/dashboots.glb`, icon `icon_shoes_dashboots.png`
 
 ### Spurred Boots `spurs`
 
-- **Does:** Swords hit 5% harder and you move 3% faster. (+3% speed, +5% sword damage)
+- **Does:** Swords hit a little harder and you move a little faster. (+2% speed, +5% sword damage)
 - **Looks:** Brown armoured boots with gold rowel spurs at the heel.
 - **Make:** `models/shoes/spurs.glb`, icon `icon_shoes_spurs.png`
 
 ### Mud Treads `treads`
 
-- **Does:** Status effects last 25% less; heavy soles slow you 3%. (-3% speed, -25% status duration)
+- **Does:** Sure footing: statuses wear off faster, a little protection and less knockback; heavy soles. (+3% vs guns, +3% vs swords, -1% speed, -15% knockback taken, -35% status duration)
 - **Looks:** Heavy black feet with thick tank-tread soles.
 - **Make:** `models/shoes/treads.glb`, icon `icon_shoes_treads.png`
 
 ### Rocket Clogs `clogs`
 
-- **Does:** A huge 35% longer dash that takes 20% longer to recharge. (+20% dash cooldown, +35% dash distance)
+- **Does:** A much longer dash and a little more speed, but the dash takes longer to recharge. (+2% speed, +15% dash cooldown, +35% dash distance)
 - **Looks:** Springy block feet on coiled steel springs.
 - **Make:** `models/shoes/clogs.glb`, icon `icon_shoes_clogs.png`
 
 ### Healer Sandals `sandals`
 
-- **Does:** Mend 1 HP a second out of combat and heal 10% more. (+10% healing received, 1 HP/s regeneration)
+- **Does:** You mend out of combat and heal a little more. (+5% healing received, 1 HP/s regeneration)
 - **Looks:** Light open feet with strap plates and a little green leaf emblem.
 - **Make:** `models/shoes/sandals.glb`, icon `icon_shoes_sandals.png`
 
 ### Stride Boots `striders`
 
-- **Does:** Long, light strides: 6% faster and your class ability recovers 15% sooner, but 5% weaker to swords. (-5% vs swords, +6% speed, -15% ability cooldown)
+- **Does:** Long, light strides: faster, and your class ability recharges sooner, but a little weaker to swords. (-3% vs swords, +4% speed, -10% ability cooldown)
 - **Looks:** Long, light feet with a slim stride and a tiny green leaf on each cuff.
 - **Make:** `models/shoes/striders.glb`, icon `icon_shoes_striders.png`
 
 ### Magma Treads `magma`
 
-- **Does:** Fireproof soles: burn, poison, shock and frost last 35% less and blasts hurt 10% less, but you are 4% slower. (+10% vs bombs, -4% speed, -35% status duration)
+- **Does:** Fireproof soles: statuses wear off faster and blasts hurt less; a touch heavy. (+10% vs bombs, -1% speed, -30% status duration)
 - **Looks:** Thick black obsidian-soled feet with glowing orange cracks.
 - **Make:** `models/shoes/magma.glb`, icon `icon_shoes_magma.png`
 
 ### Hover Boots `hover`
 
-- **Does:** Float a hair off the floor: 40% less knockback and dashes go 20% further, but hovering is 6% slower. (-6% speed, +20% dash distance, -40% knockback taken)
+- **Does:** Float a hair off the floor: half the knockback, a longer dash and a little blast protection; a touch slow. (+5% vs bombs, -1% speed, +20% dash distance, -50% knockback taken)
 - **Looks:** Chunky silver feet with small glowing cyan thrusters under the soles (a soft glow below the feet).
 - **Make:** `models/shoes/hover.glb`, icon `icon_shoes_hover.png`
 
 ### Quicksilver Slippers `quicksilver`
 
-- **Does:** 15% faster than anything else on your feet, but paper-thin: 8% weaker to everything. (-8% vs guns, -8% vs swords, -8% vs bombs, +15% speed)
+- **Does:** The fastest thing you can wear on your feet, but paper-thin: a little weaker to everything. (-6% vs guns, -6% vs swords, -6% vs bombs, +10% speed)
 - **Looks:** Thin liquid-silver feet with a mirror sheen and little speed streaks.
 - **Make:** `models/shoes/quicksilver.glb`, icon `icon_shoes_quicksilver.png`
 

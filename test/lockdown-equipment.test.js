@@ -75,23 +75,23 @@ test('Guardian class health and armor health stack through base changes, respawn
   L.setConnected(state, 0, true);
   assert.deepEqual(L.setPlayerSetup(state, 0, { cls: 'guardian', armor: 'juggernaut' }), { ok: true });
   assert.equal(L.CLASSES.guardian.hp, 120);
-  assert.equal(ARMORS.juggernaut.maxHp, 30);
-  assert.equal(state.players[0].maxHp, 150);
+  const full = 120 + ARMORS.juggernaut.maxHp;
+  assert.ok(ARMORS.juggernaut.maxHp > 0); assert.equal(state.players[0].maxHp, full);
   L.startMatch(state, [0]); state.phase = 'fight';
   const me = state.players[0];
-  assert.deepEqual([me.hp, me.maxHp], [150, 150]);
-  Object.assign(me, L.MAPS[state.mapId].spawns[0][0], { hp: 75 });
+  assert.deepEqual([me.hp, me.maxHp], [full, full]);
+  Object.assign(me, L.MAPS[state.mapId].spawns[0][0], { hp: full / 2 });
   assert.deepEqual(L.setPlayerSetup(state, 0, { armor: 'heavy' }), { ok: true });
   assert.deepEqual([me.hp, me.maxHp], [60, 120], 'removing bonus health preserves half health');
   assert.deepEqual(L.setPlayerSetup(state, 0, { armor: 'juggernaut' }), { ok: true });
-  assert.deepEqual([me.hp, me.maxHp], [75, 150], 'adding bonus health preserves half health');
+  assert.deepEqual([me.hp, me.maxHp], [full / 2, full], 'adding bonus health preserves half health');
   Object.assign(me, { alive: false, hp: 0, respawnTicks: 1 });
   run(state, 1);
-  assert.deepEqual([me.alive, me.hp, me.maxHp], [true, 150, 150]);
+  assert.deepEqual([me.alive, me.hp, me.maxHp], [true, full, full]);
   L.resetLobby(state);
-  assert.deepEqual([state.players[0].cls, state.players[0].armor, state.players[0].hp, state.players[0].maxHp], ['guardian', 'juggernaut', 150, 150]);
+  assert.deepEqual([state.players[0].cls, state.players[0].armor, state.players[0].hp, state.players[0].maxHp], ['guardian', 'juggernaut', full, full]);
   L.startMatch(state, [0]);
-  assert.deepEqual([state.players[0].hp, state.players[0].maxHp], [150, 150]);
+  assert.deepEqual([state.players[0].hp, state.players[0].maxHp], [full, full]);
 });
 
 test('taking over an equipped bot removes all gear and bonus health while preserving health fraction and life state', () => {
@@ -99,7 +99,7 @@ test('taking over an equipped bot removes all gear and bonus health while preser
     const state = L.createState();
     L.setPlayerSetup(state, 0, { cls, helmet: 'bucket', armor: 'juggernaut', pants: 'greaves', shoes: 'sneakers' });
     const player = state.players[0];
-    assert.equal(player.maxHp, L.CLASSES[cls].hp + 40, 'helmet, body armor and shoes contribute health');
+    assert.equal(player.maxHp, L.CLASSES[cls].hp + L.HELMETS.bucket.maxHp + ARMORS.juggernaut.maxHp + L.SHOES.sneakers.maxHp, 'helmet, body armor and shoes contribute health');
     state.phase = 'fight';
     Object.assign(player, { alive, hp: alive ? player.maxHp * .4 : 0 });
     L.setConnected(state, 0, true);
@@ -258,4 +258,20 @@ test('gear slots are validated atomically, change health, and work in a real fig
   const slow = L.createState({ seed: 3 }); L.setConnected(slow, 0, true); L.setPlayerSetup(slow, 0, { pants: 'greaves', shoes: 'sabatons' });
   const travel = s => { L.startMatch(s, [0]); s.phase = 'fight'; const p = s.players[0], x = p.x; for (let i = 0; i < 30; i++) L.step(s, { 0: { ...L.emptyInput(0), right: true } }); return Math.abs(p.x - x) + Math.abs(p.y - 0); };
   assert.ok(travel(fast) > travel(slow));
+});
+
+test('equipment is streamlined: every piece sits in its slot budget, and descriptions leave the numbers to the stats', () => {
+  // A rough point value: 1 point = 1% protection against guns or swords (see the weights below).
+  const W = { gunResistance: 100, bladeResistance: 100, bombResistance: 60, speedMultiplier: 250, gunDamage: 80, bladeDamage: 80, bombDamage: 50, gunCharge: -50, bombCharge: -35, bladeSpeed: 60,
+    dashCooldown: -20, dashDistance: 20, abilityCooldown: -30, maxHp: 1, knockback: -10, statusDuration: -15, healing: 12, regen: 10 };
+  const zero = new Set(['maxHp', 'regen', 'gunResistance', 'bladeResistance', 'bombResistance']);
+  const score = piece => Object.entries(W).reduce((sum, [key, weight]) => sum + ((piece[key] ?? (zero.has(key) ? 0 : 1)) - (zero.has(key) ? 0 : 1)) * weight, 0);
+  for (const [slot, table] of Object.entries(GEAR)) for (const piece of Object.values(table)) {
+    assert.doesNotMatch(piece.description, /\d/, `${piece.id}: the description describes; the stats give the numbers`);
+    if (piece.id === 'none') continue;
+    const [low, high] = slot === 'armor' ? [25, 35] : [7, 13];
+    assert.ok(score(piece) >= low && score(piece) <= high, `${slot} ${piece.id} scores ${score(piece).toFixed(1)}, outside ${low}-${high}`);
+  }
+  // Light armour still dashes further than heavy plate.
+  assert.ok(ARMORS.scout.speedMultiplier > 1 && ARMORS.heavy.speedMultiplier < 1);
 });

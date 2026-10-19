@@ -625,13 +625,13 @@ test('outfit perks and drawbacks: speed vs swords, plate, bombs, berserk, mirror
   // Juggernaut: extra health, little knockback; Mirrorweave costs health.
   const state = L.createState({ mapId: 'temple' }); L.setConnected(state, 0, true, 'A');
   L.setPlayerSetup(state, 0, { cls: 'striker', armor: 'juggernaut' });
-  assert.equal(state.players[0].maxHp, CLASSES.striker.hp + 30);
+  assert.equal(state.players[0].maxHp, CLASSES.striker.hp + L.ARMORS.juggernaut.maxHp); assert.ok(L.ARMORS.juggernaut.maxHp > 0);
   L.setPlayerSetup(state, 0, { armor: 'mirrorweave' });
   assert.equal(state.players[0].maxHp, CLASSES.striker.hp + L.ARMORS.mirrorweave.maxHp);
   const plate = duel({ gap: 50, a: { cls: 'recon' }, b: { cls: 'recon', armor: 'juggernaut' } });
   const bare = duel({ gap: 50, a: { cls: 'recon' }, b: { cls: 'recon' } });
   for (const { state: s } of [plate, bare]) run(s, WEAPONS.brand.combo[0].startup + WEAPONS.brand.combo[0].active + 1, t => ({ 0: { attack: t === 0 } }));
-  assert.ok(Math.abs(plate.foe.pushX) < Math.abs(bare.foe.pushX) * .5, 'plate barely moves');
+  assert.ok(Math.abs(plate.foe.pushX) <= Math.abs(bare.foe.pushX) * L.ARMORS.juggernaut.knockback + .01 && L.ARMORS.juggernaut.knockback <= .5, 'plate barely moves');
   // Berserker takes more from guns.
   const berserk = duel({ gap: 200, a: { cls: 'guardian', weapons: ['blaster', 'brand', 'blast'] }, b: { cls: 'recon', armor: 'berserker' } });
   run(berserk.state, 40, t => ({ 0: { attack: t === 0 } }));
