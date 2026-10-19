@@ -401,6 +401,7 @@ function armorPerkList(armor) {
   if (armor.bombCharge !== 1) add(armor.bombCharge < 1, `Bomb charge ${armor.bombCharge < 1 ? 'faster' : 'slower'} ${Math.abs(percent(1 - armor.bombCharge))}%`);
   if (armor.maxHp) add(armor.maxHp > 0, `Health ${armor.maxHp > 0 ? '+' : '−'}${Math.abs(armor.maxHp)}`);
   if (armor.dashCooldown !== 1) add(armor.dashCooldown < 1, `Dash recharge ${armor.dashCooldown < 1 ? 'faster' : 'slower'} ${Math.abs(percent(1 - armor.dashCooldown))}%`);
+  if (armor.dashDistance !== 1) add(armor.dashDistance > 1, `Dash ${armor.dashDistance > 1 ? 'longer' : 'shorter'} ${Math.abs(percent(armor.dashDistance - 1))}%`);
   if (armor.abilityCooldown !== 1) add(armor.abilityCooldown < 1, `Ability recharge ${armor.abilityCooldown < 1 ? 'faster' : 'slower'} ${Math.abs(percent(1 - armor.abilityCooldown))}%`);
   if (armor.knockback !== 1) add(armor.knockback < 1, `Knockback ${armor.knockback < 1 ? '−' : '+'}${Math.abs(percent(1 - armor.knockback))}%`);
   if (armor.statusDuration !== 1) add(armor.statusDuration < 1, `Status effects ${Math.abs(percent(1 - armor.statusDuration))}% ${armor.statusDuration < 1 ? 'shorter' : 'longer'}`);

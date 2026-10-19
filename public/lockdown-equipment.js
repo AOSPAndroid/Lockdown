@@ -4,13 +4,13 @@
  * class perks. Multipliers are 1 when unused:
  * - gunDamage, bladeDamage, bombDamage: damage dealt with that weapon family.
  * - gunCharge, bombCharge: charge time (below 1 is faster). bladeSpeed: swing speed.
- * - dashCooldown: how soon the Space dash recharges (its length is the same for everyone). abilityCooldown: the class ability (and the
+ * - dashCooldown, dashDistance: the Space dash. abilityCooldown: the class ability (and the
  *   Guardian shield's recharge).
  * - maxHp: flat health added to the class. knockback: how far hits push you.
  * - statusDuration: how long burn, poison, shock and freeze last on you.
  * - healing: hearts, base and dome healing received. regen: health per second after
  *   four seconds without taking damage. */
-const PERKS = Object.freeze({ gunDamage: 1, gunCharge: 1, bladeDamage: 1, bladeSpeed: 1, bombDamage: 1, bombCharge: 1, dashCooldown: 1,
+const PERKS = Object.freeze({ gunDamage: 1, gunCharge: 1, bladeDamage: 1, bladeSpeed: 1, bombDamage: 1, bombCharge: 1, dashCooldown: 1, dashDistance: 1,
   abilityCooldown: 1, maxHp: 0, knockback: 1, statusDuration: 1, healing: 1, regen: 0 });
 export const PERK_IDS = Object.freeze(Object.keys(PERKS));
 const armor = (id, name, description, gunResistance, bladeResistance, bombResistance, speedMultiplier, spriteStyle, perks = {}) => Object.freeze({
@@ -21,14 +21,14 @@ const armor = (id, name, description, gunResistance, bladeResistance, bombResist
 
 export const ARMORS = Object.freeze({
   none: armor('none', 'Unarmored', 'The bare robot frame. Normal speed, with no damage resistance.', 0, 0, 0, 1, 'none'),
-  scout: armor('scout', 'Scout Armor', 'Light armor for faster movement, with modest protection.', .10, .10, .05, 1.15, 'light'),
+  scout: armor('scout', 'Scout Armor', 'Light armor for faster movement and longer dashes, with modest protection.', .10, .10, .05, 1.15, 'light'),
   ballistic: armor('ballistic', 'Ballistic Armor', 'Specialized protection against guns, with a small speed cost.', .30, .08, .15, .95, 'ballistic'),
   duelist: armor('duelist', 'Duelist Armor', 'Specialized protection against swords, with a small speed cost.', .08, .25, .10, .95, 'duelist'),
   heavy: armor('heavy', 'Heavy Armor', 'Strong protection against direct attacks, with slower movement and shorter dashes.', .30, .30, .20, .82, 'heavy'),
   gunslinger: armor('gunslinger', 'Gunslinger Duster', 'A long riding coat for marksmen: guns hit 15% harder and charge 15% faster, with little protection.', .10, .05, .05, 1, 'gunslinger', { gunDamage: 1.15, gunCharge: .85 }),
   fencer: armor('fencer', 'Fencing Garb', 'A light padded fencing jacket: swords hit 15% harder and swing 10% faster, with little protection.', .05, .10, .05, 1.05, 'fencer', { bladeDamage: 1.15, bladeSpeed: 1.1 }),
-  windrunner: armor('windrunner', 'Windrunner Wraps', 'Flowing silk wraps for runners: much faster, with quick-recharging dashes, but swords hit 8% softer and they barely protect you.', .05, 0, 0, 1.18, 'windrunner', { dashCooldown: .65, bladeDamage: .92 }),
-  juggernaut: armor('juggernaut', 'Juggernaut Plate', 'Riveted siege plate: +30 health and hard to knock back, but very slow, with slow-recharging dashes and heavier swings.', .25, .25, .25, .78, 'juggernaut', { maxHp: 30, knockback: .4, dashCooldown: 1.3, bladeSpeed: .9 }),
+  windrunner: armor('windrunner', 'Windrunner Wraps', 'Flowing silk wraps for runners: much faster, with quicker, longer dashes, but swords hit 8% softer and they barely protect you.', .05, 0, 0, 1.18, 'windrunner', { dashCooldown: .65, dashDistance: 1.2, bladeDamage: .92 }),
+  juggernaut: armor('juggernaut', 'Juggernaut Plate', 'Riveted siege plate: +30 health and hard to knock back, but very slow, with short dashes and heavier swings.', .25, .25, .25, .78, 'juggernaut', { maxHp: 30, knockback: .4, dashDistance: .7, bladeSpeed: .9 }),
   bombardier: armor('bombardier', 'Bombardier Apron', 'A scorched leather apron full of fuses: bombs charge 35% faster and hit 20% harder, and blasts barely scratch you, but guns lose their edge.', .05, .05, .40, 1, 'bombardier', { bombCharge: .65, bombDamage: 1.2, gunDamage: .9 }),
   berserker: armor('berserker', 'Berserker Hide', 'Bare arms and a wolf pelt: swords hit 25% harder and swing 10% faster, but bullets bite deeper.', -.15, .05, 0, 1.05, 'berserker', { bladeDamage: 1.25, bladeSpeed: 1.1 }),
   mirrorweave: armor('mirrorweave', 'Mirrorweave Cloak', 'A shimmering cloak that sheds fire, poison, shock and frost (60% shorter) and turns some bullets, at the cost of 10 health.', .20, 0, .05, 1, 'mirrorweave', { statusDuration: .4, maxHp: -10 }),
@@ -60,7 +60,7 @@ export const HELMETS = Object.freeze({
 export const PANTS = Object.freeze({
   none: piece('none', 'Bare legs', 'The frame\'s plain leg plates.', 0, 0, 0, 1),
   greaves: piece('greaves', 'Plate Greaves', 'Steel leg plates: good against swords, a little slower.', .05, .10, .05, .94),
-  leggings: piece('leggings', 'Runner Leggings', '6% faster, and the dash recharges 10% sooner; no protection.', 0, 0, 0, 1.06, { dashCooldown: .9 }),
+  leggings: piece('leggings', 'Runner Leggings', '6% faster with a 10% longer dash; no protection.', 0, 0, 0, 1.06, { dashDistance: 1.1 }),
   chausses: piece('chausses', 'Chainmail Chausses', 'Blast protection and 20% less knockback, slightly slower.', .05, .05, .15, .97, { knockback: .8 }),
   breeches: piece('breeches', 'Duelist Breeches', 'Swings 8% faster with light sword protection.', 0, .05, 0, 1, { bladeSpeed: 1.08 }),
   sapper: piece('sapper', 'Sapper Trousers', 'Pockets full of fuses: bombs charge 15% faster.', 0, 0, .05, 1, { bombCharge: .85 }),
@@ -75,14 +75,14 @@ export const SHOES = Object.freeze({
   none: piece('none', 'Bare feet', 'The frame\'s plain feet.', 0, 0, 0, 1),
   sneakers: piece('sneakers', 'Sprint Sneakers', '8% faster, at the cost of 5 health.', 0, 0, 0, 1.08, { maxHp: -5 }),
   sabatons: piece('sabatons', 'Iron Sabatons', 'Rooted to the ground: 30% less knockback and some blast protection, but 8% slower.', 0, 0, .10, .92, { knockback: .7 }),
-  dashboots: piece('dashboots', 'Dash Boots', 'The dash recharges 25% faster.', 0, 0, 0, 1, { dashCooldown: .75 }),
+  dashboots: piece('dashboots', 'Dash Boots', 'The dash recharges 25% faster and goes 15% further.', 0, 0, 0, 1, { dashCooldown: .75, dashDistance: 1.15 }),
   spurs: piece('spurs', 'Spurred Boots', 'Swords hit 5% harder and you move 3% faster.', 0, 0, 0, 1.03, { bladeDamage: 1.05 }),
   treads: piece('treads', 'Mud Treads', 'Status effects last 25% less; heavy soles slow you 3%.', 0, 0, 0, .97, { statusDuration: .75 }),
-  clogs: piece('clogs', 'Rocket Clogs', 'Rocket-fed heels: the dash recharges 40% faster, but the clogs are heavy (5% slower).', 0, 0, 0, .95, { dashCooldown: .6 }),
+  clogs: piece('clogs', 'Rocket Clogs', 'A huge 35% longer dash that takes 20% longer to recharge.', 0, 0, 0, 1, { dashDistance: 1.35, dashCooldown: 1.2 }),
   sandals: piece('sandals', 'Healer Sandals', 'Mend 1 HP a second out of combat and heal 10% more.', 0, 0, 0, 1, { regen: 1, healing: 1.1 }),
   striders: piece('striders', 'Stride Boots', 'Long, light strides: 6% faster and your class ability recovers 15% sooner, but 5% weaker to swords.', 0, -.05, 0, 1.06, { abilityCooldown: .85 }),
   magma: piece('magma', 'Magma Treads', 'Fireproof soles: burn, poison, shock and frost last 35% less and blasts hurt 10% less, but you are 4% slower.', 0, 0, .10, .96, { statusDuration: .65 }),
-  hover: piece('hover', 'Hover Boots', 'Float a hair off the floor: 40% less knockback, but hovering is 6% slower.', 0, 0, 0, .94, { knockback: .6 }),
+  hover: piece('hover', 'Hover Boots', 'Float a hair off the floor: 40% less knockback and dashes go 20% further, but hovering is 6% slower.', 0, 0, 0, .94, { knockback: .6, dashDistance: 1.2 }),
   quicksilver: piece('quicksilver', 'Quicksilver Slippers', '15% faster than anything else on your feet, but paper-thin: 8% weaker to everything.', -.08, -.08, -.08, 1.15),
 });
 
@@ -92,7 +92,7 @@ export const GEAR = Object.freeze({ helmet: HELMETS, armor: ARMORS, pants: PANTS
 // Stacking is allowed to get silly, but not unplayable: every combined stat lives in these bounds.
 export const GEAR_LIMITS = Object.freeze({ resistance: [-.5, .6], speed: [.6, 1.45], power: [.6, 1.4], tempo: [.45, 1.6], maxHp: [-40, 60], knockback: [.3, 1.6], statusDuration: [.3, 1.6], healing: [.6, 1.9] });
 const PERK_LIMIT = { gunDamage: 'power', bladeDamage: 'power', bombDamage: 'power', bladeSpeed: 'power', healing: 'healing',
-  gunCharge: 'tempo', bombCharge: 'tempo', dashCooldown: 'tempo', abilityCooldown: 'tempo', knockback: 'knockback', statusDuration: 'statusDuration', maxHp: 'maxHp' };
+  gunCharge: 'tempo', bombCharge: 'tempo', dashCooldown: 'tempo', dashDistance: 'tempo', abilityCooldown: 'tempo', knockback: 'knockback', statusDuration: 'statusDuration', maxHp: 'maxHp' };
 
 const combined = new Map();
 /** Everything a knight wears, added up: resistances add (capped), speed and multipliers

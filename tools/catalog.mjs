@@ -9,7 +9,7 @@ import { BODY_LOOK, CLASS_LOOKS, GEAR_LOOKS, WEAPON_LOOKS } from '../public/lock
 
 const pct = value => `${value > 0 ? '+' : ''}${Math.round(value * 100)}%`;
 const PERK_LABELS = { gunDamage: 'gun damage', gunCharge: 'gun charge time', bladeDamage: 'sword damage', bladeSpeed: 'swing speed', bombDamage: 'bomb damage', bombCharge: 'bomb charge time',
-  dashCooldown: 'dash cooldown', abilityCooldown: 'ability cooldown', maxHp: 'health', knockback: 'knockback taken', statusDuration: 'status duration', healing: 'healing received', regen: 'regeneration' };
+  dashCooldown: 'dash cooldown', dashDistance: 'dash distance', abilityCooldown: 'ability cooldown', maxHp: 'health', knockback: 'knockback taken', statusDuration: 'status duration', healing: 'healing received', regen: 'regeneration' };
 function stats(piece) {
   const parts = [];
   for (const [key, label] of [['gunResistance', 'vs guns'], ['bladeResistance', 'vs swords'], ['bombResistance', 'vs bombs']]) if (piece[key]) parts.push(`${pct(piece[key])} ${label}`);

@@ -150,7 +150,7 @@ Attach to `chest`, `arm_L`/`arm_R` (pauldrons), `forearm_L`/`forearm_R` (bracers
 
 ### Scout Armor `scout`
 
-- **Does:** Light armor for faster movement, with modest protection. (+10% vs guns, +10% vs swords, +5% vs bombs, +15% speed)
+- **Does:** Light armor for faster movement and longer dashes, with modest protection. (+10% vs guns, +10% vs swords, +5% vs bombs, +15% speed)
 - **Looks:** Light tan armour: a slim chest plate with a brown strap, small rounded shoulder guards and a canister on the hip; quick and practical.
 - **Make:** `models/armor/scout.glb`, icon `icon_armor_scout.png`
 
@@ -186,13 +186,13 @@ Attach to `chest`, `arm_L`/`arm_R` (pauldrons), `forearm_L`/`forearm_R` (bracers
 
 ### Windrunner Wraps `windrunner`
 
-- **Does:** Flowing silk wraps for runners: much faster, with quick-recharging dashes, but swords hit 8% softer and they barely protect you. (+5% vs guns, +18% speed, -8% sword damage, -35% dash cooldown)
+- **Does:** Flowing silk wraps for runners: much faster, with quicker, longer dashes, but swords hit 8% softer and they barely protect you. (+5% vs guns, +18% speed, -8% sword damage, -35% dash cooldown, +20% dash distance)
 - **Looks:** Pale-turquoise aerodynamic plates with fin-shaped sashes trailing behind like ribbons, and wrapped forearm guards.
 - **Make:** `models/armor/windrunner.glb`, icon `icon_armor_windrunner.png`
 
 ### Juggernaut Plate `juggernaut`
 
-- **Does:** Riveted siege plate: +30 health and hard to knock back, but very slow, with slow-recharging dashes and heavier swings. (+25% vs guns, +25% vs swords, +25% vs bombs, -22% speed, -10% swing speed, +30% dash cooldown, +30 health, -60% knockback taken)
+- **Does:** Riveted siege plate: +30 health and hard to knock back, but very slow, with short dashes and heavier swings. (+25% vs guns, +25% vs swords, +25% vs bombs, -22% speed, -10% swing speed, -30% dash distance, +30 health, -60% knockback taken)
 - **Looks:** A huge riveted dark-iron siege chest: barrel front, enormous spiked shoulder plates and a grille on the chest; the robot looks twice as wide.
 - **Make:** `models/armor/juggernaut.glb`, icon `icon_armor_juggernaut.png`
 
@@ -256,7 +256,7 @@ Attach to `hips`, `leg_L`/`leg_R` (thighs), `shin_L`/`shin_R` (knees and shins);
 
 ### Runner Leggings `leggings`
 
-- **Does:** 6% faster, and the dash recharges 10% sooner; no protection. (+6% speed, -10% dash cooldown)
+- **Does:** 6% faster with a 10% longer dash; no protection. (+6% speed, +10% dash distance)
 - **Looks:** Slim dark-blue runner legs with a light stripe down the side.
 - **Make:** `models/pants/leggings.glb`, icon `icon_pants_leggings.png`
 
@@ -338,7 +338,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 
 ### Dash Boots `dashboots`
 
-- **Does:** The dash recharges 25% faster. (-25% dash cooldown)
+- **Does:** The dash recharges 25% faster and goes 15% further. (-25% dash cooldown, +15% dash distance)
 - **Looks:** Sleek blue feet with small silver wing fins at the ankles.
 - **Make:** `models/shoes/dashboots.glb`, icon `icon_shoes_dashboots.png`
 
@@ -356,7 +356,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 
 ### Rocket Clogs `clogs`
 
-- **Does:** Rocket-fed heels: the dash recharges 40% faster, but the clogs are heavy (5% slower). (-5% speed, -40% dash cooldown)
+- **Does:** A huge 35% longer dash that takes 20% longer to recharge. (+20% dash cooldown, +35% dash distance)
 - **Looks:** Springy block feet on coiled steel springs.
 - **Make:** `models/shoes/clogs.glb`, icon `icon_shoes_clogs.png`
 
@@ -380,7 +380,7 @@ Attach to `foot_L`, `foot_R`; template `templates/shoes.glb`. Budget 1500 triang
 
 ### Hover Boots `hover`
 
-- **Does:** Float a hair off the floor: 40% less knockback, but hovering is 6% slower. (-6% speed, -40% knockback taken)
+- **Does:** Float a hair off the floor: 40% less knockback and dashes go 20% further, but hovering is 6% slower. (-6% speed, +20% dash distance, -40% knockback taken)
 - **Looks:** Chunky silver feet with small glowing cyan thrusters under the soles (a soft glow below the feet).
 - **Make:** `models/shoes/hover.glb`, icon `icon_shoes_hover.png`
 
